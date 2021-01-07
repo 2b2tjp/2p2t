@@ -1,12 +1,7 @@
-Paper [![Build Status](https://destroystokyo.com/ci/job/Paper/badge/icon)](https://destroystokyo.com/ci/job/Paper/)
+2p2t
 ===========
 
-High performance Spigot fork that aims to fix gameplay and mechanics inconsistencies.
-
-[IRC Support and Project Discussion](http://irc.spi.gt/iris/?channels=paper)
-
-[Discord](https://discord.gg/jETyjUw)
-
+High performance Paper fork that aims to fix performance, exploits, gameplay and mechanics inconsistencies.
 
 Documentation
 ------
@@ -32,6 +27,10 @@ Clone this repo, run `./paper jar` from *bash*, get files.
 How To (Pull Request)
 ------
 See [Contributing](CONTRIBUTING.md)
+
+What is 2p2t?
+-------------
+2paper2tools
 
 Special Thanks To:
 -------------

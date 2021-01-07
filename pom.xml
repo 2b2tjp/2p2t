@@ -4,8 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <!-- Avoid making changes to this file, it has to be deployed manually -->
-    <groupId>com.destroystokyo.paper</groupId>
-    <artifactId>paper-parent</artifactId>
+    <groupId>xyz.acrylicstyle.paper</groupId>
+    <artifactId>2p2t-parent</artifactId>
     <version>dev-SNAPSHOT</version>
     <packaging>pom</packaging>
 
