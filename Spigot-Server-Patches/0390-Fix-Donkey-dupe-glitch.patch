@@ -1,0 +1,55 @@
+From 9ecd49237858ea8a64a2be5551218c1d4c6b4f65 Mon Sep 17 00:00:00 2001
+From: acrylic-style <ilyy@outlook.jp>
+Date: Tue, 12 Jan 2021 02:54:19 +0900
+Subject: [PATCH] Fix Donkey dupe glitch
+
+
+diff --git a/src/main/java/net/minecraft/server/EntityHorseAbstract.java b/src/main/java/net/minecraft/server/EntityHorseAbstract.java
+index dcc39236..c613e9c7 100644
+--- a/src/main/java/net/minecraft/server/EntityHorseAbstract.java
++++ b/src/main/java/net/minecraft/server/EntityHorseAbstract.java
+@@ -6,6 +6,8 @@ import java.util.Iterator;
+ import java.util.List;
+ import java.util.UUID;
+ import javax.annotation.Nullable;
++
++import org.apache.logging.log4j.LogManager;
+ import org.bukkit.event.entity.EntityRegainHealthEvent.RegainReason; // CraftBukkit
+ 
+ public abstract class EntityHorseAbstract extends EntityAnimal implements IInventoryListener, IJumpable {
+@@ -469,6 +471,11 @@ public abstract class EntityHorseAbstract extends EntityAnimal implements IInven
+     public void die(DamageSource damagesource) {
+         // super.die(damagesource); // Moved down
+         if (!this.world.isClientSide && this.inventoryChest != null) {
++            // 2p2t start - fix donkey dupe
++            if (dead) {
++                LogManager.getLogger().warn("Tried to kill donkey (" + this.getId() + ", " + this.getUniqueID() + ") while it is already dead (owner: " + this.getOwnerUUID() + ")");
++            } else {
++            // 2p2t end - fix donkey dupe
+             for (int i = 0; i < this.inventoryChest.getSize(); ++i) {
+                 ItemStack itemstack = this.inventoryChest.getItem(i);
+ 
+@@ -476,6 +483,7 @@ public abstract class EntityHorseAbstract extends EntityAnimal implements IInven
+                     this.a(itemstack, 0.0F);
+                 }
+             }
++            } // 2p2t - fix donkey dupe
+ 
+         }
+         super.die(damagesource); // CraftBukkit
+diff --git a/src/main/java/net/minecraft/server/EntityHorseChestedAbstract.java b/src/main/java/net/minecraft/server/EntityHorseChestedAbstract.java
+index 6c520496..105454ed 100644
+--- a/src/main/java/net/minecraft/server/EntityHorseChestedAbstract.java
++++ b/src/main/java/net/minecraft/server/EntityHorseChestedAbstract.java
+@@ -45,7 +45,7 @@ public abstract class EntityHorseChestedAbstract extends EntityHorseAbstract {
+     public void die(DamageSource damagesource) {
+         // super.die(damagesource); // CraftBukkit - moved down
+         if (this.isCarryingChest()) {
+-            if (!this.world.isClientSide) {
++            if (!this.world.isClientSide && !this.dead) { // 2p2t - fix donkey dupe
+                 this.a(Item.getItemOf(Blocks.CHEST), 1);
+             }
+ 
+-- 
+2.21.0.windows.1
+

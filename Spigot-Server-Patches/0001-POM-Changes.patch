@@ -1,11 +1,11 @@
-From 93050125eaeb250aca554658977754c280030792 Mon Sep 17 00:00:00 2001
+From 41b8b30d448e60e9f0bfb172acbdf608de0999cf Mon Sep 17 00:00:00 2001
 From: Zach Brown <zach.brown@destroystokyo.com>
 Date: Mon, 29 Feb 2016 20:40:33 -0600
 Subject: [PATCH] POM Changes
 
 
 diff --git a/pom.xml b/pom.xml
-index e0b6eee4..bb8abdcd 100644
+index e0b6eee4..76092824 100644
 --- a/pom.xml
 +++ b/pom.xml
 @@ -1,12 +1,12 @@
@@ -42,8 +42,8 @@ index e0b6eee4..bb8abdcd 100644
          <dependency>
 -            <groupId>org.spigotmc</groupId>
 -            <artifactId>spigot-api</artifactId>
-+            <groupId>com.destroystokyo.paper</groupId>
-+            <artifactId>paper-api</artifactId>
++            <groupId>xyz.acrylicstyle.paper</groupId>
++            <artifactId>2p2t-api</artifactId>
              <version>${project.version}</version>
              <scope>compile</scope>
          </dependency>
