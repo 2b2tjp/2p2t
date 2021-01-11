@@ -1,0 +1,22 @@
+From 727d26fcdb523ff23eee80d6506eac4f014f4644 Mon Sep 17 00:00:00 2001
+From: acrylic-style <ilyy@outlook.jp>
+Date: Mon, 11 Jan 2021 21:13:40 +0900
+Subject: [PATCH] Disable async safety
+
+
+diff --git a/src/main/java/org/spigotmc/AsyncCatcher.java b/src/main/java/org/spigotmc/AsyncCatcher.java
+index e44c2301..11b5c462 100644
+--- a/src/main/java/org/spigotmc/AsyncCatcher.java
++++ b/src/main/java/org/spigotmc/AsyncCatcher.java
+@@ -10,7 +10,7 @@ public class AsyncCatcher
+ 
+     public static void catchOp(String reason)
+     {
+-        if ( enabled && Thread.currentThread() != MinecraftServer.getServer().primaryThread )
++        if (false && enabled && Thread.currentThread() != MinecraftServer.getServer().primaryThread ) // 2p2t - disable safety
+         {
+             throw new IllegalStateException( "Asynchronous " + reason + "!" );
+         }
+-- 
+2.21.0.windows.1
+

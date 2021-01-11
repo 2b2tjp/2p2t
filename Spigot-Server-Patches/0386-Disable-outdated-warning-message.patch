@@ -1,0 +1,26 @@
+From 98f3ed5d6ea41b31e8e79520b048f6f87e4c458c Mon Sep 17 00:00:00 2001
+From: acrylic-style <ilyy@outlook.jp>
+Date: Mon, 11 Jan 2021 20:37:05 +0900
+Subject: [PATCH] Disable 'outdated' warning message
+
+
+diff --git a/src/main/java/org/bukkit/craftbukkit/Main.java b/src/main/java/org/bukkit/craftbukkit/Main.java
+index ae2c51f5..ae746f73 100644
+--- a/src/main/java/org/bukkit/craftbukkit/Main.java
++++ b/src/main/java/org/bukkit/craftbukkit/Main.java
+@@ -210,8 +210,10 @@ public class Main {
+                     deadline.add(Calendar.DAY_OF_YEAR, -14);
+                     if (buildDate.before(deadline.getTime())) {
+                         // Paper start - This is some stupid bullshit
+-                        System.err.println("*** Warning, you've not updated in a while! ***");
+-                        System.err.println("*** Please download a new build as per instructions from https://paperci.emc.gs/ ***"); // Paper
++                        // 2p2t start
++                        //System.err.println("*** Warning, you've not updated in a while! ***");
++                        //System.err.println("*** Please download a new build as per instructions from https://paperci.emc.gs/ ***"); // Paper
++                        // 2p2t end
+                         //System.err.println("*** Server will start in 15 seconds ***");
+                         //Thread.sleep(TimeUnit.SECONDS.toMillis(15));
+                         // Paper End
+-- 
+2.21.0.windows.1
+

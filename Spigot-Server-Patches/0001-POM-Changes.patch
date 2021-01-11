@@ -1,11 +1,11 @@
-From 5258658fb54ee446f0043988e56a589b2e9ffdae Mon Sep 17 00:00:00 2001
+From 93050125eaeb250aca554658977754c280030792 Mon Sep 17 00:00:00 2001
 From: Zach Brown <zach.brown@destroystokyo.com>
 Date: Mon, 29 Feb 2016 20:40:33 -0600
 Subject: [PATCH] POM Changes
 
 
 diff --git a/pom.xml b/pom.xml
-index 1278c628e..4abf8dde7 100644
+index e0b6eee4..bb8abdcd 100644
 --- a/pom.xml
 +++ b/pom.xml
 @@ -1,12 +1,12 @@
@@ -14,8 +14,8 @@ index 1278c628e..4abf8dde7 100644
      <modelVersion>4.0.0</modelVersion>
 -    <groupId>org.spigotmc</groupId>
 -    <artifactId>spigot</artifactId>
-+    <groupId>com.destroystokyo.paper</groupId>
-+    <artifactId>paper</artifactId>
++    <groupId>xyz.acrylicstyle.paper</groupId>
++    <artifactId>2p2t</artifactId>
      <packaging>jar</packaging>
      <version>1.12.2-R0.1-SNAPSHOT</version>
 -    <name>Spigot</name>
@@ -31,8 +31,8 @@ index 1278c628e..4abf8dde7 100644
      <parent>
 -        <groupId>org.spigotmc</groupId>
 -        <artifactId>spigot-parent</artifactId>
-+        <groupId>com.destroystokyo.paper</groupId>
-+        <artifactId>paper-parent</artifactId>
++        <groupId>xyz.acrylicstyle.paper</groupId>
++        <artifactId>2p2t-parent</artifactId>
          <version>dev-SNAPSHOT</version>
          <relativePath>../pom.xml</relativePath>
      </parent>
@@ -170,7 +170,7 @@ index 1278c628e..4abf8dde7 100644
                  <plugins>
                      <plugin>
 diff --git a/src/main/java/org/bukkit/craftbukkit/util/Versioning.java b/src/main/java/org/bukkit/craftbukkit/util/Versioning.java
-index 93046379d..674096cab 100644
+index 93046379..674096ca 100644
 --- a/src/main/java/org/bukkit/craftbukkit/util/Versioning.java
 +++ b/src/main/java/org/bukkit/craftbukkit/util/Versioning.java
 @@ -11,7 +11,7 @@ public final class Versioning {
@@ -183,5 +183,5 @@ index 93046379d..674096cab 100644
  
          if (stream != null) {
 -- 
-2.15.0
+2.21.0.windows.1
 
