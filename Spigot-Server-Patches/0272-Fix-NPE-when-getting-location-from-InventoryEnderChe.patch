@@ -1,4 +1,4 @@
-From 5676d0f94137d1699144f04e16f1b34fa2ecc116 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Shane Freeder <theboyetronic@gmail.com>
 Date: Sat, 10 Mar 2018 13:03:49 +0000
 Subject: [PATCH] Fix NPE when getting location from InventoryEnderChest opened
@@ -6,7 +6,7 @@ Subject: [PATCH] Fix NPE when getting location from InventoryEnderChest opened
 
 
 diff --git a/src/main/java/net/minecraft/server/InventoryEnderChest.java b/src/main/java/net/minecraft/server/InventoryEnderChest.java
-index cd7de2b53..37b494b78 100644
+index cd7de2b536d39c2660f7e63154402f7806c529cd..37b494b7806be07a5eaea1b2886da67e78838f4c 100644
 --- a/src/main/java/net/minecraft/server/InventoryEnderChest.java
 +++ b/src/main/java/net/minecraft/server/InventoryEnderChest.java
 @@ -5,7 +5,7 @@ import org.bukkit.inventory.InventoryHolder;
@@ -26,6 +26,3 @@ index cd7de2b53..37b494b78 100644
          return new Location(this.a.getWorld().getWorld(), this.a.getPosition().getX(), this.a.getPosition().getY(), this.a.getPosition().getZ());
      }
  
--- 
-2.18.0
-

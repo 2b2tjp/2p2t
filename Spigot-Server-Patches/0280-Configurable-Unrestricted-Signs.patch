@@ -1,4 +1,4 @@
-From cbe35161f2e8a59c22aca9a0d5412674d128df41 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Wed, 21 Mar 2018 19:57:10 -0400
 Subject: [PATCH] Configurable Unrestricted Signs
@@ -18,7 +18,7 @@ Creative servers should absolutely never enable this.
 Non creative servers, enable at own risk!!!
 
 diff --git a/src/main/java/net/minecraft/server/TileEntitySign.java b/src/main/java/net/minecraft/server/TileEntitySign.java
-index 3f2c5b2d5..67bd3bcbe 100644
+index 3f2c5b2d5c66c82a52f022756cc1ea8a483695e5..67bd3bcbeea7d86d98d1902e3b72b7ee9b8706af 100644
 --- a/src/main/java/net/minecraft/server/TileEntitySign.java
 +++ b/src/main/java/net/minecraft/server/TileEntitySign.java
 @@ -38,7 +38,7 @@ public class TileEntitySign extends TileEntity {
@@ -46,7 +46,7 @@ index 3f2c5b2d5..67bd3bcbe 100644
 +    public interface ISignCommandListener extends ICommandListener {} // Paper
  }
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftServer.java b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-index e86c16755..6095948e8 100644
+index d6676074e67eb76989301907aa4d187d2a00df88..b2ca4f60cb4ebbaeb0f66ed3da2af752b8147e06 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 @@ -175,6 +175,7 @@ public final class CraftServer implements Server {
@@ -78,6 +78,3 @@ index e86c16755..6095948e8 100644
          return unrestrictedAdvancements && listener instanceof AdvancementRewards.AdvancementCommandListener;
      }
  
--- 
-2.18.0
-

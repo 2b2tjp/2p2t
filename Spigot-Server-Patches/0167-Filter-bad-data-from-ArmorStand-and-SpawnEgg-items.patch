@@ -1,11 +1,11 @@
-From 051ae98e08452cc8838801081b84366dbc42b7f8 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Zach Brown <zach.brown@destroystokyo.com>
 Date: Sat, 12 Nov 2016 23:25:22 -0600
 Subject: [PATCH] Filter bad data from ArmorStand and SpawnEgg items
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index 086a7fdaa..4b9bf3b4f 100644
+index 086a7fdaacc9dfa2b4df3d256b9a4a4adead7871..4b9bf3b4f12da0b7cfd4e661069a7772f4897402 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -3,6 +3,7 @@ package com.destroystokyo.paper;
@@ -30,7 +30,7 @@ index 086a7fdaa..4b9bf3b4f 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/EntityFallingBlock.java b/src/main/java/net/minecraft/server/EntityFallingBlock.java
-index 59acc9088..d0b67d8fd 100644
+index 59acc90885198a722091319708449427e714d39e..d0b67d8fd63dfc78a3919fb7fdf35796421d8558 100644
 --- a/src/main/java/net/minecraft/server/EntityFallingBlock.java
 +++ b/src/main/java/net/minecraft/server/EntityFallingBlock.java
 @@ -271,6 +271,14 @@ public class EntityFallingBlock extends Entity {
@@ -49,7 +49,7 @@ index 59acc9088..d0b67d8fd 100644
          Block block = this.block.getBlock();
  
 diff --git a/src/main/java/net/minecraft/server/ItemMonsterEgg.java b/src/main/java/net/minecraft/server/ItemMonsterEgg.java
-index b24f7d8b2..5a08f6b4e 100644
+index b24f7d8b2950b0c331348bd36dc19c2d92de78a4..5a08f6b4e10f064d572bc35bf7f3750d98b096cc 100644
 --- a/src/main/java/net/minecraft/server/ItemMonsterEgg.java
 +++ b/src/main/java/net/minecraft/server/ItemMonsterEgg.java
 @@ -102,7 +102,14 @@ public class ItemMonsterEgg extends Item {
@@ -68,6 +68,3 @@ index b24f7d8b2..5a08f6b4e 100644
                  entity.a(uuid);
                  entity.f(nbttagcompound1);
              }
--- 
-2.18.0
-

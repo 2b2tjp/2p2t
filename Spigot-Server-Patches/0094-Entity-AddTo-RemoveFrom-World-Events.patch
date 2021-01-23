@@ -1,11 +1,11 @@
-From 3ed61703830d84e115bc1a5b009e756735ce2ee7 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Mon, 28 Mar 2016 20:32:58 -0400
 Subject: [PATCH] Entity AddTo/RemoveFrom World Events
 
 
 diff --git a/src/main/java/net/minecraft/server/World.java b/src/main/java/net/minecraft/server/World.java
-index 74ae80646..119cd0636 100644
+index 74ae806469d1951564c22378f70e4addbeea160d..119cd0636482a9cc8862b07d962608acbecb3f86 100644
 --- a/src/main/java/net/minecraft/server/World.java
 +++ b/src/main/java/net/minecraft/server/World.java
 @@ -1185,6 +1185,7 @@ public abstract class World implements IBlockAccess {
@@ -24,6 +24,3 @@ index 74ae80646..119cd0636 100644
          entity.valid = false; // CraftBukkit
      }
  
--- 
-2.18.0
-

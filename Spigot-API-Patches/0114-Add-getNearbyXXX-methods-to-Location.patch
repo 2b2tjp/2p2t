@@ -1,11 +1,11 @@
-From 9d60d519b1212418a5fbd20d6b34cf919f37952b Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: BillyGalbreath <Blake.Galbreath@GMail.com>
 Date: Mon, 18 Jun 2018 00:41:46 -0500
 Subject: [PATCH] Add "getNearbyXXX" methods to Location
 
 
 diff --git a/src/main/java/org/bukkit/Location.java b/src/main/java/org/bukkit/Location.java
-index 916238c4d..162a76e8b 100644
+index 916238c4d00e530f31225d551213d7745c35de21..162a76e8b8188b311d688b003e010f425cd99092 100644
 --- a/src/main/java/org/bukkit/Location.java
 +++ b/src/main/java/org/bukkit/Location.java
 @@ -8,6 +8,15 @@ import org.bukkit.configuration.serialization.ConfigurationSerializable;
@@ -253,6 +253,3 @@ index 916238c4d..162a76e8b 100644
      // Paper end
      @Override
      public boolean equals(Object obj) {
--- 
-2.18.0
-

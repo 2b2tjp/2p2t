@@ -1,11 +1,11 @@
-From 0d97df2900c479d7713b9b02c3eaeb6624c6a1c1 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Zach Brown <zach.brown@destroystokyo.com>
 Date: Fri, 22 Apr 2016 01:43:11 -0500
 Subject: [PATCH] EntityRegainHealthEvent isFastRegen API
 
 
 diff --git a/src/main/java/org/bukkit/event/entity/EntityRegainHealthEvent.java b/src/main/java/org/bukkit/event/entity/EntityRegainHealthEvent.java
-index 1dd50c56..74fc12e9 100644
+index 1dd50c5631aade16f42eec616428b1967e89c662..74fc12e97dd657db31c218f9f5ccebfe74890337 100644
 --- a/src/main/java/org/bukkit/event/entity/EntityRegainHealthEvent.java
 +++ b/src/main/java/org/bukkit/event/entity/EntityRegainHealthEvent.java
 @@ -13,12 +13,31 @@ public class EntityRegainHealthEvent extends EntityEvent implements Cancellable
@@ -40,6 +40,3 @@ index 1dd50c56..74fc12e9 100644
  
      /**
       * Gets the amount of regained health
--- 
-2.13.2
-

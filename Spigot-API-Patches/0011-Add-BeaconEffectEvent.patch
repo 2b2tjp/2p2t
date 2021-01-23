@@ -1,4 +1,4 @@
-From 0aa465c3441c5e1668d2437c0c6cf5dc15b1744d Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Byteflux <byte@byteflux.net>
 Date: Mon, 29 Feb 2016 18:09:40 -0600
 Subject: [PATCH] Add BeaconEffectEvent
@@ -6,7 +6,7 @@ Subject: [PATCH] Add BeaconEffectEvent
 
 diff --git a/src/main/java/com/destroystokyo/paper/event/block/BeaconEffectEvent.java b/src/main/java/com/destroystokyo/paper/event/block/BeaconEffectEvent.java
 new file mode 100644
-index 0000000..6579ae9
+index 0000000000000000000000000000000000000000..6579ae9972a9aae28bab23cc9c6848a7b2a91f6e
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/event/block/BeaconEffectEvent.java
 @@ -0,0 +1,81 @@
@@ -91,6 +91,3 @@ index 0000000..6579ae9
 +        return handlers;
 +    }
 +}
--- 
-2.9.2.windows.1
-

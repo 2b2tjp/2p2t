@@ -1,11 +1,11 @@
-From d93e6f8c98d66ccad03bb24a8f89c3af11a60422 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Zach Brown <zach.brown@destroystokyo.com>
 Date: Sat, 18 Feb 2017 19:29:58 -0600
 Subject: [PATCH] Do not let armorstands drown
 
 
 diff --git a/src/main/java/net/minecraft/server/EntityArmorStand.java b/src/main/java/net/minecraft/server/EntityArmorStand.java
-index ee3d37a71..df0d66ad0 100644
+index ee3d37a71483d9a0be6be5a1111accffab08d776..df0d66ad0c04944de05bf37e71db999522f04fb1 100644
 --- a/src/main/java/net/minecraft/server/EntityArmorStand.java
 +++ b/src/main/java/net/minecraft/server/EntityArmorStand.java
 @@ -779,5 +779,10 @@ public class EntityArmorStand extends EntityLiving {
@@ -20,7 +20,7 @@ index ee3d37a71..df0d66ad0 100644
      // Paper end
  }
 diff --git a/src/main/java/net/minecraft/server/EntityLiving.java b/src/main/java/net/minecraft/server/EntityLiving.java
-index c97ee68a5..44335fd2d 100644
+index c97ee68a5a854079a0321d02833af8d4210f6ba5..44335fd2d95748d81545a21769346f5f6080e6f5 100644
 --- a/src/main/java/net/minecraft/server/EntityLiving.java
 +++ b/src/main/java/net/minecraft/server/EntityLiving.java
 @@ -195,6 +195,7 @@ public abstract class EntityLiving extends Entity {
@@ -40,6 +40,3 @@ index c97ee68a5..44335fd2d 100644
                      this.setAirTicks(this.d(this.getAirTicks()));
                      if (this.getAirTicks() == -20) {
                          this.setAirTicks(0);
--- 
-2.18.0
-

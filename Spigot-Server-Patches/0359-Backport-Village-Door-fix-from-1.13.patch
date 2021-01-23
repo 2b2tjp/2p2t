@@ -1,11 +1,11 @@
-From b9d9bdcfe732d18f11e991dbe6cd98b901fa2889 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Sat, 29 Sep 2018 12:13:23 -0400
 Subject: [PATCH] Backport Village Door fix from 1.13
 
 
 diff --git a/src/main/java/net/minecraft/server/Village.java b/src/main/java/net/minecraft/server/Village.java
-index 9f1867dd..6536e5fb 100644
+index 9f1867ddd33712ae00d410d35ca52f3e824504b1..6536e5fb843fd6e9f28ad975fc73678fafffff47 100644
 --- a/src/main/java/net/minecraft/server/Village.java
 +++ b/src/main/java/net/minecraft/server/Village.java
 @@ -14,7 +14,7 @@ public class Village {
@@ -43,6 +43,3 @@ index 9f1867dd..6536e5fb 100644
  
              if (flag1) {
                  villagedoor.a();
--- 
-2.19.1
-

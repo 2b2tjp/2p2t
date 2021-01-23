@@ -1,11 +1,11 @@
-From 12df16929d8bd8779a79431e03c8246128398d59 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Fri, 13 May 2016 01:38:06 -0400
 Subject: [PATCH] Optimize EAR
 
 
 diff --git a/src/main/java/org/spigotmc/ActivationRange.java b/src/main/java/org/spigotmc/ActivationRange.java
-index 3265a6c25..47865c027 100644
+index 3265a6c259ae7e0bc10b531894a4f4201d392725..47865c0276985a35b6cba3176cbee1c6043740c7 100644
 --- a/src/main/java/org/spigotmc/ActivationRange.java
 +++ b/src/main/java/org/spigotmc/ActivationRange.java
 @@ -2,6 +2,8 @@ package org.spigotmc;
@@ -64,6 +64,3 @@ index 3265a6c25..47865c027 100644
                      }
                  }
              }
--- 
-2.18.0
-

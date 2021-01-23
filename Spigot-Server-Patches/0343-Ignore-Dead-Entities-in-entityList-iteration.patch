@@ -1,4 +1,4 @@
-From 65d78c94edafab425ea75229bbe7564974b95be1 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Sat, 28 Jul 2018 12:18:27 -0400
 Subject: [PATCH] Ignore Dead Entities in entityList iteration
@@ -11,7 +11,7 @@ This will ensure that dead entities are skipped from iteration since
 they shouldn't of been in the list in the first place.
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperCommand.java b/src/main/java/com/destroystokyo/paper/PaperCommand.java
-index ecd1c65a98..1898ab897c 100644
+index ecd1c65a986e3cf9b64ff3689e86650bd4fb6569..1898ab897ce0004e297ed81629c5aa54d8ae4dc1 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperCommand.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperCommand.java
 @@ -128,6 +128,7 @@ public class PaperCommand extends Command {
@@ -23,7 +23,7 @@ index ecd1c65a98..1898ab897c 100644
                      MutablePair<Integer, Map<ChunkCoordIntPair, Integer>> info = list.computeIfAbsent(key, k -> MutablePair.of(0, Maps.newHashMap()));
                      ChunkCoordIntPair chunk = new ChunkCoordIntPair(e.getChunkX(), e.getChunkZ());
 diff --git a/src/main/java/net/minecraft/server/Entity.java b/src/main/java/net/minecraft/server/Entity.java
-index 1e64d5fcd6..45e149f4a3 100644
+index a2654690fc1a0efd343d19c8fd345f31b9943c1a..d2dbaaf2c87daea3cbfdd90782353caa5c161d48 100644
 --- a/src/main/java/net/minecraft/server/Entity.java
 +++ b/src/main/java/net/minecraft/server/Entity.java
 @@ -124,6 +124,7 @@ public abstract class Entity implements ICommandListener, KeyedObject { // Paper
@@ -35,7 +35,7 @@ index 1e64d5fcd6..45e149f4a3 100644
      public float length;
      public float I;
 diff --git a/src/main/java/net/minecraft/server/World.java b/src/main/java/net/minecraft/server/World.java
-index eabcb4c8f9..d763b48167 100644
+index 46d2bc684db1a5294862ca9c33711cdbd1e288c8..4a16f7ac713ce4b5f0d9cc65fea98378287f1ca2 100644
 --- a/src/main/java/net/minecraft/server/World.java
 +++ b/src/main/java/net/minecraft/server/World.java
 @@ -1216,6 +1216,7 @@ public abstract class World implements IBlockAccess {
@@ -71,7 +71,7 @@ index eabcb4c8f9..d763b48167 100644
              if (entity instanceof EntityInsentient) {
                  EntityInsentient entityinsentient = (EntityInsentient) entity;
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftWorld.java b/src/main/java/org/bukkit/craftbukkit/CraftWorld.java
-index 210e3bc4e6..e6ecd1796c 100644
+index 0cae340f4f75788f45fe9611172a3071a2c1b123..ccff6fd05264e92be6501696ae85dd8ad6cecf2d 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftWorld.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftWorld.java
 @@ -678,6 +678,7 @@ public class CraftWorld implements World {
@@ -106,6 +106,3 @@ index 210e3bc4e6..e6ecd1796c 100644
                  Entity bukkitEntity = ((net.minecraft.server.Entity) entity).getBukkitEntity();
  
                  if (bukkitEntity == null) {
--- 
-2.18.0
-

@@ -1,11 +1,11 @@
-From 058e5610e2eb40aa6c0e06b8dabe6cb5b8d99d4c Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Zach Brown <zach.brown@destroystokyo.com>
 Date: Tue, 22 Mar 2016 12:04:28 -0500
 Subject: [PATCH] Configurable spawn chances for skeleton horses
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index f71580393..38d664e00 100644
+index f715803932fc9aa7ef7511f53733c324c4206a1b..38d664e008103597c05b3182b70b0c61917f4455 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -261,4 +261,9 @@ public class PaperWorldConfig {
@@ -19,7 +19,7 @@ index f71580393..38d664e00 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/WorldServer.java b/src/main/java/net/minecraft/server/WorldServer.java
-index d0ff0adf5..96792300c 100644
+index d0ff0adf57af247df9aeb775850f37909cacb357..96792300ccfac6fdfc07e8424f30b8c55b8d3c85 100644
 --- a/src/main/java/net/minecraft/server/WorldServer.java
 +++ b/src/main/java/net/minecraft/server/WorldServer.java
 @@ -496,7 +496,7 @@ public class WorldServer extends World implements IAsyncTaskHandler {
@@ -31,6 +31,3 @@ index d0ff0adf5..96792300c 100644
                              EntityHorseSkeleton entityhorseskeleton = new EntityHorseSkeleton(this);
  
                              entityhorseskeleton.p(true);
--- 
-2.18.0
-

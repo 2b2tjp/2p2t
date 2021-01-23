@@ -1,11 +1,11 @@
-From 1a10e756e4f3d5cf2ff493fe92f97d14f86f8c17 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: kashike <kashike@vq.lc>
 Date: Wed, 21 Dec 2016 11:47:25 -0600
 Subject: [PATCH] Add API methods to control if armour stands can move
 
 
 diff --git a/src/main/java/net/minecraft/server/EntityArmorStand.java b/src/main/java/net/minecraft/server/EntityArmorStand.java
-index c9054fc91..ee3d37a71 100644
+index c9054fc911e58358c4ea80b206f19b6458272b4d..ee3d37a71483d9a0be6be5a1111accffab08d776 100644
 --- a/src/main/java/net/minecraft/server/EntityArmorStand.java
 +++ b/src/main/java/net/minecraft/server/EntityArmorStand.java
 @@ -50,6 +50,7 @@ public class EntityArmorStand extends EntityLiving {
@@ -31,7 +31,7 @@ index c9054fc91..ee3d37a71 100644
 +    // Paper end
  }
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftArmorStand.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftArmorStand.java
-index 2b66a08ad..8a06cb165 100644
+index 2b66a08aded172164079952850f43a84c3f514b2..8a06cb1656e2ba396d6abcd0f0fdb51939f6407b 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftArmorStand.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftArmorStand.java
 @@ -211,4 +211,14 @@ public class CraftArmorStand extends CraftLivingEntity implements ArmorStand {
@@ -49,6 +49,3 @@ index 2b66a08ad..8a06cb165 100644
 +        getHandle().canMove = move;
 +    }
  }
--- 
-2.18.0
-

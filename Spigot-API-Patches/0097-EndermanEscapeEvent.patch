@@ -1,4 +1,4 @@
-From 83671e59f09544a3abe88beef5ed74eb454489f9 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Mon, 30 Apr 2018 13:14:30 -0400
 Subject: [PATCH] EndermanEscapeEvent
@@ -9,7 +9,7 @@ You may cancel this, enabling ranged attacks to damage the enderman for example.
 
 diff --git a/src/main/java/com/destroystokyo/paper/event/entity/EndermanEscapeEvent.java b/src/main/java/com/destroystokyo/paper/event/entity/EndermanEscapeEvent.java
 new file mode 100644
-index 00000000..0d15a8ab
+index 0000000000000000000000000000000000000000..0d15a8abe3a91c7400741472c599c0865505cc7d
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/event/entity/EndermanEscapeEvent.java
 @@ -0,0 +1,82 @@
@@ -95,6 +95,3 @@ index 00000000..0d15a8ab
 +        DROWN
 +    }
 +}
--- 
-2.17.1
-

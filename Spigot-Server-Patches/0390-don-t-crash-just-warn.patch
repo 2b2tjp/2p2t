@@ -1,0 +1,38 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: acrylic-style <ilyy@outlook.jp>
+Date: Mon, 18 Jan 2021 06:05:43 +0900
+Subject: [PATCH] don't crash, just warn
+
+
+diff --git a/src/main/java/org/spigotmc/ActivationRange.java b/src/main/java/org/spigotmc/ActivationRange.java
+index 4c8d94c87704c8c61111d6432f62f660fdac8f82..58343f7899e76b2bfb513e7c406eb177743c3431 100644
+--- a/src/main/java/org/spigotmc/ActivationRange.java
++++ b/src/main/java/org/spigotmc/ActivationRange.java
+@@ -146,6 +146,7 @@ public class ActivationRange
+         }
+         MinecraftTimings.entityActivationCheckTimer.stopTiming();
+     }
++    private static final org.apache.logging.log4j.Logger LOGGER = org.apache.logging.log4j.LogManager.getLogger(); // 2p2t
+ 
+     /**
+      * Checks for the activation state of all entities in this chunk.
+@@ -154,6 +155,7 @@ public class ActivationRange
+      */
+     private static void activateChunkEntities(Chunk chunk)
+     {
++        try { // 2p2t - prevent crash
+         for ( List<Entity> slice : chunk.entitySlices )
+         {
+             for ( Entity entity : slice )
+@@ -197,6 +199,11 @@ public class ActivationRange
+                 }
+             }
+         }
++        // 2p2t start - prevent crash
++        } catch (RuntimeException ex) {
++            LOGGER.warn("Could not check activation state of entities", ex);
++        }
++        // 2p2t end - prevent crash
+     }
+ 
+     /**

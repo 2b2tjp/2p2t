@@ -1,4 +1,4 @@
-From 45f2b8707a23911141a1c20a4f9176060014091e Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: connorhartley <vectrixu+gh@gmail.com>
 Date: Mon, 31 Dec 2018 18:54:23 +1300
 Subject: [PATCH] Fix an issue where the vehicle doesn't track the passenger
@@ -6,7 +6,7 @@ Subject: [PATCH] Fix an issue where the vehicle doesn't track the passenger
 
 
 diff --git a/src/main/java/net/minecraft/server/Entity.java b/src/main/java/net/minecraft/server/Entity.java
-index d44c55d84..74bbba011 100644
+index d44c55d84f33bcffce1c9a2c1e559197c878091f..74bbba0110094f2fef624ec66288f63124f49dbf 100644
 --- a/src/main/java/net/minecraft/server/Entity.java
 +++ b/src/main/java/net/minecraft/server/Entity.java
 @@ -2958,6 +2958,7 @@ public abstract class Entity implements ICommandListener, KeyedObject { // Paper
@@ -18,7 +18,7 @@ index d44c55d84..74bbba011 100644
      public Entity bJ() {
          return this.au;
 diff --git a/src/main/java/net/minecraft/server/EntityPlayer.java b/src/main/java/net/minecraft/server/EntityPlayer.java
-index 6afb6cf7b..c1a2ddcf5 100644
+index 6afb6cf7b90b78f9e5c31404bdbd1f245ad8a4f0..cb2c459ae02898a11732c8b96682f2015bd3b3a9 100644
 --- a/src/main/java/net/minecraft/server/EntityPlayer.java
 +++ b/src/main/java/net/minecraft/server/EntityPlayer.java
 @@ -1088,6 +1088,13 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
@@ -35,6 +35,3 @@ index 6afb6cf7b..c1a2ddcf5 100644
          if (this.sleeping) {
              this.a(true, false, false);
          }
--- 
-2.20.1
-

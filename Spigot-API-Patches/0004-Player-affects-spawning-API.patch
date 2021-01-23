@@ -1,11 +1,11 @@
-From 257154fddcfc4106bb12364b1f54b18f09beb062 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Jedediah Smith <jedediah@silencegreys.com>
 Date: Mon, 29 Feb 2016 17:22:34 -0600
 Subject: [PATCH] Player affects spawning API
 
 
 diff --git a/src/main/java/org/bukkit/entity/Player.java b/src/main/java/org/bukkit/entity/Player.java
-index 2c7a17df..313dde80 100644
+index 2c7a17dfca28a08aa9d561c2094e2dcd86d2a2be..313dde8072c3bf2176fd8437f1b2ffc3c2334c98 100644
 --- a/src/main/java/org/bukkit/entity/Player.java
 +++ b/src/main/java/org/bukkit/entity/Player.java
 @@ -1438,6 +1438,20 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
@@ -29,6 +29,3 @@ index 2c7a17df..313dde80 100644
      // Spigot start
      public class Spigot extends Entity.Spigot
      {
--- 
-2.15.0
-

@@ -1,4 +1,4 @@
-From f74306caa08b873b6451ea83f6266b636f92a846 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Wed, 16 May 2018 20:44:58 -0400
 Subject: [PATCH] WitchThrowPotionEvent
@@ -6,7 +6,7 @@ Subject: [PATCH] WitchThrowPotionEvent
 Fired when a witch throws a potion at a player
 
 diff --git a/src/main/java/net/minecraft/server/EntityWitch.java b/src/main/java/net/minecraft/server/EntityWitch.java
-index 3a00a37eb..bf029ad1c 100644
+index 3a00a37eb170e55bceb9b4623f53f83021c28548..bf029ad1c2f9aa4ef8ce29ecef94d17343f32c31 100644
 --- a/src/main/java/net/minecraft/server/EntityWitch.java
 +++ b/src/main/java/net/minecraft/server/EntityWitch.java
 @@ -158,7 +158,15 @@ public class EntityWitch extends EntityMonster implements IRangedEntity {
@@ -26,6 +26,3 @@ index 3a00a37eb..bf029ad1c 100644
  
              entitypotion.pitch -= -20.0F;
              entitypotion.shoot(d1, d2 + (double) (f1 * 0.2F), d3, 0.75F, 8.0F);
--- 
-2.18.0
-

@@ -1,11 +1,11 @@
-From 23f7a0764c4d1b7fda2cfe35a2048eca08ac37b6 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Zach Brown <zach.brown@destroystokyo.com>
 Date: Sun, 11 Sep 2016 14:30:57 -0500
 Subject: [PATCH] Configurable packet in spam threshold
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperConfig.java b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-index cf06f8ac..2001175b 100644
+index cf06f8ac3c945112cbc4f61257a78e2c8a2384b0..2001175bf89a9c5f147d15ca981eb20d7042f6a2 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperConfig.java
 @@ -235,4 +235,13 @@ public class PaperConfig {
@@ -23,7 +23,7 @@ index cf06f8ac..2001175b 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/PlayerConnection.java b/src/main/java/net/minecraft/server/PlayerConnection.java
-index bace6717..50183365 100644
+index 2ec7dd4df00ee1021ec48e7a265226dbc232003c..ed3cdb5482f12a7640faa237b6abeed01a962120 100644
 --- a/src/main/java/net/minecraft/server/PlayerConnection.java
 +++ b/src/main/java/net/minecraft/server/PlayerConnection.java
 @@ -911,13 +911,14 @@ public class PlayerConnection implements PacketListenerPlayIn, ITickable {
@@ -43,6 +43,3 @@ index bace6717..50183365 100644
              lastLimitedPacket = timestamp;
              limitedPackets = 0;
              return true;
--- 
-2.19.1
-

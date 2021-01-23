@@ -1,4 +1,4 @@
-From d03b75f5e4ea7e6ff34ebc7651c9a86e2550c6ef Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Mon, 28 Mar 2016 19:55:45 -0400
 Subject: [PATCH] Option to disable BlockPhysicsEvent for Redstone
@@ -11,7 +11,7 @@ Defaulting this to false will provide substantial performance improvement
 by saving millions of event calls on redstone heavy servers.
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index 38d664e00..e634c3afd 100644
+index 38d664e008103597c05b3182b70b0c61917f4455..e634c3afdc4de99a6e43900755b8620cf0755cfd 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -266,4 +266,9 @@ public class PaperWorldConfig {
@@ -25,7 +25,7 @@ index 38d664e00..e634c3afd 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/World.java b/src/main/java/net/minecraft/server/World.java
-index 8f0a306cc..74ae80646 100644
+index 8f0a306cc9407f6069ef8360fdfa7f3f0cfa477f..74ae806469d1951564c22378f70e4addbeea160d 100644
 --- a/src/main/java/net/minecraft/server/World.java
 +++ b/src/main/java/net/minecraft/server/World.java
 @@ -582,7 +582,7 @@ public abstract class World implements IBlockAccess {
@@ -38,7 +38,7 @@ index 8f0a306cc..74ae80646 100644
                      this.getServer().getPluginManager().callEvent(event);
  
 diff --git a/src/main/java/net/minecraft/server/WorldServer.java b/src/main/java/net/minecraft/server/WorldServer.java
-index 96792300c..ebe397116 100644
+index 96792300ccfac6fdfc07e8424f30b8c55b8d3c85..ebe397116e2fa1dcdd9e9fd1e07852d5f2f41c10 100644
 --- a/src/main/java/net/minecraft/server/WorldServer.java
 +++ b/src/main/java/net/minecraft/server/WorldServer.java
 @@ -35,6 +35,7 @@ import org.bukkit.event.weather.LightningStrikeEvent;
@@ -66,6 +66,3 @@ index 96792300c..ebe397116 100644
                          }
                          timing.stopTiming(); // Paper
                      } else {
--- 
-2.18.0
-

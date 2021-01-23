@@ -1,4 +1,4 @@
-From da41bfcfc0c3551c6e69f6b4db194fac8c49bb58 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Thu, 12 May 2016 01:55:17 -0400
 Subject: [PATCH] Do not mark chunks as active for neighbor updates
@@ -6,7 +6,7 @@ Subject: [PATCH] Do not mark chunks as active for neighbor updates
 Fixes chunk unload issues
 
 diff --git a/src/main/java/net/minecraft/server/Chunk.java b/src/main/java/net/minecraft/server/Chunk.java
-index dfa4aee0b7..acb69a962a 100644
+index dcdb2361e55eb970410149f4c1b016fd9ff2dca7..f744c6e098c24dfc0682f59cc3c2b3f912cb7b01 100644
 --- a/src/main/java/net/minecraft/server/Chunk.java
 +++ b/src/main/java/net/minecraft/server/Chunk.java
 @@ -1041,25 +1041,25 @@ public class Chunk {
@@ -43,6 +43,3 @@ index dfa4aee0b7..acb69a962a 100644
  
              if (chunk4 != null) {
                  chunk4.a(chunkgenerator);
--- 
-2.18.0
-

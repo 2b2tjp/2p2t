@@ -1,4 +1,4 @@
-From 5381880d6b4b91e8b8cf2377ba8a09a7eb5d4cc0 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Sat, 16 Apr 2016 00:39:33 -0400
 Subject: [PATCH] Configurable RCON IP address
@@ -6,7 +6,7 @@ Subject: [PATCH] Configurable RCON IP address
 For servers with multiple IP's, ability to bind to a specific interface.
 
 diff --git a/src/main/java/net/minecraft/server/RemoteControlListener.java b/src/main/java/net/minecraft/server/RemoteControlListener.java
-index a6a0d5a29..efcafe77f 100644
+index a6a0d5a2970405eed756b45312d18f759fc12a96..efcafe77f019b75a4698e042edbcb83aae53eaae 100644
 --- a/src/main/java/net/minecraft/server/RemoteControlListener.java
 +++ b/src/main/java/net/minecraft/server/RemoteControlListener.java
 @@ -24,7 +24,7 @@ public class RemoteControlListener extends RemoteConnectionThread {
@@ -18,6 +18,3 @@ index a6a0d5a29..efcafe77f 100644
          this.i = iminecraftserver.e_();
          if (0 == this.h) {
              this.h = this.i + 10;
--- 
-2.18.0
-

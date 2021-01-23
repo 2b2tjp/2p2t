@@ -1,11 +1,11 @@
-From 3f31cdecde77021afea54370f1fb31ef0621b59f Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Zach Brown <zach.brown@destroystokyo.com>
 Date: Thu, 14 Apr 2016 17:48:56 -0500
 Subject: [PATCH] Water mobs should only spawn in the water
 
 
 diff --git a/src/main/java/net/minecraft/server/EntityWaterAnimal.java b/src/main/java/net/minecraft/server/EntityWaterAnimal.java
-index f430bdeec..0597edad6 100644
+index f430bdeecd2a6761e2fc954579f89c26c999b1ad..0597edad6c93a0710308fed6b1c354cf1a1da1b8 100644
 --- a/src/main/java/net/minecraft/server/EntityWaterAnimal.java
 +++ b/src/main/java/net/minecraft/server/EntityWaterAnimal.java
 @@ -11,7 +11,15 @@ public abstract class EntityWaterAnimal extends EntityInsentient implements IAni
@@ -25,6 +25,3 @@ index f430bdeec..0597edad6 100644
      }
  
      public boolean canSpawn() {
--- 
-2.18.0
-

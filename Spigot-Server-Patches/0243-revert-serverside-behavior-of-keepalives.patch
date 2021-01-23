@@ -1,4 +1,4 @@
-From 69b083f70da6bf8655cb789af2af6d0fd8764065 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Shane Freeder <theboyetronic@gmail.com>
 Date: Sun, 15 Oct 2017 00:29:07 +0100
 Subject: [PATCH] revert serverside behavior of keepalives
@@ -17,7 +17,7 @@ from networking or during connections flood of chunk packets on slower clients,
  at the cost of dead connections being kept open for longer.
 
 diff --git a/src/main/java/net/minecraft/server/PlayerConnection.java b/src/main/java/net/minecraft/server/PlayerConnection.java
-index 869a2b402..284db9b9e 100644
+index d5cd4bf2f8c72f328cf093b3989360cf9a146017..a89371e9fd5e4f234e974be551ad380da3b9ee6e 100644
 --- a/src/main/java/net/minecraft/server/PlayerConnection.java
 +++ b/src/main/java/net/minecraft/server/PlayerConnection.java
 @@ -68,7 +68,7 @@ public class PlayerConnection implements PacketListenerPlayIn, ITickable {
@@ -73,6 +73,3 @@ index 869a2b402..284db9b9e 100644
  
          this.minecraftServer.methodProfiler.b();
          // CraftBukkit start
--- 
-2.18.0
-

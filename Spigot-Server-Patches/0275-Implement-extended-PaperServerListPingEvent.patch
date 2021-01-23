@@ -1,4 +1,4 @@
-From b46e189801a09043a8b19db57db7ff8a84fa08a5 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Minecrell <minecrell@minecrell.net>
 Date: Wed, 11 Oct 2017 15:56:26 +0200
 Subject: [PATCH] Implement extended PaperServerListPingEvent
@@ -6,7 +6,7 @@ Subject: [PATCH] Implement extended PaperServerListPingEvent
 
 diff --git a/src/main/java/com/destroystokyo/paper/network/PaperServerListPingEventImpl.java b/src/main/java/com/destroystokyo/paper/network/PaperServerListPingEventImpl.java
 new file mode 100644
-index 000000000..c1a8e295b
+index 0000000000000000000000000000000000000000..c1a8e295b66501e0580bcfc041bca51e69109062
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/network/PaperServerListPingEventImpl.java
 @@ -0,0 +1,31 @@
@@ -43,7 +43,7 @@ index 000000000..c1a8e295b
 +}
 diff --git a/src/main/java/com/destroystokyo/paper/network/PaperStatusClient.java b/src/main/java/com/destroystokyo/paper/network/PaperStatusClient.java
 new file mode 100644
-index 000000000..a2a409e63
+index 0000000000000000000000000000000000000000..a2a409e635dde08f7c53e67164b967a000511e94
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/network/PaperStatusClient.java
 @@ -0,0 +1,11 @@
@@ -60,7 +60,7 @@ index 000000000..a2a409e63
 +}
 diff --git a/src/main/java/com/destroystokyo/paper/network/StandardPaperServerListPingEventImpl.java b/src/main/java/com/destroystokyo/paper/network/StandardPaperServerListPingEventImpl.java
 new file mode 100644
-index 000000000..a85466bc7
+index 0000000000000000000000000000000000000000..a85466bc7e0a8aa54b9eff14077fe6c992ae2902
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/network/StandardPaperServerListPingEventImpl.java
 @@ -0,0 +1,112 @@
@@ -177,7 +177,7 @@ index 000000000..a85466bc7
 +
 +}
 diff --git a/src/main/java/net/minecraft/server/MinecraftServer.java b/src/main/java/net/minecraft/server/MinecraftServer.java
-index 3092913f5..f82e22b23 100644
+index 3092913f5b239d95a8a0fc5abd472abe8ecd4b8f..f82e22b23c73d4add7365ab40890546ace08bc60 100644
 --- a/src/main/java/net/minecraft/server/MinecraftServer.java
 +++ b/src/main/java/net/minecraft/server/MinecraftServer.java
 @@ -768,7 +768,7 @@ public abstract class MinecraftServer implements ICommandListener, Runnable, IAs
@@ -203,7 +203,7 @@ index 3092913f5..f82e22b23 100644
          return this.v.getMaxPlayers();
      }
 diff --git a/src/main/java/net/minecraft/server/PacketStatusListener.java b/src/main/java/net/minecraft/server/PacketStatusListener.java
-index 313bb0007..f3c25367d 100644
+index 313bb000746a7b238c9d04bc9d9f2eb69f5726a8..f3c25367d5bc40855fb71c1c4c8b22efff8d71ac 100644
 --- a/src/main/java/net/minecraft/server/PacketStatusListener.java
 +++ b/src/main/java/net/minecraft/server/PacketStatusListener.java
 @@ -30,6 +30,8 @@ public class PacketStatusListener implements PacketStatusInListener {
@@ -226,7 +226,7 @@ index 313bb0007..f3c25367d 100644
          // CraftBukkit end
      }
 diff --git a/src/main/java/net/minecraft/server/ServerPing.java b/src/main/java/net/minecraft/server/ServerPing.java
-index 981582212..ac161f505 100644
+index 9815822127399b9ce1d91b6ca328056b794092ce..ac161f5059a43c9b6937cf11f3cf6273472e23c0 100644
 --- a/src/main/java/net/minecraft/server/ServerPing.java
 +++ b/src/main/java/net/minecraft/server/ServerPing.java
 @@ -29,6 +29,7 @@ public class ServerPing {
@@ -251,7 +251,7 @@ index 981582212..ac161f505 100644
              this.c = agameprofile;
          }
 diff --git a/src/main/java/org/spigotmc/SpigotConfig.java b/src/main/java/org/spigotmc/SpigotConfig.java
-index cc1f3ac96..4f9fd4bc6 100644
+index cc1f3ac9665756603f4de1aecf5f567460e4fe5e..4f9fd4bc6077fafa9587d3351f953dcf3459d43c 100644
 --- a/src/main/java/org/spigotmc/SpigotConfig.java
 +++ b/src/main/java/org/spigotmc/SpigotConfig.java
 @@ -281,7 +281,7 @@ public class SpigotConfig
@@ -263,6 +263,3 @@ index cc1f3ac96..4f9fd4bc6 100644
          Bukkit.getLogger().log( Level.INFO, "Server Ping Player Sample Count: {0}", playerSample ); // Paper - Use logger
      }
  
--- 
-2.21.0
-

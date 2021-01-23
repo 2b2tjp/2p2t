@@ -1,4 +1,4 @@
-From 7feae31914ee5d50576995af8fbe35a44b1f0de3 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Wed, 4 Jul 2018 02:13:59 -0400
 Subject: [PATCH] Store counts for each Entity/Block Entity Type
@@ -6,7 +6,7 @@ Subject: [PATCH] Store counts for each Entity/Block Entity Type
 Opens door for future patches to optimize performance
 
 diff --git a/src/main/java/net/minecraft/server/Chunk.java b/src/main/java/net/minecraft/server/Chunk.java
-index ea167a17bb..efcece7857 100644
+index d54cf9f897b5ab64930ea749769f456cd5bf9328..175ce12b5955ee163f265dbd92b3dd2e335bae83 100644
 --- a/src/main/java/net/minecraft/server/Chunk.java
 +++ b/src/main/java/net/minecraft/server/Chunk.java
 @@ -34,15 +34,19 @@ public class Chunk {
@@ -53,6 +53,3 @@ index ea167a17bb..efcece7857 100644
          // Paper end
          // Spigot start - decrement creature type count
          // Keep this synced up with World.a(Class)
--- 
-2.18.0
-

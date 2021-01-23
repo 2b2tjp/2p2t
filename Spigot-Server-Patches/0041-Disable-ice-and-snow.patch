@@ -1,11 +1,11 @@
-From f87ff63cc88a82e74518b65870af236bbfbec5bb Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Sudzzy <originmc@outlook.com>
 Date: Wed, 2 Mar 2016 14:57:24 -0600
 Subject: [PATCH] Disable ice and snow
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index 4ae2f9af1..70b02f020 100644
+index 4ae2f9af1bec5d20602cbb3d6c67f8e7be0f57e3..70b02f02010682d17880e89eb5001b843c619e37 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -207,4 +207,9 @@ public class PaperWorldConfig {
@@ -19,7 +19,7 @@ index 4ae2f9af1..70b02f020 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/WorldServer.java b/src/main/java/net/minecraft/server/WorldServer.java
-index b12c58732..d0ff0adf5 100644
+index b12c587327ae403fae721cbe08b9a9937ec8320b..d0ff0adf57af247df9aeb775850f37909cacb357 100644
 --- a/src/main/java/net/minecraft/server/WorldServer.java
 +++ b/src/main/java/net/minecraft/server/WorldServer.java
 @@ -511,7 +511,7 @@ public class WorldServer extends World implements IAsyncTaskHandler {
@@ -31,6 +31,3 @@ index b12c58732..d0ff0adf5 100644
                      this.l = this.l * 3 + 1013904223;
                      l = this.l >> 2;
                      blockposition = this.p(new BlockPosition(j + (l & 15), 0, k + (l >> 8 & 15)));
--- 
-2.18.0
-

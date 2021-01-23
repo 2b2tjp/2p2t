@@ -58,6 +58,7 @@ import ChunkCoordIntPair
 import ChunkProviderFlat
 import ChunkProviderGenerate
 import ChunkProviderHell
+import ChunkProviderTheEnd
 import CombatTracker
 import CommandAbstract
 import CommandScoreboard

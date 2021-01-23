@@ -1,4 +1,4 @@
-From 354cae3bd5b0d32cf8c1f8cebdff763013606fd5 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Thu, 26 Jul 2018 00:11:12 -0400
 Subject: [PATCH] Prevent Saving Bad entities to chunks
@@ -18,7 +18,7 @@ an invalid entity.
 This should reduce log occurrences of dupe uuid messages.
 
 diff --git a/src/main/java/net/minecraft/server/ChunkRegionLoader.java b/src/main/java/net/minecraft/server/ChunkRegionLoader.java
-index bcce5e8b7e..bad287fca4 100644
+index bcce5e8b7e8056045d89aa7bf5ebf09a4ec572a1..bad287fca4dc2cb00150e04980f4e3778d5dc008 100644
 --- a/src/main/java/net/minecraft/server/ChunkRegionLoader.java
 +++ b/src/main/java/net/minecraft/server/ChunkRegionLoader.java
 @@ -346,11 +346,22 @@ public class ChunkRegionLoader implements IChunkLoader, IAsyncChunkSaver {
@@ -56,6 +56,3 @@ index bcce5e8b7e..bad287fca4 100644
  
          nbttagcompound.set("Entities", nbttaglist1);
          NBTTagList nbttaglist2 = new NBTTagList();
--- 
-2.18.0
-

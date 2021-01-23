@@ -1,11 +1,11 @@
-From 90e6868ac669e61bc3b0e176b452181dcf078c2c Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Mon, 29 Feb 2016 19:45:21 -0600
 Subject: [PATCH] Automatically disable plugins that fail to load
 
 
 diff --git a/src/main/java/org/bukkit/plugin/java/JavaPluginLoader.java b/src/main/java/org/bukkit/plugin/java/JavaPluginLoader.java
-index 759c461..d8b9c24 100644
+index 759c46175653b47c978c5dd6e75ad889ebf5a44c..d8b9c2444aee8cf08d8bc75c737f0a43c68081f7 100644
 --- a/src/main/java/org/bukkit/plugin/java/JavaPluginLoader.java
 +++ b/src/main/java/org/bukkit/plugin/java/JavaPluginLoader.java
 @@ -329,6 +329,10 @@ public final class JavaPluginLoader implements PluginLoader {
@@ -19,6 +19,3 @@ index 759c461..d8b9c24 100644
              }
  
              // Perhaps abort here, rather than continue going, but as it stands,
--- 
-2.10.0.windows.1
-

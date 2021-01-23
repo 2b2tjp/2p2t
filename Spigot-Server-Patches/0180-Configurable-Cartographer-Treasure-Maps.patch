@@ -1,4 +1,4 @@
-From 0a8b200ed814c2a3f9b5758defb1ea16ed685839 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Tue, 20 Dec 2016 15:26:27 -0500
 Subject: [PATCH] Configurable Cartographer Treasure Maps
@@ -9,7 +9,7 @@ Also allow turning off treasure maps all together as they can eat up Map ID's
 which are limited in quantity.
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index 4b9bf3b4f..2ba3bcb8e 100644
+index 4b9bf3b4f12da0b7cfd4e661069a7772f4897402..2ba3bcb8e5e3ab07a866a194158b3f8d084f7930 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -398,4 +398,14 @@ public class PaperWorldConfig {
@@ -28,7 +28,7 @@ index 4b9bf3b4f..2ba3bcb8e 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/EntityVillager.java b/src/main/java/net/minecraft/server/EntityVillager.java
-index 9d201b14e..57fcc3c05 100644
+index 9d201b14eb6060065889577a23e8f66fdd43f8dd..57fcc3c059a66be9f1b4f6a6afcd0f1e9c064b72 100644
 --- a/src/main/java/net/minecraft/server/EntityVillager.java
 +++ b/src/main/java/net/minecraft/server/EntityVillager.java
 @@ -783,7 +783,8 @@ public class EntityVillager extends EntityAgeable implements NPC, IMerchant {
@@ -41,6 +41,3 @@ index 9d201b14e..57fcc3c05 100644
  
              if (blockposition != null) {
                  ItemStack itemstack = ItemWorldMap.a(world, (double) blockposition.getX(), (double) blockposition.getZ(), (byte) 2, true, true);
--- 
-2.18.0
-

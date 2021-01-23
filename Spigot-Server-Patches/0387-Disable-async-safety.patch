@@ -1,11 +1,11 @@
-From 727d26fcdb523ff23eee80d6506eac4f014f4644 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: acrylic-style <ilyy@outlook.jp>
 Date: Mon, 11 Jan 2021 21:13:40 +0900
 Subject: [PATCH] Disable async safety
 
 
 diff --git a/src/main/java/org/spigotmc/AsyncCatcher.java b/src/main/java/org/spigotmc/AsyncCatcher.java
-index e44c2301..11b5c462 100644
+index e44c2301654b8ce8e7a1135ac739bc267048a967..11b5c46283eca67550b6ecf01e21c04536530732 100644
 --- a/src/main/java/org/spigotmc/AsyncCatcher.java
 +++ b/src/main/java/org/spigotmc/AsyncCatcher.java
 @@ -10,7 +10,7 @@ public class AsyncCatcher
@@ -17,6 +17,3 @@ index e44c2301..11b5c462 100644
          {
              throw new IllegalStateException( "Asynchronous " + reason + "!" );
          }
--- 
-2.21.0.windows.1
-

@@ -1,11 +1,11 @@
-From b3b76f21bc0e86a173661b9fa351c886b89394e3 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: kashike <kashike@vq.lc>
 Date: Thu, 21 Apr 2016 23:51:55 -0700
 Subject: [PATCH] Add ability to configure frosted_ice properties
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index 6ea608ba9..d96311f6b 100644
+index 6ea608ba9aaad295d5db91970b6ef036ae46b0ef..d96311f6bc738cfac61a309103c52a905500732a 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -293,4 +293,14 @@ public class PaperWorldConfig {
@@ -24,7 +24,7 @@ index 6ea608ba9..d96311f6b 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/BlockIceFrost.java b/src/main/java/net/minecraft/server/BlockIceFrost.java
-index 950863fb9..a8dbbf20a 100644
+index 950863fb9f8986c98ff7be05882ab948dc8c34e3..a8dbbf20a85b945c5578bed2b0fe19058741f91a 100644
 --- a/src/main/java/net/minecraft/server/BlockIceFrost.java
 +++ b/src/main/java/net/minecraft/server/BlockIceFrost.java
 @@ -19,10 +19,14 @@ public class BlockIceFrost extends BlockIce {
@@ -43,6 +43,3 @@ index 950863fb9..a8dbbf20a 100644
          }
  
      }
--- 
-2.18.0
-

@@ -1,4 +1,4 @@
-From 68c89dbfd099490e99b0c394d263cb6f7ca05c7e Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Shane Freeder <theboyetronic@gmail.com>
 Date: Sat, 9 Jun 2018 13:08:21 +0100
 Subject: [PATCH] Add EntityTeleportEndGatewayEvent
@@ -6,7 +6,7 @@ Subject: [PATCH] Add EntityTeleportEndGatewayEvent
 
 diff --git a/src/main/java/com/destroystokyo/paper/event/entity/EntityTeleportEndGatewayEvent.java b/src/main/java/com/destroystokyo/paper/event/entity/EntityTeleportEndGatewayEvent.java
 new file mode 100644
-index 00000000..80899ecb
+index 0000000000000000000000000000000000000000..80899ecb522946d1f5a467e4e55bfb5ea499007d
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/event/entity/EntityTeleportEndGatewayEvent.java
 @@ -0,0 +1,29 @@
@@ -39,6 +39,3 @@ index 00000000..80899ecb
 +    }
 +
 +}
--- 
-2.17.1
-

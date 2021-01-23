@@ -1,4 +1,4 @@
-From f560ea0c9401e8a2d36c3d01bf9a7084c867bf70 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Shane Freeder <theboyetronic@gmail.com>
 Date: Sun, 14 Apr 2019 20:59:16 +0100
 Subject: [PATCH] Don't drop items into the world if BlockPlaceEvent is
@@ -6,7 +6,7 @@ Subject: [PATCH] Don't drop items into the world if BlockPlaceEvent is
 
 
 diff --git a/src/main/java/net/minecraft/server/ItemStack.java b/src/main/java/net/minecraft/server/ItemStack.java
-index 53e0688d96..c5f5fa4e74 100644
+index 53e0688d96dbadef0357b4e41701f8c347b01ae9..c5f5fa4e74fb1564c638f8d586f15d9606ae372c 100644
 --- a/src/main/java/net/minecraft/server/ItemStack.java
 +++ b/src/main/java/net/minecraft/server/ItemStack.java
 @@ -187,12 +187,15 @@ public final class ItemStack {
@@ -33,6 +33,3 @@ index 53e0688d96..c5f5fa4e74 100644
  
                  for (Map.Entry<BlockPosition, TileEntity> e : world.capturedTileEntities.entrySet()) {
                      world.setTileEntity(e.getKey(), e.getValue());
--- 
-2.21.0
-

@@ -1,4 +1,4 @@
-From 5f53285851beaedf12b297903c55b69e200b08e5 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Wed, 27 Feb 2019 22:18:40 -0500
 Subject: [PATCH] Add Stricter Client Sign limits
@@ -20,7 +20,7 @@ it only impacts data sent to and from client to extend mojangs limit.
 Set -DPaper.maxSignLength=XX to change limit or -1 to disable
 
 diff --git a/src/main/java/net/minecraft/server/PlayerConnection.java b/src/main/java/net/minecraft/server/PlayerConnection.java
-index de62c3b76..64520f174 100644
+index de62c3b768ba0dde20a76483a9eeafa0aa9a4729..64520f17499735b8b72424b74f6735d2437cd54c 100644
 --- a/src/main/java/net/minecraft/server/PlayerConnection.java
 +++ b/src/main/java/net/minecraft/server/PlayerConnection.java
 @@ -2227,6 +2227,14 @@ public class PlayerConnection implements PacketListenerPlayIn, ITickable {
@@ -39,7 +39,7 @@ index de62c3b76..64520f174 100644
              }
              SignChangeEvent event = new SignChangeEvent((org.bukkit.craftbukkit.block.CraftBlock) player.getWorld().getBlockAt(x, y, z), this.server.getPlayer(this.player), lines);
 diff --git a/src/main/java/net/minecraft/server/TileEntitySign.java b/src/main/java/net/minecraft/server/TileEntitySign.java
-index 67bd3bcbe..81f74c56b 100644
+index 67bd3bcbeea7d86d98d1902e3b72b7ee9b8706af..81f74c56bb5cc6d4e51d5721d2cf1a66193a6d2d 100644
 --- a/src/main/java/net/minecraft/server/TileEntitySign.java
 +++ b/src/main/java/net/minecraft/server/TileEntitySign.java
 @@ -9,6 +9,7 @@ public class TileEntitySign extends TileEntity {
@@ -50,6 +50,3 @@ index 67bd3bcbe..81f74c56b 100644
  
      public TileEntitySign() {}
  
--- 
-2.21.0
-

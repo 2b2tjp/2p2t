@@ -1,11 +1,11 @@
-From 0ecf170f67207941568d9e933f1648f12a858ec4 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Byteflux <byte@byteflux.net>
 Date: Wed, 2 Mar 2016 14:35:27 -0600
 Subject: [PATCH] Add player view distance API
 
 
 diff --git a/src/main/java/net/minecraft/server/EntityPlayer.java b/src/main/java/net/minecraft/server/EntityPlayer.java
-index dfaab774d..3058dfef0 100644
+index dfaab774dc367868ff25d93c67165bcbaf2fb9d0..3058dfef03cd0edfebdf595c535bdb6ff4d0e6f0 100644
 --- a/src/main/java/net/minecraft/server/EntityPlayer.java
 +++ b/src/main/java/net/minecraft/server/EntityPlayer.java
 @@ -66,6 +66,15 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
@@ -25,7 +25,7 @@ index dfaab774d..3058dfef0 100644
      // CraftBukkit start
      public String displayName;
 diff --git a/src/main/java/net/minecraft/server/PlayerChunkMap.java b/src/main/java/net/minecraft/server/PlayerChunkMap.java
-index e4ed2e991..9627a9be0 100644
+index e4ed2e99177402a55efa02c6c65073c23c9d2212..9627a9be0d038e91953b1483fc40ac6b799dc552 100644
 --- a/src/main/java/net/minecraft/server/PlayerChunkMap.java
 +++ b/src/main/java/net/minecraft/server/PlayerChunkMap.java
 @@ -47,7 +47,7 @@ public class PlayerChunkMap {
@@ -203,7 +203,7 @@ index e4ed2e991..9627a9be0 100644
 +    // Paper end
  }
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
-index e3ad45aa8..e6ff3fc97 100644
+index e3ad45aa8fe93b5aee04ac888f733011a77af9cd..e6ff3fc97dff569c4d11ebd0a150ac9fcba01749 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
 @@ -1553,6 +1553,16 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
@@ -223,6 +223,3 @@ index e3ad45aa8..e6ff3fc97 100644
      // Spigot start
      private final Player.Spigot spigot = new Player.Spigot()
      {
--- 
-2.18.0
-

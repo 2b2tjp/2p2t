@@ -1,4 +1,4 @@
-From 01c9b5fa055b84a9b62c60cc067cbe2cdd35d18f Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Zach Brown <zach.brown@destroystokyo.com>
 Date: Thu, 28 Sep 2017 17:21:32 -0400
 Subject: [PATCH] Add PlayerJumpEvent
@@ -6,7 +6,7 @@ Subject: [PATCH] Add PlayerJumpEvent
 
 diff --git a/src/main/java/com/destroystokyo/paper/event/player/PlayerJumpEvent.java b/src/main/java/com/destroystokyo/paper/event/player/PlayerJumpEvent.java
 new file mode 100644
-index 00000000..dd24f9b0
+index 0000000000000000000000000000000000000000..dd24f9b081e6302d421f9f1d30a3493d98d8bc94
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/event/player/PlayerJumpEvent.java
 @@ -0,0 +1,101 @@
@@ -111,6 +111,3 @@ index 00000000..dd24f9b0
 +        return handlers;
 +    }
 +}
--- 
-2.15.1
-

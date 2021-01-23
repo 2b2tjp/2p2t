@@ -1,11 +1,11 @@
-From 4a14ee67890687fcab9c5e662e07a082ea0e0fe6 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: kashike <kashike@vq.lc>
 Date: Tue, 20 Sep 2016 00:58:01 +0000
 Subject: [PATCH] Configurable flying kick messages
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperConfig.java b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-index 2001175bf..621c585e7 100644
+index 2001175bf89a9c5f147d15ca981eb20d7042f6a2..621c585e7e49f8549c7eb8d2dd21ab4e6c9cc1b6 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperConfig.java
 @@ -244,4 +244,11 @@ public class PaperConfig {
@@ -21,7 +21,7 @@ index 2001175bf..621c585e7 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/PlayerConnection.java b/src/main/java/net/minecraft/server/PlayerConnection.java
-index 16c343b54..8981e94df 100644
+index ed3cdb5482f12a7640faa237b6abeed01a962120..cf344db2628a350bb59bf218e8b5c34e6f5a6cf8 100644
 --- a/src/main/java/net/minecraft/server/PlayerConnection.java
 +++ b/src/main/java/net/minecraft/server/PlayerConnection.java
 @@ -144,7 +144,7 @@ public class PlayerConnection implements PacketListenerPlayIn, ITickable {
@@ -42,6 +42,3 @@ index 16c343b54..8981e94df 100644
                      return;
                  }
              } else {
--- 
-2.18.0
-

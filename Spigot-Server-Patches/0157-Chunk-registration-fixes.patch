@@ -1,4 +1,4 @@
-From 5207f32bb4fc93b43be6ff957e7846173540a824 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Wed, 21 Sep 2016 22:54:28 -0400
 Subject: [PATCH] Chunk registration fixes
@@ -8,7 +8,7 @@ World checks and the Chunk Add logic are inconsistent on how Y > 256, < 0, is tr
 Keep them consistent
 
 diff --git a/src/main/java/net/minecraft/server/World.java b/src/main/java/net/minecraft/server/World.java
-index 6e37c4366f..000d2eeb93 100644
+index 6e37c4366f694baa1992178827d8736d38f55486..000d2eeb936226a8f34b61af6b629223d98515cd 100644
 --- a/src/main/java/net/minecraft/server/World.java
 +++ b/src/main/java/net/minecraft/server/World.java
 @@ -1770,7 +1770,7 @@ public abstract class World implements IBlockAccess {
@@ -20,6 +20,3 @@ index 6e37c4366f..000d2eeb93 100644
          int k = MathHelper.floor(entity.locZ / 16.0D);
  
          if (!entity.aa || entity.ab != i || entity.ac != j || entity.ad != k) {
--- 
-2.18.0
-

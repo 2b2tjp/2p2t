@@ -1,4 +1,4 @@
-From 446ba2913490acc93574cbe8dab2ad241e3bdfc6 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Brokkonaut <hannos17@gmx.de>
 Date: Tue, 31 Oct 2017 03:26:18 +0100
 Subject: [PATCH] Send attack SoundEffects only to players who can see the
@@ -6,7 +6,7 @@ Subject: [PATCH] Send attack SoundEffects only to players who can see the
 
 
 diff --git a/src/main/java/net/minecraft/server/EntityHuman.java b/src/main/java/net/minecraft/server/EntityHuman.java
-index 579996d1e..347237055 100644
+index 579996d1e3cfdea91095e73c78e0192777d31792..3472370550d669abb42dee213b261a6b1bcde195 100644
 --- a/src/main/java/net/minecraft/server/EntityHuman.java
 +++ b/src/main/java/net/minecraft/server/EntityHuman.java
 @@ -939,6 +939,15 @@ public abstract class EntityHuman extends EntityLiving {
@@ -72,7 +72,7 @@ index 579996d1e..347237055 100644
                              entity.extinguish();
                          }
 diff --git a/src/main/java/net/minecraft/server/World.java b/src/main/java/net/minecraft/server/World.java
-index ea67b61b2..29dffc3ac 100644
+index ea67b61b2bb331da4cbc5bc2548b2e19015db6c9..29dffc3aca098e87d6cd3621d69141436f1c6ee6 100644
 --- a/src/main/java/net/minecraft/server/World.java
 +++ b/src/main/java/net/minecraft/server/World.java
 @@ -1061,6 +1061,12 @@ public abstract class World implements IBlockAccess {
@@ -88,6 +88,3 @@ index ea67b61b2..29dffc3ac 100644
      public void a(@Nullable EntityHuman entityhuman, double d0, double d1, double d2, SoundEffect soundeffect, SoundCategory soundcategory, float f, float f1) {
          for (int i = 0; i < this.u.size(); ++i) {
              ((IWorldAccess) this.u.get(i)).a(entityhuman, soundeffect, soundcategory, d0, d1, d2, f, f1);
--- 
-2.18.0
-

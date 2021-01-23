@@ -1,4 +1,4 @@
-From afa05f7fef0d3337d684319325143b4d441cea16 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: BillyGalbreath <Blake.Galbreath@GMail.com>
 Date: Fri, 19 Jan 2018 08:15:14 -0600
 Subject: [PATCH] PlayerAdvancementCriterionGrantEvent
@@ -6,7 +6,7 @@ Subject: [PATCH] PlayerAdvancementCriterionGrantEvent
 
 diff --git a/src/main/java/com/destroystokyo/paper/event/player/PlayerAdvancementCriterionGrantEvent.java b/src/main/java/com/destroystokyo/paper/event/player/PlayerAdvancementCriterionGrantEvent.java
 new file mode 100644
-index 00000000..b65ee9e5
+index 0000000000000000000000000000000000000000..b65ee9e5437fdfe5ad96b0312e222169b5b68184
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/event/player/PlayerAdvancementCriterionGrantEvent.java
 @@ -0,0 +1,58 @@
@@ -68,6 +68,3 @@ index 00000000..b65ee9e5
 +        return handlers;
 +    }
 +}
--- 
-2.17.1
-

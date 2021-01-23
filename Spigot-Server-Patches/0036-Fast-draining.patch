@@ -1,11 +1,11 @@
-From 4b300fd41621071f122933ad9400521cb46228a0 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Byteflux <byte@byteflux.net>
 Date: Wed, 2 Mar 2016 12:20:52 -0600
 Subject: [PATCH] Fast draining
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index 15675efbf..dbd82d5a9 100644
+index 15675efbf99bfaca60145aeeaf1d88081da54aa4..dbd82d5a9e3f3954df5ab913d94581fa1e298c9a 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -183,4 +183,11 @@ public class PaperWorldConfig {
@@ -21,7 +21,7 @@ index 15675efbf..dbd82d5a9 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/BlockFlowing.java b/src/main/java/net/minecraft/server/BlockFlowing.java
-index 3b47253a4..3aaa19b2f 100644
+index 3b47253a47255073f766aae826a9d56252dfb752..3aaa19b2fee4c7db5d89baf119c9e28036c9b64e 100644
 --- a/src/main/java/net/minecraft/server/BlockFlowing.java
 +++ b/src/main/java/net/minecraft/server/BlockFlowing.java
 @@ -69,7 +69,7 @@ public class BlockFlowing extends BlockFluids {
@@ -108,6 +108,3 @@ index 3b47253a4..3aaa19b2f 100644
 +    }
 +    // Paper end
  }
--- 
-2.18.0
-

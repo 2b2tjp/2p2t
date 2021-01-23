@@ -1,11 +1,11 @@
-From 45b4de7a63937ed0c9c58960e6be049d11b00a52 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: BillyGalbreath <Blake.Galbreath@GMail.com>
 Date: Sun, 11 Jun 2017 16:30:30 -0500
 Subject: [PATCH] PlayerAttemptPickupItemEvent
 
 
 diff --git a/src/main/java/net/minecraft/server/EntityItem.java b/src/main/java/net/minecraft/server/EntityItem.java
-index ae4910b4b..0b7fc327f 100644
+index ae4910b4bd980f5cebaef16c9d0b2609992f7c28..0b7fc327f3e3d84501dccacbc0062bbfb8a68c5e 100644
 --- a/src/main/java/net/minecraft/server/EntityItem.java
 +++ b/src/main/java/net/minecraft/server/EntityItem.java
 @@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
@@ -39,6 +39,3 @@ index ae4910b4b..0b7fc327f 100644
              if (this.pickupDelay <= 0 && canHold > 0) {
                  itemstack.setCount(canHold);
                  // Call legacy event
--- 
-2.18.0
-

@@ -1,4 +1,4 @@
-From fd5af731abdbb7f69e1faa16cd763c44018f643c Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Sat, 21 Jul 2018 08:25:40 -0400
 Subject: [PATCH] Add Debug Entities option to debug dupe uuid issues
@@ -6,7 +6,7 @@ Subject: [PATCH] Add Debug Entities option to debug dupe uuid issues
 Add -Ddebug.entities=true to your JVM flags to gain more information
 
 diff --git a/src/main/java/net/minecraft/server/Entity.java b/src/main/java/net/minecraft/server/Entity.java
-index 99dac412f0..0d3af8cb77 100644
+index 0197f5ee52f76fa4ce3ecfe2b3b22ba347f38d91..67967c4ed4f3f6a9ce20dc45458caa26e7cd6aed 100644
 --- a/src/main/java/net/minecraft/server/Entity.java
 +++ b/src/main/java/net/minecraft/server/Entity.java
 @@ -73,6 +73,7 @@ public abstract class Entity implements ICommandListener, KeyedObject { // Paper
@@ -18,7 +18,7 @@ index 99dac412f0..0d3af8cb77 100644
  
      private static final Logger a = LogManager.getLogger();
 diff --git a/src/main/java/net/minecraft/server/WorldServer.java b/src/main/java/net/minecraft/server/WorldServer.java
-index b16324e1a2..994d4bbb84 100644
+index b16324e1a2de1943e20ee25d15aaa385b0972c82..994d4bbb841a07ad35f4529bc1993d1944da576c 100644
 --- a/src/main/java/net/minecraft/server/WorldServer.java
 +++ b/src/main/java/net/minecraft/server/WorldServer.java
 @@ -7,6 +7,7 @@ import com.google.common.util.concurrent.ListenableFuture;
@@ -90,6 +90,3 @@ index b16324e1a2..994d4bbb84 100644
          Entity[] aentity = entity.bb();
  
          if (aentity != null) {
--- 
-2.18.0
-

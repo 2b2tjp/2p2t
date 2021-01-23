@@ -1,11 +1,11 @@
-From f468cbcfc4e7e05e67215e55bb021f4fb1ef1007 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Byteflux <byte@byteflux.net>
 Date: Tue, 1 Mar 2016 15:08:03 -0600
 Subject: [PATCH] Remove invalid mob spawner tile entities
 
 
 diff --git a/src/main/java/net/minecraft/server/Chunk.java b/src/main/java/net/minecraft/server/Chunk.java
-index ca5a42377..50113c303 100644
+index 2c706f07e9100eb0eb098e19cacb3d90d48978cf..437b5ed4209f1ee1520e112d365828e2f4593436 100644
 --- a/src/main/java/net/minecraft/server/Chunk.java
 +++ b/src/main/java/net/minecraft/server/Chunk.java
 @@ -759,6 +759,10 @@ public class Chunk {
@@ -19,6 +19,3 @@ index ca5a42377..50113c303 100644
          } else {
              System.out.println("Attempted to place a tile entity (" + tileentity + ") at " + tileentity.position.getX() + "," + tileentity.position.getY() + "," + tileentity.position.getZ()
                  + " (" + org.bukkit.craftbukkit.util.CraftMagicNumbers.getMaterial(getBlockData(blockposition).getBlock()) + ") where there was no entity tile!");
--- 
-2.18.0
-

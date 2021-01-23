@@ -1,11 +1,11 @@
-From 98f3ed5d6ea41b31e8e79520b048f6f87e4c458c Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: acrylic-style <ilyy@outlook.jp>
 Date: Mon, 11 Jan 2021 20:37:05 +0900
 Subject: [PATCH] Disable 'outdated' warning message
 
 
 diff --git a/src/main/java/org/bukkit/craftbukkit/Main.java b/src/main/java/org/bukkit/craftbukkit/Main.java
-index ae2c51f5..ae746f73 100644
+index ae2c51f5d30e143180092e2ade56f5df26e35616..ae746f7381197337296ca3abe838106863b0580e 100644
 --- a/src/main/java/org/bukkit/craftbukkit/Main.java
 +++ b/src/main/java/org/bukkit/craftbukkit/Main.java
 @@ -210,8 +210,10 @@ public class Main {
@@ -21,6 +21,3 @@ index ae2c51f5..ae746f73 100644
                          //System.err.println("*** Server will start in 15 seconds ***");
                          //Thread.sleep(TimeUnit.SECONDS.toMillis(15));
                          // Paper End
--- 
-2.21.0.windows.1
-

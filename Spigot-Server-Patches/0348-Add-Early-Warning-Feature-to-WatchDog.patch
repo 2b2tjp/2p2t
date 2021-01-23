@@ -1,4 +1,4 @@
-From 2b8c504b605b5cad94dc78011c29becfeb6c62fa Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: miclebrick <miclebrick@outlook.com>
 Date: Wed, 8 Aug 2018 15:30:52 -0400
 Subject: [PATCH] Add Early Warning Feature to WatchDog
@@ -9,7 +9,7 @@ thread dumps at an interval until the point of crash.
 This will help diagnose what was going on in that time before the crash.
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperConfig.java b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-index a5ff014e..332e90f8 100644
+index a5ff014e33152c39a6cdbeb944422bb0dbc1fc83..332e90f86bc75f7114c68d44f29eec9644de9326 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperConfig.java
 @@ -23,6 +23,8 @@ import org.bukkit.configuration.InvalidConfigurationException;
@@ -37,7 +37,7 @@ index a5ff014e..332e90f8 100644
      public static int tabSpamLimit = 500;
      private static void tabSpamLimiters() {
 diff --git a/src/main/java/net/minecraft/server/MinecraftServer.java b/src/main/java/net/minecraft/server/MinecraftServer.java
-index 0399a48e..e0546e3d 100644
+index 0399a48e19fe020c4280b75444af00337623583d..e0546e3dd204713b4a82b7277530c21b29b02751 100644
 --- a/src/main/java/net/minecraft/server/MinecraftServer.java
 +++ b/src/main/java/net/minecraft/server/MinecraftServer.java
 @@ -622,6 +622,7 @@ public abstract class MinecraftServer implements ICommandListener, Runnable, IAs
@@ -49,7 +49,7 @@ index 0399a48e..e0546e3d 100644
                  long start = System.nanoTime(), lastTick = start - TICK_TIME, catchupTime = 0, curTime, wait, tickSection = start; // Paper - Further improve server tick loop
                  while (this.isRunning) {
 diff --git a/src/main/java/org/spigotmc/SpigotConfig.java b/src/main/java/org/spigotmc/SpigotConfig.java
-index 4f9fd4bc..2cdd9aaf 100644
+index 4f9fd4bc6077fafa9587d3351f953dcf3459d43c..2cdd9aaf81c792bac9477b2296d67860bcbc387f 100644
 --- a/src/main/java/org/spigotmc/SpigotConfig.java
 +++ b/src/main/java/org/spigotmc/SpigotConfig.java
 @@ -223,7 +223,7 @@ public class SpigotConfig
@@ -62,7 +62,7 @@ index 4f9fd4bc..2cdd9aaf 100644
  
      public static boolean bungee;
 diff --git a/src/main/java/org/spigotmc/WatchdogThread.java b/src/main/java/org/spigotmc/WatchdogThread.java
-index 57a4748a..93dc6983 100644
+index 57a4748a3039512f50611544bf5ce9c4cd931858..93dc6983595ace9fa0d024ffbb11e4b98b5fe886 100644
 --- a/src/main/java/org/spigotmc/WatchdogThread.java
 +++ b/src/main/java/org/spigotmc/WatchdogThread.java
 @@ -5,6 +5,7 @@ import java.lang.management.MonitorInfo;
@@ -162,6 +162,3 @@ index 57a4748a..93dc6983 100644
              } catch ( InterruptedException ex )
              {
                  interrupt();
--- 
-2.19.1
-

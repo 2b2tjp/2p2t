@@ -1,4 +1,4 @@
-From 1ffe7e986e130686ef5b48ac41b63296f77b4e9c Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Sun, 22 Jan 2017 18:07:56 -0500
 Subject: [PATCH] Cap Entity Collisions
@@ -12,7 +12,7 @@ just as it does in Vanilla, but entity pushing logic will be capped.
 You can set this to 0 to disable collisions.
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index 5f06d4e5e..29b4bdb47 100644
+index 5f06d4e5e763071ad91a646d901903e561f446e4..29b4bdb470dd7b56f07e1a7e3a48135736b23138 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -413,4 +413,10 @@ public class PaperWorldConfig {
@@ -27,7 +27,7 @@ index 5f06d4e5e..29b4bdb47 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/Entity.java b/src/main/java/net/minecraft/server/Entity.java
-index 92b2bcb86..5a4de30fe 100644
+index 2fada24738192951323c04b0e9214f64497b367f..fe6e4435f118677e7b8fc65283d106c03ffff193 100644
 --- a/src/main/java/net/minecraft/server/Entity.java
 +++ b/src/main/java/net/minecraft/server/Entity.java
 @@ -183,6 +183,7 @@ public abstract class Entity implements ICommandListener, KeyedObject { // Paper
@@ -39,7 +39,7 @@ index 92b2bcb86..5a4de30fe 100644
      // Spigot end
  
 diff --git a/src/main/java/net/minecraft/server/EntityLiving.java b/src/main/java/net/minecraft/server/EntityLiving.java
-index 38c043375..c97ee68a5 100644
+index 38c043375df23ddd59a612c9c46de99987f1b666..c97ee68a5a854079a0321d02833af8d4210f6ba5 100644
 --- a/src/main/java/net/minecraft/server/EntityLiving.java
 +++ b/src/main/java/net/minecraft/server/EntityLiving.java
 @@ -2191,8 +2191,11 @@ public abstract class EntityLiving extends Entity {
@@ -55,6 +55,3 @@ index 38c043375..c97ee68a5 100644
  
                  this.C(entity);
              }
--- 
-2.18.0
-

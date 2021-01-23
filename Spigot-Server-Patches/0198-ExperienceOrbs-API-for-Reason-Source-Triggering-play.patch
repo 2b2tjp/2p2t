@@ -1,4 +1,4 @@
-From 6fab4174f4e7fc320a124b1b8d083541b49701fe Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Tue, 19 Dec 2017 16:31:46 -0500
 Subject: [PATCH] ExperienceOrbs API for Reason/Source/Triggering player
@@ -8,7 +8,7 @@ Adds lots of information about why this orb exists.
 Replaces isFromBottle() with logic that persists entity reloads too.
 
 diff --git a/src/main/java/net/minecraft/server/Block.java b/src/main/java/net/minecraft/server/Block.java
-index 352310960..3e2f52647 100644
+index 352310960381f0ce2969ba4fcf16baf6eff8d169..3e2f52647c72f55cc3a624c05b86d2565b728038 100644
 --- a/src/main/java/net/minecraft/server/Block.java
 +++ b/src/main/java/net/minecraft/server/Block.java
 @@ -388,13 +388,13 @@ public class Block {
@@ -28,7 +28,7 @@ index 352310960..3e2f52647 100644
          }
  
 diff --git a/src/main/java/net/minecraft/server/EntityEnderDragon.java b/src/main/java/net/minecraft/server/EntityEnderDragon.java
-index a8cc6b61a..c925de971 100644
+index a8cc6b61adf358fcd2a4382dbe06083c43e8f2f1..c925de971fcf105fe63f32e739e0cfbe5e6668d5 100644
 --- a/src/main/java/net/minecraft/server/EntityEnderDragon.java
 +++ b/src/main/java/net/minecraft/server/EntityEnderDragon.java
 @@ -618,7 +618,7 @@ public class EntityEnderDragon extends EntityInsentient implements IComplex, IMo
@@ -41,7 +41,7 @@ index a8cc6b61a..c925de971 100644
  
      }
 diff --git a/src/main/java/net/minecraft/server/EntityExperienceOrb.java b/src/main/java/net/minecraft/server/EntityExperienceOrb.java
-index bf5f1f0e8..d567ad4a5 100644
+index bf5f1f0e841583f3083eeb3cd3a1d282d853d1e4..d567ad4a57acd967b1840c0c2b7fcf039dc12add 100644
 --- a/src/main/java/net/minecraft/server/EntityExperienceOrb.java
 +++ b/src/main/java/net/minecraft/server/EntityExperienceOrb.java
 @@ -15,9 +15,54 @@ public class EntityExperienceOrb extends Entity {
@@ -116,7 +116,7 @@ index bf5f1f0e8..d567ad4a5 100644
  
      public void d(EntityHuman entityhuman) {
 diff --git a/src/main/java/net/minecraft/server/EntityFishingHook.java b/src/main/java/net/minecraft/server/EntityFishingHook.java
-index 6ac89d1e3..177d8582f 100644
+index 6ac89d1e395cf0fab1669b1cb5f126d6e82f5393..177d8582f7f8f9350c1f66fc5d1c3c7c9afdf7a4 100644
 --- a/src/main/java/net/minecraft/server/EntityFishingHook.java
 +++ b/src/main/java/net/minecraft/server/EntityFishingHook.java
 @@ -458,7 +458,7 @@ public class EntityFishingHook extends Entity {
@@ -129,7 +129,7 @@ index 6ac89d1e3..177d8582f 100644
                      // CraftBukkit end
                      Item item = itemstack.getItem();
 diff --git a/src/main/java/net/minecraft/server/EntityLiving.java b/src/main/java/net/minecraft/server/EntityLiving.java
-index 9e864864d..38c043375 100644
+index 9e864864dd2c0a73269146f5fb07b2bf4d6dd7b3..38c043375df23ddd59a612c9c46de99987f1b666 100644
 --- a/src/main/java/net/minecraft/server/EntityLiving.java
 +++ b/src/main/java/net/minecraft/server/EntityLiving.java
 @@ -347,7 +347,8 @@ public abstract class EntityLiving extends Entity {
@@ -143,7 +143,7 @@ index 9e864864d..38c043375 100644
              this.expToDrop = 0;
              // CraftBukkit end
 diff --git a/src/main/java/net/minecraft/server/EntityThrownExpBottle.java b/src/main/java/net/minecraft/server/EntityThrownExpBottle.java
-index 0255986fd..e14f614f5 100644
+index 0255986fd47a30333c83b192d7c5de356367ef89..e14f614f59eaa9e4d78a5adbfab7d087d7a52469 100644
 --- a/src/main/java/net/minecraft/server/EntityThrownExpBottle.java
 +++ b/src/main/java/net/minecraft/server/EntityThrownExpBottle.java
 @@ -40,7 +40,7 @@ public class EntityThrownExpBottle extends EntityProjectile {
@@ -156,7 +156,7 @@ index 0255986fd..e14f614f5 100644
  
              this.die();
 diff --git a/src/main/java/net/minecraft/server/EntityVillager.java b/src/main/java/net/minecraft/server/EntityVillager.java
-index 57fcc3c05..a9c4ab10d 100644
+index 57fcc3c059a66be9f1b4f6a6afcd0f1e9c064b72..a9c4ab10df7113754230b20473f24acfe092c358 100644
 --- a/src/main/java/net/minecraft/server/EntityVillager.java
 +++ b/src/main/java/net/minecraft/server/EntityVillager.java
 @@ -437,7 +437,7 @@ public class EntityVillager extends EntityAgeable implements NPC, IMerchant {
@@ -169,7 +169,7 @@ index 57fcc3c05..a9c4ab10d 100644
  
          if (this.tradingPlayer instanceof EntityPlayer) {
 diff --git a/src/main/java/net/minecraft/server/PathfinderGoalBreed.java b/src/main/java/net/minecraft/server/PathfinderGoalBreed.java
-index 059671b54..444792ea0 100644
+index 059671b54441ba92b6ec7d797cb685a97106ee70..444792ea05b8bcefd3e91b2a3be63358714fa908 100644
 --- a/src/main/java/net/minecraft/server/PathfinderGoalBreed.java
 +++ b/src/main/java/net/minecraft/server/PathfinderGoalBreed.java
 @@ -122,7 +122,7 @@ public class PathfinderGoalBreed extends PathfinderGoal {
@@ -182,7 +182,7 @@ index 059671b54..444792ea0 100644
                  // CraftBukkit end
              }
 diff --git a/src/main/java/net/minecraft/server/PlayerInteractManager.java b/src/main/java/net/minecraft/server/PlayerInteractManager.java
-index a1689c065..a49b5c81a 100644
+index a1689c065caf5bb570220ad4e80a7cda3a4ccfb1..a49b5c81a867626960d069debe534382cf38dfa8 100644
 --- a/src/main/java/net/minecraft/server/PlayerInteractManager.java
 +++ b/src/main/java/net/minecraft/server/PlayerInteractManager.java
 @@ -383,7 +383,7 @@ public class PlayerInteractManager {
@@ -195,7 +195,7 @@ index a1689c065..a49b5c81a 100644
                  // CraftBukkit end
  
 diff --git a/src/main/java/net/minecraft/server/SlotFurnaceResult.java b/src/main/java/net/minecraft/server/SlotFurnaceResult.java
-index 1dcf967a1..ed394f7a5 100644
+index 1dcf967a1a0e5f6213a17ca6ee3166441c277fc4..ed394f7a5d6cf266dda3b99a4fdec18afc42b1e1 100644
 --- a/src/main/java/net/minecraft/server/SlotFurnaceResult.java
 +++ b/src/main/java/net/minecraft/server/SlotFurnaceResult.java
 @@ -7,7 +7,7 @@ import org.bukkit.event.inventory.FurnaceExtractEvent;
@@ -217,7 +217,7 @@ index 1dcf967a1..ed394f7a5 100644
          }
  
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftWorld.java b/src/main/java/org/bukkit/craftbukkit/CraftWorld.java
-index 4ffe0d208..568a50ec4 100644
+index 4ffe0d208c7394a40f7670ebcc0e3eeb5f1378bf..568a50ec4d8a296bb9ce1a0202960b88d9c50ffc 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftWorld.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftWorld.java
 @@ -1218,7 +1218,7 @@ public class CraftWorld implements World {
@@ -230,7 +230,7 @@ index 4ffe0d208..568a50ec4 100644
              // not sure what this can do
              if (LightningStrike.class.isAssignableFrom(clazz)) {
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftExperienceOrb.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftExperienceOrb.java
-index 3a09cab3d..3302af0e4 100644
+index 3a09cab3d4199f2688f1877fd2bf38ff3fd45720..3302af0e457559fe62c8d5ed80c5fa54afcc8461 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftExperienceOrb.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftExperienceOrb.java
 @@ -18,6 +18,18 @@ public class CraftExperienceOrb extends CraftEntity implements ExperienceOrb {
@@ -252,6 +252,3 @@ index 3a09cab3d..3302af0e4 100644
      @Override
      public EntityExperienceOrb getHandle() {
          return (EntityExperienceOrb) entity;
--- 
-2.18.0
-

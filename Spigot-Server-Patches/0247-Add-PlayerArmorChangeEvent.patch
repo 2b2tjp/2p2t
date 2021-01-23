@@ -1,11 +1,11 @@
-From 967b71010b6429abb9d4c8f2dbc62b2424d510d7 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: pkt77 <parkerkt77@gmail.com>
 Date: Fri, 10 Nov 2017 23:46:34 -0500
 Subject: [PATCH] Add PlayerArmorChangeEvent
 
 
 diff --git a/src/main/java/net/minecraft/server/EntityLiving.java b/src/main/java/net/minecraft/server/EntityLiving.java
-index 44335fd2d..9adcabd4f 100644
+index 44335fd2d95748d81545a21769346f5f6080e6f5..64a8494a9a3fca31d0ae174a468343a1953b85e9 100644
 --- a/src/main/java/net/minecraft/server/EntityLiving.java
 +++ b/src/main/java/net/minecraft/server/EntityLiving.java
 @@ -1,5 +1,6 @@
@@ -30,7 +30,7 @@ index 44335fd2d..9adcabd4f 100644
                      if (!itemstack.isEmpty()) {
                          this.getAttributeMap().a(itemstack.a(enumitemslot));
 diff --git a/src/main/java/net/minecraft/server/EnumItemSlot.java b/src/main/java/net/minecraft/server/EnumItemSlot.java
-index cdf3a3ba4..be5d0bf89 100644
+index cdf3a3ba4a30827119f0d6d5c8ea6ac7cd96cc96..be5d0bf898f224d94eb85f420560488b28c67cad 100644
 --- a/src/main/java/net/minecraft/server/EnumItemSlot.java
 +++ b/src/main/java/net/minecraft/server/EnumItemSlot.java
 @@ -16,6 +16,7 @@ public enum EnumItemSlot {
@@ -41,6 +41,3 @@ index cdf3a3ba4..be5d0bf89 100644
      public EnumItemSlot.Function a() {
          return this.g;
      }
--- 
-2.18.0
-

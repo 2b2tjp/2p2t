@@ -1,11 +1,11 @@
-From e3a0f7d9dce7c912c7a5b69d89673d404670c712 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Mon, 29 Feb 2016 17:24:57 -0600
 Subject: [PATCH] Add getTPS method
 
 
 diff --git a/src/main/java/org/bukkit/Bukkit.java b/src/main/java/org/bukkit/Bukkit.java
-index e1898343..4f094f7b 100644
+index a9081ddb3dcecbf5b651f52c1632f3d6cdee92ae..74d07cc5f7ab22d039d05dcfb18af851e16d7747 100644
 --- a/src/main/java/org/bukkit/Bukkit.java
 +++ b/src/main/java/org/bukkit/Bukkit.java
 @@ -1125,6 +1125,16 @@ public final class Bukkit {
@@ -26,7 +26,7 @@ index e1898343..4f094f7b 100644
       * Get the advancement specified by this key.
       *
 diff --git a/src/main/java/org/bukkit/Server.java b/src/main/java/org/bukkit/Server.java
-index 30b99241..a503bb49 100644
+index bc3211f96098112443f6f62c4ffcc75d6504c529..da84ce4029788901985b65001481957a1b4d6946 100644
 --- a/src/main/java/org/bukkit/Server.java
 +++ b/src/main/java/org/bukkit/Server.java
 @@ -919,6 +919,15 @@ public interface Server extends PluginMessageRecipient {
@@ -45,6 +45,3 @@ index 30b99241..a503bb49 100644
      /**
       * Get the advancement specified by this key.
       *
--- 
-2.11.0
-

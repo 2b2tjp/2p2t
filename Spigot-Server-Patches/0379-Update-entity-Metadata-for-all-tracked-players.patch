@@ -1,11 +1,11 @@
-From 2a1cb415c509d8a702897d35f3f67ca359dd5412 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: AgentTroll <woodyc40@gmail.com>
 Date: Sun, 24 Mar 2019 17:44:01 -0400
 Subject: [PATCH] Update entity Metadata for all tracked players
 
 
 diff --git a/src/main/java/net/minecraft/server/PlayerConnection.java b/src/main/java/net/minecraft/server/PlayerConnection.java
-index e837a553e..8c20bcd14 100644
+index e837a553e8ed0d7b813efad8f4f9e6946faab0a1..8c20bcd1469563e5ffd3f97255f23812903a43ae 100644
 --- a/src/main/java/net/minecraft/server/PlayerConnection.java
 +++ b/src/main/java/net/minecraft/server/PlayerConnection.java
 @@ -1674,7 +1674,7 @@ public class PlayerConnection implements PacketListenerPlayIn, ITickable {
@@ -17,6 +17,3 @@ index e837a553e..8c20bcd14 100644
                      }
  
                      if (event.isCancelled()) {
--- 
-2.21.0
-

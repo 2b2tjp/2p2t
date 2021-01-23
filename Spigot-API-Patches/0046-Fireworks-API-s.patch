@@ -1,4 +1,4 @@
-From f65a6ec0915047f1a5c30e467c5782bae67113d2 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Wed, 28 Dec 2016 01:18:55 -0500
 Subject: [PATCH] Fireworks API's
@@ -7,7 +7,7 @@ Get the Entity being boosted
 Get the firework launcher
 
 diff --git a/src/main/java/org/bukkit/entity/Firework.java b/src/main/java/org/bukkit/entity/Firework.java
-index b8a8c07..8c087bb 100644
+index b8a8c075386e4211c97b7aa2d1ac6780814aa00b..8c087bb71297369b8f84358c3158a2f7f8d6ee16 100644
 --- a/src/main/java/org/bukkit/entity/Firework.java
 +++ b/src/main/java/org/bukkit/entity/Firework.java
 @@ -2,6 +2,8 @@ package org.bukkit.entity;
@@ -33,6 +33,3 @@ index b8a8c07..8c087bb 100644
 +    public LivingEntity getBoostedEntity();
 +    // Paper end
  }
--- 
-2.9.3
-

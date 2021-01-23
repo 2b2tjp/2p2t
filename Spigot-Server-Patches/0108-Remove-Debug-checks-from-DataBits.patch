@@ -1,4 +1,4 @@
-From d097ae862c5d2aa16d9ba2999604b63ef62734e5 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Tue, 5 Apr 2016 21:38:58 -0400
 Subject: [PATCH] Remove Debug checks from DataBits
@@ -9,7 +9,7 @@ Before: http://i.imgur.com/nQsMzAE.png
 After: http://i.imgur.com/nJ46crB.png
 
 diff --git a/src/main/java/net/minecraft/server/DataBits.java b/src/main/java/net/minecraft/server/DataBits.java
-index f3a6799a8..fa0fd8a9c 100644
+index f3a6799a8f8d15aa05134ae86ccbad9257ad9ab9..fa0fd8a9c8a805641d974e1c37f9837a0805a218 100644
 --- a/src/main/java/net/minecraft/server/DataBits.java
 +++ b/src/main/java/net/minecraft/server/DataBits.java
 @@ -10,7 +10,7 @@ public class DataBits {
@@ -41,6 +41,3 @@ index f3a6799a8..fa0fd8a9c 100644
          int j = i * this.b;
          int k = j / 64;
          int l = ((i + 1) * this.b - 1) / 64;
--- 
-2.18.0
-

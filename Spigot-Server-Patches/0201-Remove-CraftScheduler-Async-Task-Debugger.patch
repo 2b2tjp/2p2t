@@ -1,4 +1,4 @@
-From a962c34610bc172ff3076bf986b38c2c09c29c33 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Sun, 5 Feb 2017 00:04:04 -0500
 Subject: [PATCH] Remove CraftScheduler Async Task Debugger
@@ -9,7 +9,7 @@ One report of a suspected memory leak with the system.
 This adds additional overhead to asynchronous task dispatching
 
 diff --git a/src/main/java/org/bukkit/craftbukkit/scheduler/CraftScheduler.java b/src/main/java/org/bukkit/craftbukkit/scheduler/CraftScheduler.java
-index 26753fac5..a2fadaf82 100644
+index 26753fac5e894eaacd1cb7fac0bdd2362cd436b9..a2fadaf82cbc6cd4bf851e8f991294ebd97c8bca 100644
 --- a/src/main/java/org/bukkit/craftbukkit/scheduler/CraftScheduler.java
 +++ b/src/main/java/org/bukkit/craftbukkit/scheduler/CraftScheduler.java
 @@ -84,8 +84,8 @@ public class CraftScheduler implements BukkitScheduler {
@@ -57,6 +57,3 @@ index 26753fac5..a2fadaf82 100644
      }
  
      @Deprecated
--- 
-2.18.0
-

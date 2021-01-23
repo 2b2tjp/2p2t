@@ -1,11 +1,11 @@
-From 6c9aa29b50e035dc386794e866d64ec07c4c9c19 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Zach Brown <zach.brown@destroystokyo.com>
 Date: Fri, 16 Dec 2016 22:10:35 -0600
 Subject: [PATCH] Vanished players don't have rights
 
 
 diff --git a/src/main/java/net/minecraft/server/Entity.java b/src/main/java/net/minecraft/server/Entity.java
-index d79844a98..6d1e61e23 100644
+index feee50227ef70c0701f353c13de18d686036fd47..9bb7b0d83310bb00ea6b78b17b2997a8e02abb98 100644
 --- a/src/main/java/net/minecraft/server/Entity.java
 +++ b/src/main/java/net/minecraft/server/Entity.java
 @@ -81,7 +81,7 @@ public abstract class Entity implements ICommandListener, KeyedObject { // Paper
@@ -18,7 +18,7 @@ index d79844a98..6d1e61e23 100644
      protected int j;
      private Entity au;public void setVehicle(Entity entity) { this.au = entity; } // Paper // OBFHELPER
 diff --git a/src/main/java/net/minecraft/server/ItemBlock.java b/src/main/java/net/minecraft/server/ItemBlock.java
-index 60149c1ca..a5730d1c7 100644
+index 60149c1ca624851b8fa4af2b971f6c9823734710..a5730d1c7b3dd06e52cc24dd98dccb9d2a9b3fb5 100644
 --- a/src/main/java/net/minecraft/server/ItemBlock.java
 +++ b/src/main/java/net/minecraft/server/ItemBlock.java
 @@ -20,7 +20,7 @@ public class ItemBlock extends Item {
@@ -31,7 +31,7 @@ index 60149c1ca..a5730d1c7 100644
              IBlockData iblockdata1 = this.a.getPlacedState(world, blockposition, enumdirection, f, f1, f2, i, entityhuman);
  
 diff --git a/src/main/java/net/minecraft/server/World.java b/src/main/java/net/minecraft/server/World.java
-index d7bf8378e..424b956e8 100644
+index d7bf8378ef46b602d691e607fc36961c826a2aa1..424b956e8e48aaba3590c066aba6c2ad16a42481 100644
 --- a/src/main/java/net/minecraft/server/World.java
 +++ b/src/main/java/net/minecraft/server/World.java
 @@ -1805,6 +1805,33 @@ public abstract class World implements IBlockAccess {
@@ -78,7 +78,7 @@ index d7bf8378e..424b956e8 100644
          this.getServer().getPluginManager().callEvent(event);
  
 diff --git a/src/main/java/org/bukkit/craftbukkit/event/CraftEventFactory.java b/src/main/java/org/bukkit/craftbukkit/event/CraftEventFactory.java
-index 06a277b3b..5f816e44f 100644
+index 06a277b3bc654f35495559c8b84b60686601973c..5f816e44f529859483b0fcdf101d886d70e1fe5d 100644
 --- a/src/main/java/org/bukkit/craftbukkit/event/CraftEventFactory.java
 +++ b/src/main/java/org/bukkit/craftbukkit/event/CraftEventFactory.java
 @@ -810,6 +810,13 @@ public class CraftEventFactory {
@@ -95,6 +95,3 @@ index 06a277b3b..5f816e44f 100644
          Bukkit.getPluginManager().callEvent(event);
          return event;
      }
--- 
-2.18.0
-

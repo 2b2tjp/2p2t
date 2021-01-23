@@ -1,11 +1,11 @@
-From de658229f19d33a91965d3552a3d3e2df61fdef6 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Sudzzy <originmc@outlook.com>
 Date: Wed, 2 Mar 2016 23:34:44 -0600
 Subject: [PATCH] Configurable container update tick rate
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index f431000d1..abcfb9216 100644
+index f431000d15c67fbbf24c1c3a13cb868c6783b88c..abcfb9216df1db601b7223740c8ed2c28edcbd80 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -217,4 +217,9 @@ public class PaperWorldConfig {
@@ -19,7 +19,7 @@ index f431000d1..abcfb9216 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/EntityPlayer.java b/src/main/java/net/minecraft/server/EntityPlayer.java
-index 3058dfef0..ed3546ccc 100644
+index 3058dfef03cd0edfebdf595c535bdb6ff4d0e6f0..ed3546cccd2dbb7e0b9a31a9618841dcae7739f7 100644
 --- a/src/main/java/net/minecraft/server/EntityPlayer.java
 +++ b/src/main/java/net/minecraft/server/EntityPlayer.java
 @@ -75,6 +75,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
@@ -44,6 +44,3 @@ index 3058dfef0..ed3546ccc 100644
          if (!this.world.isClientSide && !this.activeContainer.canUse(this)) {
              this.closeInventory();
              this.activeContainer = this.defaultContainer;
--- 
-2.18.0
-

@@ -1,4 +1,4 @@
-From 14b86189f568dce175fc701ddf661c17f9726448 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Byteflux <byte@byteflux.net>
 Date: Wed, 2 Mar 2016 00:52:31 -0600
 Subject: [PATCH] Lighting Queue
@@ -6,7 +6,7 @@ Subject: [PATCH] Lighting Queue
 This provides option to queue lighting updates to ensure they do not cause the server lag
 
 diff --git a/src/main/java/co/aikar/timings/WorldTimingsHandler.java b/src/main/java/co/aikar/timings/WorldTimingsHandler.java
-index e0ad559b74..4eebd9fae9 100644
+index e0ad559b749e06298a91d0faea2d555979cede9d..4eebd9fae940dd6bc51f8cfd30ab7b5cba5ce201 100644
 --- a/src/main/java/co/aikar/timings/WorldTimingsHandler.java
 +++ b/src/main/java/co/aikar/timings/WorldTimingsHandler.java
 @@ -49,6 +49,8 @@ public class WorldTimingsHandler {
@@ -27,7 +27,7 @@ index e0ad559b74..4eebd9fae9 100644
      }
  }
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index bf7af475ce..94a1730459 100644
+index bf7af475ceed7b4f75ade8ea12982abf4c144e98..94a173045948c775e9c97adfadc6ce3b7fc7556a 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -135,4 +135,10 @@ public class PaperWorldConfig {
@@ -42,7 +42,7 @@ index bf7af475ce..94a1730459 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/Chunk.java b/src/main/java/net/minecraft/server/Chunk.java
-index d3b4145046..f98fe73efa 100644
+index 437b5ed4209f1ee1520e112d365828e2f4593436..7835b091fe5fcee2cb712ecb6fff3de47f57c62b 100644
 --- a/src/main/java/net/minecraft/server/Chunk.java
 +++ b/src/main/java/net/minecraft/server/Chunk.java
 @@ -61,6 +61,7 @@ public class Chunk {
@@ -101,7 +101,7 @@ index d3b4145046..f98fe73efa 100644
  
          IMMEDIATE, QUEUED, CHECK;
 diff --git a/src/main/java/net/minecraft/server/ChunkProviderServer.java b/src/main/java/net/minecraft/server/ChunkProviderServer.java
-index bd006ef741..2b320cbd18 100644
+index bd006ef741533197e0baaa773c0f5532fdbbe784..2b320cbd185a0197bdda672df2129b696971284c 100644
 --- a/src/main/java/net/minecraft/server/ChunkProviderServer.java
 +++ b/src/main/java/net/minecraft/server/ChunkProviderServer.java
 @@ -295,6 +295,7 @@ public class ChunkProviderServer implements IChunkProvider {
@@ -113,7 +113,7 @@ index bd006ef741..2b320cbd18 100644
          // Update neighbor counts
          for (int x = -2; x < 3; x++) {
 diff --git a/src/main/java/net/minecraft/server/MinecraftServer.java b/src/main/java/net/minecraft/server/MinecraftServer.java
-index 47fe9262a5..d63a243f31 100644
+index 47fe9262a53613a3d637cd4a929bee2cfb410bde..d63a243f31dd75ca54d0b99a1f51f27f8a42e30f 100644
 --- a/src/main/java/net/minecraft/server/MinecraftServer.java
 +++ b/src/main/java/net/minecraft/server/MinecraftServer.java
 @@ -722,7 +722,7 @@ public abstract class MinecraftServer implements ICommandListener, Runnable, IAs
@@ -135,7 +135,7 @@ index 47fe9262a5..d63a243f31 100644
      }
 diff --git a/src/main/java/net/minecraft/server/PaperLightingQueue.java b/src/main/java/net/minecraft/server/PaperLightingQueue.java
 new file mode 100644
-index 0000000000..345cd58240
+index 0000000000000000000000000000000000000000..345cd5824047f329ddcbcf5ddf54a570bdedc761
 --- /dev/null
 +++ b/src/main/java/net/minecraft/server/PaperLightingQueue.java
 @@ -0,0 +1,92 @@
@@ -232,7 +232,7 @@ index 0000000000..345cd58240
 +    }
 +}
 diff --git a/src/main/java/net/minecraft/server/World.java b/src/main/java/net/minecraft/server/World.java
-index fd5f8102af..77ed2d2494 100644
+index fd5f8102afebe5bf1100c11d57a30a6c9d502453..77ed2d24941f6e07f1d55d88cbe616d52ad14a5c 100644
 --- a/src/main/java/net/minecraft/server/World.java
 +++ b/src/main/java/net/minecraft/server/World.java
 @@ -391,7 +391,7 @@ public abstract class World implements IBlockAccess {
@@ -244,6 +244,3 @@ index fd5f8102af..77ed2d2494 100644
                      this.methodProfiler.b();
                  }
  
--- 
-2.18.0
-

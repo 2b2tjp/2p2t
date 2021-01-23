@@ -1,4 +1,4 @@
-From f63d0416b0cfb04ee48688f93db07c1c439e4c1c Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Jedediah Smith <jedediah@silencegreys.com>
 Date: Sat, 2 Apr 2016 05:08:36 -0400
 Subject: [PATCH] Add PlayerUseUnknownEntityEvent
@@ -6,7 +6,7 @@ Subject: [PATCH] Add PlayerUseUnknownEntityEvent
 
 diff --git a/src/main/java/com/destroystokyo/paper/event/player/PlayerUseUnknownEntityEvent.java b/src/main/java/com/destroystokyo/paper/event/player/PlayerUseUnknownEntityEvent.java
 new file mode 100644
-index 00000000..70eeaf5c
+index 0000000000000000000000000000000000000000..70eeaf5c47b9dbb03d5b5c8050de47b743b99a8c
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/event/player/PlayerUseUnknownEntityEvent.java
 @@ -0,0 +1,42 @@
@@ -52,6 +52,3 @@ index 00000000..70eeaf5c
 +        return handlers;
 +    }
 +}
--- 
-2.12.2
-

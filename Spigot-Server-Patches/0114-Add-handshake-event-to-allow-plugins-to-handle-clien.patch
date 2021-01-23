@@ -1,4 +1,4 @@
-From 4680099c5915c8bc2ad1f64d3e1899efe5430da8 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: kashike <kashike@vq.lc>
 Date: Wed, 13 Apr 2016 20:21:38 -0700
 Subject: [PATCH] Add handshake event to allow plugins to handle client
@@ -6,7 +6,7 @@ Subject: [PATCH] Add handshake event to allow plugins to handle client
 
 
 diff --git a/src/main/java/net/minecraft/server/HandshakeListener.java b/src/main/java/net/minecraft/server/HandshakeListener.java
-index c3c9c3c1f..309ab18df 100644
+index c3c9c3c1f0780a878afae551f40ffb23512b98de..309ab18dfb2f3d4a62450fc24863e794e9115b73 100644
 --- a/src/main/java/net/minecraft/server/HandshakeListener.java
 +++ b/src/main/java/net/minecraft/server/HandshakeListener.java
 @@ -72,8 +72,33 @@ public class HandshakeListener implements PacketHandshakingInListener {
@@ -44,6 +44,3 @@ index c3c9c3c1f..309ab18df 100644
                      String[] split = packethandshakinginsetprotocol.hostname.split("\00");
                      if ( split.length == 3 || split.length == 4 ) {
                          packethandshakinginsetprotocol.hostname = split[0];
--- 
-2.18.0
-

@@ -1,11 +1,11 @@
-From a3aaaa3233ac457ef6bc4c1373429c28bc66524a Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: kashike <kashike@vq.lc>
 Date: Wed, 21 Dec 2016 11:52:04 -0600
 Subject: [PATCH] Option to prevent armor stands from doing entity lookups
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index 2ba3bcb8e..5f06d4e5e 100644
+index 2ba3bcb8e5e3ab07a866a194158b3f8d084f7930..5f06d4e5e763071ad91a646d901903e561f446e4 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -408,4 +408,9 @@ public class PaperWorldConfig {
@@ -19,7 +19,7 @@ index 2ba3bcb8e..5f06d4e5e 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/World.java b/src/main/java/net/minecraft/server/World.java
-index 424b956e8..b85c55168 100644
+index 424b956e8e48aaba3590c066aba6c2ad16a42481..b85c5516856df6302eb817c198219c52349aaab7 100644
 --- a/src/main/java/net/minecraft/server/World.java
 +++ b/src/main/java/net/minecraft/server/World.java
 @@ -1335,6 +1335,7 @@ public abstract class World implements IBlockAccess {
@@ -30,6 +30,3 @@ index 424b956e8..b85c55168 100644
              List list = this.getEntities(entity, axisalignedbb.g(0.25D));
  
              for (int i = 0; i < list.size(); ++i) {
--- 
-2.18.0
-

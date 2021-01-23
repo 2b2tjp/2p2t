@@ -1,11 +1,11 @@
-From bbc97e4f39fba21a155703397d8ddbce77535318 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Isaac Moore <rmsy@me.com>
 Date: Tue, 19 Apr 2016 14:09:31 -0500
 Subject: [PATCH] Implement PlayerLocaleChangeEvent
 
 
 diff --git a/src/main/java/net/minecraft/server/EntityPlayer.java b/src/main/java/net/minecraft/server/EntityPlayer.java
-index ed3546ccc..4b6976b19 100644
+index ed3546cccd2dbb7e0b9a31a9618841dcae7739f7..4b6976b19fdf2541d7038378edc7669dd8a1fd8d 100644
 --- a/src/main/java/net/minecraft/server/EntityPlayer.java
 +++ b/src/main/java/net/minecraft/server/EntityPlayer.java
 @@ -31,7 +31,7 @@ import org.bukkit.inventory.MainHand;
@@ -45,7 +45,7 @@ index ed3546ccc..4b6976b19 100644
          this.cm = packetplayinsettings.d();
          this.getDataWatcher().set(EntityPlayer.br, Byte.valueOf((byte) packetplayinsettings.e()));
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
-index 6e2773cbb..532b211c4 100644
+index 6e2773cbbbad50e188644f89179211ceeac61b2b..532b211c4d31019693d147d124c3dd9509c977d8 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
 @@ -1637,8 +1637,10 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
@@ -70,6 +70,3 @@ index 6e2773cbb..532b211c4 100644
          }
  
          @Override
--- 
-2.18.0
-

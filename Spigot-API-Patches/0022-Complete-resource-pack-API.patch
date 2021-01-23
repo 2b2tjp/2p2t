@@ -1,11 +1,11 @@
-From bb7bbe6c985fed6e6923c89acf68ded7fa53ba93 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Jedediah Smith <jedediah@silencegreys.com>
 Date: Sat, 4 Apr 2015 22:59:54 -0400
 Subject: [PATCH] Complete resource pack API
 
 
 diff --git a/src/main/java/org/bukkit/entity/Player.java b/src/main/java/org/bukkit/entity/Player.java
-index 32b495fd..5ca1a7b2 100644
+index 32b495fdc9e37948766ba0ae724d201f66cb7568..5ca1a7b27edafe3dad080e3f9b95beaaa9dbbf30 100644
 --- a/src/main/java/org/bukkit/entity/Player.java
 +++ b/src/main/java/org/bukkit/entity/Player.java
 @@ -1208,7 +1208,9 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
@@ -77,7 +77,7 @@ index 32b495fd..5ca1a7b2 100644
      public class Spigot extends Entity.Spigot
      {
 diff --git a/src/main/java/org/bukkit/event/player/PlayerResourcePackStatusEvent.java b/src/main/java/org/bukkit/event/player/PlayerResourcePackStatusEvent.java
-index 4c498016..4c838519 100644
+index 4c498016f4710b47dd837022bbe5f081ec4f3dae..4c838519164b690f323c6ee1d4bd39ba2c637205 100644
 --- a/src/main/java/org/bukkit/event/player/PlayerResourcePackStatusEvent.java
 +++ b/src/main/java/org/bukkit/event/player/PlayerResourcePackStatusEvent.java
 @@ -10,13 +10,28 @@ import org.bukkit.event.HandlerList;
@@ -109,6 +109,3 @@ index 4c498016..4c838519 100644
      /**
       * Gets the status of this pack.
       *
--- 
-2.15.0
-

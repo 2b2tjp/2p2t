@@ -1,4 +1,4 @@
-From ae5bdca8944e22bbd51dd5c3a668844dc10297df Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Mon, 2 Jan 2017 16:32:56 -0500
 Subject: [PATCH] ShulkerBox Dupe Prevention
@@ -7,7 +7,7 @@ This ensures that Shulker Boxes can never drop their contents twice, and
 that the inventory is cleared incase it some how also got saved to the world.
 
 diff --git a/src/main/java/net/minecraft/server/BlockShulkerBox.java b/src/main/java/net/minecraft/server/BlockShulkerBox.java
-index 8811eb3e3..74e2e448f 100644
+index 8811eb3e36d85ce65aad46730c1df2c79bd44e66..74e2e448f6c64a2bd1a4c83bc5d0223c5c55cee7 100644
 --- a/src/main/java/net/minecraft/server/BlockShulkerBox.java
 +++ b/src/main/java/net/minecraft/server/BlockShulkerBox.java
 @@ -112,6 +112,7 @@ public class BlockShulkerBox extends BlockTileEntity {
@@ -18,6 +18,3 @@ index 8811eb3e3..74e2e448f 100644
              }
  
              world.updateAdjacentComparators(blockposition, iblockdata.getBlock());
--- 
-2.18.0
-

@@ -1,4 +1,4 @@
-From 6d033d644b0b4a847583ddbcfebe16d9d0dd102a Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Tue, 5 Jun 2018 22:59:50 -0400
 Subject: [PATCH] ItemStack#getMaxItemUseDuration
@@ -6,7 +6,7 @@ Subject: [PATCH] ItemStack#getMaxItemUseDuration
 Allows you to determine how long it takes to use a usable/consumable item
 
 diff --git a/src/main/java/org/bukkit/inventory/ItemStack.java b/src/main/java/org/bukkit/inventory/ItemStack.java
-index 567706ac..82240129 100644
+index 567706acccc9c6b14e6057b65a593156502726c4..822401298c687a26d4f9cc986d74ec91bdaa7050 100644
 --- a/src/main/java/org/bukkit/inventory/ItemStack.java
 +++ b/src/main/java/org/bukkit/inventory/ItemStack.java
 @@ -632,5 +632,14 @@ public class ItemStack implements Cloneable, ConfigurationSerializable {
@@ -24,6 +24,3 @@ index 567706ac..82240129 100644
 +    }
      // Paper end
  }
--- 
-2.17.1
-

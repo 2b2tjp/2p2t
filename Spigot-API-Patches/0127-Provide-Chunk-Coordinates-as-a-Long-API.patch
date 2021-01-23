@@ -1,4 +1,4 @@
-From ef49bf8a4c89247a4a28cd3b59d80b44cb4d5ed9 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Sat, 4 Aug 2018 19:37:35 -0400
 Subject: [PATCH] Provide Chunk Coordinates as a Long API
@@ -7,7 +7,7 @@ Allows you to easily access the chunks X/z as a long, and a method
 to look up by the long key too.
 
 diff --git a/src/main/java/org/bukkit/Chunk.java b/src/main/java/org/bukkit/Chunk.java
-index 079b9febe..c75bce07a 100644
+index 079b9febea47df1609a8e9f0d081e790d6c4faf8..c75bce07aa089ccf03bf5867176162b606779c89 100644
 --- a/src/main/java/org/bukkit/Chunk.java
 +++ b/src/main/java/org/bukkit/Chunk.java
 @@ -23,6 +23,15 @@ public interface Chunk {
@@ -27,7 +27,7 @@ index 079b9febe..c75bce07a 100644
       * Gets the world containing this chunk
       *
 diff --git a/src/main/java/org/bukkit/World.java b/src/main/java/org/bukkit/World.java
-index 20cc4e121..9b46e8892 100644
+index 20cc4e121c86f760005626a66cb02e711fc9f2b9..9b46e88926d83fc706b12c6c12981698f84ecc87 100644
 --- a/src/main/java/org/bukkit/World.java
 +++ b/src/main/java/org/bukkit/World.java
 @@ -166,6 +166,21 @@ public interface World extends PluginMessageRecipient, Metadatable {
@@ -52,6 +52,3 @@ index 20cc4e121..9b46e8892 100644
      /**
       * Used by {@link World#getChunkAtAsync(Location,ChunkLoadCallback)} methods
       * to request a {@link Chunk} to be loaded, with this callback receiving
--- 
-2.18.0
-

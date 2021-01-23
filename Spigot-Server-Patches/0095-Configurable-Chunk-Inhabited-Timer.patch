@@ -1,4 +1,4 @@
-From ddb482eabc50035402277af07395e5cb1e477bcc Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Mon, 28 Mar 2016 20:46:14 -0400
 Subject: [PATCH] Configurable Chunk Inhabited Timer
@@ -9,7 +9,7 @@ aspects of vanilla gameplay to this factor.
 For people who want all chunks to be treated equally, you can disable the timer.
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index e634c3afdc..54f23ea75a 100644
+index e634c3afdc4de99a6e43900755b8620cf0755cfd..54f23ea75ad93e63bc55ff0bd59344646f525498 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -271,4 +271,9 @@ public class PaperWorldConfig {
@@ -23,7 +23,7 @@ index e634c3afdc..54f23ea75a 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/Chunk.java b/src/main/java/net/minecraft/server/Chunk.java
-index 5940fc2883..9613a31b9d 100644
+index 86de8b2571710c7133904186dfc1da53f9220043..bfa68f131768143a0bfddd9e75b9e1197b60538b 100644
 --- a/src/main/java/net/minecraft/server/Chunk.java
 +++ b/src/main/java/net/minecraft/server/Chunk.java
 @@ -1442,7 +1442,7 @@ public class Chunk {
@@ -35,6 +35,3 @@ index 5940fc2883..9613a31b9d 100644
      }
  
      public void c(long i) {
--- 
-2.18.0
-

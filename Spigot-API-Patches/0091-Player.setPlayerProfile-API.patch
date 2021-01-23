@@ -1,4 +1,4 @@
-From d87798bbc710cbdd71e22a22983fd02a5d569fc5 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Sun, 18 Mar 2018 12:28:55 -0400
 Subject: [PATCH] Player.setPlayerProfile API
@@ -6,7 +6,7 @@ Subject: [PATCH] Player.setPlayerProfile API
 This can be useful for changing name or skins after a player has logged in.
 
 diff --git a/src/main/java/org/bukkit/entity/Player.java b/src/main/java/org/bukkit/entity/Player.java
-index a882323d..87a9b750 100644
+index aa218f4970056ac47744d5429c62a13a2c1153aa..f0fc3197c3074f7a40d821e2b8b9b430157329e7 100644
 --- a/src/main/java/org/bukkit/entity/Player.java
 +++ b/src/main/java/org/bukkit/entity/Player.java
 @@ -3,6 +3,7 @@ package org.bukkit.entity;
@@ -37,6 +37,3 @@ index a882323d..87a9b750 100644
      // Paper end
  
      // Spigot start
--- 
-2.17.1
-

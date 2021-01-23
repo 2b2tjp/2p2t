@@ -1,4 +1,4 @@
-From 839a3b9a54a2c51c8c3333c3a05eef5009561dae Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Mon, 26 Sep 2016 01:51:30 -0400
 Subject: [PATCH] Disable Vanilla Chunk GC
@@ -6,7 +6,7 @@ Subject: [PATCH] Disable Vanilla Chunk GC
 Bukkit has its own system for this.
 
 diff --git a/src/main/java/net/minecraft/server/WorldServer.java b/src/main/java/net/minecraft/server/WorldServer.java
-index 53cea76e2..737ade74d 100644
+index 53cea76e2135675bfd3725359fbd793a3d94cc1f..737ade74dc54cf30f1897458dc16f38b124c9590 100644
 --- a/src/main/java/net/minecraft/server/WorldServer.java
 +++ b/src/main/java/net/minecraft/server/WorldServer.java
 @@ -1070,7 +1070,7 @@ public class WorldServer extends World implements IAsyncTaskHandler {
@@ -28,6 +28,3 @@ index 53cea76e2..737ade74d 100644
              timings.worldSave.stopTiming(); // Paper
          }
      }
--- 
-2.18.0
-

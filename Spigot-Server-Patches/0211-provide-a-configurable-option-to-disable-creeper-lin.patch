@@ -1,4 +1,4 @@
-From 1450cf36f8663affe1820aada01118156939d236 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Shane Freeder <theboyetronic@gmail.com>
 Date: Sun, 11 Jun 2017 21:01:18 +0100
 Subject: [PATCH] provide a configurable option to disable creeper lingering
@@ -6,7 +6,7 @@ Subject: [PATCH] provide a configurable option to disable creeper lingering
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index 31aad03c2..646620d0c 100644
+index 31aad03c289063b7bd87027308d6242a9adb9248..646620d0c2270c2e762c449a25713807d978a5f3 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -425,4 +425,10 @@ public class PaperWorldConfig {
@@ -21,7 +21,7 @@ index 31aad03c2..646620d0c 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/EntityCreeper.java b/src/main/java/net/minecraft/server/EntityCreeper.java
-index c872607fc..8098d4d9f 100644
+index c872607fc4efbdd28ed9ab1682c4a3b5ee6f546a..8098d4d9f7374f16dd7fdd218ae587671069ec8d 100644
 --- a/src/main/java/net/minecraft/server/EntityCreeper.java
 +++ b/src/main/java/net/minecraft/server/EntityCreeper.java
 @@ -222,7 +222,7 @@ public class EntityCreeper extends EntityMonster {
@@ -33,6 +33,3 @@ index c872607fc..8098d4d9f 100644
              EntityAreaEffectCloud entityareaeffectcloud = new EntityAreaEffectCloud(this.world, this.locX, this.locY, this.locZ);
  
              entityareaeffectcloud.setSource(this); // CraftBukkit
--- 
-2.18.0
-

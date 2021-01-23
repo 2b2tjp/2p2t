@@ -1,4 +1,4 @@
-From 9dd9b637954219c83778c62a4b4eb58dc8e05ae6 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Zach Brown <zach.brown@destroystokyo.com>
 Date: Mon, 29 Feb 2016 19:54:32 -0600
 Subject: [PATCH] Graduate bungeecord chat API from spigot subclasses
@@ -6,7 +6,7 @@ Subject: [PATCH] Graduate bungeecord chat API from spigot subclasses
 Change Javadoc to be accurate
 
 diff --git a/src/main/java/org/bukkit/Bukkit.java b/src/main/java/org/bukkit/Bukkit.java
-index 39523ea7..73157ff9 100644
+index 39523ea7b9e5c4414532cc79f58b143c2344e53e..73157ff9fd0b67df8f947d391c34c99b1cab5314 100644
 --- a/src/main/java/org/bukkit/Bukkit.java
 +++ b/src/main/java/org/bukkit/Bukkit.java
 @@ -278,6 +278,26 @@ public final class Bukkit {
@@ -37,7 +37,7 @@ index 39523ea7..73157ff9 100644
       * Gets the name of the update folder. The update folder is used to safely
       * update plugins at the right moment on a plugin load.
 diff --git a/src/main/java/org/bukkit/Server.java b/src/main/java/org/bukkit/Server.java
-index 28ea20ef..18549ce0 100644
+index 28ea20ef7c29f80e385b1690f11fa414ff54017f..18549ce048949814bc3278791b18fb64ce50e08c 100644
 --- a/src/main/java/org/bukkit/Server.java
 +++ b/src/main/java/org/bukkit/Server.java
 @@ -226,6 +226,26 @@ public interface Server extends PluginMessageRecipient {
@@ -68,7 +68,7 @@ index 28ea20ef..18549ce0 100644
       * Gets the name of the update folder. The update folder is used to safely
       * update plugins at the right moment on a plugin load.
 diff --git a/src/main/java/org/bukkit/entity/Player.java b/src/main/java/org/bukkit/entity/Player.java
-index 5a02b2e8..52e11da5 100644
+index 5a02b2e831068c0550a13fbc95f432846f884a71..52e11da537c95ab7b1558f8249cd3d2ee0cce421 100644
 --- a/src/main/java/org/bukkit/entity/Player.java
 +++ b/src/main/java/org/bukkit/entity/Player.java
 @@ -394,6 +394,36 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
@@ -108,6 +108,3 @@ index 5a02b2e8..52e11da5 100644
      /**
       * Forces an update of the player's entire inventory.
       *
--- 
-2.15.0
-

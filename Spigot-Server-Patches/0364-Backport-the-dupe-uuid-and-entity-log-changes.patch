@@ -1,11 +1,11 @@
-From eb1f52537e3d7166a3d72850715cd6ec8d6c8160 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Fri, 12 Oct 2018 01:37:54 -0400
 Subject: [PATCH] Backport the dupe uuid and entity log changes
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index ed1475351..ba299afc4 100644
+index ed1475351221434aaca9996def0b57c586add849..ba299afc40bdeadbdc8938495dba7c3572528e96 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -543,7 +543,7 @@ public class PaperWorldConfig {
@@ -34,7 +34,7 @@ index ed1475351..ba299afc4 100644
              case "remove":
              case "delete":
 diff --git a/src/main/java/net/minecraft/server/Chunk.java b/src/main/java/net/minecraft/server/Chunk.java
-index 4f88db79a..4060fd274 100644
+index 4f88db79a694f5c956ed91f675d93441345dca17..4060fd274831088b55477def553c57ef867fd690 100644
 --- a/src/main/java/net/minecraft/server/Chunk.java
 +++ b/src/main/java/net/minecraft/server/Chunk.java
 @@ -878,7 +878,7 @@ public class Chunk {
@@ -80,7 +80,7 @@ index 4f88db79a..4060fd274 100644
                          }
                      }
 diff --git a/src/main/java/net/minecraft/server/World.java b/src/main/java/net/minecraft/server/World.java
-index bcbdadbd3..7633a6134 100644
+index bcbdadbd3a3721bcaaf052d3d084351c28db674a..7633a61342eb5b373c762ad53066b67e1eb022e8 100644
 --- a/src/main/java/net/minecraft/server/World.java
 +++ b/src/main/java/net/minecraft/server/World.java
 @@ -45,6 +45,7 @@ public abstract class World implements IBlockAccess {
@@ -92,7 +92,7 @@ index bcbdadbd3..7633a6134 100644
      {
          @Override
 diff --git a/src/main/java/net/minecraft/server/WorldServer.java b/src/main/java/net/minecraft/server/WorldServer.java
-index b19942e0f..d29420dd4 100644
+index b19942e0f12affc8ea416b2415588ac90ccc9da9..d29420dd49da191ee2a4de1a18377fc3da969a66 100644
 --- a/src/main/java/net/minecraft/server/WorldServer.java
 +++ b/src/main/java/net/minecraft/server/WorldServer.java
 @@ -54,7 +54,6 @@ public class WorldServer extends World implements IAsyncTaskHandler {
@@ -139,6 +139,3 @@ index b19942e0f..d29420dd4 100644
                  if (old.addedToWorldStack != null) {
                      old.addedToWorldStack.printStackTrace();
                  } else {
--- 
-2.21.0
-

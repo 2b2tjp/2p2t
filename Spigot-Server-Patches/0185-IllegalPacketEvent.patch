@@ -1,4 +1,4 @@
-From 4eaf34c47c00a6f0f7fc04ae8e8d01f5855deb52 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Thu, 23 Jun 2016 23:33:57 -0400
 Subject: [PATCH] IllegalPacketEvent
@@ -6,7 +6,7 @@ Subject: [PATCH] IllegalPacketEvent
 Fired for invalid data from players that represents hacking attempts
 
 diff --git a/src/main/java/net/minecraft/server/PlayerConnection.java b/src/main/java/net/minecraft/server/PlayerConnection.java
-index 79343537..b7a09bb5 100644
+index cf344db2628a350bb59bf218e8b5c34e6f5a6cf8..edd8846eaf392008f568d8ec4873c5e257b94771 100644
 --- a/src/main/java/net/minecraft/server/PlayerConnection.java
 +++ b/src/main/java/net/minecraft/server/PlayerConnection.java
 @@ -56,6 +56,7 @@ import org.bukkit.inventory.CraftingInventory;
@@ -67,6 +67,3 @@ index 79343537..b7a09bb5 100644
                          }
                      }
                      // CraftBukkit start
--- 
-2.19.1
-

@@ -1,4 +1,4 @@
-From b648f2bd5daae8efe3272869f0e72f133aeeff01 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Sat, 10 Dec 2016 16:24:06 -0500
 Subject: [PATCH] Improve the Saddle API for Horses
@@ -7,7 +7,7 @@ Not all horses with Saddles have armor. This lets us break up the horses with sa
 and access their saddle state separately from an interface shared with Armor.
 
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftAbstractHorse.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftAbstractHorse.java
-index 14d041680..e56bef334 100644
+index 14d04168029c83a4b08bb37246462f97671661c1..e56bef3340928a8394a2388669c841c8c2a53ccc 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftAbstractHorse.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftAbstractHorse.java
 @@ -6,6 +6,7 @@ import net.minecraft.server.EntityHorseAbstract;
@@ -27,7 +27,7 @@ index 14d041680..e56bef334 100644
      }
  }
 diff --git a/src/main/java/org/bukkit/craftbukkit/inventory/CraftInventoryHorse.java b/src/main/java/org/bukkit/craftbukkit/inventory/CraftInventoryHorse.java
-index 173818e68..2f6852404 100644
+index 173818e682e956d7d91341fd7b39f2a91b54d3d5..2f6852404976711bf8312fa1a8021d41f7ff8e2d 100644
 --- a/src/main/java/org/bukkit/craftbukkit/inventory/CraftInventoryHorse.java
 +++ b/src/main/java/org/bukkit/craftbukkit/inventory/CraftInventoryHorse.java
 @@ -4,7 +4,7 @@ import net.minecraft.server.IInventory;
@@ -41,7 +41,7 @@ index 173818e68..2f6852404 100644
          super(inventory);
 diff --git a/src/main/java/org/bukkit/craftbukkit/inventory/CraftSaddledInventory.java b/src/main/java/org/bukkit/craftbukkit/inventory/CraftSaddledInventory.java
 new file mode 100644
-index 000000000..99cfbaf90
+index 0000000000000000000000000000000000000000..99cfbaf90b5ccd828834b33b3c658206efd6ac21
 --- /dev/null
 +++ b/src/main/java/org/bukkit/craftbukkit/inventory/CraftSaddledInventory.java
 @@ -0,0 +1,15 @@
@@ -60,6 +60,3 @@ index 000000000..99cfbaf90
 +    }
 +
 +}
--- 
-2.18.0
-

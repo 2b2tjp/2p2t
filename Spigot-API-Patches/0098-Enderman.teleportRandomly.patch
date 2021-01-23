@@ -1,4 +1,4 @@
-From 76f00a1ad8252336caa315be9c246a2c45d37f0b Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Mon, 30 Apr 2018 13:29:15 -0400
 Subject: [PATCH] Enderman.teleportRandomly()
@@ -6,7 +6,7 @@ Subject: [PATCH] Enderman.teleportRandomly()
 Ability to trigger the vanilla "teleport randomly" mechanic of an enderman.
 
 diff --git a/src/main/java/org/bukkit/entity/Enderman.java b/src/main/java/org/bukkit/entity/Enderman.java
-index f537f697..52afa6f9 100644
+index f537f697f4d444598cbc3e3760239e174a4df900..52afa6f9f3765513f534c019776fb0ccc68ac88f 100644
 --- a/src/main/java/org/bukkit/entity/Enderman.java
 +++ b/src/main/java/org/bukkit/entity/Enderman.java
 @@ -7,6 +7,17 @@ import org.bukkit.material.MaterialData;
@@ -27,6 +27,3 @@ index f537f697..52afa6f9 100644
      /**
       * Get the id and data of the block that the Enderman is carrying.
       *
--- 
-2.17.1
-

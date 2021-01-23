@@ -1,11 +1,11 @@
-From 65277bb5c79ac221f24ca1bded6e71b69f559815 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Antony Riley <antony@cyberiantiger.org>
 Date: Tue, 29 Mar 2016 06:56:23 +0300
 Subject: [PATCH] Reduce IO ops opening a new region file.
 
 
 diff --git a/src/main/java/net/minecraft/server/RegionFile.java b/src/main/java/net/minecraft/server/RegionFile.java
-index c3424a35..eac8b22b 100644
+index c3424a357ca7545897ac0713ce1844cbf007239d..eac8b22ba3f0aff3707539ec10d12ec5c649eb70 100644
 --- a/src/main/java/net/minecraft/server/RegionFile.java
 +++ b/src/main/java/net/minecraft/server/RegionFile.java
 @@ -8,9 +8,12 @@ import java.io.ByteArrayInputStream;
@@ -48,6 +48,3 @@ index c3424a35..eac8b22b 100644
                  this.e[j] = k;
              }
          } catch (IOException ioexception) {
--- 
-2.20.1
-

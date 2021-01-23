@@ -1,4 +1,4 @@
-From 1a2d4a99770a6eacb577d1f7d7daba01af23eb70 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Fri, 19 Jan 2018 00:36:25 -0500
 Subject: [PATCH] Add SkullMeta.setPlayerProfile API
@@ -7,7 +7,7 @@ This allows you to create already filled textures on Skulls to avoid texture loo
 which commonly cause rate limit issues with Mojang API
 
 diff --git a/src/main/java/org/bukkit/craftbukkit/inventory/CraftMetaSkull.java b/src/main/java/org/bukkit/craftbukkit/inventory/CraftMetaSkull.java
-index 862b30286..1ac549e5e 100644
+index 862b3028641f57d130c97772d2a471b6304fa626..1ac549e5e62b67ef608db23cd0e916b1cfe1836a 100644
 --- a/src/main/java/org/bukkit/craftbukkit/inventory/CraftMetaSkull.java
 +++ b/src/main/java/org/bukkit/craftbukkit/inventory/CraftMetaSkull.java
 @@ -2,6 +2,8 @@ package org.bukkit.craftbukkit.inventory;
@@ -48,6 +48,3 @@ index 862b30286..1ac549e5e 100644
      @Override
      public OfflinePlayer getOwningPlayer() {
          if (hasOwner()) {
--- 
-2.18.0
-

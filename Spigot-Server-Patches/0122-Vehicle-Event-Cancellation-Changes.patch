@@ -1,11 +1,11 @@
-From 553d60de49239338485f8c345535b4855e14d276 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Zach Brown <zach.brown@destroystokyo.com>
 Date: Fri, 22 Apr 2016 18:20:05 -0500
 Subject: [PATCH] Vehicle Event Cancellation Changes
 
 
 diff --git a/src/main/java/net/minecraft/server/Entity.java b/src/main/java/net/minecraft/server/Entity.java
-index 61d2d91c..f82c0546 100644
+index 61d2d91cb8c88f146e089030d6da39bc4bfb8832..f82c05463b93bb398d21020be695794d213b941d 100644
 --- a/src/main/java/net/minecraft/server/Entity.java
 +++ b/src/main/java/net/minecraft/server/Entity.java
 @@ -83,7 +83,7 @@ public abstract class Entity implements ICommandListener, KeyedObject { // Paper
@@ -40,6 +40,3 @@ index 61d2d91c..f82c0546 100644
              this.passengers.remove(entity);
              entity.j = 60;
          }
--- 
-2.19.1
-

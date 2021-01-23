@@ -1,4 +1,4 @@
-From d4c410f78c5e5fd8c0a6760d878843080572f49a Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: BillyGalbreath <Blake.Galbreath@GMail.com>
 Date: Sun, 11 Jun 2017 16:30:37 -0500
 Subject: [PATCH] PlayerAttemptPickupItemEvent
@@ -6,7 +6,7 @@ Subject: [PATCH] PlayerAttemptPickupItemEvent
 
 diff --git a/src/main/java/org/bukkit/event/player/PlayerAttemptPickupItemEvent.java b/src/main/java/org/bukkit/event/player/PlayerAttemptPickupItemEvent.java
 new file mode 100644
-index 00000000..480293e9
+index 0000000000000000000000000000000000000000..480293e9ebb25bce5d165f0bdeb074b5bb718e48
 --- /dev/null
 +++ b/src/main/java/org/bukkit/event/player/PlayerAttemptPickupItemEvent.java
 @@ -0,0 +1,85 @@
@@ -95,6 +95,3 @@ index 00000000..480293e9
 +        return handlers;
 +    }
 +}
--- 
-2.17.0
-

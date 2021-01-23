@@ -1,4 +1,4 @@
-From 8b9f3c48dcc40317ca51b6138eb6e3b766a8652c Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Tue, 1 May 2018 21:33:35 -0400
 Subject: [PATCH] Close Plugin Class Loaders on Disable
@@ -7,7 +7,7 @@ This should close more memory leaks from /reload and disabling plugins,
 by closing the class loader and the jar file.
 
 diff --git a/src/main/java/org/bukkit/plugin/PluginLoader.java b/src/main/java/org/bukkit/plugin/PluginLoader.java
-index e7981a1d..d34756f1 100644
+index e7981a1d9495c2301bfa35ff416eb8ec5f025407..d34756f15dc26f0fb32748c5ede6dee452172938 100644
 --- a/src/main/java/org/bukkit/plugin/PluginLoader.java
 +++ b/src/main/java/org/bukkit/plugin/PluginLoader.java
 @@ -73,4 +73,19 @@ public interface PluginLoader {
@@ -31,7 +31,7 @@ index e7981a1d..d34756f1 100644
 +    // Paper end - close Classloader on disable
  }
 diff --git a/src/main/java/org/bukkit/plugin/PluginManager.java b/src/main/java/org/bukkit/plugin/PluginManager.java
-index e5638d56..b72d5a9b 100644
+index e5638d56091730e173c8d6992e4e31be0de5bbb1..b72d5a9bc2d870bfd9d8eb6ee2ccbc2d6e5945f6 100644
 --- a/src/main/java/org/bukkit/plugin/PluginManager.java
 +++ b/src/main/java/org/bukkit/plugin/PluginManager.java
 @@ -154,6 +154,18 @@ public interface PluginManager {
@@ -54,7 +54,7 @@ index e5638d56..b72d5a9b 100644
       * Gets a {@link Permission} from its fully qualified name
       *
 diff --git a/src/main/java/org/bukkit/plugin/SimplePluginManager.java b/src/main/java/org/bukkit/plugin/SimplePluginManager.java
-index bd0588a2..cb2b0b9c 100644
+index bd0588a201b81cfdfe756f939afa8d8e644b0843..cb2b0b9cbafb097361d27a729409f5bd6680d64c 100644
 --- a/src/main/java/org/bukkit/plugin/SimplePluginManager.java
 +++ b/src/main/java/org/bukkit/plugin/SimplePluginManager.java
 @@ -412,17 +412,29 @@ public final class SimplePluginManager implements PluginManager {
@@ -100,7 +100,7 @@ index bd0588a2..cb2b0b9c 100644
              lookupNames.clear();
              HandlerList.unregisterAll();
 diff --git a/src/main/java/org/bukkit/plugin/java/JavaPluginLoader.java b/src/main/java/org/bukkit/plugin/java/JavaPluginLoader.java
-index 40fd71dc..8b5cea64 100644
+index 40fd71dc751c01ace46aa504948ec05207eae56b..8b5cea64b5c3d66e761b655b81c7abc076ce8c73 100644
 --- a/src/main/java/org/bukkit/plugin/java/JavaPluginLoader.java
 +++ b/src/main/java/org/bukkit/plugin/java/JavaPluginLoader.java
 @@ -317,7 +317,7 @@ public final class JavaPluginLoader implements PluginLoader {
@@ -143,6 +143,3 @@ index 40fd71dc..8b5cea64 100644
              }
          }
      }
--- 
-2.19.2
-

@@ -1,4 +1,4 @@
-From a95213605057d27a9ab8ec79291e1354cee01106 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Thu, 14 Apr 2016 21:01:39 -0400
 Subject: [PATCH] Fix Bugs with Spigot Mob Spawn Logic
@@ -14,7 +14,7 @@ Specially with servers using smaller mob spawn ranges than view distance, as wel
 This patch returns mob counting to use all loaded chunks, and 17x17 division.
 
 diff --git a/src/main/java/net/minecraft/server/Chunk.java b/src/main/java/net/minecraft/server/Chunk.java
-index e9a44098d9..6c86d3b6bc 100644
+index bfa68f131768143a0bfddd9e75b9e1197b60538b..dcdb2361e55eb970410149f4c1b016fd9ff2dca7 100644
 --- a/src/main/java/net/minecraft/server/Chunk.java
 +++ b/src/main/java/net/minecraft/server/Chunk.java
 @@ -714,8 +714,8 @@ public class Chunk {
@@ -28,7 +28,7 @@ index e9a44098d9..6c86d3b6bc 100644
          entityCounts.decrement(entity.getMinecraftKeyString());
          if (entity instanceof EntityItem) {
 diff --git a/src/main/java/net/minecraft/server/SpawnerCreature.java b/src/main/java/net/minecraft/server/SpawnerCreature.java
-index 45a83ae995..ed22607d91 100644
+index 45a83ae995d4bc558a297c6dd421ccc20817bd76..ed22607d911372ac49d2535576f77bee670c6be6 100644
 --- a/src/main/java/net/minecraft/server/SpawnerCreature.java
 +++ b/src/main/java/net/minecraft/server/SpawnerCreature.java
 @@ -23,6 +23,15 @@ public final class SpawnerCreature {
@@ -56,6 +56,3 @@ index 45a83ae995..ed22607d91 100644
                          BlockPosition.MutableBlockPosition blockposition_mutableblockposition = new BlockPosition.MutableBlockPosition();
                          Iterator iterator1 = this.b.iterator();
  
--- 
-2.18.0
-

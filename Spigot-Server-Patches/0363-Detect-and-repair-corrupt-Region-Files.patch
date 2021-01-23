@@ -1,4 +1,4 @@
-From 25f06715b685a629d93544f7a05d99c243b6d56e Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Sat, 11 Aug 2018 00:49:20 -0400
 Subject: [PATCH] Detect and repair corrupt Region Files
@@ -11,7 +11,7 @@ I don't know why mojang only checks for 4096, when anything less than 8192 is a 
 But to be safe, it will attempt to back up the file.
 
 diff --git a/src/main/java/net/minecraft/server/RegionFile.java b/src/main/java/net/minecraft/server/RegionFile.java
-index eac8b22b..d58cda9a 100644
+index eac8b22ba3f0aff3707539ec10d12ec5c649eb70..d58cda9aad5e2402fcf4b5b75c1ea418e51ad778 100644
 --- a/src/main/java/net/minecraft/server/RegionFile.java
 +++ b/src/main/java/net/minecraft/server/RegionFile.java
 @@ -28,10 +28,10 @@ public class RegionFile {
@@ -127,6 +127,3 @@ index eac8b22b..d58cda9a 100644
      class ChunkBuffer extends ByteArrayOutputStream {
  
          private final int b;
--- 
-2.20.1
-

@@ -1,4 +1,4 @@
-From 8b4d08357734d240e14b6cef4b3ad9563cbfb822 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Thu, 3 Nov 2016 21:52:22 -0400
 Subject: [PATCH] Prevent Auto Save if Save Queue is full
@@ -7,7 +7,7 @@ If the save queue already has 50 (configurable) of chunks pending,
 then avoid processing auto save (which would add more)
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index 93b0af036..086a7fdaa 100644
+index 93b0af0363824d8641625b93fa45a803f45a18cf..086a7fdaacc9dfa2b4df3d256b9a4a4adead7871 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -380,6 +380,11 @@ public class PaperWorldConfig {
@@ -23,7 +23,7 @@ index 93b0af036..086a7fdaa 100644
      private void removeCorruptTEs() {
          removeCorruptTEs = getBoolean("remove-corrupt-tile-entities", false);
 diff --git a/src/main/java/net/minecraft/server/ChunkProviderServer.java b/src/main/java/net/minecraft/server/ChunkProviderServer.java
-index db81b4a8c..93e938a9d 100644
+index db81b4a8cf0203eee13c530886eb4934be70b968..93e938a9d8356915b9748139fff4a63e5b08bc2a 100644
 --- a/src/main/java/net/minecraft/server/ChunkProviderServer.java
 +++ b/src/main/java/net/minecraft/server/ChunkProviderServer.java
 @@ -254,6 +254,14 @@ public class ChunkProviderServer implements IChunkProvider {
@@ -51,7 +51,7 @@ index db81b4a8c..93e938a9d 100644
                  }
              }
 diff --git a/src/main/java/net/minecraft/server/ChunkRegionLoader.java b/src/main/java/net/minecraft/server/ChunkRegionLoader.java
-index 8747d9a45..77943821e 100644
+index 8747d9a458dbfbe1e7c0bdb34863150c1a36c0e5..77943821ec122b3a18c5639d86896fad33ff9e15 100644
 --- a/src/main/java/net/minecraft/server/ChunkRegionLoader.java
 +++ b/src/main/java/net/minecraft/server/ChunkRegionLoader.java
 @@ -39,6 +39,8 @@ public class ChunkRegionLoader implements IChunkLoader, IAsyncChunkSaver {
@@ -63,6 +63,3 @@ index 8747d9a45..77943821e 100644
      // CraftBukkit start - Add async variant, provide compatibility
      @Nullable
      public Chunk a(World world, int i, int j) throws IOException {
--- 
-2.18.0
-

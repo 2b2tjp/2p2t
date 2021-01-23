@@ -1,4 +1,4 @@
-From 31b9eb4ce4fbadbc9629a9356e3619055f359597 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Tue, 8 Mar 2016 23:25:45 -0500
 Subject: [PATCH] Disable Scoreboards for non players by default
@@ -11,7 +11,7 @@ So avoid looking up scoreboards and short circuit to the "not on a team"
 logic which is most likely to be true.
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index b241c038..a4c94845 100644
+index b241c0380dec77b0b7410515da882743d4d80d0f..a4c94845b82741dc358425fddc7cec88f0693dd1 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -242,4 +242,9 @@ public class PaperWorldConfig {
@@ -25,7 +25,7 @@ index b241c038..a4c94845 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/CommandScoreboard.java b/src/main/java/net/minecraft/server/CommandScoreboard.java
-index ec9a8723..b08274d9 100644
+index ec9a87239ae1bb22849c01af5d0cbc4a5ccef8c3..b08274d933a6ffa3ad636b505508a08ad065fbfe 100644
 --- a/src/main/java/net/minecraft/server/CommandScoreboard.java
 +++ b/src/main/java/net/minecraft/server/CommandScoreboard.java
 @@ -492,6 +492,7 @@ public class CommandScoreboard extends CommandAbstract {
@@ -37,7 +37,7 @@ index ec9a8723..b08274d9 100644
  
                          if (scoreboard.addPlayerToTeam(s2, s)) {
 diff --git a/src/main/java/net/minecraft/server/Entity.java b/src/main/java/net/minecraft/server/Entity.java
-index 6ee359e1..2e01cef8 100644
+index 6ee359e1ef405d596c0f494e1402afe11b0f4943..2e01cef87340c25ab1a1a7b145c1fbb5d276ab8c 100644
 --- a/src/main/java/net/minecraft/server/Entity.java
 +++ b/src/main/java/net/minecraft/server/Entity.java
 @@ -2131,6 +2131,7 @@ public abstract class Entity implements ICommandListener, KeyedObject { // Paper
@@ -48,6 +48,3 @@ index 6ee359e1..2e01cef8 100644
          return this.world.getScoreboard().getPlayerTeam(this.bn());
      }
  
--- 
-2.19.1
-

@@ -1,4 +1,4 @@
-From ed9719aea67d9235b946eeb5e93922c4ceda3707 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Fri, 29 Apr 2016 20:02:00 -0400
 Subject: [PATCH] Improve Maps (in item frames) performance and bug fixes
@@ -13,7 +13,7 @@ custom renderers are in use, defaulting to the much simpler Vanilla system.
 Additionally, numerous issues to player position tracking on maps has been fixed.
 
 diff --git a/src/main/java/net/minecraft/server/EntityHuman.java b/src/main/java/net/minecraft/server/EntityHuman.java
-index 467c5bf1a..0f1d99636 100644
+index 467c5bf1adf6f0d7c8cf7ec5bff9bbce9449b208..0f1d99636cc07bc0857410a14ea0eb2bb2a41789 100644
 --- a/src/main/java/net/minecraft/server/EntityHuman.java
 +++ b/src/main/java/net/minecraft/server/EntityHuman.java
 @@ -548,6 +548,12 @@ public abstract class EntityHuman extends EntityLiving {
@@ -30,7 +30,7 @@ index 467c5bf1a..0f1d99636 100644
              ItemStack itemstack1 = this.a(entityitem);
  
 diff --git a/src/main/java/net/minecraft/server/EntityTrackerEntry.java b/src/main/java/net/minecraft/server/EntityTrackerEntry.java
-index 4c6eb6ed1..759dacba7 100644
+index 4c6eb6ed14c1a7390290986cce1dde79ac04687a..759dacba771910ac87e845a2f8613b91d84e9662 100644
 --- a/src/main/java/net/minecraft/server/EntityTrackerEntry.java
 +++ b/src/main/java/net/minecraft/server/EntityTrackerEntry.java
 @@ -90,11 +90,11 @@ public class EntityTrackerEntry {
@@ -48,7 +48,7 @@ index 4c6eb6ed1..759dacba7 100644
                  Iterator iterator = this.trackedPlayers.iterator(); // CraftBukkit
  
 diff --git a/src/main/java/net/minecraft/server/World.java b/src/main/java/net/minecraft/server/World.java
-index 5f92355db..eca4903ed 100644
+index 5f92355dbf9cb3a509395c6ddd57673c28cd2c9c..eca4903ed9c151fa25ef6f5598aa7d2b4c0473d9 100644
 --- a/src/main/java/net/minecraft/server/World.java
 +++ b/src/main/java/net/minecraft/server/World.java
 @@ -1223,6 +1223,7 @@ public abstract class World implements IBlockAccess {
@@ -60,7 +60,7 @@ index 5f92355db..eca4903ed 100644
                          }
                      }
 diff --git a/src/main/java/net/minecraft/server/WorldMap.java b/src/main/java/net/minecraft/server/WorldMap.java
-index 1096b5c1f..59173605e 100644
+index 1096b5c1f7f8addc576321c777ab5670314b54a3..59173605ee8406b021576329657a8f1477fe10ad 100644
 --- a/src/main/java/net/minecraft/server/WorldMap.java
 +++ b/src/main/java/net/minecraft/server/WorldMap.java
 @@ -28,6 +28,7 @@ public class WorldMap extends PersistentBase {
@@ -132,7 +132,7 @@ index 1096b5c1f..59173605e 100644
              for ( org.bukkit.map.MapCursor cursor : render.cursors) {
  
 diff --git a/src/main/java/org/bukkit/craftbukkit/map/RenderData.java b/src/main/java/org/bukkit/craftbukkit/map/RenderData.java
-index 256a13178..5768cd512 100644
+index 256a131781721c86dd6cdbc329335964570cbe8c..5768cd512ec166f1e8d1f4a28792015347297c3f 100644
 --- a/src/main/java/org/bukkit/craftbukkit/map/RenderData.java
 +++ b/src/main/java/org/bukkit/craftbukkit/map/RenderData.java
 @@ -5,7 +5,7 @@ import org.bukkit.map.MapCursor;
@@ -144,6 +144,3 @@ index 256a13178..5768cd512 100644
      public final ArrayList<MapCursor> cursors;
  
      public RenderData() {
--- 
-2.18.0
-

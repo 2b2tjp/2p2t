@@ -1,4 +1,4 @@
-From 3acadeb8f5cd933fd4103268cc19903601180d7f Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Wed, 4 Jul 2018 01:40:13 -0400
 Subject: [PATCH] Add MinecraftKey Information to Objects
@@ -6,7 +6,7 @@ Subject: [PATCH] Add MinecraftKey Information to Objects
 Stores the reference to the objects respective MinecraftKey
 
 diff --git a/src/main/java/net/minecraft/server/Entity.java b/src/main/java/net/minecraft/server/Entity.java
-index 87e08303..b11bb2a3 100644
+index 87e083030ca14c5017778fc1749939be88cfbe2b..b11bb2a3f5602598bfa583282d4898ebae27896b 100644
 --- a/src/main/java/net/minecraft/server/Entity.java
 +++ b/src/main/java/net/minecraft/server/Entity.java
 @@ -41,7 +41,7 @@ import org.bukkit.event.entity.EntityPortalEvent;
@@ -52,7 +52,7 @@ index 87e08303..b11bb2a3 100644
      protected abstract void a(NBTTagCompound nbttagcompound);
 diff --git a/src/main/java/net/minecraft/server/KeyedObject.java b/src/main/java/net/minecraft/server/KeyedObject.java
 new file mode 100644
-index 00000000..61c2b993
+index 0000000000000000000000000000000000000000..61c2b993c95865e676dbd1564a3914c62de990c7
 --- /dev/null
 +++ b/src/main/java/net/minecraft/server/KeyedObject.java
 @@ -0,0 +1,8 @@
@@ -65,7 +65,7 @@ index 00000000..61c2b993
 +    }
 +}
 diff --git a/src/main/java/net/minecraft/server/TileEntity.java b/src/main/java/net/minecraft/server/TileEntity.java
-index 5a5a588e..0176ca53 100644
+index 5a5a588e7c61742081238284f45e0db7c7148869..0176ca530c4d470c5a3f43f655dbe1f048f337cb 100644
 --- a/src/main/java/net/minecraft/server/TileEntity.java
 +++ b/src/main/java/net/minecraft/server/TileEntity.java
 @@ -7,7 +7,7 @@ import org.apache.logging.log4j.Logger;
@@ -106,6 +106,3 @@ index 5a5a588e..0176ca53 100644
          return (MinecraftKey) TileEntity.f.b(oclass);
      }
  
--- 
-2.19.1
-

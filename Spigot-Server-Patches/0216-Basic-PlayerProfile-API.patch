@@ -1,4 +1,4 @@
-From 7f0b79af24fa42dffa0b72a0e191ddb03f241d47 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Mon, 15 Jan 2018 22:11:48 -0500
 Subject: [PATCH] Basic PlayerProfile API
@@ -7,7 +7,7 @@ Establishes base extension of profile systems for future edits too
 
 diff --git a/src/main/java/com/destroystokyo/paper/profile/CraftPlayerProfile.java b/src/main/java/com/destroystokyo/paper/profile/CraftPlayerProfile.java
 new file mode 100644
-index 0000000000..b151a13c1b
+index 0000000000000000000000000000000000000000..b151a13c1b9058eb057081ef8a64558028443a07
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/profile/CraftPlayerProfile.java
 @@ -0,0 +1,280 @@
@@ -293,7 +293,7 @@ index 0000000000..b151a13c1b
 +}
 diff --git a/src/main/java/com/destroystokyo/paper/profile/PaperAuthenticationService.java b/src/main/java/com/destroystokyo/paper/profile/PaperAuthenticationService.java
 new file mode 100644
-index 0000000000..25836b975b
+index 0000000000000000000000000000000000000000..25836b975b51af701d4b9523ab398fbf157b82fd
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/profile/PaperAuthenticationService.java
 @@ -0,0 +1,30 @@
@@ -329,7 +329,7 @@ index 0000000000..25836b975b
 +}
 diff --git a/src/main/java/com/destroystokyo/paper/profile/PaperGameProfileRepository.java b/src/main/java/com/destroystokyo/paper/profile/PaperGameProfileRepository.java
 new file mode 100644
-index 0000000000..3bcdb8f93f
+index 0000000000000000000000000000000000000000..3bcdb8f93f1930ee53395470ffb3833e2bd75222
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/profile/PaperGameProfileRepository.java
 @@ -0,0 +1,17 @@
@@ -352,7 +352,7 @@ index 0000000000..3bcdb8f93f
 +}
 diff --git a/src/main/java/com/destroystokyo/paper/profile/PaperMinecraftSessionService.java b/src/main/java/com/destroystokyo/paper/profile/PaperMinecraftSessionService.java
 new file mode 100644
-index 0000000000..4b2a67423f
+index 0000000000000000000000000000000000000000..4b2a67423f57b70d316115e4525e3841a415b1cc
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/profile/PaperMinecraftSessionService.java
 @@ -0,0 +1,29 @@
@@ -387,7 +387,7 @@ index 0000000000..4b2a67423f
 +}
 diff --git a/src/main/java/com/destroystokyo/paper/profile/PaperUserAuthentication.java b/src/main/java/com/destroystokyo/paper/profile/PaperUserAuthentication.java
 new file mode 100644
-index 0000000000..3aceb0ea8a
+index 0000000000000000000000000000000000000000..3aceb0ea8a1a3ed94dd8a9e954c52ecd341c6bd1
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/profile/PaperUserAuthentication.java
 @@ -0,0 +1,11 @@
@@ -403,7 +403,7 @@ index 0000000000..3aceb0ea8a
 +    }
 +}
 diff --git a/src/main/java/net/minecraft/server/MCUtil.java b/src/main/java/net/minecraft/server/MCUtil.java
-index 02940d697f..4539b56012 100644
+index 02940d697f0fc40eb788bcf66bdf2c0899041f77..4539b56012ee2ffcfcce86212f609341e76a9887 100644
 --- a/src/main/java/net/minecraft/server/MCUtil.java
 +++ b/src/main/java/net/minecraft/server/MCUtil.java
 @@ -1,6 +1,9 @@
@@ -428,7 +428,7 @@ index 02940d697f..4539b56012 100644
       * Calculates distance between 2 entities
       * @param e1
 diff --git a/src/main/java/net/minecraft/server/MinecraftServer.java b/src/main/java/net/minecraft/server/MinecraftServer.java
-index e8bddc171c..fcf6bac08f 100644
+index e8bddc171cf36bb8e16d113f3630dc6d98d54ac6..fcf6bac08f68e9aca9d2ed5b8d152594e12644e2 100644
 --- a/src/main/java/net/minecraft/server/MinecraftServer.java
 +++ b/src/main/java/net/minecraft/server/MinecraftServer.java
 @@ -1018,7 +1018,7 @@ public abstract class MinecraftServer implements ICommandListener, Runnable, IAs
@@ -449,7 +449,7 @@ index e8bddc171c..fcf6bac08f 100644
          return this.W;
      }
 diff --git a/src/main/java/net/minecraft/server/UserCache.java b/src/main/java/net/minecraft/server/UserCache.java
-index 7ce08eb8bb..6a750c25eb 100644
+index 7ce08eb8bbd6c1d53ebc88e096cd6d7fdf65a5f9..6a750c25eb8f5cefef68358135134d5831c71081 100644
 --- a/src/main/java/net/minecraft/server/UserCache.java
 +++ b/src/main/java/net/minecraft/server/UserCache.java
 @@ -44,7 +44,7 @@ public class UserCache {
@@ -485,7 +485,7 @@ index 7ce08eb8bb..6a750c25eb 100644
  
          private UserCacheEntry(GameProfile gameprofile, Date date) {
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftServer.java b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-index be78ce2ad9..5b1aae5587 100644
+index be78ce2ad9c85e8033ff685474b7e8b244403400..5b1aae5587f20276e3e1c30914e0e1c5d6b6eb8e 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 @@ -135,6 +135,10 @@ import org.bukkit.craftbukkit.util.CraftNamespacedKey;
@@ -521,6 +521,3 @@ index be78ce2ad9..5b1aae5587 100644
 +    }
      // Paper end
  }
--- 
-2.18.0
-

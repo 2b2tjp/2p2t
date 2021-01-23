@@ -1,11 +1,11 @@
-From d2fc9addb5a311bf9f318eadbec8856814f9f2e3 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Sudzzy <originmc@outlook.com>
 Date: Wed, 2 Mar 2016 14:52:43 -0600
 Subject: [PATCH] Disable thunder
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index afc13e851..4ae2f9af1 100644
+index afc13e851853e00bae8ace434fdd433858c518a6..4ae2f9af1bec5d20602cbb3d6c67f8e7be0f57e3 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -202,4 +202,9 @@ public class PaperWorldConfig {
@@ -19,7 +19,7 @@ index afc13e851..4ae2f9af1 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/WorldServer.java b/src/main/java/net/minecraft/server/WorldServer.java
-index 95964c550..b12c58732 100644
+index 95964c550abe11327e3e2235dfe84efad6af5898..b12c587327ae403fae721cbe08b9a9937ec8320b 100644
 --- a/src/main/java/net/minecraft/server/WorldServer.java
 +++ b/src/main/java/net/minecraft/server/WorldServer.java
 @@ -488,7 +488,8 @@ public class WorldServer extends World implements IAsyncTaskHandler {
@@ -32,6 +32,3 @@ index 95964c550..b12c58732 100644
                      this.l = this.l * 3 + 1013904223;
                      l = this.l >> 2;
                      blockposition = this.a(new BlockPosition(j + (l & 15), 0, k + (l >> 8 & 15)));
--- 
-2.18.0
-

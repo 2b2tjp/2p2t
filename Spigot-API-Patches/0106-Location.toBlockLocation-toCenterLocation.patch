@@ -1,4 +1,4 @@
-From b3a03a0fef09bf81b68cda7d9bbeca9fbe0620f8 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Thu, 24 May 2018 21:01:13 -0400
 Subject: [PATCH] Location.toBlockLocation/toCenterLocation()
@@ -6,7 +6,7 @@ Subject: [PATCH] Location.toBlockLocation/toCenterLocation()
 Convert location objects to their block coordinates, or the center of the block
 
 diff --git a/src/main/java/org/bukkit/Location.java b/src/main/java/org/bukkit/Location.java
-index 1ddebf3c..916238c4 100644
+index 1ddebf3c04659c36d1adb923cb80b25bae31ec89..916238c4d00e530f31225d551213d7745c35de21 100644
 --- a/src/main/java/org/bukkit/Location.java
 +++ b/src/main/java/org/bukkit/Location.java
 @@ -492,6 +492,29 @@ public class Location implements Cloneable, ConfigurationSerializable {
@@ -39,6 +39,3 @@ index 1ddebf3c..916238c4 100644
      @Override
      public boolean equals(Object obj) {
          if (obj == null) {
--- 
-2.17.1
-

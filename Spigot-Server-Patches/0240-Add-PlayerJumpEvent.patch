@@ -1,11 +1,11 @@
-From 48e6748437a736a6566b09f36fc818ae4c80e74a Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Zach Brown <zach.brown@destroystokyo.com>
 Date: Thu, 28 Sep 2017 17:21:44 -0400
 Subject: [PATCH] Add PlayerJumpEvent
 
 
 diff --git a/src/main/java/net/minecraft/server/EntityHuman.java b/src/main/java/net/minecraft/server/EntityHuman.java
-index deb0f4a9..579996d1 100644
+index deb0f4a9c71f0499d0fde0e3ae3ba5cd60cd485a..579996d1e3cfdea91095e73c78e0192777d31792 100644
 --- a/src/main/java/net/minecraft/server/EntityHuman.java
 +++ b/src/main/java/net/minecraft/server/EntityHuman.java
 @@ -1399,6 +1399,7 @@ public abstract class EntityHuman extends EntityLiving {
@@ -17,7 +17,7 @@ index deb0f4a9..579996d1 100644
          super.cu();
          this.b(StatisticList.w);
 diff --git a/src/main/java/net/minecraft/server/PlayerConnection.java b/src/main/java/net/minecraft/server/PlayerConnection.java
-index ff62ba88..abce0b6e 100644
+index a5b3bed30dcdb94c1079359c6f5d41305590ed40..4dc85250c74fb3e2a33a6b0fbfc4e61169721d07 100644
 --- a/src/main/java/net/minecraft/server/PlayerConnection.java
 +++ b/src/main/java/net/minecraft/server/PlayerConnection.java
 @@ -57,6 +57,7 @@ import org.bukkit.inventory.EquipmentSlot;
@@ -64,6 +64,3 @@ index ff62ba88..abce0b6e 100644
                              }
  
                              this.player.move(EnumMoveType.PLAYER, d7, d8, d9);
--- 
-2.19.1
-

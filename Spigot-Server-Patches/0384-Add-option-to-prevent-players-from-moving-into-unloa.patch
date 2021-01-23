@@ -1,4 +1,4 @@
-From 252d777181440ac9c14bbbb85a26bcc42f498fb2 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Gabriele C <sgdc3.mail@gmail.com>
 Date: Mon, 22 Oct 2018 17:34:10 +0200
 Subject: [PATCH] Add option to prevent players from moving into unloaded
@@ -6,7 +6,7 @@ Subject: [PATCH] Add option to prevent players from moving into unloaded
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index 319b5b95d..897bb49b4 100644
+index 319b5b95db6393be4a89a245dd2722394a806510..897bb49b461a8f0d92965ab64b869a23886a0116 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -593,4 +593,10 @@ public class PaperWorldConfig {
@@ -21,7 +21,7 @@ index 319b5b95d..897bb49b4 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/PlayerConnection.java b/src/main/java/net/minecraft/server/PlayerConnection.java
-index 8c20bcd14..59d526329 100644
+index 8c20bcd1469563e5ffd3f97255f23812903a43ae..59d5263295ec57981fb8a9cbab34a00bce904f70 100644
 --- a/src/main/java/net/minecraft/server/PlayerConnection.java
 +++ b/src/main/java/net/minecraft/server/PlayerConnection.java
 @@ -343,6 +343,13 @@ public class PlayerConnection implements PacketListenerPlayIn, ITickable {
@@ -64,6 +64,3 @@ index 8c20bcd14..59d526329 100644
                              if (!this.player.L() && (!this.player.x().getGameRules().getBoolean("disableElytraMovementCheck") || !this.player.cP())) {
                                  float f2 = this.player.cP() ? 300.0F : 100.0F;
  
--- 
-2.21.0
-

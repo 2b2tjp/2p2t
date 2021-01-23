@@ -1,11 +1,11 @@
-From 44f7b670a109010c9d1e76a06aa48d717bb14b1e Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Zach Brown <zach.brown@destroystokyo.com>
 Date: Wed, 2 Mar 2016 00:32:25 -0600
 Subject: [PATCH] Always tick falling blocks
 
 
 diff --git a/src/main/java/org/spigotmc/ActivationRange.java b/src/main/java/org/spigotmc/ActivationRange.java
-index 38be7ed71..3265a6c25 100644
+index 38be7ed71e9da458982f8d0ffca6bb93cca0ace0..3265a6c259ae7e0bc10b531894a4f4201d392725 100644
 --- a/src/main/java/org/spigotmc/ActivationRange.java
 +++ b/src/main/java/org/spigotmc/ActivationRange.java
 @@ -13,6 +13,7 @@ import net.minecraft.server.EntityCreature;
@@ -24,6 +24,3 @@ index 38be7ed71..3265a6c25 100644
                  || entity instanceof EntityEnderCrystal
                  || entity instanceof EntityFireworks )
          {
--- 
-2.18.0
-

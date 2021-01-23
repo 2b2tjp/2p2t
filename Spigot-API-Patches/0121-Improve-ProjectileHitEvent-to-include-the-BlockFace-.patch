@@ -1,4 +1,4 @@
-From 664f399ae92f6c74e4dd132d24c7abe3181c9fc6 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Brokkonaut <hannos17@gmx.de>
 Date: Sat, 30 Jun 2018 05:45:04 +0200
 Subject: [PATCH] Improve ProjectileHitEvent to include the BlockFace where the
@@ -6,7 +6,7 @@ Subject: [PATCH] Improve ProjectileHitEvent to include the BlockFace where the
 
 
 diff --git a/src/main/java/org/bukkit/event/entity/ProjectileHitEvent.java b/src/main/java/org/bukkit/event/entity/ProjectileHitEvent.java
-index 35f4148b..db105e76 100644
+index 35f4148bb7721054551d6637bc674564d61bdaaa..db105e76425ce4c5e6541bed971ef687985d65b0 100644
 --- a/src/main/java/org/bukkit/event/entity/ProjectileHitEvent.java
 +++ b/src/main/java/org/bukkit/event/entity/ProjectileHitEvent.java
 @@ -12,6 +12,7 @@ public class ProjectileHitEvent extends EntityEvent {
@@ -52,6 +52,3 @@ index 35f4148b..db105e76 100644
      /**
       * Gets the entity that was hit, if it was an entity that was hit.
       *
--- 
-2.16.1.windows.1
-

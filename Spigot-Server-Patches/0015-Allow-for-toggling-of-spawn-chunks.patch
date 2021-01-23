@@ -1,11 +1,11 @@
-From 84cf59e1a2697bfa6e9319344d57f2363e4a6b25 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Zach Brown <zach.brown@destroystokyo.com>
 Date: Thu, 3 Mar 2016 03:53:43 -0600
 Subject: [PATCH] Allow for toggling of spawn chunks
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index 22c1113a1..0094d1a87 100644
+index 22c1113a140f6621cb8cec05116275f7da0de0e9..0094d1a87d167495e8667bb80c9a3f1322d74a99 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -107,4 +107,10 @@ public class PaperWorldConfig {
@@ -20,7 +20,7 @@ index 22c1113a1..0094d1a87 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/World.java b/src/main/java/net/minecraft/server/World.java
-index d902e2630..759964b0f 100644
+index d902e2630bc19d298a5c361da9f470bcfdf3f816..759964b0f2c80d6b1dfb21d7401670893211f31f 100644
 --- a/src/main/java/net/minecraft/server/World.java
 +++ b/src/main/java/net/minecraft/server/World.java
 @@ -202,6 +202,7 @@ public abstract class World implements IBlockAccess {
@@ -31,6 +31,3 @@ index d902e2630..759964b0f 100644
                  this.entityLimiter = new org.spigotmc.TickLimiter(spigotConfig.entityMaxTickTime);
          this.tileLimiter = new org.spigotmc.TickLimiter(spigotConfig.tileMaxTickTime);
      }
--- 
-2.18.0
-

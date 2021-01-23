@@ -1,4 +1,4 @@
-From eced421f5f42625ee8f8d1087cbf773ac680f894 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Shane Freeder <theboyetronic@gmail.com>
 Date: Thu, 5 Oct 2017 01:54:07 +0100
 Subject: [PATCH] handle PacketPlayInKeepAlive async
@@ -15,7 +15,7 @@ also adding some additional logging in order to help work out what is causing
 random disconnections for clients.
 
 diff --git a/src/main/java/net/minecraft/server/PlayerConnection.java b/src/main/java/net/minecraft/server/PlayerConnection.java
-index abce0b6e..b6d94816 100644
+index 4dc85250c74fb3e2a33a6b0fbfc4e61169721d07..d5cd4bf2f8c72f328cf093b3989360cf9a146017 100644
 --- a/src/main/java/net/minecraft/server/PlayerConnection.java
 +++ b/src/main/java/net/minecraft/server/PlayerConnection.java
 @@ -2233,14 +2233,20 @@ public class PlayerConnection implements PacketListenerPlayIn, ITickable {
@@ -41,6 +41,3 @@ index abce0b6e..b6d94816 100644
          }
  
      }
--- 
-2.19.1
-

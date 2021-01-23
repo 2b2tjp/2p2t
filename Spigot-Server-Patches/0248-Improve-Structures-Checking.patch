@@ -1,4 +1,4 @@
-From 13d727f38a8615e821d1794176154b34780c0c19 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Sat, 11 Nov 2017 17:57:39 -0500
 Subject: [PATCH] Improve Structures Checking
@@ -14,7 +14,7 @@ that has been around for a whilewith lots of structures due to ineffeciencies
 in how MC stores structures (even unloaded chunks has structured data loaded)
 
 diff --git a/src/main/java/net/minecraft/server/StructureBoundingBox.java b/src/main/java/net/minecraft/server/StructureBoundingBox.java
-index db419cd99..d9329bd42 100644
+index db419cd99e090b90a828659e2b3102f92c3b3846..d9329bd4245ef76b84c11f2c2094515998def4b9 100644
 --- a/src/main/java/net/minecraft/server/StructureBoundingBox.java
 +++ b/src/main/java/net/minecraft/server/StructureBoundingBox.java
 @@ -4,12 +4,14 @@ import com.google.common.base.MoreObjects;
@@ -47,7 +47,7 @@ index db419cd99..d9329bd42 100644
          return baseblockposition.getX() >= this.a && baseblockposition.getX() <= this.d && baseblockposition.getZ() >= this.c && baseblockposition.getZ() <= this.f && baseblockposition.getY() >= this.b && baseblockposition.getY() <= this.e;
      }
 diff --git a/src/main/java/net/minecraft/server/StructureGenerator.java b/src/main/java/net/minecraft/server/StructureGenerator.java
-index e8263baa4..f4dfba8f3 100644
+index e8263baa4736709b4c902e10da8ed87fe7c4356c..f4dfba8f315c7f88fdda4ff1639314d7d38099a9 100644
 --- a/src/main/java/net/minecraft/server/StructureGenerator.java
 +++ b/src/main/java/net/minecraft/server/StructureGenerator.java
 @@ -6,6 +6,7 @@ import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
@@ -157,7 +157,7 @@ index e8263baa4..f4dfba8f3 100644
          this.a.a(structurestart.a(i, j), i, j);
          this.a.c();
 diff --git a/src/main/java/net/minecraft/server/StructurePiece.java b/src/main/java/net/minecraft/server/StructurePiece.java
-index 93903bc67..fcc13f811 100644
+index 93903bc67c0abe7ca853923828e77e496c6153e9..fcc13f811f484d7b99a682e07eb4b7e9b8eadca3 100644
 --- a/src/main/java/net/minecraft/server/StructurePiece.java
 +++ b/src/main/java/net/minecraft/server/StructurePiece.java
 @@ -53,6 +53,7 @@ public abstract class StructurePiece {
@@ -169,7 +169,7 @@ index 93903bc67..fcc13f811 100644
          return this.l;
      }
 diff --git a/src/main/java/net/minecraft/server/StructureStart.java b/src/main/java/net/minecraft/server/StructureStart.java
-index b6abc74e0..f9bb953d0 100644
+index b6abc74e0899d2522ec833959a8d8b4ea1e1fdbe..f9bb953d03038039dfbde4e2ec3006856800edea 100644
 --- a/src/main/java/net/minecraft/server/StructureStart.java
 +++ b/src/main/java/net/minecraft/server/StructureStart.java
 @@ -19,10 +19,12 @@ public abstract class StructureStart {
@@ -194,6 +194,3 @@ index b6abc74e0..f9bb953d0 100644
          return true;
      }
  
--- 
-2.18.0
-

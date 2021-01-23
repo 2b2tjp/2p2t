@@ -1,4 +1,4 @@
-From a1b931dcc9fc5937954696bacf2349dcc5b9d57a Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Wed, 21 Dec 2016 03:48:29 -0500
 Subject: [PATCH] Optimize ItemStack.isEmpty()
@@ -6,7 +6,7 @@ Subject: [PATCH] Optimize ItemStack.isEmpty()
 Remove hashMap lookup every check, simplify code to remove ternary
 
 diff --git a/src/main/java/net/minecraft/server/ItemStack.java b/src/main/java/net/minecraft/server/ItemStack.java
-index 5047a57e9..736686bed 100644
+index eae31653dea22281c258b42b325a74e7a4a9b75b..b15e01d588607c9ddb158b3fed29b3527c21c1e5 100644
 --- a/src/main/java/net/minecraft/server/ItemStack.java
 +++ b/src/main/java/net/minecraft/server/ItemStack.java
 @@ -144,9 +144,15 @@ public final class ItemStack {
@@ -26,6 +26,3 @@ index 5047a57e9..736686bed 100644
  
      public static void a(DataConverterManager dataconvertermanager) {
          dataconvertermanager.a(DataConverterTypes.ITEM_INSTANCE, (DataInspector) (new DataInspectorBlockEntity()));
--- 
-2.18.0
-

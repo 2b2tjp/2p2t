@@ -1,4 +1,4 @@
-From a696a1afb907dcc000b57e966c3ab11c5aa53138 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Steve Anton <anxuiz.nx@gmail.com>
 Date: Thu, 3 Mar 2016 00:09:38 -0600
 Subject: [PATCH] Add PlayerInitialSpawnEvent
@@ -6,7 +6,7 @@ Subject: [PATCH] Add PlayerInitialSpawnEvent
 For modifying a player's initial spawn location as they join the server
 
 diff --git a/src/main/java/net/minecraft/server/PlayerList.java b/src/main/java/net/minecraft/server/PlayerList.java
-index 1d9f3e3dd..536534d2e 100644
+index 1d9f3e3ddcb76ba7824546f731df903c08b8e42c..536534d2ed6316a43ed98424be9e0391a9b85887 100644
 --- a/src/main/java/net/minecraft/server/PlayerList.java
 +++ b/src/main/java/net/minecraft/server/PlayerList.java
 @@ -110,6 +110,21 @@ public abstract class PlayerList {
@@ -31,6 +31,3 @@ index 1d9f3e3dd..536534d2e 100644
          entityplayer.spawnIn(this.server.getWorldServer(entityplayer.dimension));
          entityplayer.playerInteractManager.a((WorldServer) entityplayer.world);
          String s1 = "local";
--- 
-2.18.0
-

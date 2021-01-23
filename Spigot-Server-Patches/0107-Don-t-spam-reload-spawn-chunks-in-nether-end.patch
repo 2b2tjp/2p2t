@@ -1,11 +1,11 @@
-From 98af7220cc151b5d19148fabfc24c66f15fca41c Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Tue, 5 Apr 2016 19:42:22 -0400
 Subject: [PATCH] Don't spam reload spawn chunks in nether/end
 
 
 diff --git a/src/main/java/net/minecraft/server/World.java b/src/main/java/net/minecraft/server/World.java
-index 1189720de..ad422b24b 100644
+index 1189720ded6b4f5230753b784dc3e44d007727e3..ad422b24b608bc5b5c751ce336dde8ae03542885 100644
 --- a/src/main/java/net/minecraft/server/World.java
 +++ b/src/main/java/net/minecraft/server/World.java
 @@ -3196,6 +3196,7 @@ public abstract class World implements IBlockAccess {
@@ -17,7 +17,7 @@ index 1189720de..ad422b24b 100644
          BlockPosition blockposition = this.getSpawn();
          int k = i * 16 + 8 - blockposition.getX();
 diff --git a/src/main/java/net/minecraft/server/WorldProvider.java b/src/main/java/net/minecraft/server/WorldProvider.java
-index d0265f960..35d8d1a6e 100644
+index d0265f960f15aa84a501fb3cf4d3f56a35bc3089..35d8d1a6e77ce070b4b1c85e8fdb0edca768dcf7 100644
 --- a/src/main/java/net/minecraft/server/WorldProvider.java
 +++ b/src/main/java/net/minecraft/server/WorldProvider.java
 @@ -138,6 +138,6 @@ public abstract class WorldProvider {
@@ -28,6 +28,3 @@ index d0265f960..35d8d1a6e 100644
 +        return !this.b.shouldStayLoaded(i, j); // Paper - Use shouldStayLoaded check for all worlds
      }
  }
--- 
-2.18.0
-

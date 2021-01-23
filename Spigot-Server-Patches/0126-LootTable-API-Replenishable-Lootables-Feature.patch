@@ -1,4 +1,4 @@
-From 884fab422d699408349283afb783f45eaa11b701 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Sun, 1 May 2016 21:19:14 -0400
 Subject: [PATCH] LootTable API & Replenishable Lootables Feature
@@ -11,7 +11,7 @@ This feature is good for long term worlds so that newer players
 do not suffer with "Every chest has been looted"
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index d96311f6..067cb233 100644
+index d96311f6bc738cfac61a309103c52a905500732a..067cb233e406fdb6b162b1adab100865a31ccfc4 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -303,4 +303,26 @@ public class PaperWorldConfig {
@@ -43,7 +43,7 @@ index d96311f6..067cb233 100644
  }
 diff --git a/src/main/java/com/destroystokyo/paper/loottable/CraftLootable.java b/src/main/java/com/destroystokyo/paper/loottable/CraftLootable.java
 new file mode 100644
-index 00000000..36c36d15
+index 0000000000000000000000000000000000000000..36c36d158fde49c9d1183ed2c2801022d3f021e9
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/loottable/CraftLootable.java
 @@ -0,0 +1,12 @@
@@ -61,7 +61,7 @@ index 00000000..36c36d15
 +}
 diff --git a/src/main/java/com/destroystokyo/paper/loottable/CraftLootableBlockInventory.java b/src/main/java/com/destroystokyo/paper/loottable/CraftLootableBlockInventory.java
 new file mode 100644
-index 00000000..20d236c4
+index 0000000000000000000000000000000000000000..20d236c45120602d83a81f96733f0a5647a46d91
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/loottable/CraftLootableBlockInventory.java
 @@ -0,0 +1,33 @@
@@ -100,7 +100,7 @@ index 00000000..20d236c4
 +}
 diff --git a/src/main/java/com/destroystokyo/paper/loottable/CraftLootableEntityInventory.java b/src/main/java/com/destroystokyo/paper/loottable/CraftLootableEntityInventory.java
 new file mode 100644
-index 00000000..1150dee0
+index 0000000000000000000000000000000000000000..1150dee01ea3771a4b01ded443173fb0ea65fb66
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/loottable/CraftLootableEntityInventory.java
 @@ -0,0 +1,31 @@
@@ -137,7 +137,7 @@ index 00000000..1150dee0
 +}
 diff --git a/src/main/java/com/destroystokyo/paper/loottable/CraftLootableInventory.java b/src/main/java/com/destroystokyo/paper/loottable/CraftLootableInventory.java
 new file mode 100644
-index 00000000..66809762
+index 0000000000000000000000000000000000000000..668097620f5945bcef7bc1e8850fd90d1373c40b
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/loottable/CraftLootableInventory.java
 @@ -0,0 +1,88 @@
@@ -231,7 +231,7 @@ index 00000000..66809762
 +}
 diff --git a/src/main/java/com/destroystokyo/paper/loottable/CraftLootableInventoryData.java b/src/main/java/com/destroystokyo/paper/loottable/CraftLootableInventoryData.java
 new file mode 100644
-index 00000000..be4b53b4
+index 0000000000000000000000000000000000000000..be4b53b4111259382e425a87719d75adf93f28b5
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/loottable/CraftLootableInventoryData.java
 @@ -0,0 +1,182 @@
@@ -418,7 +418,7 @@ index 00000000..be4b53b4
 +    }
 +}
 diff --git a/src/main/java/net/minecraft/server/EntityMinecartContainer.java b/src/main/java/net/minecraft/server/EntityMinecartContainer.java
-index d6afa4aa..50d7d34b 100644
+index d6afa4aa619376811334d65ea4ef5c14897f3943..50d7d34b80ea0e14209a2c2d3e448bb4a2e1a10c 100644
 --- a/src/main/java/net/minecraft/server/EntityMinecartContainer.java
 +++ b/src/main/java/net/minecraft/server/EntityMinecartContainer.java
 @@ -6,17 +6,21 @@ import javax.annotation.Nullable;
@@ -541,7 +541,7 @@ index d6afa4aa..50d7d34b 100644
 +    // Paper end
  }
 diff --git a/src/main/java/net/minecraft/server/ItemStack.java b/src/main/java/net/minecraft/server/ItemStack.java
-index 5047a57e..eae31653 100644
+index 5047a57e9b0de8d6d2a8e05184fea5e7ca579fcf..eae31653dea22281c258b42b325a74e7a4a9b75b 100644
 --- a/src/main/java/net/minecraft/server/ItemStack.java
 +++ b/src/main/java/net/minecraft/server/ItemStack.java
 @@ -229,6 +229,15 @@ public final class ItemStack {
@@ -561,7 +561,7 @@ index 5047a57e..eae31653 100644
                  for (BlockState blockstate : blocks) {
                      blockstate.update(true, false);
 diff --git a/src/main/java/net/minecraft/server/TileEntityLootable.java b/src/main/java/net/minecraft/server/TileEntityLootable.java
-index a97ad203..61852130 100644
+index a97ad2037b63543a95f7fcbf8a8aae6d2f95738e..6185213046b55695dcc4a265fa73d35b39450a51 100644
 --- a/src/main/java/net/minecraft/server/TileEntityLootable.java
 +++ b/src/main/java/net/minecraft/server/TileEntityLootable.java
 @@ -1,44 +1,50 @@
@@ -678,7 +678,7 @@ index a97ad203..61852130 100644
 +
  }
 diff --git a/src/main/java/org/bukkit/craftbukkit/block/CraftBlockEntityState.java b/src/main/java/org/bukkit/craftbukkit/block/CraftBlockEntityState.java
-index 8328ed00..266f87d7 100644
+index 8328ed00524021e0a19e8d805181ec94dbf62491..266f87d7f1ce3499163117f8c10f3423788f80ff 100644
 --- a/src/main/java/org/bukkit/craftbukkit/block/CraftBlockEntityState.java
 +++ b/src/main/java/org/bukkit/craftbukkit/block/CraftBlockEntityState.java
 @@ -60,7 +60,7 @@ public class CraftBlockEntityState<T extends TileEntity> extends CraftBlockState
@@ -691,7 +691,7 @@ index 8328ed00..266f87d7 100644
      }
  
 diff --git a/src/main/java/org/bukkit/craftbukkit/block/CraftChest.java b/src/main/java/org/bukkit/craftbukkit/block/CraftChest.java
-index 85f3bb27..733c04ef 100644
+index 85f3bb2720d0df5b53837fe6ea955a645eb3b753..733c04ef75fc0f6295e70d2786d249b4e6b9a461 100644
 --- a/src/main/java/org/bukkit/craftbukkit/block/CraftChest.java
 +++ b/src/main/java/org/bukkit/craftbukkit/block/CraftChest.java
 @@ -1,5 +1,6 @@
@@ -711,7 +711,7 @@ index 85f3bb27..733c04ef 100644
      public CraftChest(final Block block) {
          super(block, TileEntityChest.class);
 diff --git a/src/main/java/org/bukkit/craftbukkit/block/CraftDispenser.java b/src/main/java/org/bukkit/craftbukkit/block/CraftDispenser.java
-index 1dc8bfec..bfcf9b6c 100644
+index 1dc8bfecd2e78bdfa744421b8d7575030281ee15..bfcf9b6c4d25cdb5971d02e64316f5aca4722362 100644
 --- a/src/main/java/org/bukkit/craftbukkit/block/CraftDispenser.java
 +++ b/src/main/java/org/bukkit/craftbukkit/block/CraftDispenser.java
 @@ -1,5 +1,6 @@
@@ -731,7 +731,7 @@ index 1dc8bfec..bfcf9b6c 100644
      public CraftDispenser(final Block block) {
          super(block, TileEntityDispenser.class);
 diff --git a/src/main/java/org/bukkit/craftbukkit/block/CraftHopper.java b/src/main/java/org/bukkit/craftbukkit/block/CraftHopper.java
-index 6566554a..df156d0d 100644
+index 6566554ab6b5438de529a2e45fa53ecc809b8ae4..df156d0d92f6a591e7934624db5f4a47294751b8 100644
 --- a/src/main/java/org/bukkit/craftbukkit/block/CraftHopper.java
 +++ b/src/main/java/org/bukkit/craftbukkit/block/CraftHopper.java
 @@ -1,5 +1,6 @@
@@ -751,7 +751,7 @@ index 6566554a..df156d0d 100644
      public CraftHopper(final Block block) {
          super(block, TileEntityHopper.class);
 diff --git a/src/main/java/org/bukkit/craftbukkit/block/CraftShulkerBox.java b/src/main/java/org/bukkit/craftbukkit/block/CraftShulkerBox.java
-index c029a124..c26f0b5a 100644
+index c029a124412330e952cfd1e0f7e2697ab216aecc..c26f0b5afc0d6cd8d897ee78f7b6885db5ab2e9a 100644
 --- a/src/main/java/org/bukkit/craftbukkit/block/CraftShulkerBox.java
 +++ b/src/main/java/org/bukkit/craftbukkit/block/CraftShulkerBox.java
 @@ -1,5 +1,6 @@
@@ -771,7 +771,7 @@ index c029a124..c26f0b5a 100644
      public CraftShulkerBox(final Block block) {
          super(block, TileEntityShulkerBox.class);
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftMinecartChest.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftMinecartChest.java
-index 69435c45..4291edf2 100644
+index 69435c45761bd3a045fbb803c8799c2b3d40934e..4291edf252bfb49754e4891b946b230273559a41 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftMinecartChest.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftMinecartChest.java
 @@ -1,5 +1,6 @@
@@ -791,7 +791,7 @@ index 69435c45..4291edf2 100644
  
      public CraftMinecartChest(CraftServer server, EntityMinecartChest entity) {
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftMinecartHopper.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftMinecartHopper.java
-index e9963e21..acb4dee0 100644
+index e9963e21cd181e9dfec4aa29aaa8c41eda751666..acb4dee04f76a61bf2da8dabb6f6c7c3d0d02ebe 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftMinecartHopper.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftMinecartHopper.java
 @@ -1,5 +1,6 @@
@@ -810,6 +810,3 @@ index e9963e21..acb4dee0 100644
      private final CraftInventory inventory;
  
      CraftMinecartHopper(CraftServer server, EntityMinecartHopper entity) {
--- 
-2.20.1
-

@@ -1,4 +1,4 @@
-From fc16de493fda64fc50353d88616f97947e2f4053 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Fri, 18 Mar 2016 14:19:19 -0400
 Subject: [PATCH] Undead horse leashing
@@ -6,7 +6,7 @@ Subject: [PATCH] Undead horse leashing
 default false to match vanilla, but option to allow undead horse types to be leashed.
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index a4c94845b..faacd86ba 100644
+index a4c94845b82741dc358425fddc7cec88f0693dd1..faacd86ba12a3ddacf6091180c62c63f80023837 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -247,4 +247,9 @@ public class PaperWorldConfig {
@@ -20,7 +20,7 @@ index a4c94845b..faacd86ba 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/EntityHorseAbstract.java b/src/main/java/net/minecraft/server/EntityHorseAbstract.java
-index 46d1ea217..dcc39236f 100644
+index 46d1ea2170c6a4ad92e777dcf79de7cbe184ee67..dcc39236f0cdfdcecff9b62252e0595178138693 100644
 --- a/src/main/java/net/minecraft/server/EntityHorseAbstract.java
 +++ b/src/main/java/net/minecraft/server/EntityHorseAbstract.java
 @@ -115,7 +115,7 @@ public abstract class EntityHorseAbstract extends EntityAnimal implements IInven
@@ -32,6 +32,3 @@ index 46d1ea217..dcc39236f 100644
      }
  
      protected void q(float f) {
--- 
-2.18.0
-

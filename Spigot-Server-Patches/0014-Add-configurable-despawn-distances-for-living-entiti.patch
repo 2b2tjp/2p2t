@@ -1,11 +1,11 @@
-From 454d4de322b765150a71a124e972aa3853dcb2d5 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Suddenly <suddenly@suddenly.coffee>
 Date: Tue, 1 Mar 2016 13:51:54 -0600
 Subject: [PATCH] Add configurable despawn distances for living entities
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index 1d9dd0e0b..22c1113a1 100644
+index 1d9dd0e0bb3e6fe88e8150201294704b0dedb331..22c1113a140f6621cb8cec05116275f7da0de0e9 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -91,4 +91,20 @@ public class PaperWorldConfig {
@@ -30,7 +30,7 @@ index 1d9dd0e0b..22c1113a1 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/EntityInsentient.java b/src/main/java/net/minecraft/server/EntityInsentient.java
-index 7b02b253c..94967e6b6 100644
+index 7b02b253ce229f94bceff5d59915855ccd8b004e..94967e6b6f9797345370973a20d8c114288dc34b 100644
 --- a/src/main/java/net/minecraft/server/EntityInsentient.java
 +++ b/src/main/java/net/minecraft/server/EntityInsentient.java
 @@ -630,13 +630,13 @@ public abstract class EntityInsentient extends EntityLiving {
@@ -50,6 +50,3 @@ index 7b02b253c..94967e6b6 100644
                      this.ticksFarFromPlayer = 0;
                  }
              }
--- 
-2.18.0
-

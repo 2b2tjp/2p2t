@@ -1,11 +1,11 @@
-From 404de77ce4ff4b05ebecba229386f083a4593da5 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Thu, 19 Jul 2018 01:05:00 -0400
 Subject: [PATCH] Don't change the Entity Random seed for squids
 
 
 diff --git a/src/main/java/net/minecraft/server/EntitySquid.java b/src/main/java/net/minecraft/server/EntitySquid.java
-index 58a902831..2d8cfb012 100644
+index 58a902831eb8c42b88226072a99cba14e5e9de59..2d8cfb012bcaed4e3639485cf7662d83b66500cc 100644
 --- a/src/main/java/net/minecraft/server/EntitySquid.java
 +++ b/src/main/java/net/minecraft/server/EntitySquid.java
 @@ -22,7 +22,7 @@ public class EntitySquid extends EntityWaterAnimal {
@@ -17,6 +17,3 @@ index 58a902831..2d8cfb012 100644
          this.bB = 1.0F / (this.random.nextFloat() + 1.0F) * 0.2F;
      }
  
--- 
-2.18.0
-

@@ -1,11 +1,11 @@
-From 7687ee0d8185f0476427df0ce90d6a1f347bd385 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Sudzzy <originmc@outlook.com>
 Date: Wed, 2 Mar 2016 15:03:53 -0600
 Subject: [PATCH] Configurable mob spawner tick rate
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index 70b02f020..f431000d1 100644
+index 70b02f02010682d17880e89eb5001b843c619e37..f431000d15c67fbbf24c1c3a13cb868c6783b88c 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -212,4 +212,9 @@ public class PaperWorldConfig {
@@ -19,7 +19,7 @@ index 70b02f020..f431000d1 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/MobSpawnerAbstract.java b/src/main/java/net/minecraft/server/MobSpawnerAbstract.java
-index 0149726ea..a5261d70b 100644
+index 0149726eada33055db8c9daa58b85af105ce6ccf..a5261d70bd18ed033c545e5cf8cdac0393f5e9d0 100644
 --- a/src/main/java/net/minecraft/server/MobSpawnerAbstract.java
 +++ b/src/main/java/net/minecraft/server/MobSpawnerAbstract.java
 @@ -19,6 +19,7 @@ public abstract class MobSpawnerAbstract {
@@ -63,6 +63,3 @@ index 0149726ea..a5261d70b 100644
                      return;
                  }
  
--- 
-2.18.0
-

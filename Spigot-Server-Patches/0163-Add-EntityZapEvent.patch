@@ -1,11 +1,11 @@
-From 13f069785d26dfc9ab4f6f87fb7c7d5c40b1b8c9 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: AlphaBlend <whizkid3000@hotmail.com>
 Date: Sun, 16 Oct 2016 23:19:30 -0700
 Subject: [PATCH] Add EntityZapEvent
 
 
 diff --git a/src/main/java/net/minecraft/server/EntityPig.java b/src/main/java/net/minecraft/server/EntityPig.java
-index 94d011721..fcf99e668 100644
+index 94d01172185b4c09c797279894203c623eb7693f..fcf99e668fab90369986fc5419242f2bc31174b5 100644
 --- a/src/main/java/net/minecraft/server/EntityPig.java
 +++ b/src/main/java/net/minecraft/server/EntityPig.java
 @@ -158,6 +158,12 @@ public class EntityPig extends EntityAnimal {
@@ -22,7 +22,7 @@ index 94d011721..fcf99e668 100644
              if (CraftEventFactory.callPigZapEvent(this, entitylightning, entitypigzombie).isCancelled()) {
                  return;
 diff --git a/src/main/java/net/minecraft/server/EntityVillager.java b/src/main/java/net/minecraft/server/EntityVillager.java
-index 87ed31b21..9d201b14e 100644
+index 87ed31b21afcedf80b44b180df4c97ea271ff259..9d201b14eb6060065889577a23e8f66fdd43f8dd 100644
 --- a/src/main/java/net/minecraft/server/EntityVillager.java
 +++ b/src/main/java/net/minecraft/server/EntityVillager.java
 @@ -638,6 +638,12 @@ public class EntityVillager extends EntityAgeable implements NPC, IMerchant {
@@ -48,7 +48,7 @@ index 87ed31b21..9d201b14e 100644
          }
      }
 diff --git a/src/main/java/org/bukkit/craftbukkit/event/CraftEventFactory.java b/src/main/java/org/bukkit/craftbukkit/event/CraftEventFactory.java
-index bc84dd30f..ba7e5d181 100644
+index bc84dd30fcad799d08cfce391c8a86e91062461f..ba7e5d1816a0c7a42656c6989f76c8b1e26efd07 100644
 --- a/src/main/java/org/bukkit/craftbukkit/event/CraftEventFactory.java
 +++ b/src/main/java/org/bukkit/craftbukkit/event/CraftEventFactory.java
 @@ -684,6 +684,14 @@ public class CraftEventFactory {
@@ -66,6 +66,3 @@ index bc84dd30f..ba7e5d181 100644
      public static HorseJumpEvent callHorseJumpEvent(Entity horse, float power) {
          HorseJumpEvent event = new HorseJumpEvent((AbstractHorse) horse.getBukkitEntity(), power);
          horse.getBukkitEntity().getServer().getPluginManager().callEvent(event);
--- 
-2.18.0
-

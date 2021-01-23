@@ -1,11 +1,11 @@
-From 8a70e268d4f35b1f8873e42e5eb75cd8f93755a8 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Zach Brown <zach.brown@destroystokyo.com>
 Date: Tue, 1 Mar 2016 00:16:08 +0100
 Subject: [PATCH] POM changes
 
 
 diff --git a/pom.xml b/pom.xml
-index 7c81917d..db3547ef 100644
+index 7c81917d7c280b44fca6cd5894d8e860c93f7577..db3547ef649e1de5514fc750de0a95d1c9fbf29f 100644
 --- a/pom.xml
 +++ b/pom.xml
 @@ -3,46 +3,46 @@
@@ -151,6 +151,3 @@ index 7c81917d..db3547ef 100644
 -        </profile>
 -    </profiles>
  </project>
--- 
-2.21.0.windows.1
-

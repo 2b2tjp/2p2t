@@ -1,4 +1,4 @@
-From 0c21e9ed61fa981a86ad099aabfe67586e3900e6 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Sun, 5 Feb 2017 19:17:28 -0500
 Subject: [PATCH] Shame on you Mojang
@@ -12,7 +12,7 @@ This then triggers async chunk loads!
 What in the hell were you thinking?
 
 diff --git a/src/main/java/net/minecraft/server/BlockBeacon.java b/src/main/java/net/minecraft/server/BlockBeacon.java
-index f07ac0186..21075974d 100644
+index f07ac01860c4e59b077820b43de43a13d4a09647..21075974df7f6945d8944b2ec0263fe755278c28 100644
 --- a/src/main/java/net/minecraft/server/BlockBeacon.java
 +++ b/src/main/java/net/minecraft/server/BlockBeacon.java
 @@ -62,8 +62,8 @@ public class BlockBeacon extends BlockTileEntity {
@@ -54,6 +54,3 @@ index f07ac0186..21075974d 100644
 +        });*/ // Paper
      }
  }
--- 
-2.18.0
-

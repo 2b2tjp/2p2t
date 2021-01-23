@@ -1,11 +1,11 @@
-From cb5abe5576e8400081e6a1a552178d3f14bf7604 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Sat, 17 Nov 2018 00:08:54 -0500
 Subject: [PATCH] Limit Book Sizes
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperConfig.java b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-index 332e90f8..27203eea 100644
+index 332e90f86bc75f7114c68d44f29eec9644de9326..d8b0a868897a5be97bd273f980494ca38e25611b 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperConfig.java
 @@ -320,4 +320,18 @@ public class PaperConfig {
@@ -28,7 +28,7 @@ index 332e90f8..27203eea 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/PlayerConnection.java b/src/main/java/net/minecraft/server/PlayerConnection.java
-index d6d2010d..de62c3b7 100644
+index d6d2010d58e20edca57ffe7db54541cdd6ffaef1..de62c3b768ba0dde20a76483a9eeafa0aa9a4729 100644
 --- a/src/main/java/net/minecraft/server/PlayerConnection.java
 +++ b/src/main/java/net/minecraft/server/PlayerConnection.java
 @@ -2329,6 +2329,45 @@ public class PlayerConnection implements PacketListenerPlayIn, ITickable {
@@ -93,6 +93,3 @@ index d6d2010d..de62c3b7 100644
                          ItemStack itemstack2 = new ItemStack(Items.WRITTEN_BOOK);
  
                          itemstack2.a("author", (NBTBase) (new NBTTagString(this.player.getName())));
--- 
-2.20.1
-

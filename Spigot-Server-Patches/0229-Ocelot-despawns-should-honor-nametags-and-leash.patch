@@ -1,11 +1,11 @@
-From cee3ee7d056d74ede8ec145e8028fdff1ba18ec4 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: BillyGalbreath <Blake.Galbreath@GMail.com>
 Date: Mon, 31 Jul 2017 01:54:40 -0500
 Subject: [PATCH] Ocelot despawns should honor nametags and leash
 
 
 diff --git a/src/main/java/net/minecraft/server/EntityOcelot.java b/src/main/java/net/minecraft/server/EntityOcelot.java
-index 5a76821ea..858bbef5b 100644
+index 5a76821ea466b2f1af3f149a8015ab2cc1b61e16..858bbef5b42dbfa91e2e17215ecfd7976f3a47e1 100644
 --- a/src/main/java/net/minecraft/server/EntityOcelot.java
 +++ b/src/main/java/net/minecraft/server/EntityOcelot.java
 @@ -58,7 +58,7 @@ public class EntityOcelot extends EntityTameableAnimal {
@@ -17,6 +17,3 @@ index 5a76821ea..858bbef5b 100644
      }
  
      protected void initAttributes() {
--- 
-2.18.0
-

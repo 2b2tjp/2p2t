@@ -1,4 +1,4 @@
-From df5be5320addd4ba09e5a65dee413e3eaa6f8dfb Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: CullanP <cullanpage@gmail.com>
 Date: Thu, 3 Mar 2016 02:13:38 -0600
 Subject: [PATCH] Avoid hopper searches if there are no items
@@ -14,7 +14,7 @@ And since minecart hoppers are used _very_ rarely near we can avoid alot of sear
 Combined, this adds up a lot.
 
 diff --git a/src/main/java/net/minecraft/server/Chunk.java b/src/main/java/net/minecraft/server/Chunk.java
-index f98fe73efa..996a5e71c4 100644
+index 7835b091fe5fcee2cb712ecb6fff3de47f57c62b..c79d3a93720595a72b8f46276a63ac54d87a6823 100644
 --- a/src/main/java/net/minecraft/server/Chunk.java
 +++ b/src/main/java/net/minecraft/server/Chunk.java
 @@ -76,6 +76,13 @@ public class Chunk {
@@ -90,6 +90,3 @@ index f98fe73efa..996a5e71c4 100644
              Iterator iterator = this.entitySlices[k].iterator(); // Spigot
  
              while (iterator.hasNext()) {
--- 
-2.18.0
-

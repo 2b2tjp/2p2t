@@ -1,4 +1,4 @@
-From b3c4cbe3e4019d14276d36954449d2d91825336a Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Sat, 21 Apr 2018 11:21:48 -0400
 Subject: [PATCH] Configurable Allowance of Permanent Chunk Loaders
@@ -7,7 +7,7 @@ This disables the behavior that allows players to keep chunks permanently loaded
 by default and allows server operators to enable it if they wish.
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index 5a2fbf7c7..99d681ef1 100644
+index 5a2fbf7c752a0b2924d5195a2f7062ab0ef7a9c5..99d681ef134e9b330814f7c6993cf526d85d4e5a 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -507,4 +507,10 @@ public class PaperWorldConfig {
@@ -22,7 +22,7 @@ index 5a2fbf7c7..99d681ef1 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/ChunkProviderServer.java b/src/main/java/net/minecraft/server/ChunkProviderServer.java
-index 55dada668..0eba3df57 100644
+index 55dada6685bee7899b2b72101d39fd60905f0deb..0eba3df5719c2edc1ef1514463e14c51287dd858 100644
 --- a/src/main/java/net/minecraft/server/ChunkProviderServer.java
 +++ b/src/main/java/net/minecraft/server/ChunkProviderServer.java
 @@ -148,7 +148,7 @@ public class ChunkProviderServer implements IChunkProvider {
@@ -34,6 +34,3 @@ index 55dada668..0eba3df57 100644
          ChunkRegionLoader loader = null;
  
          if (this.chunkLoader instanceof ChunkRegionLoader) {
--- 
-2.18.0
-

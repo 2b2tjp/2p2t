@@ -1,4 +1,4 @@
-From d2e267fceb2a1990a2a95c57fd50e653212e5260 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Minecrell <minecrell@minecrell.net>
 Date: Wed, 11 Oct 2017 15:55:38 +0200
 Subject: [PATCH] Add extended PaperServerListPingEvent
@@ -8,7 +8,7 @@ and allows full control of the response sent to the client.
 
 diff --git a/src/main/java/com/destroystokyo/paper/event/server/PaperServerListPingEvent.java b/src/main/java/com/destroystokyo/paper/event/server/PaperServerListPingEvent.java
 new file mode 100644
-index 00000000..dd1deafd
+index 0000000000000000000000000000000000000000..dd1deafdb897520af02fe7aa5dfffdf4dde0f6ea
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/event/server/PaperServerListPingEvent.java
 @@ -0,0 +1,319 @@
@@ -333,7 +333,7 @@ index 00000000..dd1deafd
 +}
 diff --git a/src/main/java/com/destroystokyo/paper/network/StatusClient.java b/src/main/java/com/destroystokyo/paper/network/StatusClient.java
 new file mode 100644
-index 00000000..517d1523
+index 0000000000000000000000000000000000000000..517d15238ed117f38bbd39f570874014cecf7bb5
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/network/StatusClient.java
 @@ -0,0 +1,13 @@
@@ -351,7 +351,7 @@ index 00000000..517d1523
 +
 +}
 diff --git a/src/main/java/org/bukkit/util/CachedServerIcon.java b/src/main/java/org/bukkit/util/CachedServerIcon.java
-index 04804706..44563482 100644
+index 0480470678af31f9543b778e460a63fc0a30b2d8..44563482f100882a1dd10f1b0fdd537ca485a9f3 100644
 --- a/src/main/java/org/bukkit/util/CachedServerIcon.java
 +++ b/src/main/java/org/bukkit/util/CachedServerIcon.java
 @@ -14,4 +14,10 @@ import org.bukkit.event.server.ServerListPingEvent;
@@ -365,6 +365,3 @@ index 04804706..44563482 100644
 +    }
 +    // Paper end
  }
--- 
-2.17.1
-

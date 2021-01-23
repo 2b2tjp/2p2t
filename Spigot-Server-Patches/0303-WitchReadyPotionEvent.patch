@@ -1,11 +1,11 @@
-From 9b2c59ff0e6e55277a90fb849e165628e655b557 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Tue, 5 Jun 2018 22:47:26 -0400
 Subject: [PATCH] WitchReadyPotionEvent
 
 
 diff --git a/src/main/java/net/minecraft/server/EntityWitch.java b/src/main/java/net/minecraft/server/EntityWitch.java
-index bf029ad1c..035aa4a90 100644
+index bf029ad1c2f9aa4ef8ce29ecef94d17343f32c31..035aa4a901918ab7df5466481ba844e0bb029252 100644
 --- a/src/main/java/net/minecraft/server/EntityWitch.java
 +++ b/src/main/java/net/minecraft/server/EntityWitch.java
 @@ -104,7 +104,11 @@ public class EntityWitch extends EntityMonster implements IRangedEntity {
@@ -21,6 +21,3 @@ index bf029ad1c..035aa4a90 100644
                      this.bx = this.getItemInMainHand().m();
                      this.a(true);
                      this.world.a((EntityHuman) null, this.locX, this.locY, this.locZ, SoundEffects.iz, this.bK(), 1.0F, 0.8F + this.random.nextFloat() * 0.4F);
--- 
-2.18.0
-

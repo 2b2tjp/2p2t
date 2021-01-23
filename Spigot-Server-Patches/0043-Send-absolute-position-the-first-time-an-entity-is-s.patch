@@ -1,11 +1,11 @@
-From dd5f739fe833b8a215e3f8822c57eecfd89cd661 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Jedediah Smith <jedediah@silencegreys.com>
 Date: Wed, 2 Mar 2016 23:13:07 -0600
 Subject: [PATCH] Send absolute position the first time an entity is seen
 
 
 diff --git a/src/main/java/net/minecraft/server/EntityTrackerEntry.java b/src/main/java/net/minecraft/server/EntityTrackerEntry.java
-index d864c7745..4c6eb6ed1 100644
+index d864c77451e4a749983733d3d21c19a7d2f84a7d..4c6eb6ed14c1a7390290986cce1dde79ac04687a 100644
 --- a/src/main/java/net/minecraft/server/EntityTrackerEntry.java
 +++ b/src/main/java/net/minecraft/server/EntityTrackerEntry.java
 @@ -41,7 +41,12 @@ public class EntityTrackerEntry {
@@ -75,6 +75,3 @@ index d864c7745..4c6eb6ed1 100644
                      Packet packet = this.e();
  
                      entityplayer.playerConnection.sendPacket(packet);
--- 
-2.18.0
-

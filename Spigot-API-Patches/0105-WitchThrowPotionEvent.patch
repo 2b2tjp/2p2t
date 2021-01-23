@@ -1,4 +1,4 @@
-From 56bcd520031264156557ee37406ad31801e4615e Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Wed, 16 May 2018 20:39:09 -0400
 Subject: [PATCH] WitchThrowPotionEvent
@@ -6,7 +6,7 @@ Subject: [PATCH] WitchThrowPotionEvent
 Fired when a witch throws a potion at a player
 
 diff --git a/src/main/java/com/destroystokyo/paper/event/entity/WitchThrowPotionEvent.java b/src/main/java/com/destroystokyo/paper/event/entity/WitchThrowPotionEvent.java
-index 6ef6367b..77487e28 100644
+index 6ef6367b67261c2b653a97322b9703a9409b3499..77487e283b915111a5100295c9e1e00cf01c5b03 100644
 --- a/src/main/java/com/destroystokyo/paper/event/entity/WitchThrowPotionEvent.java
 +++ b/src/main/java/com/destroystokyo/paper/event/entity/WitchThrowPotionEvent.java
 @@ -1,13 +1,51 @@
@@ -78,6 +78,3 @@ index 6ef6367b..77487e28 100644
      }
  
      @Override
--- 
-2.17.1
-

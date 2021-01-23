@@ -1,4 +1,4 @@
-From 3a03d1fc7302369fb0ec00c3b677d3484ea8f58c Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Minecrell <minecrell@minecrell.net>
 Date: Fri, 9 Jun 2017 19:03:43 +0200
 Subject: [PATCH] Use TerminalConsoleAppender for console improvements
@@ -19,7 +19,7 @@ Other changes:
     configuration
 
 diff --git a/pom.xml b/pom.xml
-index 9d273c6d9..491887cf9 100644
+index 7609282463a9a9fcdc25b10fc331656c787a8294..3a9c33e49206a1c28ba19d31e08d9d2b5b6fd596 100644
 --- a/pom.xml
 +++ b/pom.xml
 @@ -53,12 +53,6 @@
@@ -89,7 +89,7 @@ index 9d273c6d9..491887cf9 100644
                  <groupId>org.apache.maven.plugins</groupId>
 diff --git a/src/main/java/com/destroystokyo/paper/console/PaperConsole.java b/src/main/java/com/destroystokyo/paper/console/PaperConsole.java
 new file mode 100644
-index 000000000..116d1b3bf
+index 0000000000000000000000000000000000000000..116d1b3bfb899c382cb59174f05d17d84ddcdddd
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/console/PaperConsole.java
 @@ -0,0 +1,40 @@
@@ -135,7 +135,7 @@ index 000000000..116d1b3bf
 +}
 diff --git a/src/main/java/com/destroystokyo/paper/console/TerminalConsoleCommandSender.java b/src/main/java/com/destroystokyo/paper/console/TerminalConsoleCommandSender.java
 new file mode 100644
-index 000000000..685deaa0e
+index 0000000000000000000000000000000000000000..685deaa0e5d1ddc13e3a7c0471b1cfcf1710c869
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/console/TerminalConsoleCommandSender.java
 @@ -0,0 +1,17 @@
@@ -157,7 +157,7 @@ index 000000000..685deaa0e
 +
 +}
 diff --git a/src/main/java/net/minecraft/server/DedicatedServer.java b/src/main/java/net/minecraft/server/DedicatedServer.java
-index 8f2afcc32..895ea0aad 100644
+index 8f2afcc32f3c0c4ec3daf8e6815698c964a72c69..895ea0aad11449add990b90d9afb0b158fcf3575 100644
 --- a/src/main/java/net/minecraft/server/DedicatedServer.java
 +++ b/src/main/java/net/minecraft/server/DedicatedServer.java
 @@ -73,6 +73,9 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
@@ -199,7 +199,7 @@ index 8f2afcc32..895ea0aad 100644
          System.setOut(new PrintStream(new LoggerOutputStream(logger, Level.INFO), true));
          System.setErr(new PrintStream(new LoggerOutputStream(logger, Level.WARN), true));
 diff --git a/src/main/java/net/minecraft/server/MinecraftServer.java b/src/main/java/net/minecraft/server/MinecraftServer.java
-index 908a5d273..e8bddc171 100644
+index 908a5d27311f0443e218b78f80fd454c68055c9c..e8bddc171cf36bb8e16d113f3630dc6d98d54ac6 100644
 --- a/src/main/java/net/minecraft/server/MinecraftServer.java
 +++ b/src/main/java/net/minecraft/server/MinecraftServer.java
 @@ -42,7 +42,6 @@ import org.apache.commons.lang3.Validate;
@@ -258,7 +258,7 @@ index 908a5d273..e8bddc171 100644
  
      public boolean a(int i, String s) {
 diff --git a/src/main/java/net/minecraft/server/PlayerList.java b/src/main/java/net/minecraft/server/PlayerList.java
-index 85357a003..3e5122486 100644
+index 85357a0036e43b74218d119ecc9ea4bef9c933eb..3e5122486918ada11730b23379ee7df1f249978f 100644
 --- a/src/main/java/net/minecraft/server/PlayerList.java
 +++ b/src/main/java/net/minecraft/server/PlayerList.java
 @@ -78,8 +78,7 @@ public abstract class PlayerList {
@@ -272,7 +272,7 @@ index 85357a003..3e5122486 100644
  
          this.k = new GameProfileBanList(PlayerList.a);
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftServer.java b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-index 27c6caddc..539f492e0 100644
+index 93a24c77f6659510b51c50c4b98cb49c2d5b883e..7e589daba5cdb26d1bbfedc14a9150b0d7c12a8a 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 @@ -128,7 +128,6 @@ import io.netty.buffer.ByteBuf;
@@ -298,7 +298,7 @@ index 27c6caddc..539f492e0 100644
      @Override
      public PluginCommand getPluginCommand(String name) {
 diff --git a/src/main/java/org/bukkit/craftbukkit/Main.java b/src/main/java/org/bukkit/craftbukkit/Main.java
-index d565a720f..c9e8a8737 100644
+index d565a720f9405a61495cd6eaabfd89542ec4a66f..c9e8a873734cd81e19b00fce9ecc7eb4c8a4d4db 100644
 --- a/src/main/java/org/bukkit/craftbukkit/Main.java
 +++ b/src/main/java/org/bukkit/craftbukkit/Main.java
 @@ -14,7 +14,7 @@ import java.util.logging.Logger;
@@ -340,7 +340,7 @@ index d565a720f..c9e8a8737 100644
                  if (false && Main.class.getPackage().getImplementationVendor() != null && System.getProperty("IReallyKnowWhatIAmDoingISwear") == null) {
 diff --git a/src/main/java/org/bukkit/craftbukkit/command/ColouredConsoleSender.java b/src/main/java/org/bukkit/craftbukkit/command/ColouredConsoleSender.java
 deleted file mode 100644
-index 26a2fb894..000000000
+index 26a2fb89425677d94a1d8a375337b70a00e4c5eb..0000000000000000000000000000000000000000
 --- a/src/main/java/org/bukkit/craftbukkit/command/ColouredConsoleSender.java
 +++ /dev/null
 @@ -1,74 +0,0 @@
@@ -419,7 +419,7 @@ index 26a2fb894..000000000
 -    }
 -}
 diff --git a/src/main/java/org/bukkit/craftbukkit/command/ConsoleCommandCompleter.java b/src/main/java/org/bukkit/craftbukkit/command/ConsoleCommandCompleter.java
-index 33e8ea02c..1e3aae3b8 100644
+index 33e8ea02c4e90adbc108633448d9d93dd8572ff8..1e3aae3b8f16a09a613b07bd8015b6c6a12f33cc 100644
 --- a/src/main/java/org/bukkit/craftbukkit/command/ConsoleCommandCompleter.java
 +++ b/src/main/java/org/bukkit/craftbukkit/command/ConsoleCommandCompleter.java
 @@ -8,17 +8,27 @@ import java.util.logging.Level;
@@ -498,7 +498,7 @@ index 33e8ea02c..1e3aae3b8 100644
      }
  }
 diff --git a/src/main/java/org/bukkit/craftbukkit/util/ServerShutdownThread.java b/src/main/java/org/bukkit/craftbukkit/util/ServerShutdownThread.java
-index 984df4083..bbb5a84f3 100644
+index 984df4083d1a41b46b05d04785e83b9ade8e5854..bbb5a84f3681ca29158f8d531715a308b460646f 100644
 --- a/src/main/java/org/bukkit/craftbukkit/util/ServerShutdownThread.java
 +++ b/src/main/java/org/bukkit/craftbukkit/util/ServerShutdownThread.java
 @@ -20,7 +20,7 @@ public class ServerShutdownThread extends Thread {
@@ -512,7 +512,7 @@ index 984df4083..bbb5a84f3 100644
          }
 diff --git a/src/main/java/org/bukkit/craftbukkit/util/TerminalConsoleWriterThread.java b/src/main/java/org/bukkit/craftbukkit/util/TerminalConsoleWriterThread.java
 deleted file mode 100644
-index b64097113..000000000
+index b640971130cd7a4a7b0c5b9ab7d6a3b94c75746c..0000000000000000000000000000000000000000
 --- a/src/main/java/org/bukkit/craftbukkit/util/TerminalConsoleWriterThread.java
 +++ /dev/null
 @@ -1,54 +0,0 @@
@@ -571,7 +571,7 @@ index b64097113..000000000
 -    }
 -}
 diff --git a/src/main/resources/log4j2.xml b/src/main/resources/log4j2.xml
-index 5cee8f00e..08b6bb7f9 100644
+index 5cee8f00ef464bb96edb2ea3ac89b99232da5fdb..08b6bb7f97960db8676131b864cbb4bb1d0a1aeb 100644
 --- a/src/main/resources/log4j2.xml
 +++ b/src/main/resources/log4j2.xml
 @@ -1,12 +1,11 @@
@@ -600,6 +600,3 @@ index 5cee8f00e..08b6bb7f9 100644
              <AppenderRef ref="File"/>
              <AppenderRef ref="TerminalConsole" level="info"/>
          </Root>
--- 
-2.18.0
-

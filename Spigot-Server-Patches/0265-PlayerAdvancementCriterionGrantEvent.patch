@@ -1,11 +1,11 @@
-From 7882f76fb4a440a3e3158ff1615c7fada2225b95 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: BillyGalbreath <Blake.Galbreath@GMail.com>
 Date: Fri, 19 Jan 2018 08:15:29 -0600
 Subject: [PATCH] PlayerAdvancementCriterionGrantEvent
 
 
 diff --git a/src/main/java/net/minecraft/server/AdvancementDataPlayer.java b/src/main/java/net/minecraft/server/AdvancementDataPlayer.java
-index 6896b7095..8913e2744 100644
+index 6896b709537fc3dd6dded95e04893f51a8cd22be..8913e2744eef5d27c954dabe13956673ff3c3e93 100644
 --- a/src/main/java/net/minecraft/server/AdvancementDataPlayer.java
 +++ b/src/main/java/net/minecraft/server/AdvancementDataPlayer.java
 @@ -196,6 +196,12 @@ public class AdvancementDataPlayer {
@@ -21,6 +21,3 @@ index 6896b7095..8913e2744 100644
              this.d(advancement);
              this.i.add(advancement);
              flag = true;
--- 
-2.18.0
-

@@ -1,4 +1,4 @@
-From d8ae95e1197458e374253152f54a1df259068bb2 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Sun, 12 Aug 2018 02:33:39 -0400
 Subject: [PATCH] Use a Queue for Queueing Commands
@@ -6,7 +6,7 @@ Subject: [PATCH] Use a Queue for Queueing Commands
 Lists are bad as Queues mmmkay.
 
 diff --git a/src/main/java/net/minecraft/server/DedicatedServer.java b/src/main/java/net/minecraft/server/DedicatedServer.java
-index 29229159..6a8292ce 100644
+index 292291592716574a958f59cdef11e7ba30c334c8..6a8292ce4537392bc511419df565e238ac04acb1 100644
 --- a/src/main/java/net/minecraft/server/DedicatedServer.java
 +++ b/src/main/java/net/minecraft/server/DedicatedServer.java
 @@ -34,7 +34,7 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
@@ -31,6 +31,3 @@ index 29229159..6a8292ce 100644
  
              // CraftBukkit start - ServerCommand for preprocessing
              ServerCommandEvent event = new ServerCommandEvent(console, servercommand.command);
--- 
-2.19.1
-

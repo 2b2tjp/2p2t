@@ -1,4 +1,4 @@
-From 796e5d95f60258b2f2c2e8d665f09c5d01fb9823 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Tue, 19 Dec 2017 22:56:24 -0500
 Subject: [PATCH] ExperienceOrbMergeEvent
@@ -9,7 +9,7 @@ metadata such as spawn reason, or conditionally move data from source to target.
 
 diff --git a/src/main/java/com/destroystokyo/paper/event/entity/ExperienceOrbMergeEvent.java b/src/main/java/com/destroystokyo/paper/event/entity/ExperienceOrbMergeEvent.java
 new file mode 100644
-index 00000000..fb5b4b86
+index 0000000000000000000000000000000000000000..fb5b4b86cb2a02cdb099e49a933f05f47443585f
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/event/entity/ExperienceOrbMergeEvent.java
 @@ -0,0 +1,82 @@
@@ -95,6 +95,3 @@ index 00000000..fb5b4b86
 +        cancelled = cancel;
 +    }
 +}
--- 
-2.17.1
-

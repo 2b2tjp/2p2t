@@ -1,4 +1,4 @@
-From 48a4571e79ab35c95bf6266573c1edcb1a07dfa0 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Fri, 18 Mar 2016 21:22:56 -0400
 Subject: [PATCH] Optimized Light Level Comparisons
@@ -8,7 +8,7 @@ Use an optimized method to test if a block position meets a desired light level.
 This method benefits from returning as soon as the desired light level matches.
 
 diff --git a/src/main/java/net/minecraft/server/BlockCrops.java b/src/main/java/net/minecraft/server/BlockCrops.java
-index c0b88580c..55ed0c956 100644
+index c0b88580cd2e8fecf5f7821e9be6439514a9d0c2..55ed0c956cfb3c523896d91136be0de995437498 100644
 --- a/src/main/java/net/minecraft/server/BlockCrops.java
 +++ b/src/main/java/net/minecraft/server/BlockCrops.java
 @@ -48,7 +48,7 @@ public class BlockCrops extends BlockPlant implements IBlockFragilePlantElement
@@ -21,7 +21,7 @@ index c0b88580c..55ed0c956 100644
  
              if (i < this.g()) {
 diff --git a/src/main/java/net/minecraft/server/BlockGrass.java b/src/main/java/net/minecraft/server/BlockGrass.java
-index fe55848be..8fc736d6a 100644
+index fe55848be2c8f9040d510457febe08e412b5b7b1..8fc736d6a1ecd9af494acc05e67251593f1f8491 100644
 --- a/src/main/java/net/minecraft/server/BlockGrass.java
 +++ b/src/main/java/net/minecraft/server/BlockGrass.java
 @@ -29,7 +29,8 @@ public class BlockGrass extends Block implements IBlockFragilePlantElement {
@@ -65,7 +65,7 @@ index fe55848be..8fc736d6a 100644
                              // world.setTypeUpdate(blockposition1, Blocks.GRASS.getBlockData());
                              org.bukkit.World bworld = world.getWorld();
 diff --git a/src/main/java/net/minecraft/server/BlockSapling.java b/src/main/java/net/minecraft/server/BlockSapling.java
-index 6d0f4c156..3bbb123bc 100644
+index 6d0f4c15611c8fad810f18621058f579b6e8cc28..3bbb123bcb344fc7ffe6a3af016170837ace94f2 100644
 --- a/src/main/java/net/minecraft/server/BlockSapling.java
 +++ b/src/main/java/net/minecraft/server/BlockSapling.java
 @@ -34,7 +34,7 @@ public class BlockSapling extends BlockPlant implements IBlockFragilePlantElemen
@@ -78,7 +78,7 @@ index 6d0f4c156..3bbb123bc 100644
                  world.captureTreeGeneration = true;
                  // CraftBukkit end
 diff --git a/src/main/java/net/minecraft/server/BlockStem.java b/src/main/java/net/minecraft/server/BlockStem.java
-index f12987c84..5ae7bd9df 100644
+index f12987c84dff8f342dd07a5453f258d936e82eac..5ae7bd9dff0099690c275acf92bfa01639a2f1bd 100644
 --- a/src/main/java/net/minecraft/server/BlockStem.java
 +++ b/src/main/java/net/minecraft/server/BlockStem.java
 @@ -48,7 +48,7 @@ public class BlockStem extends BlockPlant implements IBlockFragilePlantElement {
@@ -91,7 +91,7 @@ index f12987c84..5ae7bd9df 100644
  
              if (random.nextInt((int) ((100.0F / (this == Blocks.PUMPKIN_STEM ? world.spigotConfig.pumpkinModifier : world.spigotConfig.melonModifier)) * (25.0F / f)) + 1) == 0) { // Spigot
 diff --git a/src/main/java/net/minecraft/server/EntityMonster.java b/src/main/java/net/minecraft/server/EntityMonster.java
-index 0f55cf515..8782bce56 100644
+index 0f55cf5153982926a48f819863296641cd37f8b5..8782bce56d2b52a7c2fc69954b54f7c360dd5793 100644
 --- a/src/main/java/net/minecraft/server/EntityMonster.java
 +++ b/src/main/java/net/minecraft/server/EntityMonster.java
 @@ -118,17 +118,17 @@ public abstract class EntityMonster extends EntityCreature implements IMonster {
@@ -118,7 +118,7 @@ index 0f55cf515..8782bce56 100644
      }
  
 diff --git a/src/main/java/net/minecraft/server/EntityZombie.java b/src/main/java/net/minecraft/server/EntityZombie.java
-index 277f1414a..6111ca0b2 100644
+index 277f1414a77c17e6d757333b39e9772b9128a42f..6111ca0b26c2a88bd56629244712fe7f7cce0db8 100644
 --- a/src/main/java/net/minecraft/server/EntityZombie.java
 +++ b/src/main/java/net/minecraft/server/EntityZombie.java
 @@ -178,7 +178,7 @@ public class EntityZombie extends EntityMonster {
@@ -130,6 +130,3 @@ index 277f1414a..6111ca0b2 100644
                          entityzombie.setPosition((double) i1, (double) j1, (double) k1);
                          if (!this.world.isPlayerNearby((double) i1, (double) j1, (double) k1, 7.0D) && this.world.a(entityzombie.getBoundingBox(), (Entity) entityzombie) && this.world.getCubes(entityzombie, entityzombie.getBoundingBox()).isEmpty() && !this.world.containsLiquid(entityzombie.getBoundingBox())) {
                              this.world.addEntity(entityzombie, CreatureSpawnEvent.SpawnReason.REINFORCEMENTS); // CraftBukkit
--- 
-2.18.0
-

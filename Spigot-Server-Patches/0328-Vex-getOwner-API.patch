@@ -1,4 +1,4 @@
-From 5a08e37a76a354a044fa503b8f4f4c0d4f9be59a Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Wed, 4 Jul 2018 15:30:22 -0400
 Subject: [PATCH] Vex#getOwner API
@@ -6,7 +6,7 @@ Subject: [PATCH] Vex#getOwner API
 Get's the NPC that summoned this Vex
 
 diff --git a/src/main/java/net/minecraft/server/EntityVex.java b/src/main/java/net/minecraft/server/EntityVex.java
-index a0abaf431..673c3ff3c 100644
+index a0abaf431deedad7e941a19e8eeac6d2a22f8509..673c3ff3c60724da8bef377a92dc45a9622d8ece 100644
 --- a/src/main/java/net/minecraft/server/EntityVex.java
 +++ b/src/main/java/net/minecraft/server/EntityVex.java
 @@ -90,6 +90,7 @@ public class EntityVex extends EntityMonster {
@@ -18,7 +18,7 @@ index a0abaf431..673c3ff3c 100644
          return this.b;
      }
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftVex.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftVex.java
-index 787a41e01..5d5658136 100644
+index 787a41e0153fb30d781a005f1744b4b8776b8fc8..5d5658136c3ccdaffdb3a8e35a2adc4374f67145 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftVex.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftVex.java
 @@ -1,5 +1,7 @@
@@ -43,6 +43,3 @@ index 787a41e01..5d5658136 100644
      @Override
      public String toString() {
          return "CraftVex";
--- 
-2.18.0
-

@@ -1,4 +1,4 @@
-From 077011a996a7c44bb7ec934b0e46aaf16725f121 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Tue, 22 Mar 2016 00:33:47 -0400
 Subject: [PATCH] Use a Shared Random for Entities
@@ -6,7 +6,7 @@ Subject: [PATCH] Use a Shared Random for Entities
 Reduces memory usage and provides ensures more randomness, Especially since a lot of garbage entity objects get created.
 
 diff --git a/src/main/java/net/minecraft/server/Entity.java b/src/main/java/net/minecraft/server/Entity.java
-index f547dbfd0..daf97bce3 100644
+index 2e01cef87340c25ab1a1a7b145c1fbb5d276ab8c..44e037e77d5c053d9fe8cd18e060febc88afa3b9 100644
 --- a/src/main/java/net/minecraft/server/Entity.java
 +++ b/src/main/java/net/minecraft/server/Entity.java
 @@ -46,6 +46,20 @@ public abstract class Entity implements ICommandListener, KeyedObject { // Paper
@@ -39,6 +39,3 @@ index f547dbfd0..daf97bce3 100644
          this.fireTicks = -this.getMaxFireTicks();
          this.justCreated = true;
          this.uniqueID = MathHelper.a(this.random);
--- 
-2.18.0
-

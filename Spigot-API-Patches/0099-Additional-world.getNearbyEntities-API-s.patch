@@ -1,4 +1,4 @@
-From 248997582dca23978e9d01d1eaa264ab114f6a08 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Mon, 30 Apr 2018 17:55:28 -0400
 Subject: [PATCH] Additional world.getNearbyEntities API's
@@ -6,7 +6,7 @@ Subject: [PATCH] Additional world.getNearbyEntities API's
 Provides more methods to get nearby entities, and filter by types and predicates
 
 diff --git a/src/main/java/org/bukkit/World.java b/src/main/java/org/bukkit/World.java
-index 0bc47dd6e..8d29ede0a 100644
+index 0bc47dd6e4d68f2d4ad33344fe5d8ee04fb802cd..8d29ede0a589f15efd8e37d097f5214a97daeb57 100644
 --- a/src/main/java/org/bukkit/World.java
 +++ b/src/main/java/org/bukkit/World.java
 @@ -2,11 +2,14 @@ package org.bukkit;
@@ -263,6 +263,3 @@ index 0bc47dd6e..8d29ede0a 100644
      /**
       * Get a list of all players in this World
       *
--- 
-2.18.0
-

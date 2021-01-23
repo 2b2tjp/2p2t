@@ -1,4 +1,4 @@
-From 7746107816c3e6e29f7c5175591ce4642c35949f Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: cswhite2000 <18whitechristop@gmail.com>
 Date: Tue, 21 Aug 2018 19:44:10 -0700
 Subject: [PATCH] isChunkGenerated API
@@ -6,7 +6,7 @@ Subject: [PATCH] isChunkGenerated API
 Resolves #1329
 
 diff --git a/src/main/java/net/minecraft/server/ChunkProviderServer.java b/src/main/java/net/minecraft/server/ChunkProviderServer.java
-index 0eba3df5..ad548590 100644
+index 0eba3df5719c2edc1ef1514463e14c51287dd858..ad5485908d3795e73f5fa13c0d553b7fde17c189 100644
 --- a/src/main/java/net/minecraft/server/ChunkProviderServer.java
 +++ b/src/main/java/net/minecraft/server/ChunkProviderServer.java
 @@ -85,6 +85,12 @@ public class ChunkProviderServer implements IChunkProvider {
@@ -23,7 +23,7 @@ index 0eba3df5..ad548590 100644
      public Chunk getLoadedChunkAt(int i, int j) {
          long k = ChunkCoordIntPair.a(i, j);
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftWorld.java b/src/main/java/org/bukkit/craftbukkit/CraftWorld.java
-index 567e9acb..afb141c6 100644
+index 567e9acb133e380388ddb658aa71899fee9e7211..afb141c62974e1877c774a7d1ab09e3398f7713e 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftWorld.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftWorld.java
 @@ -630,6 +630,12 @@ public class CraftWorld implements World {
@@ -39,6 +39,3 @@ index 567e9acb..afb141c6 100644
      public ChunkGenerator getGenerator() {
          return generator;
      }
--- 
-2.19.1
-

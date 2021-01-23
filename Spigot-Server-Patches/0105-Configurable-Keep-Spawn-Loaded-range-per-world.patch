@@ -1,4 +1,4 @@
-From 1cf126b0bdcfd085600588c678c1a9816c2ed64f Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Sat, 13 Sep 2014 23:14:43 -0400
 Subject: [PATCH] Configurable Keep Spawn Loaded range per world
@@ -6,7 +6,7 @@ Subject: [PATCH] Configurable Keep Spawn Loaded range per world
 This lets you disable it for some worlds and lower it for others.
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index 6555f1373..abc1aabdd 100644
+index 6555f1373be263c7ccc7307bc97d452d75547d35..abc1aabdd826e8c667dd7b050e659659893f593f 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -282,4 +282,10 @@ public class PaperWorldConfig {
@@ -21,7 +21,7 @@ index 6555f1373..abc1aabdd 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/MinecraftServer.java b/src/main/java/net/minecraft/server/MinecraftServer.java
-index 4e8ce79ff..2300ee10b 100644
+index 4e8ce79ff6f015e19f9d30ba480e136709043f1c..2300ee10b57c274c3af2e2256dee30ca3f98d37b 100644
 --- a/src/main/java/net/minecraft/server/MinecraftServer.java
 +++ b/src/main/java/net/minecraft/server/MinecraftServer.java
 @@ -357,8 +357,11 @@ public abstract class MinecraftServer implements ICommandListener, Runnable, IAs
@@ -39,7 +39,7 @@ index 4e8ce79ff..2300ee10b 100644
  
                      if (i1 - j > 1000L) {
 diff --git a/src/main/java/net/minecraft/server/World.java b/src/main/java/net/minecraft/server/World.java
-index 5d5003920..671927d5c 100644
+index 5d5003920c7e7ba1e76a9a65e7c06f0b4e95e320..671927d5cc4df18420e5b4add0c8b08465f20d6a 100644
 --- a/src/main/java/net/minecraft/server/World.java
 +++ b/src/main/java/net/minecraft/server/World.java
 @@ -3200,8 +3200,9 @@ public abstract class World implements IBlockAccess {
@@ -54,7 +54,7 @@ index 5d5003920..671927d5c 100644
  
      public void a(Packet<?> packet) {
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftServer.java b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-index d3e949707..054ac1b47 100644
+index ffebe52484df921f88ed040183e7112ff7b959df..21e1263e9c3bb29536becbc5a2ea75ea1f217c89 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 @@ -961,7 +961,7 @@ public final class CraftServer implements Server {
@@ -67,7 +67,7 @@ index d3e949707..054ac1b47 100644
              for (int j = -short1; j <= short1; j += 16) {
                  for (int k = -short1; k <= short1; k += 16) {
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftWorld.java b/src/main/java/org/bukkit/craftbukkit/CraftWorld.java
-index 01fc193db..69dc11e2b 100644
+index 01fc193dbbe8917ec112e77ea7631635baa10097..69dc11e2b3e9efc53e3eee09eff9c1eb0a87d97a 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftWorld.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftWorld.java
 @@ -1283,8 +1283,9 @@ public class CraftWorld implements World {
@@ -82,6 +82,3 @@ index 01fc193db..69dc11e2b 100644
                  if (keepLoaded) {
                      loadChunk(chunkCoordX + x, chunkCoordZ + z);
                  } else {
--- 
-2.18.0
-

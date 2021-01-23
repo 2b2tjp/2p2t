@@ -1,11 +1,11 @@
-From b686cac8200d295ec51c9918f87f818868fa3ab7 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: MiniDigger <admin@minidigger.me>
 Date: Sat, 10 Mar 2018 00:50:24 +0100
 Subject: [PATCH] Toggleable player crits, helps mitigate hacked clients.
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index 363e03b65..ef1fa8cf6 100644
+index 363e03b65d1ed587295c68f61255ba4b51e0301d..ef1fa8cf64748680ee17b2c034298012b2445ebd 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -232,6 +232,11 @@ public class PaperWorldConfig {
@@ -21,7 +21,7 @@ index 363e03b65..ef1fa8cf6 100644
      private void allChunksAreSlimeChunks() {
          allChunksAreSlimeChunks = getBoolean("all-chunks-are-slime-chunks", false);
 diff --git a/src/main/java/net/minecraft/server/EntityHuman.java b/src/main/java/net/minecraft/server/EntityHuman.java
-index 347237055..4b82e43a8 100644
+index 3472370550d669abb42dee213b261a6b1bcde195..4b82e43a811fd0dbf191fe3297e9cc72cb08f2ae 100644
 --- a/src/main/java/net/minecraft/server/EntityHuman.java
 +++ b/src/main/java/net/minecraft/server/EntityHuman.java
 @@ -978,7 +978,7 @@ public abstract class EntityHuman extends EntityLiving {
@@ -33,6 +33,3 @@ index 347237055..4b82e43a8 100644
                      flag2 = flag2 && !this.isSprinting();
                      if (flag2) {
                          f *= 1.5F;
--- 
-2.18.0
-

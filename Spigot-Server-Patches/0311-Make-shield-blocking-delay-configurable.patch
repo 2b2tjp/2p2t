@@ -1,11 +1,11 @@
-From 29599c88d5f36c9ade555f7a6d7890cc78c126f1 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: BillyGalbreath <Blake.Galbreath@GMail.com>
 Date: Sat, 16 Jun 2018 01:18:16 -0500
 Subject: [PATCH] Make shield blocking delay configurable
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index 03a9a96fc..99ad40fa3 100644
+index 03a9a96fcbc1ad9a3ba634b84d877db7f4527060..99ad40fa318dcdfd98bcd5fd64729d4efa389075 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -519,4 +519,9 @@ public class PaperWorldConfig {
@@ -19,7 +19,7 @@ index 03a9a96fc..99ad40fa3 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/EntityLiving.java b/src/main/java/net/minecraft/server/EntityLiving.java
-index 9adcabd4f..65bc19b17 100644
+index 64a8494a9a3fca31d0ae174a468343a1953b85e9..06ccebc8cab936d74466a0feee97f8045028e580 100644
 --- a/src/main/java/net/minecraft/server/EntityLiving.java
 +++ b/src/main/java/net/minecraft/server/EntityLiving.java
 @@ -2481,7 +2481,7 @@ public abstract class EntityLiving extends Entity {
@@ -49,7 +49,7 @@ index 9adcabd4f..65bc19b17 100644
 +    // Paper end
  }
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftLivingEntity.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftLivingEntity.java
-index a7b076377..14fb474f7 100644
+index a7b07637705e954bf3f952b727f9a8e2bc5af9e2..14fb474f78a567abe26376af28f74ab706cd54d8 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftLivingEntity.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftLivingEntity.java
 @@ -515,5 +515,15 @@ public class CraftLivingEntity extends CraftEntity implements LivingEntity {
@@ -68,6 +68,3 @@ index a7b076377..14fb474f7 100644
 +    }
      // Paper end
  }
--- 
-2.18.0
-

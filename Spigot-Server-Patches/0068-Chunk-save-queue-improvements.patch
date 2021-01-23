@@ -1,4 +1,4 @@
-From c137628da7ca3cdca8ef577cdb3594bff5460657 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Fri, 4 Mar 2016 18:18:37 -0600
 Subject: [PATCH] Chunk save queue improvements
@@ -26,7 +26,7 @@ Then finally, Sleeping will by default be removed, but due to known issues with 
 But if sleeps are to remain enabled, we at least lower the sleep interval so it doesn't have as much negative impact.
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperConfig.java b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-index 36689db74..3898ad8fa 100644
+index 36689db74affdfba3a1efee8c22813afcfc80304..3898ad8faa722f8df5d857112654882773553cdd 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperConfig.java
 @@ -204,4 +204,10 @@ public class PaperConfig {
@@ -41,7 +41,7 @@ index 36689db74..3898ad8fa 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/ChunkRegionLoader.java b/src/main/java/net/minecraft/server/ChunkRegionLoader.java
-index a401dec60..4c3faa201 100644
+index a401dec60dab8cf4e4236bd6aac71346215063fb..4c3faa20112f39e0a7f06e3ee05f18becb118995 100644
 --- a/src/main/java/net/minecraft/server/ChunkRegionLoader.java
 +++ b/src/main/java/net/minecraft/server/ChunkRegionLoader.java
 @@ -12,6 +12,7 @@ import java.util.List;
@@ -138,7 +138,7 @@ index a401dec60..4c3faa201 100644
 +    // Paper end
  }
 diff --git a/src/main/java/net/minecraft/server/FileIOThread.java b/src/main/java/net/minecraft/server/FileIOThread.java
-index 1d6b1874c..9ee4115be 100644
+index 1d6b1874c32df10ef6b0e1a876fd76b70f775a8a..9ee4115bec6b256362a490f7ffb3e10642d99ba2 100644
 --- a/src/main/java/net/minecraft/server/FileIOThread.java
 +++ b/src/main/java/net/minecraft/server/FileIOThread.java
 @@ -39,11 +39,15 @@ public class FileIOThread implements Runnable {
@@ -161,6 +161,3 @@ index 1d6b1874c..9ee4115be 100644
          }
  
          if (this.b.isEmpty()) {
--- 
-2.18.0
-

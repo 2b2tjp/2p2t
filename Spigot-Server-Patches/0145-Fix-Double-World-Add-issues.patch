@@ -1,4 +1,4 @@
-From 244438affa544cd9fb04141577b56ef2a0b11788 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Tue, 21 Jun 2016 22:54:34 -0400
 Subject: [PATCH] Fix Double World Add issues
@@ -8,7 +8,7 @@ Vanilla will double add Spider Jockeys to the world, so ignore already added.
 Also add debug if something else tries to, and abort before world gets bad state
 
 diff --git a/src/main/java/net/minecraft/server/ChunkRegionLoader.java b/src/main/java/net/minecraft/server/ChunkRegionLoader.java
-index 12bd558a7..8747d9a45 100644
+index 12bd558a7f95531e99535aed59b38fcc327ccbf4..8747d9a458dbfbe1e7c0bdb34863150c1a36c0e5 100644
 --- a/src/main/java/net/minecraft/server/ChunkRegionLoader.java
 +++ b/src/main/java/net/minecraft/server/ChunkRegionLoader.java
 @@ -546,7 +546,7 @@ public class ChunkRegionLoader implements IChunkLoader, IAsyncChunkSaver {
@@ -21,7 +21,7 @@ index 12bd558a7..8747d9a45 100644
              Iterator iterator = entity.bF().iterator();
  
 diff --git a/src/main/java/net/minecraft/server/World.java b/src/main/java/net/minecraft/server/World.java
-index 36a78daff..6e37c4366 100644
+index 36a78daff7e15ed8b196fb33a2c46308a15947e9..6e37c4366f694baa1992178827d8736d38f55486 100644
 --- a/src/main/java/net/minecraft/server/World.java
 +++ b/src/main/java/net/minecraft/server/World.java
 @@ -1103,6 +1103,7 @@ public abstract class World implements IBlockAccess {
@@ -32,6 +32,3 @@ index 36a78daff..6e37c4366 100644
  
          org.bukkit.event.Cancellable event = null;
          if (entity instanceof EntityLiving && !(entity instanceof EntityPlayer)) {
--- 
-2.18.0
-

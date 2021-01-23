@@ -1,11 +1,11 @@
-From 1f84a29839c470f5bdc16ac91c21a3dccd8650eb Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Zach Brown <zach.brown@destroystokyo.com>
 Date: Tue, 1 Mar 2016 13:02:51 -0600
 Subject: [PATCH] Configurable cactus and reed natural growth heights
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index 621bf7051..4a692ac1b 100644
+index 621bf7051ea157859579cc11be6c0a1591aca23d..4a692ac1b883d1e981522577e1ed7904387ead8b 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -63,4 +63,13 @@ public class PaperWorldConfig {
@@ -23,7 +23,7 @@ index 621bf7051..4a692ac1b 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/BlockCactus.java b/src/main/java/net/minecraft/server/BlockCactus.java
-index 64b7d08fa..d8fb87f7a 100644
+index 64b7d08fa942d7f0731f58d6e0fff8dbfb13a097..d8fb87f7ad3b96b51bd25bdeb76f24ebbb78774b 100644
 --- a/src/main/java/net/minecraft/server/BlockCactus.java
 +++ b/src/main/java/net/minecraft/server/BlockCactus.java
 @@ -28,7 +28,7 @@ public class BlockCactus extends Block {
@@ -36,7 +36,7 @@ index 64b7d08fa..d8fb87f7a 100644
  
                  if (j >= (byte) range(3, ((100.0F / world.spigotConfig.cactusModifier) * 15) + 0.5F, 15)) { // Spigot
 diff --git a/src/main/java/net/minecraft/server/BlockReed.java b/src/main/java/net/minecraft/server/BlockReed.java
-index 57f24f55d..d19dce839 100644
+index 57f24f55d8036a29832e590bca299f3d96575dd7..d19dce8398bf34f044308504b1e5c3824acd5e7d 100644
 --- a/src/main/java/net/minecraft/server/BlockReed.java
 +++ b/src/main/java/net/minecraft/server/BlockReed.java
 @@ -28,7 +28,7 @@ public class BlockReed extends Block {
@@ -48,6 +48,3 @@ index 57f24f55d..d19dce839 100644
                      int j = ((Integer) iblockdata.get(BlockReed.AGE)).intValue();
  
                      if (j >= (byte) range(3, ((100.0F / world.spigotConfig.caneModifier) * 15) + 0.5F, 15)) { // Spigot
--- 
-2.18.0
-

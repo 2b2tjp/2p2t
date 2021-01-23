@@ -1,4 +1,4 @@
-From 924f55aabda02b31745c2c49433e560cd4f2d692 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Wed, 13 Apr 2016 00:25:28 -0400
 Subject: [PATCH] Remove unused World Tile Entity List
@@ -6,7 +6,7 @@ Subject: [PATCH] Remove unused World Tile Entity List
 Massive hit to performance and it is completely unnecessary.
 
 diff --git a/src/main/java/net/minecraft/server/World.java b/src/main/java/net/minecraft/server/World.java
-index ad422b24b..5f92355db 100644
+index ad422b24b608bc5b5c751ce336dde8ae03542885..5f92355dbf9cb3a509395c6ddd57673c28cd2c9c 100644
 --- a/src/main/java/net/minecraft/server/World.java
 +++ b/src/main/java/net/minecraft/server/World.java
 @@ -69,7 +69,7 @@ public abstract class World implements IBlockAccess {
@@ -66,6 +66,3 @@ index ad422b24b..5f92355db 100644
                  this.tileEntityListTick.remove(tileentity);
              }
  
--- 
-2.18.0
-

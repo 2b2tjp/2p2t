@@ -1,4 +1,4 @@
-From 52bc5ba70f3cc07b0af1b0ca32765db83aae4033 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: pkt77 <parkerkt77@gmail.com>
 Date: Fri, 10 Nov 2017 23:45:59 -0500
 Subject: [PATCH] Add PlayerArmorChangeEvent
@@ -6,7 +6,7 @@ Subject: [PATCH] Add PlayerArmorChangeEvent
 
 diff --git a/src/main/java/com/destroystokyo/paper/event/player/PlayerArmorChangeEvent.java b/src/main/java/com/destroystokyo/paper/event/player/PlayerArmorChangeEvent.java
 new file mode 100644
-index 00000000..9d56a9e7
+index 0000000000000000000000000000000000000000..9d56a9e7ec7809874eaaf33085a202030a0e442a
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/event/player/PlayerArmorChangeEvent.java
 @@ -0,0 +1,135 @@
@@ -145,6 +145,3 @@ index 00000000..9d56a9e7
 +        }
 +    }
 +}
--- 
-2.16.3
-

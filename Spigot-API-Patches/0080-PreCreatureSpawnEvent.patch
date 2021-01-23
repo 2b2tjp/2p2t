@@ -1,4 +1,4 @@
-From 3c047d4917be9616b971aa725a2682d45f814b6d Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Sun, 14 Jan 2018 16:59:43 -0500
 Subject: [PATCH] PreCreatureSpawnEvent
@@ -16,7 +16,7 @@ See: https://github.com/PaperMC/Paper/issues/917
 
 diff --git a/src/main/java/com/destroystokyo/paper/event/entity/PreCreatureSpawnEvent.java b/src/main/java/com/destroystokyo/paper/event/entity/PreCreatureSpawnEvent.java
 new file mode 100644
-index 00000000..bac1cef3
+index 0000000000000000000000000000000000000000..bac1cef3eccf690f6c061eeabd87454fddf45218
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/event/entity/PreCreatureSpawnEvent.java
 @@ -0,0 +1,98 @@
@@ -118,6 +118,3 @@ index 00000000..bac1cef3
 +        cancelled = cancel;
 +    }
 +}
--- 
-2.17.1
-
