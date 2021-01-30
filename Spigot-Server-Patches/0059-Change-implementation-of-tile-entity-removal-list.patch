@@ -1,11 +1,11 @@
-From abef5d63377c635fd7072ddf5e166aff23a86ead Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Joseph Hirschfeld <joe@ibj.io>
 Date: Thu, 3 Mar 2016 02:39:54 -0600
 Subject: [PATCH] Change implementation of (tile)entity removal list
 
 
 diff --git a/src/main/java/net/minecraft/server/World.java b/src/main/java/net/minecraft/server/World.java
-index e85ed2e33..89197281e 100644
+index e85ed2e33971f35a7c1e2500bbcef62dd9827fef..89197281ede1f564206ce2e6d5fd8760e1eb1370 100644
 --- a/src/main/java/net/minecraft/server/World.java
 +++ b/src/main/java/net/minecraft/server/World.java
 @@ -31,6 +31,11 @@ import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
@@ -64,6 +64,3 @@ index e85ed2e33..89197281e 100644
  
          this.f.clear();
          this.l();
--- 
-2.18.0
-

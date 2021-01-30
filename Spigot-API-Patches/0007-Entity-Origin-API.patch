@@ -1,11 +1,11 @@
-From 31343663dd75e733ce5d1112dabc76dae04f3ec1 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Byteflux <byte@byteflux.net>
 Date: Mon, 29 Feb 2016 17:50:31 -0600
 Subject: [PATCH] Entity Origin API
 
 
 diff --git a/src/main/java/org/bukkit/entity/Entity.java b/src/main/java/org/bukkit/entity/Entity.java
-index 219ec25f..69fbdb3c 100644
+index 28b169d2788e41e0fc299d64532f335345e4a7a1..9b0f97f189bb3a53ceca173f68f06c16f327ca70 100644
 --- a/src/main/java/org/bukkit/entity/Entity.java
 +++ b/src/main/java/org/bukkit/entity/Entity.java
 @@ -497,4 +497,15 @@ public interface Entity extends Metadatable, CommandSender, Nameable {
@@ -25,7 +25,7 @@ index 219ec25f..69fbdb3c 100644
 +    // Paper end
  }
 diff --git a/src/main/java/org/bukkit/entity/FallingBlock.java b/src/main/java/org/bukkit/entity/FallingBlock.java
-index bc56fa22..ad2cd13e 100644
+index bc56fa2223a3ff62f0ec45f660ed662167f41614..ad2cd13e677ab28741732ea2914fc978364985d9 100644
 --- a/src/main/java/org/bukkit/entity/FallingBlock.java
 +++ b/src/main/java/org/bukkit/entity/FallingBlock.java
 @@ -59,4 +59,15 @@ public interface FallingBlock extends Entity {
@@ -45,7 +45,7 @@ index bc56fa22..ad2cd13e 100644
 +    }
  }
 diff --git a/src/main/java/org/bukkit/entity/TNTPrimed.java b/src/main/java/org/bukkit/entity/TNTPrimed.java
-index fcd0a9b2..2abef57c 100644
+index fcd0a9b2f526735553f30972ad015bffddc1e977..2abef57c9e6c41b5f9e880be85314a08d08d373a 100644
 --- a/src/main/java/org/bukkit/entity/TNTPrimed.java
 +++ b/src/main/java/org/bukkit/entity/TNTPrimed.java
 @@ -35,4 +35,15 @@ public interface TNTPrimed extends Explosive {
@@ -64,6 +64,3 @@ index fcd0a9b2..2abef57c 100644
 +        return this.getOrigin();
 +    }
  }
--- 
-2.14.3
-

@@ -1,4 +1,4 @@
-From b0ea83e0b72ee47162d2950eb74ac94b5faede08 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Gabscap <git@gabscap.de>
 Date: Sat, 19 Mar 2016 22:25:11 +0100
 Subject: [PATCH] Waving banner workaround
@@ -6,7 +6,7 @@ Subject: [PATCH] Waving banner workaround
 This patch is a workaround for MC-63720
 
 diff --git a/src/main/java/net/minecraft/server/PacketPlayOutUpdateTime.java b/src/main/java/net/minecraft/server/PacketPlayOutUpdateTime.java
-index c5c3f40ce..6413f76e7 100644
+index c5c3f40ce09cd3168cf8e5f80f14e6b82d7603c4..6413f76e781d6d2e0a3f4213b4bab979748ccd0a 100644
 --- a/src/main/java/net/minecraft/server/PacketPlayOutUpdateTime.java
 +++ b/src/main/java/net/minecraft/server/PacketPlayOutUpdateTime.java
 @@ -4,7 +4,13 @@ import java.io.IOException;
@@ -33,6 +33,3 @@ index c5c3f40ce..6413f76e7 100644
      }
  
      public void a(PacketDataSerializer packetdataserializer) throws IOException {
--- 
-2.18.0
-

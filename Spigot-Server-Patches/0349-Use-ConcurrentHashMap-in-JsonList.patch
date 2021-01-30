@@ -1,4 +1,4 @@
-From 86e6c74f8d45803881b609b6b1451fe44ccf1ad0 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: egg82 <phantom_zero@ymail.com>
 Date: Tue, 7 Aug 2018 01:24:23 -0600
 Subject: [PATCH] Use ConcurrentHashMap in JsonList
@@ -25,7 +25,7 @@ The point of this is readability, but does have a side-benefit of a small microp
 Finally, added a couple obfhelpers for the modified code
 
 diff --git a/src/main/java/net/minecraft/server/JsonList.java b/src/main/java/net/minecraft/server/JsonList.java
-index 0859c7eb..93111cc2 100644
+index 0859c7eb2b25d0b12b673fe67925b69429822103..93111cc240f2727deeabb6d57f3c5a495bb7c2dc 100644
 --- a/src/main/java/net/minecraft/server/JsonList.java
 +++ b/src/main/java/net/minecraft/server/JsonList.java
 @@ -26,6 +26,7 @@ import java.util.Collection;
@@ -109,6 +109,3 @@ index 0859c7eb..93111cc2 100644
          Collection collection = this.d.values();
          String s = this.b.toJson(collection);
          BufferedWriter bufferedwriter = null;
--- 
-2.19.1
-

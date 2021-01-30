@@ -1,4 +1,4 @@
-From 98431cfef4644e54f94e1379dce74e6648c497b9 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Mon, 4 Mar 2013 23:46:10 -0500
 Subject: [PATCH] Chunk Save Reattempt
@@ -6,7 +6,7 @@ Subject: [PATCH] Chunk Save Reattempt
 We commonly have "Stream Closed" errors on chunk saving, so this code should re-try to save the chunk in the event of failure and hopefully prevent rollbacks.
 
 diff --git a/src/main/java/net/minecraft/server/ChunkRegionLoader.java b/src/main/java/net/minecraft/server/ChunkRegionLoader.java
-index 4c3faa20..12bd558a 100644
+index 4c3faa20112f39e0a7f06e3ee05f18becb118995..12bd558a7f95531e99535aed59b38fcc327ccbf4 100644
 --- a/src/main/java/net/minecraft/server/ChunkRegionLoader.java
 +++ b/src/main/java/net/minecraft/server/ChunkRegionLoader.java
 @@ -194,11 +194,16 @@ public class ChunkRegionLoader implements IChunkLoader, IAsyncChunkSaver {
@@ -28,7 +28,7 @@ index 4c3faa20..12bd558a 100644
                  synchronized (lock) { if (this.b.get(chunkcoordintpair) == chunk.compoundSupplier) { this.b.remove(chunkcoordintpair); } }// Paper - This will not equal if a newer version is still pending
  
 diff --git a/src/main/java/net/minecraft/server/RegionFile.java b/src/main/java/net/minecraft/server/RegionFile.java
-index d2f08802..c3424a35 100644
+index d2f0880234be76f5e7c4ec153a6a396f24c4a119..c3424a357ca7545897ac0713ce1844cbf007239d 100644
 --- a/src/main/java/net/minecraft/server/RegionFile.java
 +++ b/src/main/java/net/minecraft/server/RegionFile.java
 @@ -248,8 +248,7 @@ public class RegionFile {
@@ -41,6 +41,3 @@ index d2f08802..c3424a35 100644
          }
  
      }
--- 
-2.20.1
-

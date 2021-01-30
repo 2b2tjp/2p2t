@@ -1,4 +1,4 @@
-From f9b319d2f07b629d7f0ffc68dc21d8226366fb58 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Martin Panzer <postremus1996@googlemail.com>
 Date: Fri, 3 Jun 2016 23:13:39 +0200
 Subject: [PATCH] Fix FallingBlocks being stuck on fences
@@ -11,7 +11,7 @@ We now first check, if if we are already on the ground.
 if not, we check if the falling block is inside of the hitbox of the block at y - 1.
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index 06acdaaf0..600e603bd 100644
+index 06acdaaf041ef895d9790650102b9eaa7eb78c77..600e603bdd0fb988b7c9f194f0c0982c7890ed79 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -334,4 +334,9 @@ public class PaperWorldConfig {
@@ -25,7 +25,7 @@ index 06acdaaf0..600e603bd 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/BlockFalling.java b/src/main/java/net/minecraft/server/BlockFalling.java
-index 674395756..1086e3117 100644
+index 6743957564adfc0cfe667d6f1e39dbeb0ec539b6..1086e3117306ac9f3093312fd4ec484ccebbcb61 100644
 --- a/src/main/java/net/minecraft/server/BlockFalling.java
 +++ b/src/main/java/net/minecraft/server/BlockFalling.java
 @@ -71,6 +71,12 @@ public class BlockFalling extends Block {
@@ -42,7 +42,7 @@ index 674395756..1086e3117 100644
  
      public void a_(World world, BlockPosition blockposition) {}
 diff --git a/src/main/java/net/minecraft/server/EntityFallingBlock.java b/src/main/java/net/minecraft/server/EntityFallingBlock.java
-index abdc2dea9..59acc9088 100644
+index abdc2dea9be02bf3a7a1733b916b2d3c2921b620..59acc90885198a722091319708449427e714d39e 100644
 --- a/src/main/java/net/minecraft/server/EntityFallingBlock.java
 +++ b/src/main/java/net/minecraft/server/EntityFallingBlock.java
 @@ -3,6 +3,7 @@ package net.minecraft.server;
@@ -100,6 +100,3 @@ index abdc2dea9..59acc9088 100644
      public void e(float f, float f1) {
          Block block = this.block.getBlock();
  
--- 
-2.18.0
-

@@ -1,4 +1,4 @@
-From dd4eb3f1e29bd1c58e58a7cc75e02bd284c11938 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Mon, 18 Jun 2018 01:12:53 -0400
 Subject: [PATCH] PlayerReadyArrowEvent
@@ -7,7 +7,7 @@ Called when a player is firing a bow and the server is choosing an arrow to use.
 Plugins can skip selection of certain arrows and control which is used.
 
 diff --git a/src/main/java/net/minecraft/server/ItemBow.java b/src/main/java/net/minecraft/server/ItemBow.java
-index 327d31e19..44e7be58e 100644
+index 327d31e196235bb39356336293cb2a8ddc1ca12c..44e7be58e134a6d66c464010c13d4e73b548c160 100644
 --- a/src/main/java/net/minecraft/server/ItemBow.java
 +++ b/src/main/java/net/minecraft/server/ItemBow.java
 @@ -1,5 +1,6 @@
@@ -74,6 +74,3 @@ index 327d31e19..44e7be58e 100644
  
          if (!entityhuman.abilities.canInstantlyBuild && !flag) {
              return flag ? new InteractionResultWrapper(EnumInteractionResult.PASS, itemstack) : new InteractionResultWrapper(EnumInteractionResult.FAIL, itemstack);
--- 
-2.18.0
-

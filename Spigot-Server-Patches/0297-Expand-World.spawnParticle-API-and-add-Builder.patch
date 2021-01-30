@@ -1,4 +1,4 @@
-From ee7c23774b46b929e07932d07d5a70fd7c26c446 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Tue, 15 Aug 2017 22:29:12 -0400
 Subject: [PATCH] Expand World.spawnParticle API and add Builder
@@ -10,7 +10,7 @@ Adds an option to control the force mode of the particle.
 This adds a new Builder API which is much friendlier to use.
 
 diff --git a/src/main/java/net/minecraft/server/WorldServer.java b/src/main/java/net/minecraft/server/WorldServer.java
-index c06158e0..49019d54 100644
+index c06158e02166fdf305ba5f7b00c2a87c52baaaba..49019d54d5f2865311c298adad897fd51a7c203a 100644
 --- a/src/main/java/net/minecraft/server/WorldServer.java
 +++ b/src/main/java/net/minecraft/server/WorldServer.java
 @@ -1399,12 +1399,17 @@ public class WorldServer extends World implements IAsyncTaskHandler {
@@ -34,7 +34,7 @@ index c06158e0..49019d54 100644
              BlockPosition blockposition = entityplayer.getChunkCoordinates();
              double d7 = blockposition.distanceSquared(d0, d1, d2);
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftWorld.java b/src/main/java/org/bukkit/craftbukkit/CraftWorld.java
-index 568a50ec..ca8bda1c 100644
+index 568a50ec4d8a296bb9ce1a0202960b88d9c50ffc..ca8bda1c098d86fc07b343113bd4c4c9e00e1a8c 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftWorld.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftWorld.java
 @@ -1568,15 +1568,18 @@ public class CraftWorld implements World {
@@ -59,6 +59,3 @@ index 568a50ec..ca8bda1c 100644
                  x, y, z, // Position
                  count,  // Count
                  offsetX, offsetY, offsetZ, // Random offset
--- 
-2.16.1.windows.1
-

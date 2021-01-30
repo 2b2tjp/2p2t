@@ -1,4 +1,4 @@
-From 43a795bbef901edea80d46497de4270f86b08bec Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Mon, 18 Jun 2018 01:09:27 -0400
 Subject: [PATCH] PlayerReadyArrowEvent
@@ -8,7 +8,7 @@ Plugins can skip selection of certain arrows and control which is used.
 
 diff --git a/src/main/java/com/destroystokyo/paper/event/player/PlayerReadyArrowEvent.java b/src/main/java/com/destroystokyo/paper/event/player/PlayerReadyArrowEvent.java
 new file mode 100644
-index 000000000..6fde1e97f
+index 0000000000000000000000000000000000000000..6fde1e97f1ca6e93c1c078a83eb66bfc6a1c6fac
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/event/player/PlayerReadyArrowEvent.java
 @@ -0,0 +1,88 @@
@@ -100,6 +100,3 @@ index 000000000..6fde1e97f
 +        cancelled = cancel;
 +    }
 +}
--- 
-2.18.0
-

@@ -1,11 +1,11 @@
-From a447b4a83b584f8af1b4b6d5fb660a9db06d2179 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Alfie Cleveland <alfeh@me.com>
 Date: Fri, 19 Aug 2016 01:52:56 +0100
 Subject: [PATCH] Optimise BlockStateEnum hashCode and equals
 
 
 diff --git a/src/main/java/net/minecraft/server/BlockStateEnum.java b/src/main/java/net/minecraft/server/BlockStateEnum.java
-index 21ac1e066..a241d7d8c 100644
+index 21ac1e066a9a163fcb3afe48cb4c285f03116653..a241d7d8cbca2281f1610ede55472aa06878d431 100644
 --- a/src/main/java/net/minecraft/server/BlockStateEnum.java
 +++ b/src/main/java/net/minecraft/server/BlockStateEnum.java
 @@ -16,6 +16,11 @@ public class BlockStateEnum<T extends Enum<T> & INamable> extends BlockState<T>
@@ -65,6 +65,3 @@ index 21ac1e066..a241d7d8c 100644
  
      public static <T extends Enum<T> & INamable> BlockStateEnum<T> of(String s, Class<T> oclass) {
          return a(s, oclass, Predicates.alwaysTrue());
--- 
-2.18.0
-

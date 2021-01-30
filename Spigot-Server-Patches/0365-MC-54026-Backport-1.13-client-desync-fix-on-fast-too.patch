@@ -1,11 +1,11 @@
-From 120ded7b1d9144d338d1aa4b3d769dbe498f5f5e Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Fri, 12 Oct 2018 22:41:29 -0400
 Subject: [PATCH] MC-54026: Backport 1.13 client desync fix on fast tools
 
 
 diff --git a/src/main/java/net/minecraft/server/PlayerInteractManager.java b/src/main/java/net/minecraft/server/PlayerInteractManager.java
-index fcb64666..3d867982 100644
+index fcb64666e3929fdffa62fa0d1da7bdbf3c4272f7..3d86798248d2256f394d1f4f848ed5a2f2f0695c 100644
 --- a/src/main/java/net/minecraft/server/PlayerInteractManager.java
 +++ b/src/main/java/net/minecraft/server/PlayerInteractManager.java
 @@ -197,6 +197,7 @@ public class PlayerInteractManager {
@@ -16,6 +16,3 @@ index fcb64666..3d867982 100644
                  this.k = i;
              }
  
--- 
-2.19.1
-

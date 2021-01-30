@@ -1,4 +1,4 @@
-From 80cc0c18e993c665f6aaf581b65e6c627a4a5805 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Sat, 16 Jun 2018 13:41:00 -0400
 Subject: [PATCH] Add SentientNPC Interface to Entities
@@ -14,7 +14,7 @@ This interface lets you identify NPC entities capable of sentience, and able to 
 
 diff --git a/src/main/java/com/destroystokyo/paper/entity/SentientNPC.java b/src/main/java/com/destroystokyo/paper/entity/SentientNPC.java
 new file mode 100644
-index 00000000..7e393254
+index 0000000000000000000000000000000000000000..7e3932548760602af88152c25992abb2a10d9c3b
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/entity/SentientNPC.java
 @@ -0,0 +1,57 @@
@@ -76,7 +76,7 @@ index 00000000..7e393254
 +    public LivingEntity getTarget();
 +}
 diff --git a/src/main/java/org/bukkit/entity/Ambient.java b/src/main/java/org/bukkit/entity/Ambient.java
-index 779e3897..ef548fb4 100644
+index 779e38971a392408626ad7ab6509f8f7bcf1798d..ef548fb4ddfaba522e0d5630c9a2d4ac80291ef2 100644
 --- a/src/main/java/org/bukkit/entity/Ambient.java
 +++ b/src/main/java/org/bukkit/entity/Ambient.java
 @@ -3,4 +3,5 @@ package org.bukkit.entity;
@@ -87,7 +87,7 @@ index 779e3897..ef548fb4 100644
 +public interface Ambient extends LivingEntity, com.destroystokyo.paper.entity.SentientNPC { // Paper
 +}
 diff --git a/src/main/java/org/bukkit/entity/ComplexLivingEntity.java b/src/main/java/org/bukkit/entity/ComplexLivingEntity.java
-index f74411c3..1f00923e 100644
+index f74411c36508f6cdff358cc8994fd4056692e323..1f00923eafb9551ff3e5863f544ca152c3c12b72 100644
 --- a/src/main/java/org/bukkit/entity/ComplexLivingEntity.java
 +++ b/src/main/java/org/bukkit/entity/ComplexLivingEntity.java
 @@ -6,7 +6,7 @@ import java.util.Set;
@@ -100,7 +100,7 @@ index f74411c3..1f00923e 100644
       * Gets a list of parts that belong to this complex entity
       *
 diff --git a/src/main/java/org/bukkit/entity/Creature.java b/src/main/java/org/bukkit/entity/Creature.java
-index f223f55b..bbfb248e 100644
+index f223f55bd467d58b15e000bda86d462b37b9ab33..bbfb248e3668ec27cde0bfa868d01829cd3548f2 100644
 --- a/src/main/java/org/bukkit/entity/Creature.java
 +++ b/src/main/java/org/bukkit/entity/Creature.java
 @@ -4,7 +4,7 @@ package org.bukkit.entity;
@@ -128,7 +128,7 @@ index f223f55b..bbfb248e 100644
 +    //public LivingEntity getTarget(); // Paper - moved to SentientNPC
  }
 diff --git a/src/main/java/org/bukkit/entity/Flying.java b/src/main/java/org/bukkit/entity/Flying.java
-index 4f16a26c..207e9922 100644
+index 4f16a26cad6f8f2e2b49e82d10fb518583885f03..207e99225e58710db9aaf30c5a6a6b59e489f862 100644
 --- a/src/main/java/org/bukkit/entity/Flying.java
 +++ b/src/main/java/org/bukkit/entity/Flying.java
 @@ -3,4 +3,6 @@ package org.bukkit.entity;
@@ -140,7 +140,7 @@ index 4f16a26c..207e9922 100644
 +
 +}
 diff --git a/src/main/java/org/bukkit/entity/Slime.java b/src/main/java/org/bukkit/entity/Slime.java
-index 0d87d203..d4eee19c 100644
+index 0d87d203540d767d93ab4f9b75ab778f3a881e08..d4eee19c264c99baaffa7b332f227d7123e43923 100644
 --- a/src/main/java/org/bukkit/entity/Slime.java
 +++ b/src/main/java/org/bukkit/entity/Slime.java
 @@ -3,7 +3,7 @@ package org.bukkit.entity;
@@ -153,7 +153,7 @@ index 0d87d203..d4eee19c 100644
      /**
       * @return The size of the slime
 diff --git a/src/main/java/org/bukkit/entity/WaterMob.java b/src/main/java/org/bukkit/entity/WaterMob.java
-index 3e89ca0c..8d105e72 100644
+index 3e89ca0c52babfb7aa497c1e459fc95a30d425fd..8d105e727585da25a7b06a386a5e5a357c014a47 100644
 --- a/src/main/java/org/bukkit/entity/WaterMob.java
 +++ b/src/main/java/org/bukkit/entity/WaterMob.java
 @@ -3,4 +3,5 @@ package org.bukkit.entity;
@@ -163,6 +163,3 @@ index 3e89ca0c..8d105e72 100644
 -public interface WaterMob extends LivingEntity {}
 +public interface WaterMob extends LivingEntity, com.destroystokyo.paper.entity.SentientNPC { // Paper
 +}
--- 
-2.18.0
-

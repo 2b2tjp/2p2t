@@ -1,4 +1,4 @@
-From 3aa00b8416f918d281c0bd49999ea499af44f3b2 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Brokkonaut <hannos17@gmx.de>
 Date: Mon, 18 Jun 2018 15:40:39 +0200
 Subject: [PATCH] Add EntityKnockbackByEntityEvent
@@ -6,7 +6,7 @@ Subject: [PATCH] Add EntityKnockbackByEntityEvent
 
 diff --git a/src/main/java/com/destroystokyo/paper/event/entity/EntityKnockbackByEntityEvent.java b/src/main/java/com/destroystokyo/paper/event/entity/EntityKnockbackByEntityEvent.java
 new file mode 100644
-index 000000000..f6ef11624
+index 0000000000000000000000000000000000000000..f6ef11624c2c8ac3796f9ed6cc04dd876b921019
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/event/entity/EntityKnockbackByEntityEvent.java
 @@ -0,0 +1,76 @@
@@ -86,6 +86,3 @@ index 000000000..f6ef11624
 +        return acceleration;
 +    }
 +}
--- 
-2.18.0
-

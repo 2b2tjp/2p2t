@@ -1,11 +1,11 @@
-From 6b1beefbc59949532cb4e66f634583d3fadc42a7 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: kashike <kashike@vq.lc>
 Date: Wed, 15 Aug 2018 01:26:09 -0700
 Subject: [PATCH] Allow disabling armour stand ticking
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index c3bd8269..ed147535 100644
+index c3bd82692d7a47d6af73822833cfc58025775daa..ed1475351221434aaca9996def0b57c586add849 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -584,4 +584,10 @@ public class PaperWorldConfig {
@@ -20,7 +20,7 @@ index c3bd8269..ed147535 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/EntityArmorStand.java b/src/main/java/net/minecraft/server/EntityArmorStand.java
-index df0d66ad..c7215888 100644
+index df0d66ad0c04944de05bf37e71db999522f04fb1..c72158882648f55d3268383a1a6f071702cea2c8 100644
 --- a/src/main/java/net/minecraft/server/EntityArmorStand.java
 +++ b/src/main/java/net/minecraft/server/EntityArmorStand.java
 @@ -51,6 +51,7 @@ public class EntityArmorStand extends EntityLiving {
@@ -67,7 +67,7 @@ index df0d66ad..c7215888 100644
          Vector3f vector3f = (Vector3f) this.datawatcher.get(EntityArmorStand.b);
  
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftArmorStand.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftArmorStand.java
-index 8a06cb16..91b7bc2e 100644
+index 8a06cb1656e2ba396d6abcd0f0fdb51939f6407b..91b7bc2edd6e36c6a782872595b869a1c9c87636 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftArmorStand.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftArmorStand.java
 @@ -221,4 +221,16 @@ public class CraftArmorStand extends CraftLivingEntity implements ArmorStand {
@@ -87,6 +87,3 @@ index 8a06cb16..91b7bc2e 100644
 +    }
 +    // Paper end
  }
--- 
-2.19.1
-

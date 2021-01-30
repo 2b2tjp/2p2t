@@ -1,11 +1,11 @@
-From 8b6a5b555082c1dd6de30aac296317869d9dcec9 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Sweepyoface <github@sweepy.pw>
 Date: Sat, 17 Jun 2017 18:48:21 -0400
 Subject: [PATCH] Add UnknownCommandEvent
 
 
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftServer.java b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-index 539f492e0..77c16fe2c 100644
+index 7e589daba5cdb26d1bbfedc14a9150b0d7c12a8a..be78ce2ad9c85e8033ff685474b7e8b244403400 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 @@ -78,6 +78,7 @@ import org.bukkit.craftbukkit.util.Versioning;
@@ -31,6 +31,3 @@ index 539f492e0..77c16fe2c 100644
          }
          // Spigot end
  
--- 
-2.18.0
-

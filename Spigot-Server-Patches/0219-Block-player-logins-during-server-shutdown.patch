@@ -1,11 +1,11 @@
-From f36c3440727a1046b873964ca2c36b339cdf09a5 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Zach Brown <zach.brown@destroystokyo.com>
 Date: Sun, 2 Jul 2017 21:35:56 -0500
 Subject: [PATCH] Block player logins during server shutdown
 
 
 diff --git a/src/main/java/net/minecraft/server/LoginListener.java b/src/main/java/net/minecraft/server/LoginListener.java
-index 2158fcd32..c5434e6ba 100644
+index 8d1555a21943f329433254f5430e72b55060b8ef..c9533c181645dc53b01bae0f439d8ce45c2977f0 100644
 --- a/src/main/java/net/minecraft/server/LoginListener.java
 +++ b/src/main/java/net/minecraft/server/LoginListener.java
 @@ -53,6 +53,12 @@ public class LoginListener implements PacketLoginInListener, ITickable {
@@ -21,6 +21,3 @@ index 2158fcd32..c5434e6ba 100644
          if (this.g == LoginListener.EnumProtocolState.READY_TO_ACCEPT) {
              this.b();
          } else if (this.g == LoginListener.EnumProtocolState.DELAY_ACCEPT) {
--- 
-2.18.0
-

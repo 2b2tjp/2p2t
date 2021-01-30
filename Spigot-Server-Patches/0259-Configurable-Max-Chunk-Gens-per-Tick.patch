@@ -1,4 +1,4 @@
-From 9b92490838fd8805b3e867cc7235a0bcf0854f7f Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Mon, 1 Jan 2018 16:10:24 -0500
 Subject: [PATCH] Configurable Max Chunk Gens per Tick
@@ -13,7 +13,7 @@ This should result in no noticeable speed reduction in generation for servers no
 lagging, and let larger servers reduce this value according to their own desires.
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index e3ff78180..0ddf826f9 100644
+index e3ff781808e48afcc02ef70a93a96ec2b9ee3267..0ddf826f910b5eed40521c913a37b45e0e7b60df 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -472,4 +472,16 @@ public class PaperWorldConfig {
@@ -34,7 +34,7 @@ index e3ff78180..0ddf826f9 100644
 +
  }
 diff --git a/src/main/java/net/minecraft/server/PlayerChunk.java b/src/main/java/net/minecraft/server/PlayerChunk.java
-index 395386f29..baf72404e 100644
+index 395386f295d6014046efa60aae9b4bfca3e3493a..baf72404ec5a26e74667d20070b0a6a58865424a 100644
 --- a/src/main/java/net/minecraft/server/PlayerChunk.java
 +++ b/src/main/java/net/minecraft/server/PlayerChunk.java
 @@ -27,6 +27,7 @@ public class PlayerChunk {
@@ -54,7 +54,7 @@ index 395386f29..baf72404e 100644
          // CraftBukkit end
      }
 diff --git a/src/main/java/net/minecraft/server/PlayerChunkMap.java b/src/main/java/net/minecraft/server/PlayerChunkMap.java
-index 6ee9f6cfb..99652ae3e 100644
+index 6ee9f6cfb4f559ebef83376ae8011e07a24c7b48..99652ae3ed9fffe9a2a8310465b948d504b0595f 100644
 --- a/src/main/java/net/minecraft/server/PlayerChunkMap.java
 +++ b/src/main/java/net/minecraft/server/PlayerChunkMap.java
 @@ -166,6 +166,7 @@ public class PlayerChunkMap {
@@ -78,7 +78,7 @@ index 6ee9f6cfb..99652ae3e 100644
                      if (playerchunk1.a(flag)) {
                          iterator1.remove();
 diff --git a/src/main/java/org/bukkit/craftbukkit/chunkio/ChunkIOExecutor.java b/src/main/java/org/bukkit/craftbukkit/chunkio/ChunkIOExecutor.java
-index 9aaca21a7..f50d55c8e 100644
+index 9aaca21a79a0838e967e8c43bbb2dc086ae68510..f50d55c8eeec400cf762e46051bb27ae29302bc6 100644
 --- a/src/main/java/org/bukkit/craftbukkit/chunkio/ChunkIOExecutor.java
 +++ b/src/main/java/org/bukkit/craftbukkit/chunkio/ChunkIOExecutor.java
 @@ -35,4 +35,10 @@ public class ChunkIOExecutor {
@@ -93,7 +93,7 @@ index 9aaca21a7..f50d55c8e 100644
 +    // Paper end
  }
 diff --git a/src/main/java/org/bukkit/craftbukkit/util/AsynchronousExecutor.java b/src/main/java/org/bukkit/craftbukkit/util/AsynchronousExecutor.java
-index 193c3621c..cf1258c55 100644
+index 193c3621c6398aa7e67719a19c082668ed7bad9c..cf1258c559ce47bfb0f3dbd94302eacfd5fc08a0 100644
 --- a/src/main/java/org/bukkit/craftbukkit/util/AsynchronousExecutor.java
 +++ b/src/main/java/org/bukkit/craftbukkit/util/AsynchronousExecutor.java
 @@ -351,4 +351,10 @@ public final class AsynchronousExecutor<P, T, C, E extends Throwable> {
@@ -107,6 +107,3 @@ index 193c3621c..cf1258c55 100644
 +    }
 +    // Paper end
  }
--- 
-2.18.0
-

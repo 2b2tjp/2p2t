@@ -1,11 +1,11 @@
-From e894331adaa569423be8472929da3a809c4106bb Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Byteflux <byte@byteflux.net>
 Date: Wed, 2 Mar 2016 02:17:54 -0600
 Subject: [PATCH] Generator Settings
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index db09711e4..7e5cd8042 100644
+index db09711e4ec3a7954debc632858be19aea52e232..7e5cd8042fdfb79242fa4dee6cdfbf247b9d8b6e 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -147,4 +147,34 @@ public class PaperWorldConfig {
@@ -44,7 +44,7 @@ index db09711e4..7e5cd8042 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/BiomeBase.java b/src/main/java/net/minecraft/server/BiomeBase.java
-index 1b7599769..ab6db7468 100644
+index 1b759976990f8d1699e6c713b4867f58f85e2244..ab6db74689023e386457366de164cd3d2697bb1c 100644
 --- a/src/main/java/net/minecraft/server/BiomeBase.java
 +++ b/src/main/java/net/minecraft/server/BiomeBase.java
 @@ -176,7 +176,7 @@ public abstract class BiomeBase {
@@ -57,7 +57,7 @@ index 1b7599769..ab6db7468 100644
              } else {
                  IBlockData iblockdata2 = chunksnapshot.a(k1, l1, j1);
 diff --git a/src/main/java/net/minecraft/server/BiomeBigHills.java b/src/main/java/net/minecraft/server/BiomeBigHills.java
-index 9c39bf7af..61680ab50 100644
+index 9c39bf7af0fca46fea2693d7f5779dc3cb1eeda2..61680ab50405bd93c948d549b5ad4b7697a9b45b 100644
 --- a/src/main/java/net/minecraft/server/BiomeBigHills.java
 +++ b/src/main/java/net/minecraft/server/BiomeBigHills.java
 @@ -32,6 +32,9 @@ public class BiomeBigHills extends BiomeBase {
@@ -94,7 +94,7 @@ index 9c39bf7af..61680ab50 100644
  
      public void a(World world, Random random, ChunkSnapshot chunksnapshot, int i, int j, double d0) {
 diff --git a/src/main/java/net/minecraft/server/BiomeMesa.java b/src/main/java/net/minecraft/server/BiomeMesa.java
-index f2dd96a32..67f8ad8ed 100644
+index f2dd96a32153fb6429b938032ad39a9495f9f670..67f8ad8eda987217291dccdbc61419ffed89725a 100644
 --- a/src/main/java/net/minecraft/server/BiomeMesa.java
 +++ b/src/main/java/net/minecraft/server/BiomeMesa.java
 @@ -99,7 +99,7 @@ public class BiomeMesa extends BiomeBase {
@@ -115,7 +115,7 @@ index f2dd96a32..67f8ad8ed 100644
          }
  
 diff --git a/src/main/java/net/minecraft/server/ChunkProviderFlat.java b/src/main/java/net/minecraft/server/ChunkProviderFlat.java
-index 1452ff657..8b1b79380 100644
+index 1452ff657e4d3569ca551c699fd753c7564bc80a..8b1b793804c66f6033ca58b30d5d1b4754188680 100644
 --- a/src/main/java/net/minecraft/server/ChunkProviderFlat.java
 +++ b/src/main/java/net/minecraft/server/ChunkProviderFlat.java
 @@ -26,7 +26,7 @@ public class ChunkProviderFlat implements ChunkGenerator {
@@ -161,7 +161,7 @@ index 1452ff657..8b1b79380 100644
          int k = 0;
          boolean flag1 = true;
 diff --git a/src/main/java/net/minecraft/server/ChunkProviderGenerate.java b/src/main/java/net/minecraft/server/ChunkProviderGenerate.java
-index 22a24a39f..ee9e00e64 100644
+index 22a24a39f8bf12cc1880b67a4a6f75e1ef282079..ee9e00e64a9858ec8886c8dd31f793da446b5ed4 100644
 --- a/src/main/java/net/minecraft/server/ChunkProviderGenerate.java
 +++ b/src/main/java/net/minecraft/server/ChunkProviderGenerate.java
 @@ -160,32 +160,32 @@ public class ChunkProviderGenerate implements ChunkGenerator {
@@ -272,7 +272,7 @@ index 22a24a39f..ee9e00e64 100644
              }
  
 diff --git a/src/main/java/net/minecraft/server/ChunkProviderHell.java b/src/main/java/net/minecraft/server/ChunkProviderHell.java
-index 9f738749f..12bc10ff0 100644
+index 9f738749f940386b729cdf5589c36cfc058836de..12bc10ff00eda73bcad7c6394088d84cfbc06fcf 100644
 --- a/src/main/java/net/minecraft/server/ChunkProviderHell.java
 +++ b/src/main/java/net/minecraft/server/ChunkProviderHell.java
 @@ -151,7 +151,10 @@ public class ChunkProviderHell implements ChunkGenerator {
@@ -296,7 +296,7 @@ index 9f738749f..12bc10ff0 100644
      }
  }
 diff --git a/src/main/java/net/minecraft/server/StructureGenerator.java b/src/main/java/net/minecraft/server/StructureGenerator.java
-index 66a80a776..34fd7edfe 100644
+index 66a80a7765ea347a61b994fb78fe90f4ac303787..34fd7edfeb18e2f4707a80950424786c84454331 100644
 --- a/src/main/java/net/minecraft/server/StructureGenerator.java
 +++ b/src/main/java/net/minecraft/server/StructureGenerator.java
 @@ -128,6 +128,7 @@ public abstract class StructureGenerator extends WorldGenBase {
@@ -307,6 +307,3 @@ index 66a80a776..34fd7edfe 100644
          this.a(world);
          ObjectIterator objectiterator = this.c.values().iterator();
  
--- 
-2.18.0
-

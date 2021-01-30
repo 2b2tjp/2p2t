@@ -1,11 +1,11 @@
-From ac45d8457a0c7eae58e0b9feebedd4e415bd383e Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Wed, 13 Apr 2016 00:30:10 -0400
 Subject: [PATCH] Don't tick Skulls - unused code
 
 
 diff --git a/src/main/java/net/minecraft/server/TileEntitySkull.java b/src/main/java/net/minecraft/server/TileEntitySkull.java
-index a796c08ab..dd2665881 100644
+index a796c08ab45e56425d0c38e60bbb61a579c481b4..dd2665881f12697a51a7bd90731258799e13d16e 100644
 --- a/src/main/java/net/minecraft/server/TileEntitySkull.java
 +++ b/src/main/java/net/minecraft/server/TileEntitySkull.java
 @@ -24,7 +24,7 @@ import com.mojang.authlib.ProfileLookupCallback;
@@ -17,6 +17,3 @@ index a796c08ab..dd2665881 100644
  
      private int a;
      public int rotation;
--- 
-2.18.0
-

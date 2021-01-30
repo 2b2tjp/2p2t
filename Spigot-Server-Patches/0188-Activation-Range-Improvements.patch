@@ -1,4 +1,4 @@
-From 3da653ac5594ecd2407621dc2d303c63816df5a4 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Tue, 27 Dec 2016 22:38:06 -0500
 Subject: [PATCH] Activation Range Improvements
@@ -6,7 +6,7 @@ Subject: [PATCH] Activation Range Improvements
 Fixes and adds new Immunities to improve gameplay behavior
 
 diff --git a/src/main/java/net/minecraft/server/EntityCreature.java b/src/main/java/net/minecraft/server/EntityCreature.java
-index 0c82c6f5b..9659a45ef 100644
+index 0c82c6f5bd170d36fe9456a1baa211ed7c794192..9659a45efaf24fe83f0cdc12860fe1c15bff9ed4 100644
 --- a/src/main/java/net/minecraft/server/EntityCreature.java
 +++ b/src/main/java/net/minecraft/server/EntityCreature.java
 @@ -10,6 +10,7 @@ public abstract class EntityCreature extends EntityInsentient {
@@ -18,7 +18,7 @@ index 0c82c6f5b..9659a45ef 100644
      private float b;
      private final float c;
 diff --git a/src/main/java/net/minecraft/server/EntityLiving.java b/src/main/java/net/minecraft/server/EntityLiving.java
-index dda6219a7..9e864864d 100644
+index dda6219a7841621e8bb3d11004492bd23ef1d89f..9e864864dd2c0a73269146f5fb07b2bf4d6dd7b3 100644
 --- a/src/main/java/net/minecraft/server/EntityLiving.java
 +++ b/src/main/java/net/minecraft/server/EntityLiving.java
 @@ -73,7 +73,7 @@ public abstract class EntityLiving extends Entity {
@@ -31,7 +31,7 @@ index dda6219a7..9e864864d 100644
      protected int ticksFarFromPlayer;
      protected float aW;
 diff --git a/src/main/java/net/minecraft/server/EntityLlama.java b/src/main/java/net/minecraft/server/EntityLlama.java
-index dbda68dd0..af49b7273 100644
+index dbda68dd0cba0ada4c5db7a5104ce24e58cdc1da..af49b727398863ca2ce1b5f7068fd9949834ad17 100644
 --- a/src/main/java/net/minecraft/server/EntityLlama.java
 +++ b/src/main/java/net/minecraft/server/EntityLlama.java
 @@ -363,6 +363,7 @@ public class EntityLlama extends EntityHorseChestedAbstract implements IRangedEn
@@ -43,7 +43,7 @@ index dbda68dd0..af49b7273 100644
          return this.bL != null;
      }
 diff --git a/src/main/java/net/minecraft/server/PathfinderGoal.java b/src/main/java/net/minecraft/server/PathfinderGoal.java
-index 83d9c43f3..1cb6652c2 100644
+index 83d9c43f33970fcd68f60480e5a007671fe888ff..1cb6652c2287362e0236fea6e221e3f5aea1ed3f 100644
 --- a/src/main/java/net/minecraft/server/PathfinderGoal.java
 +++ b/src/main/java/net/minecraft/server/PathfinderGoal.java
 @@ -18,7 +18,10 @@ public abstract class PathfinderGoal {
@@ -59,7 +59,7 @@ index 83d9c43f3..1cb6652c2 100644
      public void e() {}
  
 diff --git a/src/main/java/net/minecraft/server/PathfinderGoalGotoTarget.java b/src/main/java/net/minecraft/server/PathfinderGoalGotoTarget.java
-index e5b5e9887..e3781f3a8 100644
+index e5b5e98876350a77186f087bc2425d37ac0a93c1..e3781f3a8b8de6885445fac7f46d640a1b912b9e 100644
 --- a/src/main/java/net/minecraft/server/PathfinderGoalGotoTarget.java
 +++ b/src/main/java/net/minecraft/server/PathfinderGoalGotoTarget.java
 @@ -2,12 +2,21 @@ package net.minecraft.server;
@@ -96,7 +96,7 @@ index e5b5e9887..e3781f3a8 100644
                          }
                      }
 diff --git a/src/main/java/org/spigotmc/ActivationRange.java b/src/main/java/org/spigotmc/ActivationRange.java
-index b79bf70f0..33ae73890 100644
+index b79bf70f0e73a07064f23f16f2ab3150e629170a..33ae738908c91685b23dd6d7b8dde65a96368603 100644
 --- a/src/main/java/org/spigotmc/ActivationRange.java
 +++ b/src/main/java/org/spigotmc/ActivationRange.java
 @@ -20,6 +20,7 @@ import net.minecraft.server.EntityFireball;
@@ -163,6 +163,3 @@ index b79bf70f0..33ae73890 100644
          if ( isActive && !( chunk != null && chunk.areNeighborsLoaded( 1 ) ) )
          {
              isActive = false;
--- 
-2.18.0
-

@@ -1,4 +1,4 @@
-From e684a193f95395b7881bd0d96a1961ac00aa40b9 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Thu, 31 Mar 2016 19:17:58 -0400
 Subject: [PATCH] Do not load chunks for light checks
@@ -7,7 +7,7 @@ Should only happen for blocks on the edge that uses neighbors light level
 (certain blocks). In that case, there will be 3-4 other neighbors to get a light level from.
 
 diff --git a/src/main/java/net/minecraft/server/World.java b/src/main/java/net/minecraft/server/World.java
-index 119cd0636..5d5003920 100644
+index 119cd0636482a9cc8862b07d962608acbecb3f86..5d5003920c7e7ba1e76a9a65e7c06f0b4e95e320 100644
 --- a/src/main/java/net/minecraft/server/World.java
 +++ b/src/main/java/net/minecraft/server/World.java
 @@ -764,6 +764,7 @@ public abstract class World implements IBlockAccess {
@@ -18,6 +18,3 @@ index 119cd0636..5d5003920 100644
  
                  Chunk chunk = this.getChunkAtWorldCoords(blockposition);
  
--- 
-2.18.0
-

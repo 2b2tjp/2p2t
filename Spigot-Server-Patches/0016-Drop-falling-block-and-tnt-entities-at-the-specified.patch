@@ -1,11 +1,11 @@
-From c92e98c74584715f42cdf0b959f3dae0e77d85b4 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Byteflux <byte@byteflux.net>
 Date: Tue, 1 Mar 2016 14:14:15 -0600
 Subject: [PATCH] Drop falling block and tnt entities at the specified height
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index 0094d1a8..4da84671 100644
+index 0094d1a87d167495e8667bb80c9a3f1322d74a99..4da846719da72812a3819c53f4f8f8f64adb1484 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -113,4 +113,14 @@ public class PaperWorldConfig {
@@ -24,7 +24,7 @@ index 0094d1a8..4da84671 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/Entity.java b/src/main/java/net/minecraft/server/Entity.java
-index 375f9d03..c94b3416 100644
+index 375f9d03f04075da0ff6e36d37d329d2c9ea0a44..c94b341648d8b24b7c04cf7c56b2ab98b9a5368d 100644
 --- a/src/main/java/net/minecraft/server/Entity.java
 +++ b/src/main/java/net/minecraft/server/Entity.java
 @@ -1802,6 +1802,7 @@ public abstract class Entity implements ICommandListener, KeyedObject { // Paper
@@ -36,7 +36,7 @@ index 375f9d03..c94b3416 100644
      public EntityItem a(ItemStack itemstack, float f) {
          if (itemstack.isEmpty()) {
 diff --git a/src/main/java/net/minecraft/server/EntityFallingBlock.java b/src/main/java/net/minecraft/server/EntityFallingBlock.java
-index 579e51a0..2ba5d51a 100644
+index 579e51a0aa0dcecb8fa6e77c5e45985dc4744355..2ba5d51a5fccc79a934151137f8e077e973128df 100644
 --- a/src/main/java/net/minecraft/server/EntityFallingBlock.java
 +++ b/src/main/java/net/minecraft/server/EntityFallingBlock.java
 @@ -84,6 +84,17 @@ public class EntityFallingBlock extends Entity {
@@ -58,7 +58,7 @@ index 579e51a0..2ba5d51a 100644
                  blockposition = new BlockPosition(this);
                  boolean flag = this.block.getBlock() == Blocks.dS;
 diff --git a/src/main/java/net/minecraft/server/EntityTNTPrimed.java b/src/main/java/net/minecraft/server/EntityTNTPrimed.java
-index 44b2d473..0d70dd1d 100644
+index 44b2d4735139406b0189970c586eef5873dd547a..0d70dd1d224dbe0922ed988bfecf15cf1afe2e1b 100644
 --- a/src/main/java/net/minecraft/server/EntityTNTPrimed.java
 +++ b/src/main/java/net/minecraft/server/EntityTNTPrimed.java
 @@ -57,6 +57,13 @@ public class EntityTNTPrimed extends Entity {
@@ -75,6 +75,3 @@ index 44b2d473..0d70dd1d 100644
          this.motX *= 0.9800000190734863D;
          this.motY *= 0.9800000190734863D;
          this.motZ *= 0.9800000190734863D;
--- 
-2.19.1
-

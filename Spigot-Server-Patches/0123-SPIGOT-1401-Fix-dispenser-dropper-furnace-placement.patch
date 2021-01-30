@@ -1,11 +1,11 @@
-From 7e347eb480cfb1eecd76b0c6fbc08090e439f8d5 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Zach Brown <zach.brown@destroystokyo.com>
 Date: Sun, 24 Apr 2016 19:49:33 -0500
 Subject: [PATCH] SPIGOT-1401: Fix dispenser, dropper, furnace placement
 
 
 diff --git a/src/main/java/net/minecraft/server/BlockDispenser.java b/src/main/java/net/minecraft/server/BlockDispenser.java
-index 8e794976a..539b2b3ce 100644
+index 8e794976a3764619858b34a9d7c3dce5800afbbd..539b2b3ce06c239c5c5f3b88c7608a94a9454234 100644
 --- a/src/main/java/net/minecraft/server/BlockDispenser.java
 +++ b/src/main/java/net/minecraft/server/BlockDispenser.java
 @@ -20,6 +20,9 @@ public class BlockDispenser extends BlockTileEntity {
@@ -28,7 +28,7 @@ index 8e794976a..539b2b3ce 100644
      public boolean interact(World world, BlockPosition blockposition, IBlockData iblockdata, EntityHuman entityhuman, EnumHand enumhand, EnumDirection enumdirection, float f, float f1, float f2) {
          if (world.isClientSide) {
 diff --git a/src/main/java/net/minecraft/server/BlockFurnace.java b/src/main/java/net/minecraft/server/BlockFurnace.java
-index b6834d2d1..dae711708 100644
+index b6834d2d11c19be38d4ded7b6263d164055b15bb..dae711708df9ad8f8c70115fb37cb2c1ac6f68c2 100644
 --- a/src/main/java/net/minecraft/server/BlockFurnace.java
 +++ b/src/main/java/net/minecraft/server/BlockFurnace.java
 @@ -18,6 +18,9 @@ public class BlockFurnace extends BlockTileEntity {
@@ -50,6 +50,3 @@ index b6834d2d1..dae711708 100644
  
      public boolean interact(World world, BlockPosition blockposition, IBlockData iblockdata, EntityHuman entityhuman, EnumHand enumhand, EnumDirection enumdirection, float f, float f1, float f2) {
          if (world.isClientSide) {
--- 
-2.18.0
-

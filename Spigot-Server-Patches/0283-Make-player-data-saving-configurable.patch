@@ -1,11 +1,11 @@
-From 392108a766bc09e0cbc5232bda2e91e63a877aa1 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Mark Vainomaa <mikroskeem@mikroskeem.eu>
 Date: Mon, 26 Mar 2018 18:30:53 +0300
 Subject: [PATCH] Make player data saving configurable
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperConfig.java b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-index ec89ecfca..b602bbf12 100644
+index ec89ecfcae3b11a5aecc7b737828d53381d3300b..b602bbf122a49a0da30845e7b343bbd88fa8b8e6 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperConfig.java
 @@ -282,4 +282,13 @@ public class PaperConfig {
@@ -23,7 +23,7 @@ index ec89ecfca..b602bbf12 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/WorldNBTStorage.java b/src/main/java/net/minecraft/server/WorldNBTStorage.java
-index eba1228fd..4e33cc2f2 100644
+index eba1228fd1eefd928f9b0a10c13635b0d4724175..4e33cc2f220468874b1acb280833ac1b2535377c 100644
 --- a/src/main/java/net/minecraft/server/WorldNBTStorage.java
 +++ b/src/main/java/net/minecraft/server/WorldNBTStorage.java
 @@ -142,6 +142,7 @@ public class WorldNBTStorage implements IDataManager, IPlayerFileData {
@@ -34,6 +34,3 @@ index eba1228fd..4e33cc2f2 100644
          try {
              NBTTagCompound nbttagcompound = entityhuman.save(new NBTTagCompound());
              File file = new File(this.playerDir, entityhuman.bn() + ".dat.tmp");
--- 
-2.18.0
-

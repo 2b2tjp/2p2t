@@ -1,11 +1,11 @@
-From efd444d51f821d324f1aaf4c0e5f19ce17067a8b Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Sotr <i@omc.hk>
 Date: Thu, 23 Aug 2018 16:14:12 +0800
 Subject: [PATCH] Add source block to BlockPhysicsEvent
 
 
 diff --git a/src/main/java/net/minecraft/server/World.java b/src/main/java/net/minecraft/server/World.java
-index 04d0fa1d..64d75934 100644
+index 04d0fa1df986dab99dcd98c2f935c3ba9238c967..64d75934bcdd73d1879e84a5d52bcef7e93cff18 100644
 --- a/src/main/java/net/minecraft/server/World.java
 +++ b/src/main/java/net/minecraft/server/World.java
 @@ -590,7 +590,7 @@ public abstract class World implements IBlockAccess {
@@ -17,6 +17,3 @@ index 04d0fa1d..64d75934 100644
                      this.getServer().getPluginManager().callEvent(event);
  
                      if (event.isCancelled()) {
--- 
-2.19.1
-

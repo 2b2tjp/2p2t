@@ -1,4 +1,4 @@
-From ce6570052db23d6966368350cbd01bb08f15322b Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Minecrell <minecrell@minecrell.net>
 Date: Thu, 21 Sep 2017 19:41:20 +0200
 Subject: [PATCH] Add workaround for plugins modifying the parent of the plugin
@@ -14,7 +14,7 @@ parent of the plugin logger to avoid this.
 
 diff --git a/src/main/java/com/destroystokyo/paper/utils/PaperPluginLogger.java b/src/main/java/com/destroystokyo/paper/utils/PaperPluginLogger.java
 new file mode 100644
-index 00000000..d052b2f5
+index 0000000000000000000000000000000000000000..d052b2f552dc782d0b6488dd451d23f822920e28
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/utils/PaperPluginLogger.java
 @@ -0,0 +1,39 @@
@@ -58,7 +58,7 @@ index 00000000..d052b2f5
 +
 +}
 diff --git a/src/main/java/org/bukkit/plugin/java/JavaPlugin.java b/src/main/java/org/bukkit/plugin/java/JavaPlugin.java
-index 0abad9ad..93fa3493 100644
+index 0abad9adca2bbc96ceaa9380e17a83f903e2a809..93fa3493bcaa4d01770c2adf87fec5229b76672b 100644
 --- a/src/main/java/org/bukkit/plugin/java/JavaPlugin.java
 +++ b/src/main/java/org/bukkit/plugin/java/JavaPlugin.java
 @@ -50,7 +50,7 @@ public abstract class JavaPlugin extends PluginBase {
@@ -85,7 +85,7 @@ index 0abad9ad..93fa3493 100644
  
      /**
 diff --git a/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java b/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java
-index ca9c7796..bd936d9f 100644
+index ca9c7796f0c2e6e69b633a7a1e46ea51cd7d7e6f..bd936d9f2eb5ee665d4605bc23f646582fb045ae 100644
 --- a/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java
 +++ b/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java
 @@ -36,6 +36,7 @@ public final class PluginClassLoader extends URLClassLoader { // Spigot
@@ -113,6 +113,3 @@ index ca9c7796..bd936d9f 100644
          javaPlugin.init(loader, loader.server, description, dataFolder, file, this);
      }
  }
--- 
-2.17.0
-

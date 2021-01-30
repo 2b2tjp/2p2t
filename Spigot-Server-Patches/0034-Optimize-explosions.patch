@@ -1,4 +1,4 @@
-From 7c6a6c8a4f1efcf9c0319a79cfcc36fc6b700591 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Byteflux <byte@byteflux.net>
 Date: Wed, 2 Mar 2016 11:59:48 -0600
 Subject: [PATCH] Optimize explosions
@@ -10,7 +10,7 @@ This patch adds a per-tick cache that is used for storing and retrieving
 an entity's exposure during an explosion.
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index 7e5cd8042..15675efbf 100644
+index 7e5cd8042fdfb79242fa4dee6cdfbf247b9d8b6e..15675efbf99bfaca60145aeeaf1d88081da54aa4 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -177,4 +177,10 @@ public class PaperWorldConfig {
@@ -25,7 +25,7 @@ index 7e5cd8042..15675efbf 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/Explosion.java b/src/main/java/net/minecraft/server/Explosion.java
-index a1ebcf858..e7f0e84d4 100644
+index a1ebcf858055ca07f74eaff018275698106b4682..e7f0e84d430bad296d8f89b820c2d4308965d771 100644
 --- a/src/main/java/net/minecraft/server/Explosion.java
 +++ b/src/main/java/net/minecraft/server/Explosion.java
 @@ -130,7 +130,7 @@ public class Explosion {
@@ -124,7 +124,7 @@ index a1ebcf858..e7f0e84d4 100644
 +    // Paper end
  }
 diff --git a/src/main/java/net/minecraft/server/MinecraftServer.java b/src/main/java/net/minecraft/server/MinecraftServer.java
-index d63a243f3..4e8ce79ff 100644
+index d63a243f31dd75ca54d0b99a1f51f27f8a42e30f..4e8ce79ff6f015e19f9d30ba480e136709043f1c 100644
 --- a/src/main/java/net/minecraft/server/MinecraftServer.java
 +++ b/src/main/java/net/minecraft/server/MinecraftServer.java
 @@ -889,6 +889,7 @@ public abstract class MinecraftServer implements ICommandListener, Runnable, IAs
@@ -136,7 +136,7 @@ index d63a243f3..4e8ce79ff 100644
  
              // this.i[i][this.ticks % 100] = System.nanoTime() - j; // CraftBukkit
 diff --git a/src/main/java/net/minecraft/server/World.java b/src/main/java/net/minecraft/server/World.java
-index 77ed2d249..fc7315f7d 100644
+index 77ed2d24941f6e07f1d55d88cbe616d52ad14a5c..fc7315f7d6d365bc67e7e151891c4031739cd27f 100644
 --- a/src/main/java/net/minecraft/server/World.java
 +++ b/src/main/java/net/minecraft/server/World.java
 @@ -16,6 +16,7 @@ import javax.annotation.Nullable;
@@ -155,6 +155,3 @@ index 77ed2d249..fc7315f7d 100644
  
      public CraftWorld getWorld() {
          return this.world;
--- 
-2.18.0
-

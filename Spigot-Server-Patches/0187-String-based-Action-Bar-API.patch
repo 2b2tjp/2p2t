@@ -1,11 +1,11 @@
-From 4c172f93ecc6a820530393ef7551192a1d68f55f Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Tue, 27 Dec 2016 15:02:42 -0500
 Subject: [PATCH] String based Action Bar API
 
 
 diff --git a/src/main/java/net/minecraft/server/MCUtil.java b/src/main/java/net/minecraft/server/MCUtil.java
-index a4b0901cf..02940d697 100644
+index a4b0901cfe14da812743c1ca934dd344cb8ed9a0..02940d697f0fc40eb788bcf66bdf2c0899041f77 100644
 --- a/src/main/java/net/minecraft/server/MCUtil.java
 +++ b/src/main/java/net/minecraft/server/MCUtil.java
 @@ -1,10 +1,13 @@
@@ -62,7 +62,7 @@ index a4b0901cf..02940d697 100644
 +    }
  }
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
-index 98e9da59a..a9186b77a 100644
+index 532b211c4d31019693d147d124c3dd9509c977d8..7ee17b254b6b6b50ec041fd8e80d3b39502f8afd 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
 @@ -169,6 +169,18 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
@@ -84,6 +84,3 @@ index 98e9da59a..a9186b77a 100644
      @Override
      public void setPlayerListHeaderFooter(BaseComponent[] header, BaseComponent[] footer) {
          PacketPlayOutPlayerListHeaderFooter packet = new PacketPlayOutPlayerListHeaderFooter();
--- 
-2.18.0
-

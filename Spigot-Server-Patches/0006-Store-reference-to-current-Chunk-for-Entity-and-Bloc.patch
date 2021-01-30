@@ -1,4 +1,4 @@
-From ef9dc7ddc60f9ce5456f7a6e5aa0b5a6e38eb0ed Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Wed, 4 Jul 2018 02:10:36 -0400
 Subject: [PATCH] Store reference to current Chunk for Entity and Block
@@ -8,7 +8,7 @@ This enables us a fast reference to the entities current chunk instead
 of having to look it up by hashmap lookups.
 
 diff --git a/src/main/java/net/minecraft/server/Chunk.java b/src/main/java/net/minecraft/server/Chunk.java
-index ff030d98..d54cf9f8 100644
+index ff030d98e42bf9ed65a10171b3f1b7d5a0d34299..d54cf9f897b5ab64930ea749769f456cd5bf9328 100644
 --- a/src/main/java/net/minecraft/server/Chunk.java
 +++ b/src/main/java/net/minecraft/server/Chunk.java
 @@ -25,7 +25,7 @@ public class Chunk {
@@ -89,7 +89,7 @@ index ff030d98..d54cf9f8 100644
                  // Do not pass along players, as doing so can get them stuck outside of time.
                  // (which for example disables inventory icon updates and prevents block breaking)
 diff --git a/src/main/java/net/minecraft/server/Entity.java b/src/main/java/net/minecraft/server/Entity.java
-index b11bb2a3..2bb23c7b 100644
+index b11bb2a3f5602598bfa583282d4898ebae27896b..2bb23c7b2b00152eecc880ce658ad47e033fbcfa 100644
 --- a/src/main/java/net/minecraft/server/Entity.java
 +++ b/src/main/java/net/minecraft/server/Entity.java
 @@ -121,7 +121,7 @@ public abstract class Entity implements ICommandListener, KeyedObject { // Paper
@@ -141,7 +141,7 @@ index b11bb2a3..2bb23c7b 100644
      private MinecraftKey entityKey = getMinecraftKey();
  
 diff --git a/src/main/java/net/minecraft/server/TileEntity.java b/src/main/java/net/minecraft/server/TileEntity.java
-index 0176ca53..29069b75 100644
+index 0176ca530c4d470c5a3f43f655dbe1f048f337cb..29069b753ee21fbbd79610349c26ebf43579bc36 100644
 --- a/src/main/java/net/minecraft/server/TileEntity.java
 +++ b/src/main/java/net/minecraft/server/TileEntity.java
 @@ -28,6 +28,14 @@ public abstract class TileEntity implements KeyedObject {
@@ -160,7 +160,7 @@ index 0176ca53..29069b75 100644
      private MinecraftKey tileEntityKey = getMinecraftKey();
  
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftEntity.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftEntity.java
-index c5a194ff..833e3111 100644
+index c5a194ffea3b0b609b0d2d4687ee418c4fbab358..833e3111de3cb8b4b6d8418b4d2cb9af3db7b8d1 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftEntity.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftEntity.java
 @@ -9,6 +9,7 @@ import java.util.UUID;
@@ -184,6 +184,3 @@ index c5a194ff..833e3111 100644
      public static CraftEntity getEntity(CraftServer server, Entity entity) {
          /**
           * Order is *EXTREMELY* important -- keep it right! =D
--- 
-2.19.1
-

@@ -1,4 +1,4 @@
-From 2abc7e46c1a919472d96956f54c2a7fed3a64452 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: William <admin@domnian.com>
 Date: Fri, 18 Mar 2016 03:28:07 -0400
 Subject: [PATCH] Add command to reload permissions.yml and require confirm to
@@ -6,7 +6,7 @@ Subject: [PATCH] Add command to reload permissions.yml and require confirm to
 
 
 diff --git a/src/main/java/org/bukkit/Bukkit.java b/src/main/java/org/bukkit/Bukkit.java
-index 73157ff9..fd423664 100644
+index 73157ff9fd0b67df8f947d391c34c99b1cab5314..fd4236641ff92bb8efb27b325af5c2c3cf779ceb 100644
 --- a/src/main/java/org/bukkit/Bukkit.java
 +++ b/src/main/java/org/bukkit/Bukkit.java
 @@ -1190,6 +1190,13 @@ public final class Bukkit {
@@ -24,7 +24,7 @@ index 73157ff9..fd423664 100644
  
      public static Server.Spigot spigot()
 diff --git a/src/main/java/org/bukkit/Server.java b/src/main/java/org/bukkit/Server.java
-index 18549ce0..032d6211 100644
+index 18549ce048949814bc3278791b18fb64ce50e08c..032d6211821e180c160e21daa61b4e8ff457c024 100644
 --- a/src/main/java/org/bukkit/Server.java
 +++ b/src/main/java/org/bukkit/Server.java
 @@ -1028,4 +1028,6 @@ public interface Server extends PluginMessageRecipient {
@@ -35,7 +35,7 @@ index 18549ce0..032d6211 100644
 +    void reloadPermissions(); // Paper
  }
 diff --git a/src/main/java/org/bukkit/command/defaults/ReloadCommand.java b/src/main/java/org/bukkit/command/defaults/ReloadCommand.java
-index 0ab7e295..f331a442 100644
+index 0ab7e295d12522d1968f5ca6dc367470388814d7..f331a44238a4fc7ce9db3b394b2d07217c0ba41c 100644
 --- a/src/main/java/org/bukkit/command/defaults/ReloadCommand.java
 +++ b/src/main/java/org/bukkit/command/defaults/ReloadCommand.java
 @@ -13,15 +13,36 @@ public class ReloadCommand extends BukkitCommand {
@@ -87,7 +87,7 @@ index 0ab7e295..f331a442 100644
      }
  }
 diff --git a/src/main/java/org/bukkit/plugin/SimplePluginManager.java b/src/main/java/org/bukkit/plugin/SimplePluginManager.java
-index b88f31ca..bd0588a2 100644
+index b88f31ca2e8d1036a43b83d88cd82355c3bef2a4..bd0588a201b81cfdfe756f939afa8d8e644b0843 100644
 --- a/src/main/java/org/bukkit/plugin/SimplePluginManager.java
 +++ b/src/main/java/org/bukkit/plugin/SimplePluginManager.java
 @@ -763,4 +763,13 @@ public final class SimplePluginManager implements PluginManager {
@@ -104,6 +104,3 @@ index b88f31ca..bd0588a2 100644
 +    // Paper end
 +
  }
--- 
-2.14.1
-

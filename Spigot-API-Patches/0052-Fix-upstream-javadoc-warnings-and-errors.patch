@@ -1,4 +1,4 @@
-From 8279699f108090fb3522612b8d574c50685e1ee2 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Zach Brown <zach.brown@destroystokyo.com>
 Date: Sat, 10 Jun 2017 16:59:40 -0500
 Subject: [PATCH] Fix upstream javadoc warnings and errors
@@ -6,7 +6,7 @@ Subject: [PATCH] Fix upstream javadoc warnings and errors
 Upstream still refuses to use Java 8 with the API so they are likely unaware these are even issues.
 
 diff --git a/src/main/java/org/bukkit/NamespacedKey.java b/src/main/java/org/bukkit/NamespacedKey.java
-index 1ed8f7e4..bd5238ce 100644
+index 1ed8f7e40df4a1ad74142e1aab4480aac62745be..bd5238ce4ce6acf1024d8fd4ff51ea96efebab22 100644
 --- a/src/main/java/org/bukkit/NamespacedKey.java
 +++ b/src/main/java/org/bukkit/NamespacedKey.java
 @@ -38,8 +38,8 @@ public final class NamespacedKey {
@@ -21,7 +21,7 @@ index 1ed8f7e4..bd5238ce 100644
       */
      @Deprecated
 diff --git a/src/main/java/org/bukkit/World.java b/src/main/java/org/bukkit/World.java
-index 8d29dcbd..0bc47dd6 100644
+index 8d29dcbd29e50100cdcb9d8f1880512826ce4a44..0bc47dd6e4d68f2d4ad33344fe5d8ee04fb802cd 100644
 --- a/src/main/java/org/bukkit/World.java
 +++ b/src/main/java/org/bukkit/World.java
 @@ -1407,6 +1407,7 @@ public interface World extends PluginMessageRecipient, Metadatable {
@@ -73,7 +73,7 @@ index 8d29dcbd..0bc47dd6 100644
      public <T> void spawnParticle(Particle particle, double x, double y, double z, int count, double offsetX, double offsetY, double offsetZ, double extra, T data);
  
 diff --git a/src/main/java/org/bukkit/entity/AbstractHorse.java b/src/main/java/org/bukkit/entity/AbstractHorse.java
-index 10757454..6d5410ea 100644
+index 1075745469e3ad0c4f967baa5250a5143e591677..6d5410eab90e76c768b307566d43eff2fb235e8f 100644
 --- a/src/main/java/org/bukkit/entity/AbstractHorse.java
 +++ b/src/main/java/org/bukkit/entity/AbstractHorse.java
 @@ -22,7 +22,7 @@ public interface AbstractHorse extends Animals, Vehicle, InventoryHolder, Tameab
@@ -86,7 +86,7 @@ index 10757454..6d5410ea 100644
       */
      @Deprecated
 diff --git a/src/main/java/org/bukkit/entity/Guardian.java b/src/main/java/org/bukkit/entity/Guardian.java
-index 98af0563..ec6890ae 100644
+index 98af0563c64ae4be9682f7eb7443ab2284569ca5..ec6890ae69ddf8bb0bfaa48d7ab696947edb4dba 100644
 --- a/src/main/java/org/bukkit/entity/Guardian.java
 +++ b/src/main/java/org/bukkit/entity/Guardian.java
 @@ -12,7 +12,7 @@ public interface Guardian extends Monster {
@@ -99,7 +99,7 @@ index 98af0563..ec6890ae 100644
       */
      @Deprecated
 diff --git a/src/main/java/org/bukkit/entity/Horse.java b/src/main/java/org/bukkit/entity/Horse.java
-index cfce8fa5..8660070b 100644
+index cfce8fa5784db9f90bbfbd27113c701b34e0f2a7..8660070bbd513637a0e8f809898a053594d877eb 100644
 --- a/src/main/java/org/bukkit/entity/Horse.java
 +++ b/src/main/java/org/bukkit/entity/Horse.java
 @@ -151,7 +151,7 @@ public interface Horse extends AbstractHorse {
@@ -112,7 +112,7 @@ index cfce8fa5..8660070b 100644
       */
      @Deprecated
 diff --git a/src/main/java/org/bukkit/entity/Player.java b/src/main/java/org/bukkit/entity/Player.java
-index 4478d84d..39684300 100644
+index 4478d84dd96f91a020937b6d169fba0efa8e0afa..39684300689923c4d213816dfa01ce9424e246f8 100644
 --- a/src/main/java/org/bukkit/entity/Player.java
 +++ b/src/main/java/org/bukkit/entity/Player.java
 @@ -411,7 +411,7 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
@@ -205,7 +205,7 @@ index 4478d84d..39684300 100644
      public <T> void spawnParticle(Particle particle, double x, double y, double z, int count, double offsetX, double offsetY, double offsetZ, double extra, T data);
  
 diff --git a/src/main/java/org/bukkit/entity/Skeleton.java b/src/main/java/org/bukkit/entity/Skeleton.java
-index 2a02ab85..e33d00b3 100644
+index 2a02ab855e8fdf0df2ea35838dcce1f4dae1ed14..e33d00b30a35361183507b7adacde2f8ebed9a0c 100644
 --- a/src/main/java/org/bukkit/entity/Skeleton.java
 +++ b/src/main/java/org/bukkit/entity/Skeleton.java
 @@ -15,6 +15,7 @@ public interface Skeleton extends Monster {
@@ -217,7 +217,7 @@ index 2a02ab85..e33d00b3 100644
       */
      @Deprecated
 diff --git a/src/main/java/org/bukkit/entity/Zombie.java b/src/main/java/org/bukkit/entity/Zombie.java
-index cf53ea22..62923379 100644
+index cf53ea22f1c4e8746f628dd4440fe75294d163b9..629233796f54cf90cac42da8ec0121bedae664d3 100644
 --- a/src/main/java/org/bukkit/entity/Zombie.java
 +++ b/src/main/java/org/bukkit/entity/Zombie.java
 @@ -29,14 +29,14 @@ public interface Zombie extends Monster {
@@ -238,7 +238,7 @@ index cf53ea22..62923379 100644
       */
      @Deprecated
 diff --git a/src/main/java/org/bukkit/event/player/PlayerLoginEvent.java b/src/main/java/org/bukkit/event/player/PlayerLoginEvent.java
-index de4fb37f..f1de2af6 100644
+index de4fb37f3ec783ebfb66d51e12c6a9c0c32a8802..f1de2af6e74571f69ea9fbfcda2c26e6e67c6a35 100644
 --- a/src/main/java/org/bukkit/event/player/PlayerLoginEvent.java
 +++ b/src/main/java/org/bukkit/event/player/PlayerLoginEvent.java
 @@ -24,6 +24,7 @@ public class PlayerLoginEvent extends PlayerEvent {
@@ -258,7 +258,7 @@ index de4fb37f..f1de2af6 100644
      public PlayerLoginEvent(final Player player, String hostname, final InetAddress address, final Result result, final String message, final InetAddress realAddress) { // Spigot
          this(player, hostname, address, realAddress); // Spigot
 diff --git a/src/main/java/org/bukkit/inventory/Merchant.java b/src/main/java/org/bukkit/inventory/Merchant.java
-index c8e68570..45431b36 100644
+index c8e68570f53c2391d8888447fa7783e179407553..45431b360dd9351cb61bd7208475dcdebbe2201d 100644
 --- a/src/main/java/org/bukkit/inventory/Merchant.java
 +++ b/src/main/java/org/bukkit/inventory/Merchant.java
 @@ -32,7 +32,7 @@ public interface Merchant {
@@ -280,7 +280,7 @@ index c8e68570..45431b36 100644
      void setRecipe(int i, MerchantRecipe recipe) throws IndexOutOfBoundsException;
  
 diff --git a/src/main/java/org/bukkit/potion/Potion.java b/src/main/java/org/bukkit/potion/Potion.java
-index 1413b361..b4a8051c 100644
+index 1413b361b042e20f86d481f665c52cd053d867d3..b4a8051cc7062bf211dc4f20b2f497c0645f9e51 100644
 --- a/src/main/java/org/bukkit/potion/Potion.java
 +++ b/src/main/java/org/bukkit/potion/Potion.java
 @@ -78,6 +78,7 @@ public class Potion {
@@ -292,7 +292,7 @@ index 1413b361..b4a8051c 100644
       */
      @Deprecated
 diff --git a/src/main/java/org/bukkit/potion/PotionBrewer.java b/src/main/java/org/bukkit/potion/PotionBrewer.java
-index 40f8d12b..33d19228 100644
+index 40f8d12b9ba5dced2e5fa21a42699eb6b80bf944..33d192287b6f0387bb02da31b425d5ce0088475b 100644
 --- a/src/main/java/org/bukkit/potion/PotionBrewer.java
 +++ b/src/main/java/org/bukkit/potion/PotionBrewer.java
 @@ -34,6 +34,8 @@ public interface PotionBrewer {
@@ -305,7 +305,7 @@ index 40f8d12b..33d19228 100644
       */
      public Collection<PotionEffect> getEffects(PotionType type, boolean upgraded, boolean extended);
 diff --git a/src/main/java/org/bukkit/potion/PotionType.java b/src/main/java/org/bukkit/potion/PotionType.java
-index 60470b88..76313d4d 100644
+index 60470b88cf5f6f6453ef2f9ec75c743520429b6a..76313d4d97af5587c9cf1789763daec07b8f249b 100644
 --- a/src/main/java/org/bukkit/potion/PotionType.java
 +++ b/src/main/java/org/bukkit/potion/PotionType.java
 @@ -66,6 +66,7 @@ public enum PotionType {
@@ -335,7 +335,7 @@ index 60470b88..76313d4d 100644
       */
      @Deprecated
 diff --git a/src/main/java/org/bukkit/scoreboard/Team.java b/src/main/java/org/bukkit/scoreboard/Team.java
-index 92174e81..ac5cc32c 100644
+index 92174e810eb0cf5087de6d96e27de0ac7983eaab..ac5cc32cd5c1b5b3ba8da1c8e5195c0a210331b0 100644
 --- a/src/main/java/org/bukkit/scoreboard/Team.java
 +++ b/src/main/java/org/bukkit/scoreboard/Team.java
 @@ -84,7 +84,7 @@ public interface Team {
@@ -347,6 +347,3 @@ index 92174e81..ac5cc32c 100644
       */
      ChatColor getColor() throws IllegalStateException;
  
--- 
-2.18.0
-

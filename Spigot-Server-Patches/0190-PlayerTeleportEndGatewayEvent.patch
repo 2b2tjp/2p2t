@@ -1,4 +1,4 @@
-From 540ca9ec6094933c35bf034c50e44d1a59a88f07 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Sat, 31 Dec 2016 21:44:50 -0500
 Subject: [PATCH] PlayerTeleportEndGatewayEvent
@@ -6,7 +6,7 @@ Subject: [PATCH] PlayerTeleportEndGatewayEvent
 Allows you to access the Gateway being used in a teleport event
 
 diff --git a/src/main/java/net/minecraft/server/TileEntityEndGateway.java b/src/main/java/net/minecraft/server/TileEntityEndGateway.java
-index cfce9274a..ecbc48b0c 100644
+index cfce9274a364ae5e0eee2ed0b3b5738c04e04049..ecbc48b0c5aa280a8a65f647c54cc5a267196f61 100644
 --- a/src/main/java/net/minecraft/server/TileEntityEndGateway.java
 +++ b/src/main/java/net/minecraft/server/TileEntityEndGateway.java
 @@ -124,7 +124,7 @@ public class TileEntityEndGateway extends TileEntityEnderPortal implements ITick
@@ -18,6 +18,3 @@ index cfce9274a..ecbc48b0c 100644
                      Bukkit.getPluginManager().callEvent(teleEvent);
                      if (teleEvent.isCancelled()) {
                          return;
--- 
-2.18.0
-

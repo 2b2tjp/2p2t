@@ -1,4 +1,4 @@
-From 0e4807dea8c78e44fb2aae08d851040732fc2ec6 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Sun, 14 Jan 2018 17:36:02 -0500
 Subject: [PATCH] PlayerNaturallySpawnCreaturesEvent
@@ -9,7 +9,7 @@ from triggering monster spawns on a server.
 Also a highly more effecient way to blanket block spawns in a world
 
 diff --git a/src/main/java/net/minecraft/server/SpawnerCreature.java b/src/main/java/net/minecraft/server/SpawnerCreature.java
-index e217d3340..46faa062d 100644
+index 5d633774dccd045c1dfffba994fd0bddf73b2b8f..11e69a05472117664686895b62bff8448e905efc 100644
 --- a/src/main/java/net/minecraft/server/SpawnerCreature.java
 +++ b/src/main/java/net/minecraft/server/SpawnerCreature.java
 @@ -72,6 +72,15 @@ public final class SpawnerCreature {
@@ -28,6 +28,3 @@ index e217d3340..46faa062d 100644
  
                      for (int i1 = -b0; i1 <= b0; ++i1) {
                          for (k = -b0; k <= b0; ++k) {
--- 
-2.18.0
-

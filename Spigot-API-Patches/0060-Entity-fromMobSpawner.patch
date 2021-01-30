@@ -1,11 +1,11 @@
-From b6a1a9c6c4cec87d0234bc858239e1f0d0db36c1 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: BillyGalbreath <Blake.Galbreath@GMail.com>
 Date: Sun, 18 Jun 2017 18:17:05 -0500
 Subject: [PATCH] Entity#fromMobSpawner()
 
 
 diff --git a/src/main/java/org/bukkit/entity/Entity.java b/src/main/java/org/bukkit/entity/Entity.java
-index 69fbdb3c..6fc00fdf 100644
+index 9b0f97f189bb3a53ceca173f68f06c16f327ca70..3ae4de7adacff02bd2c7abcd59e2fd536b19a3c4 100644
 --- a/src/main/java/org/bukkit/entity/Entity.java
 +++ b/src/main/java/org/bukkit/entity/Entity.java
 @@ -507,5 +507,12 @@ public interface Entity extends Metadatable, CommandSender, Nameable {
@@ -21,6 +21,3 @@ index 69fbdb3c..6fc00fdf 100644
 +    boolean fromMobSpawner();
      // Paper end
  }
--- 
-2.15.1
-

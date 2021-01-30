@@ -1,4 +1,4 @@
-From e66cac106ad45ebee9efc27046d70074f702add0 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Brokkonaut <hannos17@gmx.de>
 Date: Sat, 30 Jun 2018 05:45:39 +0200
 Subject: [PATCH] Improve ProjectileHitEvent to include the BlockFace where the
@@ -6,7 +6,7 @@ Subject: [PATCH] Improve ProjectileHitEvent to include the BlockFace where the
 
 
 diff --git a/src/main/java/org/bukkit/craftbukkit/event/CraftEventFactory.java b/src/main/java/org/bukkit/craftbukkit/event/CraftEventFactory.java
-index 9b19c055d..248873fb4 100644
+index 9b19c055d03c935fffdc81c0c8b3aa9db08a6aab..248873fb4c05314fdecd02e5d0548ff9d193e33d 100644
 --- a/src/main/java/org/bukkit/craftbukkit/event/CraftEventFactory.java
 +++ b/src/main/java/org/bukkit/craftbukkit/event/CraftEventFactory.java
 @@ -836,7 +836,7 @@ public class CraftEventFactory {
@@ -18,6 +18,3 @@ index 9b19c055d..248873fb4 100644
          entity.world.getServer().getPluginManager().callEvent(event);
          return event;
      }
--- 
-2.18.0
-

@@ -1,11 +1,11 @@
-From 800083976a454caf39f0a2019df51e3af314b022 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: kashike <kashike@vq.lc>
 Date: Wed, 15 Aug 2018 01:26:03 -0700
 Subject: [PATCH] Allow disabling armour stand ticking
 
 
 diff --git a/src/main/java/org/bukkit/entity/ArmorStand.java b/src/main/java/org/bukkit/entity/ArmorStand.java
-index 099da6ce..859f166f 100644
+index 099da6ce10f6576d3347fab793aa2596d43b46ec..859f166fbb0001d460e4c88ac22a9e3823dc0c58 100644
 --- a/src/main/java/org/bukkit/entity/ArmorStand.java
 +++ b/src/main/java/org/bukkit/entity/ArmorStand.java
 @@ -275,5 +275,21 @@ public interface ArmorStand extends LivingEntity {
@@ -30,6 +30,3 @@ index 099da6ce..859f166f 100644
 +    void setCanTick(final boolean tick);
      // Paper end
  }
--- 
-2.18.0
-

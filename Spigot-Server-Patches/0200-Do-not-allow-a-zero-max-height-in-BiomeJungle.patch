@@ -1,11 +1,11 @@
-From 7b6363144fa307ab410333b3ad647b10ceb17aa9 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Zach Brown <zach.brown@destroystokyo.com>
 Date: Mon, 23 Jan 2017 15:10:25 -0600
 Subject: [PATCH] Do not allow a zero max height in BiomeJungle
 
 
 diff --git a/src/main/java/net/minecraft/server/BiomeJungle.java b/src/main/java/net/minecraft/server/BiomeJungle.java
-index 8f67cb36c..8dc0b6238 100644
+index 8f67cb36c9091a8a7d52d969166c53cb923fb138..8dc0b62385bd212bd3c31cf6a107850230470df6 100644
 --- a/src/main/java/net/minecraft/server/BiomeJungle.java
 +++ b/src/main/java/net/minecraft/server/BiomeJungle.java
 @@ -40,7 +40,11 @@ public class BiomeJungle extends BiomeBase {
@@ -22,7 +22,7 @@ index 8f67cb36c..8dc0b6238 100644
          (new WorldGenMelon()).generate(world, random, blockposition.a(i, k, j));
          WorldGenVines worldgenvines = new WorldGenVines();
 diff --git a/src/main/java/net/minecraft/server/BlockPosition.java b/src/main/java/net/minecraft/server/BlockPosition.java
-index 6a0b3a62d..38a7af58c 100644
+index 6a0b3a62d26f232fc997de77b7046b134f5a6ad5..38a7af58c0b00b2f0803e0330d4e920e09e55b7e 100644
 --- a/src/main/java/net/minecraft/server/BlockPosition.java
 +++ b/src/main/java/net/minecraft/server/BlockPosition.java
 @@ -42,6 +42,7 @@ public class BlockPosition extends BaseBlockPosition {
@@ -33,6 +33,3 @@ index 6a0b3a62d..38a7af58c 100644
      public BlockPosition a(double d0, double d1, double d2) {
          return d0 == 0.0D && d1 == 0.0D && d2 == 0.0D ? this : new BlockPosition((double) this.getX() + d0, (double) this.getY() + d1, (double) this.getZ() + d2);
      }
--- 
-2.18.0
-

@@ -1,4 +1,4 @@
-From 5086a12a999a530288262ae057cd49229bce127c Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Fri, 18 Mar 2016 15:12:22 -0400
 Subject: [PATCH] Configurable Non Player Arrow Despawn Rate
@@ -6,7 +6,7 @@ Subject: [PATCH] Configurable Non Player Arrow Despawn Rate
 Can set a much shorter despawn rate for arrows that players can not pick up.
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index faacd86ba..f71580393 100644
+index faacd86ba12a3ddacf6091180c62c63f80023837..f715803932fc9aa7ef7511f53733c324c4206a1b 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -252,4 +252,13 @@ public class PaperWorldConfig {
@@ -24,7 +24,7 @@ index faacd86ba..f71580393 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/EntityArrow.java b/src/main/java/net/minecraft/server/EntityArrow.java
-index 584782adb..86836a5d0 100644
+index 584782adb58afc7af5a0742f632779c7bbcb82d2..86836a5d02b399c86f2b35d56ff96ef51b22720e 100644
 --- a/src/main/java/net/minecraft/server/EntityArrow.java
 +++ b/src/main/java/net/minecraft/server/EntityArrow.java
 @@ -157,7 +157,7 @@ public abstract class EntityArrow extends Entity implements IProjectile {
@@ -36,6 +36,3 @@ index 584782adb..86836a5d0 100644
                      this.die();
                  }
              }
--- 
-2.18.0
-

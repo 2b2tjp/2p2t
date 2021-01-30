@@ -1,4 +1,4 @@
-From c4ffbeb0571e0c4f9a4b116127a362511d21908f Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Thu, 13 Sep 2018 20:51:50 -0400
 Subject: [PATCH] Performance & Concurrency Improvements to Permissions
@@ -18,7 +18,7 @@ Optimized it to simply be a single get call cutting permission map
 lookups in half.
 
 diff --git a/src/main/java/org/bukkit/permissions/PermissibleBase.java b/src/main/java/org/bukkit/permissions/PermissibleBase.java
-index d4cb00a82..486f69f86 100644
+index d4cb00a8213a9e56703853384411de43588c3acb..486f69f86b5f0bfcbe15064e4e82253b28276477 100644
 --- a/src/main/java/org/bukkit/permissions/PermissibleBase.java
 +++ b/src/main/java/org/bukkit/permissions/PermissibleBase.java
 @@ -68,8 +68,11 @@ public class PermissibleBase implements Permissible {
@@ -109,6 +109,3 @@ index d4cb00a82..486f69f86 100644
          return new HashSet<PermissionAttachmentInfo>(permissions.values());
      }
  
--- 
-2.18.0
-

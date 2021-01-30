@@ -1,11 +1,11 @@
-From 2a957c68f83983541fb26d90e11944e9f97ec7fa Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: DoctorDark <doctordark11@gmail.com>
 Date: Wed, 16 Mar 2016 02:21:39 -0500
 Subject: [PATCH] Configurable end credits
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index 94a173045..db09711e4 100644
+index 94a173045948c775e9c97adfadc6ce3b7fc7556a..db09711e4ec3a7954debc632858be19aea52e232 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -141,4 +141,10 @@ public class PaperWorldConfig {
@@ -20,7 +20,7 @@ index 94a173045..db09711e4 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/EntityPlayer.java b/src/main/java/net/minecraft/server/EntityPlayer.java
-index 730acd971..dfaab774d 100644
+index 730acd97174d1286cd57bba0e8ceae459fec022b..dfaab774dc367868ff25d93c67165bcbaf2fb9d0 100644
 --- a/src/main/java/net/minecraft/server/EntityPlayer.java
 +++ b/src/main/java/net/minecraft/server/EntityPlayer.java
 @@ -56,7 +56,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
@@ -40,6 +40,3 @@ index 730acd971..dfaab774d 100644
                  this.playerConnection.sendPacket(new PacketPlayOutGameStateChange(4, this.cq ? 0.0F : 1.0F));
                  this.cq = true;
              }
--- 
-2.18.0
-

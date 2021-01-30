@@ -1,11 +1,11 @@
-From 0b318cc00f265124445ca5f9f0f833525e066ca9 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Joseph Hirschfeld <joe@ibj.io>
 Date: Thu, 3 Mar 2016 02:46:17 -0600
 Subject: [PATCH] Add configurable portal search radius
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index a289ba019..38ccabc0d 100644
+index a289ba0196d81d4493a547c2c55a254eeafc8a72..38ccabc0d5f04944104e410a960cadf27aec551a 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -232,4 +232,9 @@ public class PaperWorldConfig {
@@ -19,7 +19,7 @@ index a289ba019..38ccabc0d 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/PortalTravelAgent.java b/src/main/java/net/minecraft/server/PortalTravelAgent.java
-index d1c67e396..f49729796 100644
+index d1c67e3969fa92318b096192f7d701d8c1ffbe4b..f49729796917431bcfef01891dcd4bf4758ce629 100644
 --- a/src/main/java/net/minecraft/server/PortalTravelAgent.java
 +++ b/src/main/java/net/minecraft/server/PortalTravelAgent.java
 @@ -12,7 +12,7 @@ import org.bukkit.util.Vector;
@@ -41,7 +41,7 @@ index d1c67e396..f49729796 100644
              return false;
          }
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftTravelAgent.java b/src/main/java/org/bukkit/craftbukkit/CraftTravelAgent.java
-index 1d5dce10e..7ca2617a8 100644
+index 1d5dce10ece044f3099dcd06f54e01c8caabc274..7ca2617a88eb76cdcf8b6f81a1640179a4e618eb 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftTravelAgent.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftTravelAgent.java
 @@ -11,7 +11,7 @@ public class CraftTravelAgent extends PortalTravelAgent implements TravelAgent {
@@ -53,6 +53,3 @@ index 1d5dce10e..7ca2617a8 100644
      private int creationRadius = 16;
      private boolean canCreatePortal = true;
  
--- 
-2.18.0
-

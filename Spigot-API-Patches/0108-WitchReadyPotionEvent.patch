@@ -1,4 +1,4 @@
-From b07bf245ce402906a9d39ae8b21b386142509f7a Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Tue, 5 Jun 2018 22:47:08 -0400
 Subject: [PATCH] WitchReadyPotionEvent
@@ -7,7 +7,7 @@ Control what potion the witch readies to use
 
 diff --git a/src/main/java/com/destroystokyo/paper/event/entity/WitchReadyPotionEvent.java b/src/main/java/com/destroystokyo/paper/event/entity/WitchReadyPotionEvent.java
 new file mode 100644
-index 000000000..0e0c6da71
+index 0000000000000000000000000000000000000000..0e0c6da71bb4fa22c963d403e6ae444bae4af0fb
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/event/entity/WitchReadyPotionEvent.java
 @@ -0,0 +1,74 @@
@@ -85,6 +85,3 @@ index 000000000..0e0c6da71
 +        cancelled = cancel;
 +    }
 +}
--- 
-2.18.0
-

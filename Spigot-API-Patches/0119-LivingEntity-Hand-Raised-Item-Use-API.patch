@@ -1,4 +1,4 @@
-From 98956ddc3685e0b100005ac2507d3ec8cbea1a5c Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Fri, 29 Jun 2018 00:19:19 -0400
 Subject: [PATCH] LivingEntity Hand Raised/Item Use API
@@ -6,7 +6,7 @@ Subject: [PATCH] LivingEntity Hand Raised/Item Use API
 How long an entity has raised hands to charge an attack or use an item
 
 diff --git a/src/main/java/org/bukkit/entity/LivingEntity.java b/src/main/java/org/bukkit/entity/LivingEntity.java
-index 5921c9521..9c542951e 100644
+index 5921c952107fa1277856d336b86c370b7da90c78..9c542951ec8c96d58399e6071c10b7aef88f5648 100644
 --- a/src/main/java/org/bukkit/entity/LivingEntity.java
 +++ b/src/main/java/org/bukkit/entity/LivingEntity.java
 @@ -10,6 +10,7 @@ import org.bukkit.Material;
@@ -49,6 +49,3 @@ index 5921c9521..9c542951e 100644
 +    boolean isHandRaised();
      // Paper end
  }
--- 
-2.18.0
-

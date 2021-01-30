@@ -1,4 +1,4 @@
-From fdff041cd1df94bc3a0173545b6e171c3cdf4579 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Minecrell <minecrell@minecrell.net>
 Date: Wed, 11 Oct 2017 19:30:51 +0200
 Subject: [PATCH] Call PaperServerListPingEvent for legacy pings
@@ -6,7 +6,7 @@ Subject: [PATCH] Call PaperServerListPingEvent for legacy pings
 
 diff --git a/src/main/java/com/destroystokyo/paper/network/PaperLegacyStatusClient.java b/src/main/java/com/destroystokyo/paper/network/PaperLegacyStatusClient.java
 new file mode 100644
-index 000000000..74c012fd4
+index 0000000000000000000000000000000000000000..74c012fd40491f1d870fbc1aa8c318a2197eb106
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/network/PaperLegacyStatusClient.java
 @@ -0,0 +1,73 @@
@@ -84,7 +84,7 @@ index 000000000..74c012fd4
 +
 +}
 diff --git a/src/main/java/net/minecraft/server/LegacyPingHandler.java b/src/main/java/net/minecraft/server/LegacyPingHandler.java
-index a89a86e6d..2762bcc2e 100644
+index a89a86e6d08f7cb308f2b865ee0371d301ce0cea..2762bcc2eb761f0c7153234031f25094e22bec1d 100644
 --- a/src/main/java/net/minecraft/server/LegacyPingHandler.java
 +++ b/src/main/java/net/minecraft/server/LegacyPingHandler.java
 @@ -9,6 +9,7 @@ import java.net.InetSocketAddress;
@@ -152,6 +152,3 @@ index a89a86e6d..2762bcc2e 100644
          this.a(ctx, this.a(response));
      }
  
--- 
-2.18.0
-

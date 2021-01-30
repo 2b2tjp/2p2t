@@ -1,4 +1,4 @@
-From d97129376d57c631b43c07d37bf8bc5af9081036 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Wed, 30 Mar 2016 02:13:24 -0400
 Subject: [PATCH] Use Optimized Collections
@@ -13,7 +13,7 @@ These collections are super fast as seen
 http://java-performance.info/hashmap-overview-jdk-fastutil-goldman-sachs-hppc-koloboke-trove-january-2015/
 
 diff --git a/src/main/java/net/minecraft/server/DataWatcher.java b/src/main/java/net/minecraft/server/DataWatcher.java
-index 1507f97fd..fe8484453 100644
+index 1507f97fd0ecc2dc284b5c835fc7f0372d0020ff..fe84844531ab06d20de9ca4988ee12e69ab5f2f7 100644
 --- a/src/main/java/net/minecraft/server/DataWatcher.java
 +++ b/src/main/java/net/minecraft/server/DataWatcher.java
 @@ -12,6 +12,7 @@ import java.util.Map;
@@ -33,6 +33,3 @@ index 1507f97fd..fe8484453 100644
      private final ReadWriteLock e = new ReentrantReadWriteLock();
      private boolean f = true;
      private boolean g;
--- 
-2.18.0
-

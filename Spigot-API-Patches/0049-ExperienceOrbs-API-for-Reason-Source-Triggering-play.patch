@@ -1,4 +1,4 @@
-From 80c13ed0dab738b2741d02291129c231a6e415a6 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Tue, 19 Dec 2017 16:28:32 -0500
 Subject: [PATCH] ExperienceOrbs API for Reason/Source/Triggering player
@@ -8,7 +8,7 @@ Adds lots of information about why this orb exists.
 Replaces isFromBottle() with logic that persists entity reloads too.
 
 diff --git a/src/main/java/org/bukkit/entity/ExperienceOrb.java b/src/main/java/org/bukkit/entity/ExperienceOrb.java
-index c286edfd..f847543b 100644
+index c286edfd827e185a76e44c44faace19a80325d7a..f847543b6f9ab20ce1a01c41e0325d9202c43b41 100644
 --- a/src/main/java/org/bukkit/entity/ExperienceOrb.java
 +++ b/src/main/java/org/bukkit/entity/ExperienceOrb.java
 @@ -1,5 +1,7 @@
@@ -114,6 +114,3 @@ index c286edfd..f847543b 100644
 +    SpawnReason getSpawnReason();
 +    // Paper end
  }
--- 
-2.15.1
-

@@ -1,4 +1,4 @@
-From 75943d87ca42348d2b2e4bc29498717ec1390150 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Sun, 1 May 2016 15:19:49 -0400
 Subject: [PATCH] LootTable API
@@ -12,7 +12,7 @@ Provides methods to determine players looted state for an object
 
 diff --git a/src/main/java/com/destroystokyo/paper/loottable/Lootable.java b/src/main/java/com/destroystokyo/paper/loottable/Lootable.java
 new file mode 100644
-index 00000000..d962a0ce
+index 0000000000000000000000000000000000000000..d962a0ce9cea05b4a64e37a5661a1fcfaccb83b8
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/loottable/Lootable.java
 @@ -0,0 +1,78 @@
@@ -96,7 +96,7 @@ index 00000000..d962a0ce
 +}
 diff --git a/src/main/java/com/destroystokyo/paper/loottable/LootableBlockInventory.java b/src/main/java/com/destroystokyo/paper/loottable/LootableBlockInventory.java
 new file mode 100644
-index 00000000..5e93e7e3
+index 0000000000000000000000000000000000000000..5e93e7e330f7716314f4a7b5cbf2d57669f30241
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/loottable/LootableBlockInventory.java
 @@ -0,0 +1,12 @@
@@ -114,7 +114,7 @@ index 00000000..5e93e7e3
 +}
 diff --git a/src/main/java/com/destroystokyo/paper/loottable/LootableEntityInventory.java b/src/main/java/com/destroystokyo/paper/loottable/LootableEntityInventory.java
 new file mode 100644
-index 00000000..8bebf070
+index 0000000000000000000000000000000000000000..8bebf0701898690ca09547b75f2ca64b4f15799e
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/loottable/LootableEntityInventory.java
 @@ -0,0 +1,12 @@
@@ -132,7 +132,7 @@ index 00000000..8bebf070
 +}
 diff --git a/src/main/java/com/destroystokyo/paper/loottable/LootableInventory.java b/src/main/java/com/destroystokyo/paper/loottable/LootableInventory.java
 new file mode 100644
-index 00000000..cde999ef
+index 0000000000000000000000000000000000000000..cde999ef49b816fca3f42032e7fa354c05c73b74
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/loottable/LootableInventory.java
 @@ -0,0 +1,111 @@
@@ -249,7 +249,7 @@ index 00000000..cde999ef
 +}
 diff --git a/src/main/java/com/destroystokyo/paper/loottable/LootableInventoryReplenishEvent.java b/src/main/java/com/destroystokyo/paper/loottable/LootableInventoryReplenishEvent.java
 new file mode 100644
-index 00000000..2169493d
+index 0000000000000000000000000000000000000000..2169493d9d659af00ed4a02e56cb97cf80da97dc
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/loottable/LootableInventoryReplenishEvent.java
 @@ -0,0 +1,41 @@
@@ -295,7 +295,7 @@ index 00000000..2169493d
 +    }
 +}
 diff --git a/src/main/java/org/bukkit/block/Chest.java b/src/main/java/org/bukkit/block/Chest.java
-index 97dc7813..a24a4094 100644
+index 97dc7813fa5665739c1906193d9934d31bd5694d..a24a409428f8d77020a1e34bddb17d3224cba2de 100644
 --- a/src/main/java/org/bukkit/block/Chest.java
 +++ b/src/main/java/org/bukkit/block/Chest.java
 @@ -1,12 +1,13 @@
@@ -314,7 +314,7 @@ index 97dc7813..a24a4094 100644
      /**
       * Gets the inventory of the chest block represented by this block state.
 diff --git a/src/main/java/org/bukkit/block/Dispenser.java b/src/main/java/org/bukkit/block/Dispenser.java
-index 108332df..4430b123 100644
+index 108332dfb6a830f6e6fa37541451ccef4e0e357c..4430b123253150106b4b8a955e9ac5cecb51fa28 100644
 --- a/src/main/java/org/bukkit/block/Dispenser.java
 +++ b/src/main/java/org/bukkit/block/Dispenser.java
 @@ -1,12 +1,13 @@
@@ -333,7 +333,7 @@ index 108332df..4430b123 100644
      /**
       * Gets the BlockProjectileSource object for the dispenser.
 diff --git a/src/main/java/org/bukkit/block/Hopper.java b/src/main/java/org/bukkit/block/Hopper.java
-index bc3aeef2..5b698613 100644
+index bc3aeef27a5e723e8ad42726e692739f0246924c..5b6986139e1e4bb9c136881253fa724995221dd4 100644
 --- a/src/main/java/org/bukkit/block/Hopper.java
 +++ b/src/main/java/org/bukkit/block/Hopper.java
 @@ -1,8 +1,9 @@
@@ -349,7 +349,7 @@ index bc3aeef2..5b698613 100644
 +public interface Hopper extends Container, Nameable, LootableInventory { } // Paper
 \ No newline at end of file
 diff --git a/src/main/java/org/bukkit/block/ShulkerBox.java b/src/main/java/org/bukkit/block/ShulkerBox.java
-index 4c1740e7..aa1109c4 100644
+index 4c1740e703b4f2c44d82d9eb9f0d630837dd612e..aa1109c473333e6d50843755ea1602bdb199b0ac 100644
 --- a/src/main/java/org/bukkit/block/ShulkerBox.java
 +++ b/src/main/java/org/bukkit/block/ShulkerBox.java
 @@ -1,12 +1,13 @@
@@ -367,6 +367,3 @@ index 4c1740e7..aa1109c4 100644
  
      /**
       * Get the {@link DyeColor} corresponding to this ShulkerBox
--- 
-2.13.4
-

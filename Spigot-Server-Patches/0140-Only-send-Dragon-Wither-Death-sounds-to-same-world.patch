@@ -1,4 +1,4 @@
-From 123b1e86e327f1cd628aaa8e9110b27b2147b3a5 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Tue, 31 May 2016 22:53:50 -0400
 Subject: [PATCH] Only send Dragon/Wither Death sounds to same world
@@ -6,7 +6,7 @@ Subject: [PATCH] Only send Dragon/Wither Death sounds to same world
 Also fix view distance lookup
 
 diff --git a/src/main/java/net/minecraft/server/EntityEnderDragon.java b/src/main/java/net/minecraft/server/EntityEnderDragon.java
-index 0f94d2f0a..a8cc6b61a 100644
+index 0f94d2f0a6186d2a40140b0b7b9c4fbb02e672f4..a8cc6b61adf358fcd2a4382dbe06083c43e8f2f1 100644
 --- a/src/main/java/net/minecraft/server/EntityEnderDragon.java
 +++ b/src/main/java/net/minecraft/server/EntityEnderDragon.java
 @@ -573,8 +573,12 @@ public class EntityEnderDragon extends EntityInsentient implements IComplex, IMo
@@ -25,7 +25,7 @@ index 0f94d2f0a..a8cc6b61a 100644
                      double deltaZ = this.locZ - player.locZ;
                      double distanceSquared = deltaX * deltaX + deltaZ * deltaZ;
 diff --git a/src/main/java/net/minecraft/server/EntityWither.java b/src/main/java/net/minecraft/server/EntityWither.java
-index 97cf75b9f..967852605 100644
+index 97cf75b9fde7a04afc8b7e6e14c85d3409243e49..9678526059621cd31a9a0dccc8ff803d80e9082a 100644
 --- a/src/main/java/net/minecraft/server/EntityWither.java
 +++ b/src/main/java/net/minecraft/server/EntityWither.java
 @@ -210,8 +210,12 @@ public class EntityWither extends EntityMonster implements IRangedEntity {
@@ -43,6 +43,3 @@ index 97cf75b9f..967852605 100644
                      double deltaX = this.locX - player.locX;
                      double deltaZ = this.locZ - player.locZ;
                      double distanceSquared = deltaX * deltaX + deltaZ * deltaZ;
--- 
-2.18.0
-

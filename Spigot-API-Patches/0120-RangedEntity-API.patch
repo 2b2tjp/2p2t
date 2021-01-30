@@ -1,4 +1,4 @@
-From b6cbd9ff3424e005703b27bb128264ddf877b591 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Tue, 26 Jun 2018 21:34:40 -0400
 Subject: [PATCH] RangedEntity API
@@ -8,7 +8,7 @@ and to perform an attack.
 
 diff --git a/src/main/java/com/destroystokyo/paper/entity/RangedEntity.java b/src/main/java/com/destroystokyo/paper/entity/RangedEntity.java
 new file mode 100644
-index 000000000..ded25f214
+index 0000000000000000000000000000000000000000..ded25f2141b728d84e305c32b72e117eda549237
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/entity/RangedEntity.java
 @@ -0,0 +1,29 @@
@@ -42,7 +42,7 @@ index 000000000..ded25f214
 +    }
 +}
 diff --git a/src/main/java/org/bukkit/entity/Illusioner.java b/src/main/java/org/bukkit/entity/Illusioner.java
-index 7c92c431b..14e6c5ee0 100644
+index 7c92c431b32754dca12b4d584bd6fa93ff73badf..14e6c5ee06ece3d1bbc1239afa67c847a479948f 100644
 --- a/src/main/java/org/bukkit/entity/Illusioner.java
 +++ b/src/main/java/org/bukkit/entity/Illusioner.java
 @@ -1,6 +1,10 @@
@@ -58,7 +58,7 @@ index 7c92c431b..14e6c5ee0 100644
 +
 +}
 diff --git a/src/main/java/org/bukkit/entity/Llama.java b/src/main/java/org/bukkit/entity/Llama.java
-index 9422d56cd..92c30ed5a 100644
+index 9422d56cd2b6422a882ee1bcc7c9ba1fdc109f7d..92c30ed5a0f8d45958a3b353d9fc5ab77d51a454 100644
 --- a/src/main/java/org/bukkit/entity/Llama.java
 +++ b/src/main/java/org/bukkit/entity/Llama.java
 @@ -1,11 +1,12 @@
@@ -76,7 +76,7 @@ index 9422d56cd..92c30ed5a 100644
      /**
       * Represents the base color that the llama has.
 diff --git a/src/main/java/org/bukkit/entity/Skeleton.java b/src/main/java/org/bukkit/entity/Skeleton.java
-index e33d00b30..40157befd 100644
+index e33d00b30a35361183507b7adacde2f8ebed9a0c..40157befd77ec147f885620785bad26a7b838f69 100644
 --- a/src/main/java/org/bukkit/entity/Skeleton.java
 +++ b/src/main/java/org/bukkit/entity/Skeleton.java
 @@ -1,9 +1,11 @@
@@ -93,7 +93,7 @@ index e33d00b30..40157befd 100644
      /**
       * Gets the current type of this skeleton.
 diff --git a/src/main/java/org/bukkit/entity/Snowman.java b/src/main/java/org/bukkit/entity/Snowman.java
-index 818efe2a4..10f8f6d45 100644
+index 818efe2a4d1ac0c4d8dca6c757850d99cdc2cb4b..10f8f6d45ae9280651c3ebddd1f90acbd7d6ff29 100644
 --- a/src/main/java/org/bukkit/entity/Snowman.java
 +++ b/src/main/java/org/bukkit/entity/Snowman.java
 @@ -1,9 +1,11 @@
@@ -110,7 +110,7 @@ index 818efe2a4..10f8f6d45 100644
      /**
       * Gets whether this snowman is in "derp mode", meaning it is not wearing a
 diff --git a/src/main/java/org/bukkit/entity/Witch.java b/src/main/java/org/bukkit/entity/Witch.java
-index 9c5dc1f97..4b27f6890 100644
+index 9c5dc1f97b8ec7a0ae8867549926aee04af3cfa6..4b27f68902a19f83695d19cef0e00ce302a6522c 100644
 --- a/src/main/java/org/bukkit/entity/Witch.java
 +++ b/src/main/java/org/bukkit/entity/Witch.java
 @@ -1,7 +1,9 @@
@@ -125,7 +125,7 @@ index 9c5dc1f97..4b27f6890 100644
 +public interface Witch extends Monster, RangedEntity { // Paper
  }
 diff --git a/src/main/java/org/bukkit/entity/Wither.java b/src/main/java/org/bukkit/entity/Wither.java
-index 0922c5c6a..c550ed061 100644
+index 0922c5c6a222b59e7032265197f17fa54698987b..c550ed061b803365fdc49bbb904b59e12c14c41d 100644
 --- a/src/main/java/org/bukkit/entity/Wither.java
 +++ b/src/main/java/org/bukkit/entity/Wither.java
 @@ -1,7 +1,9 @@
@@ -139,6 +139,3 @@ index 0922c5c6a..c550ed061 100644
 -public interface Wither extends Monster {
 +public interface Wither extends Monster, RangedEntity { // Paper
  }
--- 
-2.18.0
-

@@ -1,4 +1,4 @@
-From 344d6a6d7a9064a574630afb79761a5f9fe55811 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Fri, 15 Jun 2018 00:30:32 -0400
 Subject: [PATCH] Configurable Alternative LootPool Luck Formula
@@ -36,7 +36,7 @@ This change will result in some major changes to fishing formulas.
 I would love to see this change in Vanilla, so Mojang please pull :)
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperConfig.java b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-index b602bbf12..62bce1806 100644
+index b602bbf122a49a0da30845e7b343bbd88fa8b8e6..62bce180610b7b4d85ed7bc133942d55f63151aa 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperConfig.java
 @@ -291,4 +291,12 @@ public class PaperConfig {
@@ -53,7 +53,7 @@ index b602bbf12..62bce1806 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/LotoSelectorEntry.java b/src/main/java/net/minecraft/server/LotoSelectorEntry.java
-index b2860555d..b5544bcf3 100644
+index b2860555d3442ac205cf3f1a58ab0b02c71278fb..b5544bcf35363bcba61d0e2d2a50e68dd1f90074 100644
 --- a/src/main/java/net/minecraft/server/LotoSelectorEntry.java
 +++ b/src/main/java/net/minecraft/server/LotoSelectorEntry.java
 @@ -14,8 +14,8 @@ import java.util.Random;
@@ -103,6 +103,3 @@ index b2860555d..b5544bcf3 100644
  
      public abstract void a(Collection<ItemStack> collection, Random random, LootTableInfo loottableinfo);
  
--- 
-2.18.0
-

@@ -1,11 +1,11 @@
-From 73668957aa1621c7fb91a27bd4cd05ece98b4cd8 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Minecrell <minecrell@minecrell.net>
 Date: Mon, 27 Nov 2017 16:21:19 +0100
 Subject: [PATCH] Implement deprecated player sample API
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/event/server/PaperServerListPingEvent.java b/src/main/java/com/destroystokyo/paper/event/server/PaperServerListPingEvent.java
-index dd1deafdb..db992df24 100644
+index dd1deafdb897520af02fe7aa5dfffdf4dde0f6ea..db992df24bf1de5a6ba814bf92c94a8a78d5843d 100644
 --- a/src/main/java/com/destroystokyo/paper/event/server/PaperServerListPingEvent.java
 +++ b/src/main/java/com/destroystokyo/paper/event/server/PaperServerListPingEvent.java
 @@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
@@ -43,7 +43,7 @@ index dd1deafdb..db992df24 100644
 +
  }
 diff --git a/src/main/java/org/bukkit/event/server/ServerListPingEvent.java b/src/main/java/org/bukkit/event/server/ServerListPingEvent.java
-index a293bc212..f552eab18 100644
+index a293bc2126c506cda9c2c61693973a8393567106..f552eab18824bc449f268adbfde3799d5bb42880 100644
 --- a/src/main/java/org/bukkit/event/server/ServerListPingEvent.java
 +++ b/src/main/java/org/bukkit/event/server/ServerListPingEvent.java
 @@ -4,6 +4,7 @@ import java.net.InetAddress;
@@ -72,6 +72,3 @@ index a293bc212..f552eab18 100644
       * @return the player list sample
       */
      @Deprecated
--- 
-2.18.0
-

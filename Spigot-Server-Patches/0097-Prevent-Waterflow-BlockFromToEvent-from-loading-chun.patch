@@ -1,4 +1,4 @@
-From 8a9b221bcd755747f0e03bb84f9ba7403eaac7fd Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Mon, 28 Mar 2016 22:03:09 -0400
 Subject: [PATCH] Prevent Waterflow BlockFromToEvent from loading chunks
@@ -12,7 +12,7 @@ of unloaded chunks anyways.
 This keeps behavior consistent, vs inconsistent flowing based on plugin triggered loads.
 
 diff --git a/src/main/java/net/minecraft/server/BlockFlowing.java b/src/main/java/net/minecraft/server/BlockFlowing.java
-index 739b9aac3..ff90e08eb 100644
+index 739b9aac3642747621efd08d63223fd2a70b759e..ff90e08ebebf536c13ec8c67c205f0f593a8c0e1 100644
 --- a/src/main/java/net/minecraft/server/BlockFlowing.java
 +++ b/src/main/java/net/minecraft/server/BlockFlowing.java
 @@ -96,6 +96,7 @@ public class BlockFlowing extends BlockFluids {
@@ -47,6 +47,3 @@ index 739b9aac3..ff90e08eb 100644
              if (iblockdata.getMaterial() != Material.AIR) {
                  if (this.material == Material.LAVA) {
                      this.fizz(world, blockposition);
--- 
-2.18.0
-

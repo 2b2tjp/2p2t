@@ -1,4 +1,4 @@
-From 695d16c229fc12b625aaadb92150e044fa9872f3 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Thu, 28 Feb 2019 00:15:28 -0500
 Subject: [PATCH] Fix sign edit memory leak
@@ -6,7 +6,7 @@ Subject: [PATCH] Fix sign edit memory leak
 when a player edits a sign, a reference to their Entity is never cleand up.
 
 diff --git a/src/main/java/net/minecraft/server/PlayerConnection.java b/src/main/java/net/minecraft/server/PlayerConnection.java
-index 64520f174..e837a553e 100644
+index 64520f17499735b8b72424b74f6735d2437cd54c..e837a553e8ed0d7b813efad8f4f9e6946faab0a1 100644
 --- a/src/main/java/net/minecraft/server/PlayerConnection.java
 +++ b/src/main/java/net/minecraft/server/PlayerConnection.java
 @@ -2211,7 +2211,7 @@ public class PlayerConnection implements PacketListenerPlayIn, ITickable {
@@ -19,7 +19,7 @@ index 64520f174..e837a553e 100644
                  this.sendPacket(tileentity.getUpdatePacket()); // CraftBukkit
                  return;
 diff --git a/src/main/java/net/minecraft/server/TileEntitySign.java b/src/main/java/net/minecraft/server/TileEntitySign.java
-index 81f74c56b..4ff2c8480 100644
+index 81f74c56bb5cc6d4e51d5721d2cf1a66193a6d2d..4ff2c8480609a89b22de3fbde31b3dfc74a0e27d 100644
 --- a/src/main/java/net/minecraft/server/TileEntitySign.java
 +++ b/src/main/java/net/minecraft/server/TileEntitySign.java
 @@ -10,6 +10,7 @@ public class TileEntitySign extends TileEntity {
@@ -42,6 +42,3 @@ index 81f74c56b..4ff2c8480 100644
      }
  
      public EntityHuman e() {
--- 
-2.21.0
-

@@ -1,4 +1,4 @@
-From 1f25a64e8de47c04bf521861d9b57662227ac759 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Joseph Hirschfeld <joe@ibj.io>
 Date: Thu, 3 Mar 2016 03:15:41 -0600
 Subject: [PATCH] Add exception reporting event
@@ -6,7 +6,7 @@ Subject: [PATCH] Add exception reporting event
 
 diff --git a/src/main/java/com/destroystokyo/paper/ServerSchedulerReportingWrapper.java b/src/main/java/com/destroystokyo/paper/ServerSchedulerReportingWrapper.java
 new file mode 100644
-index 00000000..93397188
+index 0000000000000000000000000000000000000000..93397188b78b098be8bc32ad1cd13e0d3dc6c3b3
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/ServerSchedulerReportingWrapper.java
 @@ -0,0 +1,38 @@
@@ -50,7 +50,7 @@ index 00000000..93397188
 +}
 \ No newline at end of file
 diff --git a/src/main/java/net/minecraft/server/Chunk.java b/src/main/java/net/minecraft/server/Chunk.java
-index c79d3a93..65952ea9 100644
+index c79d3a93720595a72b8f46276a63ac54d87a6823..65952ea9a6bdcba674b33d5682f51c01d2ef9cf7 100644
 --- a/src/main/java/net/minecraft/server/Chunk.java
 +++ b/src/main/java/net/minecraft/server/Chunk.java
 @@ -1,5 +1,6 @@
@@ -89,7 +89,7 @@ index c79d3a93..65952ea9 100644
          }
      }
 diff --git a/src/main/java/net/minecraft/server/ChunkProviderServer.java b/src/main/java/net/minecraft/server/ChunkProviderServer.java
-index 2b320cbd..4e7e8e5f 100644
+index 2b320cbd185a0197bdda672df2129b696971284c..4e7e8e5fd34f74bc72bcff5f9e70c369636e5423 100644
 --- a/src/main/java/net/minecraft/server/ChunkProviderServer.java
 +++ b/src/main/java/net/minecraft/server/ChunkProviderServer.java
 @@ -12,6 +12,7 @@ import java.util.Iterator;
@@ -144,7 +144,7 @@ index 2b320cbd..4e7e8e5f 100644
  
      }
 diff --git a/src/main/java/net/minecraft/server/NameReferencingFileConverter.java b/src/main/java/net/minecraft/server/NameReferencingFileConverter.java
-index 83322b85..b943a9b2 100644
+index 83322b85b426f74471f3b179648b5637de919675..b943a9b209ea96b616267de6bf622b3d5a57d0b0 100644
 --- a/src/main/java/net/minecraft/server/NameReferencingFileConverter.java
 +++ b/src/main/java/net/minecraft/server/NameReferencingFileConverter.java
 @@ -1,5 +1,7 @@
@@ -172,7 +172,7 @@ index 83322b85..b943a9b2 100644
                         }
                          // CraftBukkit end
 diff --git a/src/main/java/net/minecraft/server/PersistentCollection.java b/src/main/java/net/minecraft/server/PersistentCollection.java
-index 936d6c64..50056f49 100644
+index 936d6c64026e93f33ae30766353c83342c846d94..50056f49a8eaea687d00175e41a877040934e9ae 100644
 --- a/src/main/java/net/minecraft/server/PersistentCollection.java
 +++ b/src/main/java/net/minecraft/server/PersistentCollection.java
 @@ -1,5 +1,6 @@
@@ -199,7 +199,7 @@ index 936d6c64..50056f49 100644
  
          }
 diff --git a/src/main/java/net/minecraft/server/RegionFile.java b/src/main/java/net/minecraft/server/RegionFile.java
-index c13e1eef..d2f08802 100644
+index c13e1eef48e6912242ae7ddbed8239073747a20c..d2f0880234be76f5e7c4ec153a6a396f24c4a119 100644
 --- a/src/main/java/net/minecraft/server/RegionFile.java
 +++ b/src/main/java/net/minecraft/server/RegionFile.java
 @@ -1,5 +1,6 @@
@@ -226,7 +226,7 @@ index c13e1eef..d2f08802 100644
  
      }
 diff --git a/src/main/java/net/minecraft/server/RegionFileCache.java b/src/main/java/net/minecraft/server/RegionFileCache.java
-index c15a0d1f..5f9e9dde 100644
+index c15a0d1f8ab05c0b24ed3d4c6294f056b2577ddb..5f9e9ddef73f90a864a1436498998b44e8a58a45 100644
 --- a/src/main/java/net/minecraft/server/RegionFileCache.java
 +++ b/src/main/java/net/minecraft/server/RegionFileCache.java
 @@ -1,5 +1,6 @@
@@ -245,7 +245,7 @@ index c15a0d1f..5f9e9dde 100644
          }
  
 diff --git a/src/main/java/net/minecraft/server/SpawnerCreature.java b/src/main/java/net/minecraft/server/SpawnerCreature.java
-index 1c7c187c..68a04532 100644
+index 1c7c187c77215142ce5e559f14e6f003d197f143..68a045323da227d7eab5c8b95d1b162c967a49de 100644
 --- a/src/main/java/net/minecraft/server/SpawnerCreature.java
 +++ b/src/main/java/net/minecraft/server/SpawnerCreature.java
 @@ -7,6 +7,7 @@ import java.util.Random;
@@ -273,7 +273,7 @@ index 1c7c187c..68a04532 100644
                              }
  
 diff --git a/src/main/java/net/minecraft/server/VillageSiege.java b/src/main/java/net/minecraft/server/VillageSiege.java
-index 9ff4f23a..6fce3015 100644
+index 9ff4f23ab3ca9eed7fb96aeec88b51563c744e86..6fce3015f4032c1d609cd87906e01c0098fd62f9 100644
 --- a/src/main/java/net/minecraft/server/VillageSiege.java
 +++ b/src/main/java/net/minecraft/server/VillageSiege.java
 @@ -1,5 +1,7 @@
@@ -293,7 +293,7 @@ index 9ff4f23a..6fce3015 100644
              }
  
 diff --git a/src/main/java/net/minecraft/server/World.java b/src/main/java/net/minecraft/server/World.java
-index 89197281..6be9c181 100644
+index 89197281ede1f564206ce2e6d5fd8760e1eb1370..6be9c18151bcb284792c842311291d5b1d63915b 100644
 --- a/src/main/java/net/minecraft/server/World.java
 +++ b/src/main/java/net/minecraft/server/World.java
 @@ -1,5 +1,7 @@
@@ -329,7 +329,7 @@ index 89197281..6be9c181 100644
                          this.tileEntityListTick.remove(tileTickPosition--);
                          continue;
 diff --git a/src/main/java/org/bukkit/craftbukkit/scheduler/CraftScheduler.java b/src/main/java/org/bukkit/craftbukkit/scheduler/CraftScheduler.java
-index 93b9134d..26753fac 100644
+index 93b9134d6e04a94709a8beaf885af17181e68d09..26753fac5e894eaacd1cb7fac0bdd2362cd436b9 100644
 --- a/src/main/java/org/bukkit/craftbukkit/scheduler/CraftScheduler.java
 +++ b/src/main/java/org/bukkit/craftbukkit/scheduler/CraftScheduler.java
 @@ -15,6 +15,9 @@ import java.util.concurrent.atomic.AtomicReference;
@@ -374,6 +374,3 @@ index 93b9134d..26753fac 100644
                  // We don't need to parse pending
                  // (async tasks must live with race-conditions if they attempt to cancel between these few lines of code)
              }
--- 
-2.20.1
-

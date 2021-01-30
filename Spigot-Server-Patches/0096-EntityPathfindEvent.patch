@@ -1,4 +1,4 @@
-From 51c81d45776fa1901de554be33144437e447d69b Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Mon, 28 Mar 2016 21:22:26 -0400
 Subject: [PATCH] EntityPathfindEvent
@@ -6,7 +6,7 @@ Subject: [PATCH] EntityPathfindEvent
 Fires when an Entity decides to start moving to a location.
 
 diff --git a/src/main/java/net/minecraft/server/NavigationAbstract.java b/src/main/java/net/minecraft/server/NavigationAbstract.java
-index cc44d30b57..3ac6f84d35 100644
+index cc44d30b577af3236c375700ab12cd2430731289..3ac6f84d354e9a47e6fab51e273f358342092be6 100644
 --- a/src/main/java/net/minecraft/server/NavigationAbstract.java
 +++ b/src/main/java/net/minecraft/server/NavigationAbstract.java
 @@ -4,7 +4,7 @@ import javax.annotation.Nullable;
@@ -34,6 +34,3 @@ index cc44d30b57..3ac6f84d35 100644
                  this.q = blockposition;
                  float f = this.i();
  
--- 
-2.18.0
-

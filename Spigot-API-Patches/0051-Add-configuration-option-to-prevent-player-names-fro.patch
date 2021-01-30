@@ -1,4 +1,4 @@
-From 03b558d1228782283c1c47a75c174c19791f974d Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: kashike <kashike@vq.lc>
 Date: Fri, 9 Jun 2017 07:24:24 -0700
 Subject: [PATCH] Add configuration option to prevent player names from being
@@ -6,7 +6,7 @@ Subject: [PATCH] Add configuration option to prevent player names from being
 
 
 diff --git a/src/main/java/org/bukkit/Bukkit.java b/src/main/java/org/bukkit/Bukkit.java
-index 5431b17b..ed403c33 100644
+index 5431b17b9f449f27de75704a65788a7f59b511b9..ed403c333da37419e4b1daed23a371d378924b9f 100644
 --- a/src/main/java/org/bukkit/Bukkit.java
 +++ b/src/main/java/org/bukkit/Bukkit.java
 @@ -1206,6 +1206,16 @@ public final class Bukkit {
@@ -27,7 +27,7 @@ index 5431b17b..ed403c33 100644
  
      public static Server.Spigot spigot()
 diff --git a/src/main/java/org/bukkit/Server.java b/src/main/java/org/bukkit/Server.java
-index 83b370e5..87ab9d2b 100644
+index 83b370e52ffc8768708dcc8434f22ded4b77cc41..87ab9d2b8c6d30af927fd8d499432aa3cb9eb019 100644
 --- a/src/main/java/org/bukkit/Server.java
 +++ b/src/main/java/org/bukkit/Server.java
 @@ -1032,4 +1032,14 @@ public interface Server extends PluginMessageRecipient {
@@ -46,7 +46,7 @@ index 83b370e5..87ab9d2b 100644
 +    // Paper end
  }
 diff --git a/src/main/java/org/bukkit/command/PluginCommand.java b/src/main/java/org/bukkit/command/PluginCommand.java
-index 2abe1208..c660c178 100644
+index 2abe1208f23ecf6b9b4c8a7607e4ecbc052e3dc1..c660c178cad6495806c673cb5942df561a04b5e8 100644
 --- a/src/main/java/org/bukkit/command/PluginCommand.java
 +++ b/src/main/java/org/bukkit/command/PluginCommand.java
 @@ -145,6 +145,7 @@ public final class PluginCommand extends Command implements PluginIdentifiableCo
@@ -57,6 +57,3 @@ index 2abe1208..c660c178 100644
              return super.tabComplete(sender, alias, args);
          }
          return completions;
--- 
-2.17.0 (Apple Git-106)
-

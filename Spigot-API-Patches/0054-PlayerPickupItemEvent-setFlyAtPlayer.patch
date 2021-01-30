@@ -1,11 +1,11 @@
-From 409f5510dda42a7cfd18698436fc766df133c4e2 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: BillyGalbreath <Blake.Galbreath@GMail.com>
 Date: Sun, 7 May 2017 06:26:01 -0500
 Subject: [PATCH] PlayerPickupItemEvent#setFlyAtPlayer
 
 
 diff --git a/src/main/java/org/bukkit/event/player/PlayerPickupItemEvent.java b/src/main/java/org/bukkit/event/player/PlayerPickupItemEvent.java
-index c76f423e..46c6d519 100644
+index c76f423e29e794ff7579e16255e8cbb6449dc01c..46c6d5197404f010efc24e21ea3dc24f0b4205b5 100644
 --- a/src/main/java/org/bukkit/event/player/PlayerPickupItemEvent.java
 +++ b/src/main/java/org/bukkit/event/player/PlayerPickupItemEvent.java
 @@ -16,6 +16,7 @@ import org.bukkit.event.entity.EntityPickupItemEvent;
@@ -51,6 +51,3 @@ index c76f423e..46c6d519 100644
      }
  
      @Override
--- 
-2.13.0
-

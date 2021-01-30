@@ -1,4 +1,4 @@
-From 5a007aa00644c0fc23b76553bd92756e5517eaf1 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Sat, 31 Dec 2016 20:29:33 -0500
 Subject: [PATCH] PlayerTeleportEndGatewayEvent
@@ -7,7 +7,7 @@ Allows you to access the Gateway being used in a teleport event
 
 diff --git a/src/main/java/com/destroystokyo/paper/event/player/PlayerTeleportEndGatewayEvent.java b/src/main/java/com/destroystokyo/paper/event/player/PlayerTeleportEndGatewayEvent.java
 new file mode 100644
-index 00000000..bdefbc9f
+index 0000000000000000000000000000000000000000..bdefbc9f4ac9c139ebaf4bfdbec14d977099bdaa
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/event/player/PlayerTeleportEndGatewayEvent.java
 @@ -0,0 +1,27 @@
@@ -38,6 +38,3 @@ index 00000000..bdefbc9f
 +        return gateway;
 +    }
 +}
--- 
-2.13.0.windows.1
-

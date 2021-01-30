@@ -1,4 +1,4 @@
-From 66452482b3e19d2cb4b1c67a60345302bc8fc29f Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Zach Brown <zach.brown@destroystokyo.com>
 Date: Fri, 22 Apr 2016 01:43:11 -0500
 Subject: [PATCH] EntityRegainHealthEvent isFastRegen API
@@ -6,7 +6,7 @@ Subject: [PATCH] EntityRegainHealthEvent isFastRegen API
 Don't even get me started
 
 diff --git a/src/main/java/net/minecraft/server/EntityLiving.java b/src/main/java/net/minecraft/server/EntityLiving.java
-index a92b89d7c..4b6bb38ae 100644
+index a92b89d7c88d8cbfff2374f10a59b414a22f91f9..4b6bb38ae0eab5d33edc9a17624beef3a4b67d1c 100644
 --- a/src/main/java/net/minecraft/server/EntityLiving.java
 +++ b/src/main/java/net/minecraft/server/EntityLiving.java
 @@ -773,10 +773,16 @@ public abstract class EntityLiving extends Entity {
@@ -28,7 +28,7 @@ index a92b89d7c..4b6bb38ae 100644
  
              if (!event.isCancelled()) {
 diff --git a/src/main/java/net/minecraft/server/FoodMetaData.java b/src/main/java/net/minecraft/server/FoodMetaData.java
-index d42db9b45..c715138ee 100644
+index d42db9b45e9912a90cf2274e98e06c519cc4f5ef..c715138eee71e36b86344371b39b71ccd14da753 100644
 --- a/src/main/java/net/minecraft/server/FoodMetaData.java
 +++ b/src/main/java/net/minecraft/server/FoodMetaData.java
 @@ -65,7 +65,7 @@ public class FoodMetaData {
@@ -40,6 +40,3 @@ index d42db9b45..c715138ee 100644
                  this.a(f);
                  this.foodTickTimer = 0;
              }
--- 
-2.18.0
-

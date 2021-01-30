@@ -1,11 +1,11 @@
-From 7f8b073f31114e50f4270dd03042b5f37019fb3c Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Jedediah Smith <jedediah@silencegreys.com>
 Date: Sat, 2 Apr 2016 05:09:16 -0400
 Subject: [PATCH] Add PlayerUseUnknownEntityEvent
 
 
 diff --git a/src/main/java/net/minecraft/server/PacketPlayInUseEntity.java b/src/main/java/net/minecraft/server/PacketPlayInUseEntity.java
-index c67cb54a..521f4626 100644
+index c67cb54a38242285947d6d83d3eadd30b5a30e21..521f462629ba38a39b810e263d74eddbf25510e7 100644
 --- a/src/main/java/net/minecraft/server/PacketPlayInUseEntity.java
 +++ b/src/main/java/net/minecraft/server/PacketPlayInUseEntity.java
 @@ -5,7 +5,7 @@ import javax.annotation.Nullable;
@@ -18,7 +18,7 @@ index c67cb54a..521f4626 100644
      private Vec3D c;
      private EnumHand d;
 diff --git a/src/main/java/net/minecraft/server/PlayerConnection.java b/src/main/java/net/minecraft/server/PlayerConnection.java
-index 9f6f93ee..abb7caa8 100644
+index 4d68c0386cef794ba9194cd0c949f2aa320c7e82..2363617008217e50d47185bce2ff8445ba8943e8 100644
 --- a/src/main/java/net/minecraft/server/PlayerConnection.java
 +++ b/src/main/java/net/minecraft/server/PlayerConnection.java
 @@ -1659,6 +1659,16 @@ public class PlayerConnection implements PacketListenerPlayIn, ITickable {
@@ -38,6 +38,3 @@ index 9f6f93ee..abb7caa8 100644
  
      }
  
--- 
-2.19.1
-

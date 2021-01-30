@@ -1,11 +1,11 @@
-From e7ec410152443120d21bc738121f9ccea800518b Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Zach Brown <zach@zachbr.io>
 Date: Sun, 7 Apr 2019 06:22:54 -0400
 Subject: [PATCH] Allow disabling village sieges
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index ba299afc..319b5b95 100644
+index ba299afc40bdeadbdc8938495dba7c3572528e96..319b5b95db6393be4a89a245dd2722394a806510 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -587,4 +587,10 @@ public class PaperWorldConfig {
@@ -20,7 +20,7 @@ index ba299afc..319b5b95 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/WorldServer.java b/src/main/java/net/minecraft/server/WorldServer.java
-index d29420dd..e545e976 100644
+index d29420dd49da191ee2a4de1a18377fc3da969a66..e545e9764a4aa117896ca1b3e55d2613642d7244 100644
 --- a/src/main/java/net/minecraft/server/WorldServer.java
 +++ b/src/main/java/net/minecraft/server/WorldServer.java
 @@ -334,7 +334,7 @@ public class WorldServer extends World implements IAsyncTaskHandler {
@@ -32,6 +32,3 @@ index d29420dd..e545e976 100644
          timings.doVillages.stopTiming(); // Spigot
          this.methodProfiler.c("portalForcer");
          timings.doPortalForcer.startTiming(); // Spigot
--- 
-2.21.0
-

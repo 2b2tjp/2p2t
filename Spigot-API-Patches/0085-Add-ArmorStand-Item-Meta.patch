@@ -1,4 +1,4 @@
-From f8f9ee57846ba4838769c0eb20ef870dc14cb793 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Zach Brown <zach.brown@destroystokyo.com>
 Date: Sat, 27 Jan 2018 17:06:24 -0500
 Subject: [PATCH] Add ArmorStand Item Meta
@@ -12,7 +12,7 @@ starting point for future additions in this area.
 
 diff --git a/src/main/java/com/destroystokyo/paper/inventory/meta/ArmorStandMeta.java b/src/main/java/com/destroystokyo/paper/inventory/meta/ArmorStandMeta.java
 new file mode 100644
-index 00000000..7e4acfff
+index 0000000000000000000000000000000000000000..7e4acfff16db80a75e1ff2fee1972b16955b0918
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/inventory/meta/ArmorStandMeta.java
 @@ -0,0 +1,78 @@
@@ -94,6 +94,3 @@ index 00000000..7e4acfff
 +     */
 +    void setMarker(boolean marker);
 +}
--- 
-2.17.1
-

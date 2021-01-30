@@ -1,11 +1,11 @@
-From 736cdf2368b8d0f95b7c643fa2766d9787378c10 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Mon, 28 Mar 2016 20:55:47 -0400
 Subject: [PATCH] MC Utils
 
 
 diff --git a/src/main/java/net/minecraft/server/Chunk.java b/src/main/java/net/minecraft/server/Chunk.java
-index 175ce12b..801dd26d 100644
+index 175ce12b5955ee163f265dbd92b3dd2e335bae83..801dd26d58b79ea266058607ec677b4d0f10b198 100644
 --- a/src/main/java/net/minecraft/server/Chunk.java
 +++ b/src/main/java/net/minecraft/server/Chunk.java
 @@ -20,7 +20,7 @@ import org.bukkit.Server; // CraftBukkit
@@ -26,7 +26,7 @@ index 175ce12b..801dd26d 100644
      public TileEntity a(BlockPosition blockposition, Chunk.EnumTileEntityState chunk_enumtileentitystate) {
          // CraftBukkit start
 diff --git a/src/main/java/net/minecraft/server/ChunkCoordIntPair.java b/src/main/java/net/minecraft/server/ChunkCoordIntPair.java
-index 23944088..aafd23be 100644
+index 23944088839d87a1d413823e3ba31458451fbc5c..aafd23bebc82ef77e3932399e5f7893537373b6c 100644
 --- a/src/main/java/net/minecraft/server/ChunkCoordIntPair.java
 +++ b/src/main/java/net/minecraft/server/ChunkCoordIntPair.java
 @@ -15,6 +15,8 @@ public class ChunkCoordIntPair {
@@ -39,7 +39,7 @@ index 23944088..aafd23be 100644
          return (long) i & 4294967295L | ((long) j & 4294967295L) << 32;
      }
 diff --git a/src/main/java/net/minecraft/server/DataPaletteBlock.java b/src/main/java/net/minecraft/server/DataPaletteBlock.java
-index 1f2fe87b..2cb462b8 100644
+index 1f2fe87b6a372bbb771fb60dff79e10e8f26c55a..2cb462b8e31c9d11147af1db8776054b87fe0831 100644
 --- a/src/main/java/net/minecraft/server/DataPaletteBlock.java
 +++ b/src/main/java/net/minecraft/server/DataPaletteBlock.java
 @@ -5,7 +5,7 @@ import javax.annotation.Nullable;
@@ -52,7 +52,7 @@ index 1f2fe87b..2cb462b8 100644
      protected DataPalette c;
      private int e;
 diff --git a/src/main/java/net/minecraft/server/EntityTypes.java b/src/main/java/net/minecraft/server/EntityTypes.java
-index ba461ad4..2359b31f 100644
+index ba461ad485fae286c507746af156beb6a51c8736..2359b31f4d94498d8d01eedaef9ff8323d65248c 100644
 --- a/src/main/java/net/minecraft/server/EntityTypes.java
 +++ b/src/main/java/net/minecraft/server/EntityTypes.java
 @@ -13,6 +13,11 @@ import org.apache.logging.log4j.Logger;
@@ -77,7 +77,7 @@ index ba461ad4..2359b31f 100644
              while (EntityTypes.g.size() <= i) {
                  EntityTypes.g.add(null); // Paper - Decompile fix
 diff --git a/src/main/java/net/minecraft/server/ItemStack.java b/src/main/java/net/minecraft/server/ItemStack.java
-index 76bfbaa8..82d72ea1 100644
+index 76bfbaa815f618af33ac5b99f9fd87c84ecc9bd6..82d72ea158ae328ee4f08cb8b1074741a38b3ca0 100644
 --- a/src/main/java/net/minecraft/server/ItemStack.java
 +++ b/src/main/java/net/minecraft/server/ItemStack.java
 @@ -14,6 +14,7 @@ import org.bukkit.Location;
@@ -108,7 +108,7 @@ index 76bfbaa8..82d72ea1 100644
      }
 diff --git a/src/main/java/net/minecraft/server/MCUtil.java b/src/main/java/net/minecraft/server/MCUtil.java
 new file mode 100644
-index 00000000..a4b0901c
+index 0000000000000000000000000000000000000000..a4b0901cfe14da812743c1ca934dd344cb8ed9a0
 --- /dev/null
 +++ b/src/main/java/net/minecraft/server/MCUtil.java
 @@ -0,0 +1,201 @@
@@ -314,7 +314,7 @@ index 00000000..a4b0901c
 +    }
 +}
 diff --git a/src/main/java/net/minecraft/server/NBTTagCompound.java b/src/main/java/net/minecraft/server/NBTTagCompound.java
-index aa1ca6d9..e15c2336 100644
+index aa1ca6d911b6af7ee834f6e120cd7e3eb5d32049..e15c2336784f36a4e93cefe591a44c07fad66833 100644
 --- a/src/main/java/net/minecraft/server/NBTTagCompound.java
 +++ b/src/main/java/net/minecraft/server/NBTTagCompound.java
 @@ -22,7 +22,7 @@ public class NBTTagCompound extends NBTBase {
@@ -341,7 +341,7 @@ index aa1ca6d9..e15c2336 100644
      public UUID a(String s) {
          return new UUID(this.getLong(s + "Most"), this.getLong(s + "Least"));
 diff --git a/src/main/java/net/minecraft/server/NBTTagList.java b/src/main/java/net/minecraft/server/NBTTagList.java
-index e0cb6aa6..bc638366 100644
+index e0cb6aa6e729db2680c45ab05810566087207d21..bc6383669ed712b9c84418124e55427b8ff63617 100644
 --- a/src/main/java/net/minecraft/server/NBTTagList.java
 +++ b/src/main/java/net/minecraft/server/NBTTagList.java
 @@ -13,7 +13,7 @@ import org.apache.logging.log4j.Logger;
@@ -354,7 +354,7 @@ index e0cb6aa6..bc638366 100644
  
      public NBTTagList() {}
 diff --git a/src/main/java/net/minecraft/server/PlayerConnection.java b/src/main/java/net/minecraft/server/PlayerConnection.java
-index 8c604ef8..8efcb831 100644
+index 8c604ef8c1ebd74d397ebad8636943da91c07d0d..8efcb8317debac0069c7b277251f24fcf3346d74 100644
 --- a/src/main/java/net/minecraft/server/PlayerConnection.java
 +++ b/src/main/java/net/minecraft/server/PlayerConnection.java
 @@ -65,9 +65,9 @@ public class PlayerConnection implements PacketListenerPlayIn, ITickable {
@@ -378,6 +378,3 @@ index 8c604ef8..8efcb831 100644
      private long d() {
          return System.nanoTime() / 1000000L;
      }
--- 
-2.19.2
-

@@ -1,4 +1,4 @@
-From 0b0b6356ab5bbf4da29e883baa4181223fae8584 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Wed, 20 Dec 2017 17:36:49 -0500
 Subject: [PATCH] Ability to apply mending to XP API
@@ -10,7 +10,7 @@ of giving the player experience points.
 Both an API To standalone mend, and apply mending logic to .giveExp has been added.
 
 diff --git a/src/main/java/net/minecraft/server/EnchantmentManager.java b/src/main/java/net/minecraft/server/EnchantmentManager.java
-index 98300d0a2..f714dc326 100644
+index 98300d0a20abe485495bac0c84b79c620336f5b0..f714dc32645a80c120af5e7c867452dd6a9ef5d0 100644
 --- a/src/main/java/net/minecraft/server/EnchantmentManager.java
 +++ b/src/main/java/net/minecraft/server/EnchantmentManager.java
 @@ -226,6 +226,7 @@ public class EnchantmentManager {
@@ -22,7 +22,7 @@ index 98300d0a2..f714dc326 100644
          List list = enchantment.a(entityliving);
  
 diff --git a/src/main/java/net/minecraft/server/Enchantments.java b/src/main/java/net/minecraft/server/Enchantments.java
-index 35e87eb1c..74a6a4f60 100644
+index 35e87eb1c1a8fbed71a0da63af63ebff748ab18c..74a6a4f60d7dd10d4db4fb0e6cdc729d249c91d6 100644
 --- a/src/main/java/net/minecraft/server/Enchantments.java
 +++ b/src/main/java/net/minecraft/server/Enchantments.java
 @@ -32,7 +32,7 @@ public class Enchantments {
@@ -35,7 +35,7 @@ index 35e87eb1c..74a6a4f60 100644
  
      @Nullable
 diff --git a/src/main/java/net/minecraft/server/EntityExperienceOrb.java b/src/main/java/net/minecraft/server/EntityExperienceOrb.java
-index ff5cc74ba..1c59fd966 100644
+index ff5cc74ba7bf61140ef55801b8889ad10a34ea5a..1c59fd9661b7ddc5ab296152bd5af2ed1bc1f55a 100644
 --- a/src/main/java/net/minecraft/server/EntityExperienceOrb.java
 +++ b/src/main/java/net/minecraft/server/EntityExperienceOrb.java
 @@ -234,10 +234,12 @@ public class EntityExperienceOrb extends Entity {
@@ -52,7 +52,7 @@ index ff5cc74ba..1c59fd966 100644
          return i * 2;
      }
 diff --git a/src/main/java/net/minecraft/server/ItemStack.java b/src/main/java/net/minecraft/server/ItemStack.java
-index 2dc428552..7be588176 100644
+index 32a603d1180763a956a8b044396e28a4682fba69..b1ad7c837e0f4d97f632bf95dd57e497009b7493 100644
 --- a/src/main/java/net/minecraft/server/ItemStack.java
 +++ b/src/main/java/net/minecraft/server/ItemStack.java
 @@ -29,7 +29,7 @@ public final class ItemStack {
@@ -78,7 +78,7 @@ index 2dc428552..7be588176 100644
          return this.damage;
      }
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
-index d69784386..77c50ba14 100644
+index d6978438606d676f752f50300990e67ede2130f3..77c50ba14a45242fc70a3a64f6a32a1fac1a3d8a 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
 @@ -927,8 +927,39 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
@@ -122,6 +122,3 @@ index d69784386..77c50ba14 100644
          getHandle().giveExp(exp);
      }
  
--- 
-2.19.0
-

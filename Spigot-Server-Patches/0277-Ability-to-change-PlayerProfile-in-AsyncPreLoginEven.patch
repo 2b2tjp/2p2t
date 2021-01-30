@@ -1,4 +1,4 @@
-From 434b8d15661860eeea9d8c73e3f8675398307a7a Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Sun, 18 Mar 2018 11:45:57 -0400
 Subject: [PATCH] Ability to change PlayerProfile in AsyncPreLoginEvent
@@ -6,7 +6,7 @@ Subject: [PATCH] Ability to change PlayerProfile in AsyncPreLoginEvent
 This will allow you to change the players name or skin on login.
 
 diff --git a/src/main/java/net/minecraft/server/LoginListener.java b/src/main/java/net/minecraft/server/LoginListener.java
-index b1ab83648..26a366375 100644
+index b1ab83648cca6edc8bf05cd249bf0a6d1f63678f..26a366375a0fecd17fed944bee20a97d54675caf 100644
 --- a/src/main/java/net/minecraft/server/LoginListener.java
 +++ b/src/main/java/net/minecraft/server/LoginListener.java
 @@ -1,5 +1,7 @@
@@ -43,6 +43,3 @@ index b1ab83648..26a366375 100644
  
                              if (PlayerPreLoginEvent.getHandlerList().getRegisteredListeners().length != 0) {
                                  final PlayerPreLoginEvent event = new PlayerPreLoginEvent(playerName, address, uniqueId);
--- 
-2.18.0
-

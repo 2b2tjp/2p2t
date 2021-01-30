@@ -1,4 +1,4 @@
-From cd7a3c2d083750dfd3c520841072a4b7ed8c469b Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Thu, 18 Jan 2018 01:00:27 -0500
 Subject: [PATCH] Optimize Hoppers
@@ -7,7 +7,7 @@ Adds data about what Item related methods were used in InventoryMoveItem event
 so that the server can improve the performance of this event.
 
 diff --git a/src/main/java/org/bukkit/event/inventory/InventoryMoveItemEvent.java b/src/main/java/org/bukkit/event/inventory/InventoryMoveItemEvent.java
-index 06ec99ae..b44cc45b 100644
+index 06ec99aeb4bb8ae99ea32e85af2aa1bebe6807cd..b44cc45ba3b973f9a16c1768806cf9955b045d6f 100644
 --- a/src/main/java/org/bukkit/event/inventory/InventoryMoveItemEvent.java
 +++ b/src/main/java/org/bukkit/event/inventory/InventoryMoveItemEvent.java
 @@ -30,6 +30,8 @@ public class InventoryMoveItemEvent extends Event implements Cancellable {
@@ -37,6 +37,3 @@ index 06ec99ae..b44cc45b 100644
          this.itemStack = itemStack.clone();
      }
  
--- 
-2.17.1
-

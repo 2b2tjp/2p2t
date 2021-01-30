@@ -1,11 +1,11 @@
-From 0178b17d09c4e8e5d7c4cf65953b2fb44d23ae24 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Kyle Wood <demonwav@gmail.com>
 Date: Thu, 1 Mar 2018 19:38:14 -0600
 Subject: [PATCH] Load version history at server start
 
 
 diff --git a/src/main/java/net/minecraft/server/DedicatedServer.java b/src/main/java/net/minecraft/server/DedicatedServer.java
-index 18d32ab76..292291592 100644
+index 18d32ab76ff2f9de2293222d49eb6256ba8c3192..292291592716574a958f59cdef11e7ba30c334c8 100644
 --- a/src/main/java/net/minecraft/server/DedicatedServer.java
 +++ b/src/main/java/net/minecraft/server/DedicatedServer.java
 @@ -199,6 +199,7 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
@@ -16,6 +16,3 @@ index 18d32ab76..292291592 100644
              // Paper end
  
              DedicatedServer.LOGGER.info("Generating keypair");
--- 
-2.18.0
-

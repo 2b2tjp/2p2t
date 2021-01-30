@@ -1,4 +1,4 @@
-From f181f1048f4dd143fc9f0b998e8e1a789efbf1b2 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Wed, 21 Sep 2016 23:48:39 -0400
 Subject: [PATCH] Auto fix bad Y levels on player login
@@ -6,7 +6,7 @@ Subject: [PATCH] Auto fix bad Y levels on player login
 Bring down to a saner Y level if super high, as this can cause the server to crash
 
 diff --git a/src/main/java/net/minecraft/server/EntityPlayer.java b/src/main/java/net/minecraft/server/EntityPlayer.java
-index 8b7eb47a2..7886eee61 100644
+index 8b7eb47a28cc8705b1ba88e107b04ff6e9a30d7f..7886eee61eefb7e59746d27144908e840448e168 100644
 --- a/src/main/java/net/minecraft/server/EntityPlayer.java
 +++ b/src/main/java/net/minecraft/server/EntityPlayer.java
 @@ -140,6 +140,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
@@ -17,6 +17,3 @@ index 8b7eb47a2..7886eee61 100644
          if (nbttagcompound.hasKeyOfType("playerGameType", 99)) {
              if (this.C_().getForceGamemode()) {
                  this.playerInteractManager.setGameMode(this.C_().getGamemode());
--- 
-2.18.0
-

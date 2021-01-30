@@ -1,4 +1,4 @@
-From 95b96d1f00b60025a37c01dc679702b835a1d78d Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Mon, 3 Jul 2017 18:11:34 -0500
 Subject: [PATCH] ProfileWhitelistVerifyEvent
@@ -9,7 +9,7 @@ Allows you to do dynamic whitelisting and change of kick message
 
 diff --git a/src/main/java/com/destroystokyo/paper/event/profile/ProfileWhitelistVerifyEvent.java b/src/main/java/com/destroystokyo/paper/event/profile/ProfileWhitelistVerifyEvent.java
 new file mode 100644
-index 000000000..199daf2b3
+index 0000000000000000000000000000000000000000..199daf2b3a685369292bc87255b0aa141b9b4602
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/event/profile/ProfileWhitelistVerifyEvent.java
 @@ -0,0 +1,121 @@
@@ -134,6 +134,3 @@ index 000000000..199daf2b3
 +        return handlers;
 +    }
 +}
--- 
-2.18.0
-

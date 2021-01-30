@@ -1,11 +1,11 @@
-From 10c2e6d3aef1221db2bc29f97cedc0b3c44bddf8 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Wed, 13 Apr 2016 02:10:49 -0400
 Subject: [PATCH] Configurable Player Collision
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperConfig.java b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-index ec4643384..430b5d0cd 100644
+index ec46433843649e5f0ad84864888f6d8e5324dbbe..430b5d0cdc45fd8c8898af6b61a6a0238eddb89e 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperConfig.java
 @@ -220,4 +220,9 @@ public class PaperConfig {
@@ -19,7 +19,7 @@ index ec4643384..430b5d0cd 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/CommandScoreboard.java b/src/main/java/net/minecraft/server/CommandScoreboard.java
-index b08274d93..0607e55d3 100644
+index b08274d933a6ffa3ad636b505508a08ad065fbfe..0607e55d3af0b9cc651cc811e50b38f1005d8c17 100644
 --- a/src/main/java/net/minecraft/server/CommandScoreboard.java
 +++ b/src/main/java/net/minecraft/server/CommandScoreboard.java
 @@ -183,6 +183,13 @@ public class CommandScoreboard extends CommandAbstract {
@@ -37,7 +37,7 @@ index b08274d93..0607e55d3 100644
                      }
                  }
 diff --git a/src/main/java/net/minecraft/server/MinecraftServer.java b/src/main/java/net/minecraft/server/MinecraftServer.java
-index 2300ee10b..b6c4d98fd 100644
+index 2300ee10b57c274c3af2e2256dee30ca3f98d37b..b6c4d98fd792a6d808e386fbc210d84e30c5e990 100644
 --- a/src/main/java/net/minecraft/server/MinecraftServer.java
 +++ b/src/main/java/net/minecraft/server/MinecraftServer.java
 @@ -332,6 +332,20 @@ public abstract class MinecraftServer implements ICommandListener, Runnable, IAs
@@ -62,7 +62,7 @@ index 2300ee10b..b6c4d98fd 100644
  
      protected void l() {
 diff --git a/src/main/java/net/minecraft/server/PacketPlayOutScoreboardTeam.java b/src/main/java/net/minecraft/server/PacketPlayOutScoreboardTeam.java
-index 549d4e89d..df11764e0 100644
+index 549d4e89d0882ed31ea1fa229f767274a5cb7d3f..df11764e04bd46fa7b58964869b5764091c2b74e 100644
 --- a/src/main/java/net/minecraft/server/PacketPlayOutScoreboardTeam.java
 +++ b/src/main/java/net/minecraft/server/PacketPlayOutScoreboardTeam.java
 @@ -96,7 +96,7 @@ public class PacketPlayOutScoreboardTeam implements Packet<PacketListenerPlayOut
@@ -75,7 +75,7 @@ index 549d4e89d..df11764e0 100644
          }
  
 diff --git a/src/main/java/net/minecraft/server/PlayerList.java b/src/main/java/net/minecraft/server/PlayerList.java
-index baf288210..950dbdc50 100644
+index baf288210da5ae631e334f50234a92096f2556be..950dbdc5082daaa1e245740d2770c4300cbddc22 100644
 --- a/src/main/java/net/minecraft/server/PlayerList.java
 +++ b/src/main/java/net/minecraft/server/PlayerList.java
 @@ -74,6 +74,7 @@ public abstract class PlayerList {
@@ -131,6 +131,3 @@ index baf288210..950dbdc50 100644
      }
  
      // CraftBukkit start
--- 
-2.18.0
-

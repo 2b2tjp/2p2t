@@ -1,4 +1,4 @@
-From 5c342142d7b1abdbce2e22f61a6bcf1cdda3e2e4 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Sun, 1 Jul 2018 22:06:29 -0400
 Subject: [PATCH] Add SentientNPC Interface to Entities
@@ -14,7 +14,7 @@ This interface lets you identify NPC entities capable of sentience, and able to 
 
 diff --git a/src/main/java/com/destroystokyo/paper/entity/CraftSentientNPC.java b/src/main/java/com/destroystokyo/paper/entity/CraftSentientNPC.java
 new file mode 100644
-index 000000000..a60ba1349
+index 0000000000000000000000000000000000000000..a60ba134950f0d692c42f64b1f40b9f2faa5650a
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/entity/CraftSentientNPC.java
 @@ -0,0 +1,25 @@
@@ -44,7 +44,7 @@ index 000000000..a60ba1349
 +
 +}
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftAmbient.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftAmbient.java
-index 086980e76..ccce080ab 100644
+index 086980e76de15ed0f9f8a8568e21b2a7608dc820..ccce080ab8138d9f4eb583661109365a9eeb4b2e 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftAmbient.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftAmbient.java
 @@ -1,11 +1,12 @@
@@ -62,7 +62,7 @@ index 086980e76..ccce080ab 100644
          super(server, entity);
      }
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftComplexLivingEntity.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftComplexLivingEntity.java
-index cc115cc36..3a4e6f0c7 100644
+index cc115cc3682a7d16492f35a1ffc231057b5ea375..3a4e6f0c7e6ce179232f17a99e4de15f0b15e21e 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftComplexLivingEntity.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftComplexLivingEntity.java
 @@ -1,17 +1,19 @@
@@ -89,7 +89,7 @@ index cc115cc36..3a4e6f0c7 100644
  
      @Override
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftCreature.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftCreature.java
-index 09d42141f..30004e5e8 100644
+index 09d42141fb21a486a4752e8b80539b991bf61542..30004e5e8cf8c0949ba404abcbd92fd45559f648 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftCreature.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftCreature.java
 @@ -1,16 +1,18 @@
@@ -124,7 +124,7 @@ index 09d42141f..30004e5e8 100644
      @Override
      public EntityCreature getHandle() {
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftFlying.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftFlying.java
-index f374c7b88..9e6f523bf 100644
+index f374c7b88091b807ac45fb843c55642f03a501fa..9e6f523bf1468096e1eef3ddad25b738a51e5d5b 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftFlying.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftFlying.java
 @@ -1,10 +1,11 @@
@@ -141,7 +141,7 @@ index f374c7b88..9e6f523bf 100644
      public CraftFlying(CraftServer server, EntityFlying entity) {
          super(server, entity);
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftSlime.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftSlime.java
-index 6bf30c834..3768b9573 100644
+index 6bf30c834cb8eae7c32d51eef7677840231f9718..3768b9573a8f81d6d1eb844a6220a38b0fb20c12 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftSlime.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftSlime.java
 @@ -1,5 +1,6 @@
@@ -161,7 +161,7 @@ index 6bf30c834..3768b9573 100644
      public CraftSlime(CraftServer server, EntitySlime entity) {
          super(server, entity);
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftWaterMob.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftWaterMob.java
-index ee21d7b6e..f67dff38f 100644
+index ee21d7b6e96c7f472cc5ba2981ed8fc9dfaae8f8..f67dff38f8cd7e5a7ae3086bf9045c812d1ed8d9 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftWaterMob.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftWaterMob.java
 @@ -1,12 +1,13 @@
@@ -179,6 +179,3 @@ index ee21d7b6e..f67dff38f 100644
  
      public CraftWaterMob(CraftServer server, EntityWaterAnimal entity) {
          super(server, entity);
--- 
-2.18.0
-

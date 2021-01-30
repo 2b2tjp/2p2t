@@ -1,11 +1,11 @@
-From 075c1a27679d68e9fa7552be9baf241b136aa74c Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Alfie Cleveland <alfeh@me.com>
 Date: Sun, 8 Jan 2017 04:31:36 +0000
 Subject: [PATCH] Don't allow entities to ride themselves - #572
 
 
 diff --git a/src/main/java/net/minecraft/server/Entity.java b/src/main/java/net/minecraft/server/Entity.java
-index 9bb7b0d8..2fada247 100644
+index 9bb7b0d83310bb00ea6b78b17b2997a8e02abb98..2fada24738192951323c04b0e9214f64497b367f 100644
 --- a/src/main/java/net/minecraft/server/Entity.java
 +++ b/src/main/java/net/minecraft/server/Entity.java
 @@ -2002,6 +2002,7 @@ public abstract class Entity implements ICommandListener, KeyedObject { // Paper
@@ -16,6 +16,3 @@ index 9bb7b0d8..2fada247 100644
          if (entity.bJ() != this) {
              throw new IllegalStateException("Use x.startRiding(y), not y.addPassenger(x)");
          } else {
--- 
-2.19.1
-

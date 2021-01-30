@@ -1,11 +1,11 @@
-From 478ce7dd9077369efd3b2b8e90b8a537e3c0c576 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Mon, 3 Jul 2017 18:11:10 -0500
 Subject: [PATCH] ProfileWhitelistVerifyEvent
 
 
 diff --git a/src/main/java/net/minecraft/server/PlayerList.java b/src/main/java/net/minecraft/server/PlayerList.java
-index 3e5122486..b478f385a 100644
+index 3e5122486918ada11730b23379ee7df1f249978f..b478f385a4bc6839ac731a6839ff891d8e8187d2 100644
 --- a/src/main/java/net/minecraft/server/PlayerList.java
 +++ b/src/main/java/net/minecraft/server/PlayerList.java
 @@ -542,9 +542,9 @@ public abstract class PlayerList {
@@ -47,6 +47,3 @@ index 3e5122486..b478f385a 100644
  
      public boolean isOp(GameProfile gameprofile) {
          return this.operators.d(gameprofile) || this.server.R() && this.server.worlds.get(0).getWorldData().u() && this.server.Q().equalsIgnoreCase(gameprofile.getName()) || this.u; // CraftBukkit
--- 
-2.18.0
-

@@ -1,11 +1,11 @@
-From 0e1114be5240770f53eb77187b73f603f8f168cb Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Zach Brown <zach.brown@destroystokyo.com>
 Date: Mon, 21 Mar 2016 00:19:18 -0500
 Subject: [PATCH] Support offline mode in whitelist command as well
 
 
 diff --git a/src/main/java/net/minecraft/server/CommandWhitelist.java b/src/main/java/net/minecraft/server/CommandWhitelist.java
-index c74d1d2be..0f4237db1 100644
+index c74d1d2bef9c42a2c04bbd5623e406385454e2a9..0f4237db147a30d3fd7cf863cd6e165e28447b15 100644
 --- a/src/main/java/net/minecraft/server/CommandWhitelist.java
 +++ b/src/main/java/net/minecraft/server/CommandWhitelist.java
 @@ -44,24 +44,35 @@ public class CommandWhitelist extends CommandAbstract {
@@ -88,6 +88,3 @@ index c74d1d2be..0f4237db1 100644
 +    }
 +    // Paper end
  }
--- 
-2.18.0
-

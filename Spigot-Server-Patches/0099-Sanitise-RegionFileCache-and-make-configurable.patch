@@ -1,4 +1,4 @@
-From cd7e6fdcb9ae8a70617251f82975bb67c14d51a0 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Antony Riley <antony@cyberiantiger.org>
 Date: Tue, 29 Mar 2016 08:22:55 +0300
 Subject: [PATCH] Sanitise RegionFileCache and make configurable.
@@ -11,7 +11,7 @@ The implementation uses a LinkedHashMap as an LRU cache (modified from HashMap).
 The maximum size of the RegionFileCache is also made configurable.
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperConfig.java b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-index 2f6e169f5..ec4643384 100644
+index 2f6e169f5a96b8d3246d5803e2f0a14248890c33..ec46433843649e5f0ad84864888f6d8e5324dbbe 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperConfig.java
 @@ -215,4 +215,9 @@ public class PaperConfig {
@@ -25,7 +25,7 @@ index 2f6e169f5..ec4643384 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/RegionFileCache.java b/src/main/java/net/minecraft/server/RegionFileCache.java
-index 5f9e9ddef..7e7565807 100644
+index 5f9e9ddef73f90a864a1436498998b44e8a58a45..7e756580768349ffa6aeef5f34972bb870a2278b 100644
 --- a/src/main/java/net/minecraft/server/RegionFileCache.java
 +++ b/src/main/java/net/minecraft/server/RegionFileCache.java
 @@ -8,10 +8,12 @@ import java.io.File;
@@ -76,6 +76,3 @@ index 5f9e9ddef..7e7565807 100644
      public static synchronized void a() {
          Iterator iterator = RegionFileCache.a.values().iterator();
  
--- 
-2.18.0
-

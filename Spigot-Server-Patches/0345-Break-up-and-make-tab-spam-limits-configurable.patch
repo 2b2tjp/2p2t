@@ -1,4 +1,4 @@
-From 536a1753d23653447298f60a4dfd3c8467b2cfd2 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Shane Freeder <theboyetronic@gmail.com>
 Date: Sun, 29 Jul 2018 05:02:15 +0100
 Subject: [PATCH] Break up and make tab spam limits configurable
@@ -22,7 +22,7 @@ to take the burden of this into their own hand without having to rely on
 plugins doing unsafe things.
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperConfig.java b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-index 5a17ce3d..a5ff014e 100644
+index 5a17ce3d22e2c6042ba7df3f74ab4ee08d4299cc..a5ff014e33152c39a6cdbeb944422bb0dbc1fc83 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperConfig.java
 @@ -303,4 +303,11 @@ public class PaperConfig {
@@ -38,7 +38,7 @@ index 5a17ce3d..a5ff014e 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/PlayerConnection.java b/src/main/java/net/minecraft/server/PlayerConnection.java
-index 0ba182b1..398f2fdf 100644
+index 062962f4bb4411b4da7fbd69d2486889f6e0f687..d6d2010d58e20edca57ffe7db54541cdd6ffaef1 100644
 --- a/src/main/java/net/minecraft/server/PlayerConnection.java
 +++ b/src/main/java/net/minecraft/server/PlayerConnection.java
 @@ -75,6 +75,7 @@ public class PlayerConnection implements PacketListenerPlayIn, ITickable {
@@ -66,6 +66,3 @@ index 0ba182b1..398f2fdf 100644
              minecraftServer.postToMainThread(() -> this.disconnect(new ChatMessage("disconnect.spam", new Object[0])));
              return;
          }
--- 
-2.19.1
-

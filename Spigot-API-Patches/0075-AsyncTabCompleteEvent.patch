@@ -1,4 +1,4 @@
-From 8633560ddd13cc2432790a2558dc16964351038b Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Sun, 26 Nov 2017 13:17:09 -0500
 Subject: [PATCH] AsyncTabCompleteEvent
@@ -13,7 +13,7 @@ completion, such as offline players.
 
 diff --git a/src/main/java/com/destroystokyo/paper/event/server/AsyncTabCompleteEvent.java b/src/main/java/com/destroystokyo/paper/event/server/AsyncTabCompleteEvent.java
 new file mode 100644
-index 000000000..3c51aaf92
+index 0000000000000000000000000000000000000000..3c51aaf92e12b19990d9b21a3169fb3eb10ca63c
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/event/server/AsyncTabCompleteEvent.java
 @@ -0,0 +1,168 @@
@@ -186,7 +186,7 @@ index 000000000..3c51aaf92
 +    }
 +}
 diff --git a/src/main/java/org/bukkit/event/server/TabCompleteEvent.java b/src/main/java/org/bukkit/event/server/TabCompleteEvent.java
-index 6ac437d5e..df6eb53da 100644
+index 6ac437d5e5a5808351d167963dc66f947650bdc2..df6eb53da7f0709ca45bbd3a96d298c32381578b 100644
 --- a/src/main/java/org/bukkit/event/server/TabCompleteEvent.java
 +++ b/src/main/java/org/bukkit/event/server/TabCompleteEvent.java
 @@ -1,5 +1,6 @@
@@ -246,6 +246,3 @@ index 6ac437d5e..df6eb53da 100644
      }
  
      @Override
--- 
-2.18.0
-

@@ -1,4 +1,4 @@
-From 1e93486b23234fe77e28702c767735e6e1bc4c77 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Mon, 29 Feb 2016 20:26:39 -0600
 Subject: [PATCH] Fix ServerListPingEvent flagging as Async
@@ -6,7 +6,7 @@ Subject: [PATCH] Fix ServerListPingEvent flagging as Async
 This event can sometimes fire Async, set the proper boolean
 
 diff --git a/src/main/java/org/bukkit/event/server/ServerEvent.java b/src/main/java/org/bukkit/event/server/ServerEvent.java
-index eb00d6af..70416c81 100644
+index eb00d6af9b9aa0cdf58077e4299d44ddfe911406..70416c8116ec24f4337e199f0e8070bf8b7cb9c0 100644
 --- a/src/main/java/org/bukkit/event/server/ServerEvent.java
 +++ b/src/main/java/org/bukkit/event/server/ServerEvent.java
 @@ -1,9 +1,19 @@
@@ -30,7 +30,7 @@ index eb00d6af..70416c81 100644
 +    // Paper end
  }
 diff --git a/src/main/java/org/bukkit/event/server/ServerListPingEvent.java b/src/main/java/org/bukkit/event/server/ServerListPingEvent.java
-index 343f238f..3c38d857 100644
+index 343f238fbbdff35939a48d8180331a68777cee85..3c38d85735d37b401061feae686dea50adb5b650 100644
 --- a/src/main/java/org/bukkit/event/server/ServerListPingEvent.java
 +++ b/src/main/java/org/bukkit/event/server/ServerListPingEvent.java
 @@ -21,6 +21,7 @@ public class ServerListPingEvent extends ServerEvent implements Iterable<Player>
@@ -49,6 +49,3 @@ index 343f238f..3c38d857 100644
          this.numPlayers = MAGIC_PLAYER_COUNT;
          this.address = address;
          this.motd = motd;
--- 
-2.17.0.windows.1
-

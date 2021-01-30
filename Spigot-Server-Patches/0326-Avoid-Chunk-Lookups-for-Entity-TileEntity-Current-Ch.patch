@@ -1,4 +1,4 @@
-From 996ef85fa987a376159ace734b15c5e476a91470 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Wed, 4 Jul 2018 03:39:51 -0400
 Subject: [PATCH] Avoid Chunk Lookups for Entity/TileEntity Current Chunk
@@ -10,7 +10,7 @@ to the object directly on the Entity/TileEntity object we can directly grab.
 Use that local value instead to reduce lookups in many hot places.
 
 diff --git a/src/main/java/net/minecraft/server/Chunk.java b/src/main/java/net/minecraft/server/Chunk.java
-index d24d45fdd3..4757081090 100644
+index 57addecaedb22ac76939067bf8e14d99c7dc75dd..0c811805946a3335e27b4c7f74d27e7be0faafca 100644
 --- a/src/main/java/net/minecraft/server/Chunk.java
 +++ b/src/main/java/net/minecraft/server/Chunk.java
 @@ -702,6 +702,7 @@ public class Chunk {
@@ -22,7 +22,7 @@ index d24d45fdd3..4757081090 100644
          this.a(entity, entity.ac);
      }
 diff --git a/src/main/java/net/minecraft/server/World.java b/src/main/java/net/minecraft/server/World.java
-index e361883099..5de8da65c0 100644
+index 7a22a6853874e59a0fbab0f8a82877f33a5eb2ac..d96126bcf2e3f715f264a8e56688ed79a90521ca 100644
 --- a/src/main/java/net/minecraft/server/World.java
 +++ b/src/main/java/net/minecraft/server/World.java
 @@ -1513,12 +1513,15 @@ public abstract class World implements IBlockAccess {
@@ -85,6 +85,3 @@ index e361883099..5de8da65c0 100644
                  }
              }
          }
--- 
-2.18.0
-

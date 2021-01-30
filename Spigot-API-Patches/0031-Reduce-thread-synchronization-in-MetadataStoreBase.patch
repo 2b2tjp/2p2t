@@ -1,4 +1,4 @@
-From 270a57e64ae5f5a383b35a424dab9a45aa781eaf Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: crast <contact@jamescrasta.com>
 Date: Sat, 1 Jun 2013 13:52:30 -0600
 Subject: [PATCH] Reduce thread synchronization in MetadataStoreBase
@@ -8,7 +8,7 @@ limited synchronized portions to allow much higher concurrency in
 MetadataStore as well as far less locking, especially on reads
 
 diff --git a/src/main/java/org/bukkit/metadata/MetadataStoreBase.java b/src/main/java/org/bukkit/metadata/MetadataStoreBase.java
-index 093c144..64c0f0a 100644
+index 093c14452769696756163e6b0c4a23ae43713f27..64c0f0a7c79bfee9e9721c9a6b106b37fcb22ec2 100644
 --- a/src/main/java/org/bukkit/metadata/MetadataStoreBase.java
 +++ b/src/main/java/org/bukkit/metadata/MetadataStoreBase.java
 @@ -4,9 +4,10 @@ import org.apache.commons.lang.Validate;
@@ -100,6 +100,3 @@ index 093c144..64c0f0a 100644
          Validate.notNull(owningPlugin, "Plugin cannot be null");
          for (Map<Plugin, MetadataValue> values : metadataMap.values()) {
              if (values.containsKey(owningPlugin)) {
--- 
-2.9.2.windows.1
-

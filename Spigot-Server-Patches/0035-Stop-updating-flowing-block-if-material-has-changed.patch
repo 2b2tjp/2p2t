@@ -1,11 +1,11 @@
-From b347181112d7dd6655c11bbd324a2a4c62e9507d Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Iceee <andrew@opticgaming.tv>
 Date: Wed, 2 Mar 2016 12:03:23 -0600
 Subject: [PATCH] Stop updating flowing block if material has changed
 
 
 diff --git a/src/main/java/net/minecraft/server/BlockFlowing.java b/src/main/java/net/minecraft/server/BlockFlowing.java
-index 62234a7c9..3b47253a4 100644
+index 62234a7c914197d0b538221bef4f85970e33df1c..3b47253a47255073f766aae826a9d56252dfb752 100644
 --- a/src/main/java/net/minecraft/server/BlockFlowing.java
 +++ b/src/main/java/net/minecraft/server/BlockFlowing.java
 @@ -90,6 +90,7 @@ public class BlockFlowing extends BlockFluids {
@@ -16,6 +16,3 @@ index 62234a7c9..3b47253a4 100644
          org.bukkit.block.Block source = world.getWorld().getBlockAt(blockposition.getX(), blockposition.getY(), blockposition.getZ()); // CraftBukkit
          IBlockData iblockdata2 = world.getType(blockposition.down());
  
--- 
-2.18.0
-

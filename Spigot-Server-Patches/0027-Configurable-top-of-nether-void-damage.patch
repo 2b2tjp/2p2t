@@ -1,11 +1,11 @@
-From a53e95b80e0de45aa9c636353c213ae43fedab19 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Zach Brown <zach.brown@destroystokyo.com>
 Date: Tue, 1 Mar 2016 23:58:50 -0600
 Subject: [PATCH] Configurable top of nether void damage
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index d3484489..bf7af475 100644
+index d3484489b310df7ff80f61752f01938e97762196..bf7af475ceed7b4f75ade8ea12982abf4c144e98 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -129,4 +129,10 @@ public class PaperWorldConfig {
@@ -20,7 +20,7 @@ index d3484489..bf7af475 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/Entity.java b/src/main/java/net/minecraft/server/Entity.java
-index 89c36a92..6ee359e1 100644
+index 89c36a92c1539071c39a1a5d92ac36981c3382a1..6ee359e1ef405d596c0f494e1402afe11b0f4943 100644
 --- a/src/main/java/net/minecraft/server/Entity.java
 +++ b/src/main/java/net/minecraft/server/Entity.java
 @@ -451,9 +451,15 @@ public abstract class Entity implements ICommandListener, KeyedObject { // Paper
@@ -67,7 +67,7 @@ index 89c36a92..6ee359e1 100644
          this.die();
      }
 diff --git a/src/main/java/net/minecraft/server/EntityMinecartAbstract.java b/src/main/java/net/minecraft/server/EntityMinecartAbstract.java
-index a9412d4e..1f402548 100644
+index a9412d4e0c3e1752ca165029dc45328d97156aed..1f4025486e09067a232dad6c89272889e97a5ffc 100644
 --- a/src/main/java/net/minecraft/server/EntityMinecartAbstract.java
 +++ b/src/main/java/net/minecraft/server/EntityMinecartAbstract.java
 @@ -204,9 +204,15 @@ public abstract class EntityMinecartAbstract extends Entity implements INamableT
@@ -86,6 +86,3 @@ index a9412d4e..1f402548 100644
  
          int i;
  
--- 
-2.19.1
-

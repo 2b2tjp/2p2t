@@ -1,4 +1,4 @@
-From f5bac55ab934fbc8b94846e8e3c56c0c73a640c8 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Wed, 4 May 2016 23:55:48 -0400
 Subject: [PATCH] Add getI18NDisplayName API
@@ -8,7 +8,7 @@ Currently the server only supports the English language. To override this,
 You must replace the language file embedded in the server jar.
 
 diff --git a/src/main/java/org/bukkit/inventory/ItemFactory.java b/src/main/java/org/bukkit/inventory/ItemFactory.java
-index 99b90629..559de54e 100644
+index 99b906291419e478518c444ddd11d78d87102e88..559de54ed771a599c909ad8a798683d583b93f28 100644
 --- a/src/main/java/org/bukkit/inventory/ItemFactory.java
 +++ b/src/main/java/org/bukkit/inventory/ItemFactory.java
 @@ -133,5 +133,15 @@ public interface ItemFactory {
@@ -28,7 +28,7 @@ index 99b90629..559de54e 100644
      // Paper end
  }
 diff --git a/src/main/java/org/bukkit/inventory/ItemStack.java b/src/main/java/org/bukkit/inventory/ItemStack.java
-index 6bb19b9d..7a52da9b 100644
+index 268f987edcf907f34f3fc532c93567b7a7b0e199..567706acccc9c6b14e6057b65a593156502726c4 100644
 --- a/src/main/java/org/bukkit/inventory/ItemStack.java
 +++ b/src/main/java/org/bukkit/inventory/ItemStack.java
 @@ -621,5 +621,16 @@ public class ItemStack implements Cloneable, ConfigurationSerializable {
@@ -48,6 +48,3 @@ index 6bb19b9d..7a52da9b 100644
 +    }
      // Paper end
  }
--- 
-2.15.1
-

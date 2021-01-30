@@ -1,4 +1,4 @@
-From 938eb8913fdbb1ba1e093cc56a26bfcf43ca57ce Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Zach Brown <zach.brown@destroystokyo.com>
 Date: Wed, 4 Apr 2018 21:00:43 -0400
 Subject: [PATCH] MC-124833
@@ -9,7 +9,7 @@ we'll patch it in Paper as well. This will probably be a short lived
 patch, with it being fixed in Vanilla proper 1.13
 
 diff --git a/src/main/java/net/minecraft/server/EntityItemFrame.java b/src/main/java/net/minecraft/server/EntityItemFrame.java
-index 8b806c303..f0d6d6b85 100644
+index 8b806c303cacd05cfa796b9579f854e72619a4ef..f0d6d6b850ae430e71dff9fd01216287e72e92f4 100644
 --- a/src/main/java/net/minecraft/server/EntityItemFrame.java
 +++ b/src/main/java/net/minecraft/server/EntityItemFrame.java
 @@ -103,6 +103,10 @@ public class EntityItemFrame extends EntityHanging {
@@ -23,6 +23,3 @@ index 8b806c303..f0d6d6b85 100644
          }
      }
  
--- 
-2.18.0
-

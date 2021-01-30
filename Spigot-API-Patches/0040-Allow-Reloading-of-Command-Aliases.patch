@@ -1,4 +1,4 @@
-From 092987e5e264aae797401bdbab3bc9c4df9a186c Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: willies952002 <admin@domnian.com>
 Date: Mon, 28 Nov 2016 10:16:39 -0500
 Subject: [PATCH] Allow Reloading of Command Aliases
@@ -6,7 +6,7 @@ Subject: [PATCH] Allow Reloading of Command Aliases
 Reload the aliases stored in commands.yml
 
 diff --git a/src/main/java/org/bukkit/Bukkit.java b/src/main/java/org/bukkit/Bukkit.java
-index fd423664..5431b17b 100644
+index fd4236641ff92bb8efb27b325af5c2c3cf779ceb..5431b17b9f449f27de75704a65788a7f59b511b9 100644
 --- a/src/main/java/org/bukkit/Bukkit.java
 +++ b/src/main/java/org/bukkit/Bukkit.java
 @@ -1197,6 +1197,15 @@ public final class Bukkit {
@@ -26,7 +26,7 @@ index fd423664..5431b17b 100644
  
      public static Server.Spigot spigot()
 diff --git a/src/main/java/org/bukkit/Server.java b/src/main/java/org/bukkit/Server.java
-index 032d6211..83b370e5 100644
+index 032d6211821e180c160e21daa61b4e8ff457c024..83b370e52ffc8768708dcc8434f22ded4b77cc41 100644
 --- a/src/main/java/org/bukkit/Server.java
 +++ b/src/main/java/org/bukkit/Server.java
 @@ -1030,4 +1030,6 @@ public interface Server extends PluginMessageRecipient {
@@ -37,7 +37,7 @@ index 032d6211..83b370e5 100644
 +    boolean reloadCommandAliases(); // Paper
  }
 diff --git a/src/main/java/org/bukkit/command/CommandMap.java b/src/main/java/org/bukkit/command/CommandMap.java
-index 30d60247..938959aa 100644
+index 30d60247e7cd26430dcaa6ae20ea34feeeebd6b1..938959aa50893c502f2e4021d66ad7e5b20c2b46 100644
 --- a/src/main/java/org/bukkit/command/CommandMap.java
 +++ b/src/main/java/org/bukkit/command/CommandMap.java
 @@ -123,4 +123,13 @@ public interface CommandMap {
@@ -55,7 +55,7 @@ index 30d60247..938959aa 100644
 +    // Paper end
  }
 diff --git a/src/main/java/org/bukkit/command/SimpleCommandMap.java b/src/main/java/org/bukkit/command/SimpleCommandMap.java
-index 154b7d91..474cf4c3 100644
+index 154b7d91736b25c1bc6019f83def5ef58b8f6103..474cf4c38d8f84a958a15bfa672e5e5d31c297cf 100644
 --- a/src/main/java/org/bukkit/command/SimpleCommandMap.java
 +++ b/src/main/java/org/bukkit/command/SimpleCommandMap.java
 @@ -283,4 +283,10 @@ public class SimpleCommandMap implements CommandMap {
@@ -70,7 +70,7 @@ index 154b7d91..474cf4c3 100644
 +    // Paper end
  }
 diff --git a/src/main/java/org/bukkit/command/defaults/ReloadCommand.java b/src/main/java/org/bukkit/command/defaults/ReloadCommand.java
-index f331a442..a977045d 100644
+index f331a44238a4fc7ce9db3b394b2d07217c0ba41c..a977045de0513725b4bc0a70eb982cd98f6f44a7 100644
 --- a/src/main/java/org/bukkit/command/defaults/ReloadCommand.java
 +++ b/src/main/java/org/bukkit/command/defaults/ReloadCommand.java
 @@ -13,7 +13,7 @@ public class ReloadCommand extends BukkitCommand {
@@ -96,6 +96,3 @@ index f331a442..a977045d 100644
              } else if ("confirm".equalsIgnoreCase(args[0])) {
                  confirmed = true;
              } else {
--- 
-2.21.0
-

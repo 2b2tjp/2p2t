@@ -1,4 +1,4 @@
-From 7cd85ceb045d6fc847caa3af14fde0c9ac06e7cf Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Wed, 27 Apr 2016 22:09:52 -0400
 Subject: [PATCH] Optimize Hoppers
@@ -11,7 +11,7 @@ Subject: [PATCH] Optimize Hoppers
 * Skip subsequent InventoryMoveItemEvents if a plugin does not use the item after first event fire for an iteration
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index 9fd76dcc90..363e03b65d 100644
+index 9fd76dcc9018c4e85ae5644954a4a94706738c7e..363e03b65d1ed587295c68f61255ba4b51e0301d 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -489,4 +489,12 @@ public class PaperWorldConfig {
@@ -28,7 +28,7 @@ index 9fd76dcc90..363e03b65d 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/MinecraftServer.java b/src/main/java/net/minecraft/server/MinecraftServer.java
-index fcf6bac08f..3092913f5b 100644
+index fcf6bac08f68e9aca9d2ed5b8d152594e12644e2..3092913f5b239d95a8a0fc5abd472abe8ecd4b8f 100644
 --- a/src/main/java/net/minecraft/server/MinecraftServer.java
 +++ b/src/main/java/net/minecraft/server/MinecraftServer.java
 @@ -876,6 +876,7 @@ public abstract class MinecraftServer implements ICommandListener, Runnable, IAs
@@ -40,7 +40,7 @@ index fcf6bac08f..3092913f5b 100644
                  this.methodProfiler.a(() -> {
                      return worldserver.getWorldData().getName();
 diff --git a/src/main/java/net/minecraft/server/TileEntity.java b/src/main/java/net/minecraft/server/TileEntity.java
-index 30d3e19de8..54bfbfc6bc 100644
+index 30d3e19de8d39c92d4a515f8ad372c17fdd8d927..54bfbfc6bcdf033853becd8c363f79d0a50c9040 100644
 --- a/src/main/java/net/minecraft/server/TileEntity.java
 +++ b/src/main/java/net/minecraft/server/TileEntity.java
 @@ -60,6 +60,7 @@ public abstract class TileEntity implements KeyedObject {
@@ -60,7 +60,7 @@ index 30d3e19de8..54bfbfc6bc 100644
  
              this.g = iblockdata.getBlock().toLegacyData(iblockdata);
 diff --git a/src/main/java/net/minecraft/server/TileEntityHopper.java b/src/main/java/net/minecraft/server/TileEntityHopper.java
-index e9315f2d5c..5198a590a7 100644
+index e9315f2d5c1002903971b9b9b594123b8017f0d1..5198a590a7711f228429c3e83b3722f975dd3e43 100644
 --- a/src/main/java/net/minecraft/server/TileEntityHopper.java
 +++ b/src/main/java/net/minecraft/server/TileEntityHopper.java
 @@ -196,6 +196,154 @@ public class TileEntityHopper extends TileEntityLootable implements IHopper, ITi
@@ -279,6 +279,3 @@ index e9315f2d5c..5198a590a7 100644
                  itemstack = ItemStack.a;
                  flag = true;
              } else if (a(itemstack1, itemstack)) {
--- 
-2.18.0
-

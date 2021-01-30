@@ -1,11 +1,11 @@
-From e5dae80584dbf0caa5a09109148f8063a834d834 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Zach Brown <zach.brown@destroystokyo.com>
 Date: Sun, 31 Jul 2016 16:33:03 -0500
 Subject: [PATCH] Re-track players that dismount from other players
 
 
 diff --git a/src/main/java/net/minecraft/server/EntityPlayer.java b/src/main/java/net/minecraft/server/EntityPlayer.java
-index 4b6976b19..2391adac7 100644
+index 4b6976b19fdf2541d7038378edc7669dd8a1fd8d..2391adac7f9e7de7bec4012e090f10538304f935 100644
 --- a/src/main/java/net/minecraft/server/EntityPlayer.java
 +++ b/src/main/java/net/minecraft/server/EntityPlayer.java
 @@ -724,6 +724,13 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
@@ -22,6 +22,3 @@ index 4b6976b19..2391adac7 100644
  
      }
  
--- 
-2.18.0
-

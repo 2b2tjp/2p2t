@@ -1,11 +1,11 @@
-From 4ca727fe10c32507bd208efbecc6cb500fbf2534 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Sat, 17 Jun 2017 15:04:51 -0400
 Subject: [PATCH] Shoulder Entities Release API
 
 
 diff --git a/src/main/java/org/bukkit/entity/HumanEntity.java b/src/main/java/org/bukkit/entity/HumanEntity.java
-index 518aa2a9..3939d4af 100644
+index 518aa2a920458b269515e72a589efcdca310ea07..3939d4af2c907949cc954a35f106c5df11faef30 100644
 --- a/src/main/java/org/bukkit/entity/HumanEntity.java
 +++ b/src/main/java/org/bukkit/entity/HumanEntity.java
 @@ -256,6 +256,24 @@ public interface HumanEntity extends LivingEntity, AnimalTamer, Permissible, Inv
@@ -33,6 +33,3 @@ index 518aa2a9..3939d4af 100644
      /**
       * Gets the entity currently perched on the left shoulder or null if no
       * entity.
--- 
-2.15.1
-

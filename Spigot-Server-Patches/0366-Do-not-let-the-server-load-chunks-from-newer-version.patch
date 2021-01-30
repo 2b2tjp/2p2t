@@ -1,4 +1,4 @@
-From 652ddff89bc697d79803e1fc33b767bc5af0c1a8 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Zach Brown <zach@zachbr.io>
 Date: Tue, 23 Oct 2018 22:03:37 -0400
 Subject: [PATCH] Do not let the server load chunks from newer versions
@@ -9,7 +9,7 @@ the game, immediately stop the server to prevent data corruption.
 You can override this functionality at your own peril.
 
 diff --git a/src/main/java/net/minecraft/server/ChunkRegionLoader.java b/src/main/java/net/minecraft/server/ChunkRegionLoader.java
-index bad287fca..e6906effb 100644
+index bad287fca4dc2cb00150e04980f4e3778d5dc008..e6906effb4bb63ec1b856ccb190434e0cb0a7510 100644
 --- a/src/main/java/net/minecraft/server/ChunkRegionLoader.java
 +++ b/src/main/java/net/minecraft/server/ChunkRegionLoader.java
 @@ -90,8 +90,22 @@ public class ChunkRegionLoader implements IChunkLoader, IAsyncChunkSaver {
@@ -35,6 +35,3 @@ index bad287fca..e6906effb 100644
          if (!nbttagcompound.hasKeyOfType("Level", 10)) {
              ChunkRegionLoader.a.error("Chunk file at {},{} is missing level data, skipping", Integer.valueOf(i), Integer.valueOf(j));
              return null;
--- 
-2.19.1
-

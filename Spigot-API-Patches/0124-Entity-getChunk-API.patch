@@ -1,4 +1,4 @@
-From 99dd52878fbaede269af3c5cf38c179688506099 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Wed, 4 Jul 2018 02:25:48 -0400
 Subject: [PATCH] Entity#getChunk API
@@ -6,7 +6,7 @@ Subject: [PATCH] Entity#getChunk API
 Get the chunk the entity is currently registered to
 
 diff --git a/src/main/java/org/bukkit/entity/Entity.java b/src/main/java/org/bukkit/entity/Entity.java
-index 3ae4de7a..e2a2b78c 100644
+index 3ae4de7adacff02bd2c7abcd59e2fd536b19a3c4..e2a2b78cf0f9294388d8d2903fad333be5258cfa 100644
 --- a/src/main/java/org/bukkit/entity/Entity.java
 +++ b/src/main/java/org/bukkit/entity/Entity.java
 @@ -1,5 +1,6 @@
@@ -29,6 +29,3 @@ index 3ae4de7a..e2a2b78c 100644
 +    Chunk getChunk();
      // Paper end
  }
--- 
-2.18.0
-

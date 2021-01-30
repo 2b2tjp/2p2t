@@ -1,11 +1,11 @@
-From 0b776c2a991e7b2afc49d7dd72d8d44a55574465 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: vemacs <d@nkmem.es>
 Date: Thu, 3 Mar 2016 01:19:22 -0600
 Subject: [PATCH] All chunks are slime spawn chunks toggle
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index 4c57b9cbf..a289ba019 100644
+index 4c57b9cbf4cdf72b4038aa1d81d3036b189881d3..a289ba0196d81d4493a547c2c55a254eeafc8a72 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -227,4 +227,9 @@ public class PaperWorldConfig {
@@ -19,7 +19,7 @@ index 4c57b9cbf..a289ba019 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/EntitySlime.java b/src/main/java/net/minecraft/server/EntitySlime.java
-index 272b22652..3d3a9ca04 100644
+index 272b22652e12632bf38936b79e15ff0f8a5b80f7..3d3a9ca04cffc7b1106b257f1e608c9b2c9897ee 100644
 --- a/src/main/java/net/minecraft/server/EntitySlime.java
 +++ b/src/main/java/net/minecraft/server/EntitySlime.java
 @@ -251,8 +251,8 @@ public class EntitySlime extends EntityInsentient implements IMonster {
@@ -33,6 +33,3 @@ index 272b22652..3d3a9ca04 100644
                      return super.P();
                  }
              }
--- 
-2.18.0
-

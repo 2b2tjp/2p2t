@@ -1,11 +1,11 @@
-From 4b3b0f43a19eeb8aac309d2941de636c6dc6a62e Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: BillyGalbreath <Blake.Galbreath@GMail.com>
 Date: Fri, 10 Nov 2017 23:03:12 -0500
 Subject: [PATCH] Option for maximum exp value when merging orbs
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index 4d30cdbc8b..535a8d3ed1 100644
+index 4d30cdbc8bf95263d77e6db6376e330c22a0d731..535a8d3ed14a992122802781c15b9b4ee8e15e21 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -457,4 +457,10 @@ public class PaperWorldConfig {
@@ -20,7 +20,7 @@ index 4d30cdbc8b..535a8d3ed1 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/World.java b/src/main/java/net/minecraft/server/World.java
-index 3561507de1..b2f04595a6 100644
+index 29dffc3aca098e87d6cd3621d69141436f1c6ee6..dc96badd37970c0348ee402f54f757c3910ae6b7 100644
 --- a/src/main/java/net/minecraft/server/World.java
 +++ b/src/main/java/net/minecraft/server/World.java
 @@ -1143,16 +1143,32 @@ public abstract class World implements IBlockAccess {
@@ -59,6 +59,3 @@ index 3561507de1..b2f04595a6 100644
              }
          } // Spigot end
  
--- 
-2.18.0
-

@@ -1,4 +1,4 @@
-From 61350e5dcf4f5833c142aadaba0fb41f27056974 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Brokkonaut <hannos17@gmx.de>
 Date: Sat, 14 Apr 2018 20:20:46 +0200
 Subject: [PATCH] Configurable sprint interruption on attack
@@ -6,7 +6,7 @@ Subject: [PATCH] Configurable sprint interruption on attack
 If the sprint interruption is disabled players continue sprinting when they attack entities.
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index ef1fa8cf6..5a2fbf7c7 100644
+index ef1fa8cf64748680ee17b2c034298012b2445ebd..5a2fbf7c752a0b2924d5195a2f7062ab0ef7a9c5 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -502,4 +502,9 @@ public class PaperWorldConfig {
@@ -20,7 +20,7 @@ index ef1fa8cf6..5a2fbf7c7 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/EntityHuman.java b/src/main/java/net/minecraft/server/EntityHuman.java
-index 35fde8b23..0b51903e2 100644
+index 35fde8b23954acd6fe30abe209e243ef8f0e2725..0b51903e23335801f130d3d382a3896bc53178c6 100644
 --- a/src/main/java/net/minecraft/server/EntityHuman.java
 +++ b/src/main/java/net/minecraft/server/EntityHuman.java
 @@ -1030,7 +1030,11 @@ public abstract class EntityHuman extends EntityLiving {
@@ -36,6 +36,3 @@ index 35fde8b23..0b51903e2 100644
                          }
  
                          if (flag3) {
--- 
-2.18.0
-

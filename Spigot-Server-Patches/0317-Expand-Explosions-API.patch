@@ -1,4 +1,4 @@
-From 20e4111eafc2445a21fcfea8cee7670cf559ad23 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Wed, 20 Jun 2018 23:17:24 -0400
 Subject: [PATCH] Expand Explosions API
@@ -6,7 +6,7 @@ Subject: [PATCH] Expand Explosions API
 Add Entity as a Source capability, and add more API choices, and on Location.
 
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftWorld.java b/src/main/java/org/bukkit/craftbukkit/CraftWorld.java
-index e88846bb5..e2da30d88 100644
+index be10d5dd2ff44b3455141b5d73e2da50c7b1e8fb..31f2a1cd5da1d6b6d4aa42f91a085b09285e6420 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftWorld.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftWorld.java
 @@ -579,6 +579,11 @@ public class CraftWorld implements World {
@@ -21,6 +21,3 @@ index e88846bb5..e2da30d88 100644
  
      public boolean createExplosion(Location loc, float power) {
          return createExplosion(loc, power, false);
--- 
-2.18.0
-

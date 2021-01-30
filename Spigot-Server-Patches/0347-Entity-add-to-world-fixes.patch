@@ -1,4 +1,4 @@
-From 006c7fd9553064cea0bc6a4d4dc0afb7535e6de5 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Fri, 3 Aug 2018 22:47:46 -0400
 Subject: [PATCH] Entity add to world fixes
@@ -14,7 +14,7 @@ Fix this by differing entity add to world for all entities at the same time
 the original entity is dead, overwrite it as the logic does for unloaod queued entities.
 
 diff --git a/src/main/java/net/minecraft/server/Chunk.java b/src/main/java/net/minecraft/server/Chunk.java
-index e4d5e65c8..0a3f00c3b 100644
+index e4d5e65c81be14e5d1dd5c8f60907a782575cd9c..0a3f00c3b9a1af6e4b7f806215d756006c19dea2 100644
 --- a/src/main/java/net/minecraft/server/Chunk.java
 +++ b/src/main/java/net/minecraft/server/Chunk.java
 @@ -879,6 +879,7 @@ public class Chunk {
@@ -41,7 +41,7 @@ index e4d5e65c8..0a3f00c3b 100644
      }
  
 diff --git a/src/main/java/net/minecraft/server/World.java b/src/main/java/net/minecraft/server/World.java
-index 4a16f7ac7..04d0fa1df 100644
+index 4a16f7ac713ce4b5f0d9cc65fea98378287f1ca2..04d0fa1df986dab99dcd98c2f935c3ba9238c967 100644
 --- a/src/main/java/net/minecraft/server/World.java
 +++ b/src/main/java/net/minecraft/server/World.java
 @@ -1204,6 +1204,7 @@ public abstract class World implements IBlockAccess {
@@ -70,7 +70,7 @@ index 4a16f7ac7..04d0fa1df 100644
              }
              this.entityList.add(entity);
 diff --git a/src/main/java/net/minecraft/server/WorldServer.java b/src/main/java/net/minecraft/server/WorldServer.java
-index 1244baf45..a14b5e061 100644
+index 1244baf45a7b6e2e64f2114d7e425416069de914..a14b5e06181018a55f341a550c09425b8260537f 100644
 --- a/src/main/java/net/minecraft/server/WorldServer.java
 +++ b/src/main/java/net/minecraft/server/WorldServer.java
 @@ -1173,7 +1173,7 @@ public class WorldServer extends World implements IAsyncTaskHandler {
@@ -82,6 +82,3 @@ index 1244baf45..a14b5e061 100644
                      this.f.remove(entity1);
                  } else {
                      if (!(entity instanceof EntityHuman)) {
--- 
-2.21.0
-

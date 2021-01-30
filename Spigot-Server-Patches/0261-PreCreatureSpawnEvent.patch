@@ -1,4 +1,4 @@
-From 0ae51485d202666ce7a9cfdb15feb2a587c0c445 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Sun, 14 Jan 2018 17:01:31 -0500
 Subject: [PATCH] PreCreatureSpawnEvent
@@ -15,7 +15,7 @@ instead and save a lot of server resources.
 See: https://github.com/PaperMC/Paper/issues/917
 
 diff --git a/src/main/java/net/minecraft/server/MobSpawnerAbstract.java b/src/main/java/net/minecraft/server/MobSpawnerAbstract.java
-index 87fe4775..94d0b8a3 100644
+index 87fe4775fed9140490257440d246e215f1de314e..94d0b8a3dba5c69736eee336bcdd3f0325629d4d 100644
 --- a/src/main/java/net/minecraft/server/MobSpawnerAbstract.java
 +++ b/src/main/java/net/minecraft/server/MobSpawnerAbstract.java
 @@ -1,6 +1,7 @@
@@ -56,7 +56,7 @@ index 87fe4775..94d0b8a3 100644
  
                      if (entity == null) {
 diff --git a/src/main/java/net/minecraft/server/SpawnerCreature.java b/src/main/java/net/minecraft/server/SpawnerCreature.java
-index ed22607d..5d633774 100644
+index ed22607d911372ac49d2535576f77bee670c6be6..5d633774dccd045c1dfffba994fd0bddf73b2b8f 100644
 --- a/src/main/java/net/minecraft/server/SpawnerCreature.java
 +++ b/src/main/java/net/minecraft/server/SpawnerCreature.java
 @@ -184,6 +184,25 @@ public final class SpawnerCreature {
@@ -85,6 +85,3 @@ index ed22607d..5d633774 100644
                                                          EntityInsentient entityinsentient;
  
                                                          try {
--- 
-2.16.2.windows.1
-

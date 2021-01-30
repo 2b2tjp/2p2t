@@ -1,4 +1,4 @@
-From fe849acd162816d608ef8b797037f95cfbb95dc3 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Minecrell <minecrell@minecrell.net>
 Date: Thu, 21 Sep 2017 16:33:12 +0200
 Subject: [PATCH] Allow plugins to use SLF4J for logging
@@ -14,7 +14,7 @@ it without having to shade it in the plugin and going through
 several layers of logging abstraction.
 
 diff --git a/pom.xml b/pom.xml
-index d75bf7da..2fa2dd7c 100644
+index 02152fcca2e49f7bc1b69d507330b5596d8cf0c0..331caa21a233269a9c536a3b1b1bd800e468d2a5 100644
 --- a/pom.xml
 +++ b/pom.xml
 @@ -111,6 +111,14 @@
@@ -33,7 +33,7 @@ index d75bf7da..2fa2dd7c 100644
          <dependency>
              <groupId>junit</groupId>
 diff --git a/src/main/java/org/bukkit/plugin/Plugin.java b/src/main/java/org/bukkit/plugin/Plugin.java
-index 55debf5d..8d2999ac 100644
+index 55debf5d5aaa493802c839b608f0eae771e57464..8d2999ace309c5d72244164afdbabbe67359fc56 100644
 --- a/src/main/java/org/bukkit/plugin/Plugin.java
 +++ b/src/main/java/org/bukkit/plugin/Plugin.java
 @@ -157,6 +157,12 @@ public interface Plugin extends TabExecutor {
@@ -49,6 +49,3 @@ index 55debf5d..8d2999ac 100644
      /**
       * Returns the name of the plugin.
       * <p>
--- 
-2.19.0
-

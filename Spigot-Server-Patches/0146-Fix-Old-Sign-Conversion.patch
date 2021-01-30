@@ -1,4 +1,4 @@
-From b9cd2fb5f5d0dd6ef57e7d8b5c550d760e472077 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Fri, 17 Jun 2016 20:50:11 -0400
 Subject: [PATCH] Fix Old Sign Conversion
@@ -9,7 +9,7 @@ Subject: [PATCH] Fix Old Sign Conversion
    This causes Igloos and such to render broken signs. We fix this by ignoring sign conversion for Defined Structures
 
 diff --git a/src/main/java/net/minecraft/server/DefinedStructure.java b/src/main/java/net/minecraft/server/DefinedStructure.java
-index 9f314204b..23da9467e 100644
+index 9f314204b0e47f7e56739c76052c787d4bc6f02c..23da9467ebc82bd25f2c74ddf88ce415dea61775 100644
 --- a/src/main/java/net/minecraft/server/DefinedStructure.java
 +++ b/src/main/java/net/minecraft/server/DefinedStructure.java
 @@ -203,9 +203,11 @@ public class DefinedStructure {
@@ -34,7 +34,7 @@ index 9f314204b..23da9467e 100644
  
          public Iterator<IBlockData> iterator() {
 diff --git a/src/main/java/net/minecraft/server/TileEntity.java b/src/main/java/net/minecraft/server/TileEntity.java
-index dfdc55583..d3bc13726 100644
+index f191225c6289dcf7cc78bebf4200c467a37862b4..b4a7db2b66c17034ebebef13724edbebc1c4b98a 100644
 --- a/src/main/java/net/minecraft/server/TileEntity.java
 +++ b/src/main/java/net/minecraft/server/TileEntity.java
 @@ -11,6 +11,7 @@ import org.bukkit.inventory.InventoryHolder; // CraftBukkit
@@ -46,7 +46,7 @@ index dfdc55583..d3bc13726 100644
      private static final RegistryMaterials<MinecraftKey, Class<? extends TileEntity>> f = new RegistryMaterials();
      protected World world;
 diff --git a/src/main/java/net/minecraft/server/TileEntitySign.java b/src/main/java/net/minecraft/server/TileEntitySign.java
-index 77a7b4458..54b719d91 100644
+index 77a7b445856ac5786646efb5da77d9beb646a693..54b719d917da578f36728f9b98316b67db575f35 100644
 --- a/src/main/java/net/minecraft/server/TileEntitySign.java
 +++ b/src/main/java/net/minecraft/server/TileEntitySign.java
 @@ -77,13 +77,14 @@ public class TileEntitySign extends TileEntity {
@@ -66,6 +66,3 @@ index 77a7b4458..54b719d91 100644
  
                  try {
                      this.lines[i] = ChatComponentUtils.filterForDisplay(icommandlistener, ichatbasecomponent, (Entity) null);
--- 
-2.18.0
-

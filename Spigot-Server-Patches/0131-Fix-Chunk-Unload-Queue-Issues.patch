@@ -1,4 +1,4 @@
-From 43debbd620fdfdcda18b02c5826c4b1bfeea5979 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Thu, 12 May 2016 02:03:56 -0400
 Subject: [PATCH] Fix Chunk Unload Queue Issues
@@ -9,7 +9,7 @@ has not resolved all the bugs with the changes.
 This patch fixes known issues and really should be applied by Spigot team.
 
 diff --git a/src/main/java/net/minecraft/server/Chunk.java b/src/main/java/net/minecraft/server/Chunk.java
-index ba3ee64f8..857df2937 100644
+index f744c6e098c24dfc0682f59cc3c2b3f912cb7b01..7d43e040d63f6e3a66ed5553ccfc000d91123e52 100644
 --- a/src/main/java/net/minecraft/server/Chunk.java
 +++ b/src/main/java/net/minecraft/server/Chunk.java
 @@ -75,7 +75,7 @@ public class Chunk {
@@ -22,7 +22,7 @@ index ba3ee64f8..857df2937 100644
  
      // Paper start
 diff --git a/src/main/java/net/minecraft/server/ChunkProviderServer.java b/src/main/java/net/minecraft/server/ChunkProviderServer.java
-index 1771a1794..5cc192bbd 100644
+index 1771a17949edbb6ca235e76deb8db4971f9598a8..5cc192bbde51dddf35290b6a083b3b430838de63 100644
 --- a/src/main/java/net/minecraft/server/ChunkProviderServer.java
 +++ b/src/main/java/net/minecraft/server/ChunkProviderServer.java
 @@ -299,6 +299,7 @@ public class ChunkProviderServer implements IChunkProvider {
@@ -33,6 +33,3 @@ index 1771a1794..5cc192bbd 100644
                          if (!unloadChunk(chunk, true)) {
                              continue;
                          }
--- 
-2.18.0
-

@@ -1,4 +1,4 @@
-From 5ffc7918dcf0fcd87916342ddb568352e56ba098 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Minecrell <minecrell@minecrell.net>
 Date: Sat, 23 Sep 2017 21:07:20 +0200
 Subject: [PATCH] Disable logger prefix for various plugins bypassing the
@@ -11,7 +11,7 @@ log. Disable the logger prefix for these plugins so the messages
 show up correctly.
 
 diff --git a/src/main/resources/log4j2.xml b/src/main/resources/log4j2.xml
-index 9f8334376..6711e6dff 100644
+index 9f8334376f25389666c6e9e8f1d65405a924f2e7..6711e6dff9ca15a516003e79b4882794b7a73644 100644
 --- a/src/main/resources/log4j2.xml
 +++ b/src/main/resources/log4j2.xml
 @@ -5,7 +5,8 @@
@@ -34,6 +34,3 @@ index 9f8334376..6711e6dff 100644
                                    pattern="[%d{HH:mm:ss}] [%t/%level]: %minecraftFormatting{%msg}{strip}%n" />
                  </LoggerNamePatternSelector>
              </PatternLayout>
--- 
-2.18.0
-

@@ -1,11 +1,11 @@
-From 46295cf34cd1bef4e4fd5ac70f3f33b714149af3 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Zach Brown <zach.brown@destroystokyo.com>
 Date: Wed, 6 Apr 2016 01:04:23 -0500
 Subject: [PATCH] Option to use vanilla per-world scoreboard coloring on names
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index abc1aabd..6ea608ba 100644
+index abc1aabdd826e8c667dd7b050e659659893f593f..6ea608ba9aaad295d5db91970b6ef036ae46b0ef 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -288,4 +288,9 @@ public class PaperWorldConfig {
@@ -19,7 +19,7 @@ index abc1aabd..6ea608ba 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/Entity.java b/src/main/java/net/minecraft/server/Entity.java
-index a3d4da98..61d2d91c 100644
+index a3d4da98b3cdff8036861f1ffd4fc0a45a65a27c..61d2d91cb8c88f146e089030d6da39bc4bfb8832 100644
 --- a/src/main/java/net/minecraft/server/Entity.java
 +++ b/src/main/java/net/minecraft/server/Entity.java
 @@ -2143,6 +2143,7 @@ public abstract class Entity implements ICommandListener, KeyedObject { // Paper
@@ -31,7 +31,7 @@ index a3d4da98..61d2d91c 100644
      public ScoreboardTeamBase aY() {
          if (!this.world.paperConfig.nonPlayerEntitiesOnScoreboards && !(this instanceof EntityHuman)) { return null; } // Paper
 diff --git a/src/main/java/net/minecraft/server/PlayerConnection.java b/src/main/java/net/minecraft/server/PlayerConnection.java
-index abb7caa8..70b59ee9 100644
+index 2363617008217e50d47185bce2ff8445ba8943e8..d83d2dd96fb9897b343742dc018617c3ae356da8 100644
 --- a/src/main/java/net/minecraft/server/PlayerConnection.java
 +++ b/src/main/java/net/minecraft/server/PlayerConnection.java
 @@ -1392,7 +1392,14 @@ public class PlayerConnection implements PacketListenerPlayIn, ITickable {
@@ -50,6 +50,3 @@ index abb7caa8..70b59ee9 100644
                  minecraftServer.console.sendMessage(s);
                  if (((LazyPlayerSet) event.getRecipients()).isLazy()) {
                      for (Object recipient : minecraftServer.getPlayerList().players) {
--- 
-2.19.1
-

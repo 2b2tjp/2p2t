@@ -1,4 +1,4 @@
-From 9140c809a2ab87aaccef774be18f66a6e83113d2 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Tue, 20 Dec 2016 15:15:11 -0500
 Subject: [PATCH] Bound Treasure Maps to World Border
@@ -11,7 +11,7 @@ that is outside happens to be closer, but unreachable, yet another reachable
 one is in border that would of been missed.
 
 diff --git a/src/main/java/net/minecraft/server/StructureGenerator.java b/src/main/java/net/minecraft/server/StructureGenerator.java
-index 34fd7edfe..e8263baa4 100644
+index 34fd7edfeb18e2f4707a80950424786c84454331..e8263baa4736709b4c902e10da8ed87fe7c4356c 100644
 --- a/src/main/java/net/minecraft/server/StructureGenerator.java
 +++ b/src/main/java/net/minecraft/server/StructureGenerator.java
 @@ -236,6 +236,9 @@ public abstract class StructureGenerator extends WorldGenBase {
@@ -25,7 +25,7 @@ index 34fd7edfe..e8263baa4 100644
                              if (!flag1 || !world.b(l2, i3)) {
                                  return new BlockPosition((l2 << 4) + 8, 64, (i3 << 4) + 8);
 diff --git a/src/main/java/net/minecraft/server/WorldBorder.java b/src/main/java/net/minecraft/server/WorldBorder.java
-index 632eb1c9d..1bb172bbf 100644
+index 632eb1c9dee28f68a285bd8713b3bd07cc56e01c..1bb172bbf7d2f69bcdc36265f55e9d4f359a41ec 100644
 --- a/src/main/java/net/minecraft/server/WorldBorder.java
 +++ b/src/main/java/net/minecraft/server/WorldBorder.java
 @@ -33,6 +33,18 @@ public class WorldBorder {
@@ -47,6 +47,3 @@ index 632eb1c9d..1bb172bbf 100644
      public boolean isInBounds(ChunkCoordIntPair chunkcoordintpair) {
          return (double) chunkcoordintpair.e() > this.b() && (double) chunkcoordintpair.c() < this.d() && (double) chunkcoordintpair.f() > this.c() && (double) chunkcoordintpair.d() < this.e();
      }
--- 
-2.18.0
-

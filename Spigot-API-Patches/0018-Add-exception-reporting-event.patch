@@ -1,4 +1,4 @@
-From ac7d29681dd2be932b84ca9bb270906521656edc Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Zach Brown <zach.brown@destroystokyo.com>
 Date: Mon, 29 Feb 2016 20:24:35 -0600
 Subject: [PATCH] Add exception reporting event
@@ -6,7 +6,7 @@ Subject: [PATCH] Add exception reporting event
 
 diff --git a/src/main/java/com/destroystokyo/paper/event/server/ServerExceptionEvent.java b/src/main/java/com/destroystokyo/paper/event/server/ServerExceptionEvent.java
 new file mode 100644
-index 00000000..4109454a
+index 0000000000000000000000000000000000000000..4109454a33635901afdf5c8d01a977c6923f1bf1
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/event/server/ServerExceptionEvent.java
 @@ -0,0 +1,37 @@
@@ -49,7 +49,7 @@ index 00000000..4109454a
 +}
 diff --git a/src/main/java/com/destroystokyo/paper/exception/ServerCommandException.java b/src/main/java/com/destroystokyo/paper/exception/ServerCommandException.java
 new file mode 100644
-index 00000000..6fb39af0
+index 0000000000000000000000000000000000000000..6fb39af0479a818f7f1465bcdfe505ab4ff7da1a
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/exception/ServerCommandException.java
 @@ -0,0 +1,64 @@
@@ -119,7 +119,7 @@ index 00000000..6fb39af0
 +}
 diff --git a/src/main/java/com/destroystokyo/paper/exception/ServerEventException.java b/src/main/java/com/destroystokyo/paper/exception/ServerEventException.java
 new file mode 100644
-index 00000000..410b2413
+index 0000000000000000000000000000000000000000..410b24139535cd5d8439ad581c43c61b5757fbf6
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/exception/ServerEventException.java
 @@ -0,0 +1,52 @@
@@ -177,7 +177,7 @@ index 00000000..410b2413
 +}
 diff --git a/src/main/java/com/destroystokyo/paper/exception/ServerException.java b/src/main/java/com/destroystokyo/paper/exception/ServerException.java
 new file mode 100644
-index 00000000..c06ea394
+index 0000000000000000000000000000000000000000..c06ea3942447d4824b83ff839cb449fb818dede1
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/exception/ServerException.java
 @@ -0,0 +1,23 @@
@@ -206,7 +206,7 @@ index 00000000..c06ea394
 +}
 diff --git a/src/main/java/com/destroystokyo/paper/exception/ServerInternalException.java b/src/main/java/com/destroystokyo/paper/exception/ServerInternalException.java
 new file mode 100644
-index 00000000..e762ed0d
+index 0000000000000000000000000000000000000000..e762ed0dbad51625e65fef2e1898679108459a36
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/exception/ServerInternalException.java
 @@ -0,0 +1,35 @@
@@ -247,7 +247,7 @@ index 00000000..e762ed0d
 +}
 diff --git a/src/main/java/com/destroystokyo/paper/exception/ServerPluginEnableDisableException.java b/src/main/java/com/destroystokyo/paper/exception/ServerPluginEnableDisableException.java
 new file mode 100644
-index 00000000..f016ba3b
+index 0000000000000000000000000000000000000000..f016ba3b1b62e554a9bacbb9635f2dbe441b3c4e
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/exception/ServerPluginEnableDisableException.java
 @@ -0,0 +1,20 @@
@@ -274,7 +274,7 @@ index 00000000..f016ba3b
 \ No newline at end of file
 diff --git a/src/main/java/com/destroystokyo/paper/exception/ServerPluginException.java b/src/main/java/com/destroystokyo/paper/exception/ServerPluginException.java
 new file mode 100644
-index 00000000..6defac28
+index 0000000000000000000000000000000000000000..6defac287d0214fdf99418d979144050cc1e53bc
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/exception/ServerPluginException.java
 @@ -0,0 +1,38 @@
@@ -318,7 +318,7 @@ index 00000000..6defac28
 +}
 diff --git a/src/main/java/com/destroystokyo/paper/exception/ServerPluginMessageException.java b/src/main/java/com/destroystokyo/paper/exception/ServerPluginMessageException.java
 new file mode 100644
-index 00000000..89e13252
+index 0000000000000000000000000000000000000000..89e132525cfae0ce979e37b3e2793df781e47227
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/exception/ServerPluginMessageException.java
 @@ -0,0 +1,64 @@
@@ -388,7 +388,7 @@ index 00000000..89e13252
 +}
 diff --git a/src/main/java/com/destroystokyo/paper/exception/ServerSchedulerException.java b/src/main/java/com/destroystokyo/paper/exception/ServerSchedulerException.java
 new file mode 100644
-index 00000000..2d0b2d4a
+index 0000000000000000000000000000000000000000..2d0b2d4a9b3e5bdeec0e4ea7ab69858d86aa3715
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/exception/ServerSchedulerException.java
 @@ -0,0 +1,37 @@
@@ -431,7 +431,7 @@ index 00000000..2d0b2d4a
 +}
 diff --git a/src/main/java/com/destroystokyo/paper/exception/ServerTabCompleteException.java b/src/main/java/com/destroystokyo/paper/exception/ServerTabCompleteException.java
 new file mode 100644
-index 00000000..5582999f
+index 0000000000000000000000000000000000000000..5582999fe94c7a3dac655044ccc6d078cd9521a1
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/exception/ServerTabCompleteException.java
 @@ -0,0 +1,22 @@
@@ -458,7 +458,7 @@ index 00000000..5582999f
 +    }
 +}
 diff --git a/src/main/java/org/bukkit/command/SimpleCommandMap.java b/src/main/java/org/bukkit/command/SimpleCommandMap.java
-index 22fe0663..154b7d91 100644
+index 22fe0663bc85ae76162a4fd86545c40b182fe245..154b7d91736b25c1bc6019f83def5ef58b8f6103 100644
 --- a/src/main/java/org/bukkit/command/SimpleCommandMap.java
 +++ b/src/main/java/org/bukkit/command/SimpleCommandMap.java
 @@ -11,6 +11,9 @@ import java.util.Map;
@@ -499,7 +499,7 @@ index 22fe0663..154b7d91 100644
      }
  
 diff --git a/src/main/java/org/bukkit/plugin/SimplePluginManager.java b/src/main/java/org/bukkit/plugin/SimplePluginManager.java
-index 80c152ba..b88f31ca 100644
+index 80c152ba98f134dcd78195ec54cd84a8d64cc0c5..b88f31ca2e8d1036a43b83d88cd82355c3bef2a4 100644
 --- a/src/main/java/org/bukkit/plugin/SimplePluginManager.java
 +++ b/src/main/java/org/bukkit/plugin/SimplePluginManager.java
 @@ -18,6 +18,9 @@ import java.util.logging.Level;
@@ -591,6 +591,3 @@ index 80c152ba..b88f31ca 100644
              }
          }
      }
--- 
-2.21.0
-

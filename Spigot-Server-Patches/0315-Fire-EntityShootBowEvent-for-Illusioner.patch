@@ -1,11 +1,11 @@
-From 81e31ca23b57f80911c332ec7fe349b793807ff7 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Mon, 18 Jun 2018 22:19:36 -0400
 Subject: [PATCH] Fire EntityShootBowEvent for Illusioner
 
 
 diff --git a/src/main/java/net/minecraft/server/EntityIllagerIllusioner.java b/src/main/java/net/minecraft/server/EntityIllagerIllusioner.java
-index e03650448..ad81bd059 100644
+index e036504483b540185462500868abd6fca8c86d07..ad81bd05932d0ed5c1ee1721737d0ae479455ac1 100644
 --- a/src/main/java/net/minecraft/server/EntityIllagerIllusioner.java
 +++ b/src/main/java/net/minecraft/server/EntityIllagerIllusioner.java
 @@ -123,8 +123,18 @@ public class EntityIllagerIllusioner extends EntityIllagerWizard implements IRan
@@ -28,6 +28,3 @@ index e03650448..ad81bd059 100644
      }
  
      protected EntityArrow r(float f) {
--- 
-2.18.0
-

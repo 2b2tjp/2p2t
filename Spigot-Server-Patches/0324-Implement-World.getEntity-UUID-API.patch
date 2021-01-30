@@ -1,11 +1,11 @@
-From 5ec6400e2dacd349692bfb12ae6dadce5fa2d394 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Brokkonaut <hannos17@gmx.de>
 Date: Tue, 3 Jul 2018 16:08:14 +0200
 Subject: [PATCH] Implement World.getEntity(UUID) API
 
 
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftWorld.java b/src/main/java/org/bukkit/craftbukkit/CraftWorld.java
-index e2da30d88..210e3bc4e 100644
+index 31f2a1cd5da1d6b6d4aa42f91a085b09285e6420..0cae340f4f75788f45fe9611172a3071a2c1b123 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftWorld.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftWorld.java
 @@ -791,6 +791,14 @@ public class CraftWorld implements World {
@@ -23,6 +23,3 @@ index e2da30d88..210e3bc4e 100644
      public void save() {
      // Spigot start
          save(true);
--- 
-2.18.0
-

@@ -1,4 +1,4 @@
-From cb9274abfa6881022b706cd57bd0a5353b84c431 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: kashike <kashike@vq.lc>
 Date: Thu, 17 Aug 2017 16:08:20 -0700
 Subject: [PATCH] Allow specifying a custom "authentication servers down" kick
@@ -6,7 +6,7 @@ Subject: [PATCH] Allow specifying a custom "authentication servers down" kick
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperConfig.java b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-index dbafef023..ec89ecfca 100644
+index dbafef023ee29fcdef9129b9feea9f03611ad8cf..ec89ecfcae3b11a5aecc7b737828d53381d3300b 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperConfig.java
 @@ -1,5 +1,6 @@
@@ -27,7 +27,7 @@ index dbafef023..ec89ecfca 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/LoginListener.java b/src/main/java/net/minecraft/server/LoginListener.java
-index c9533c181..1a67196b4 100644
+index c9533c181645dc53b01bae0f439d8ce45c2977f0..1a67196b408a83b8490e2753442891228eadc516 100644
 --- a/src/main/java/net/minecraft/server/LoginListener.java
 +++ b/src/main/java/net/minecraft/server/LoginListener.java
 @@ -249,6 +249,10 @@ public class LoginListener implements PacketLoginInListener, ITickable {
@@ -41,6 +41,3 @@ index c9533c181..1a67196b4 100644
                              LoginListener.this.disconnect(new ChatMessage("multiplayer.disconnect.authservers_down", new Object[0]));
                              LoginListener.c.error("Couldn\'t verify username because servers are unavailable");
                          }
--- 
-2.18.0
-

@@ -1,11 +1,11 @@
-From be61a682cc9453b4372ac821c4aea25ba90ba606 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: BillyGalbreath <Blake.Galbreath@GMail.com>
 Date: Fri, 5 May 2017 03:57:08 -0500
 Subject: [PATCH] Item#canEntityPickup
 
 
 diff --git a/src/main/java/org/bukkit/entity/Item.java b/src/main/java/org/bukkit/entity/Item.java
-index 90260b7e..2e98e4f9 100644
+index 90260b7e592ea519ce67dce062dd287604eb2269..2e98e4f9146694ae9e609fa7f31664b0f06faa71 100644
 --- a/src/main/java/org/bukkit/entity/Item.java
 +++ b/src/main/java/org/bukkit/entity/Item.java
 @@ -34,4 +34,20 @@ public interface Item extends Entity {
@@ -29,6 +29,3 @@ index 90260b7e..2e98e4f9 100644
 +    public void setCanMobPickup(boolean canMobPickup);
 +    // Paper end
  }
--- 
-2.17.1
-

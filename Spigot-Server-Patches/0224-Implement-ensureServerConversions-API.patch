@@ -1,4 +1,4 @@
-From 85f648495e3ba44c78f3f4e31ab8d207baf9d236 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Wed, 4 May 2016 22:43:12 -0400
 Subject: [PATCH] Implement ensureServerConversions API
@@ -7,7 +7,7 @@ This will take a Bukkit ItemStack and run it through any conversions a server pr
 to ensure it meets latest minecraft expectations.
 
 diff --git a/src/main/java/org/bukkit/craftbukkit/inventory/CraftItemFactory.java b/src/main/java/org/bukkit/craftbukkit/inventory/CraftItemFactory.java
-index 49ebad22e..eb6987338 100644
+index 49ebad22edcd62a1d1a5794f1908adaf0e9b3527..eb6987338045db1845e1f499822ba457517fc1e0 100644
 --- a/src/main/java/org/bukkit/craftbukkit/inventory/CraftItemFactory.java
 +++ b/src/main/java/org/bukkit/craftbukkit/inventory/CraftItemFactory.java
 @@ -194,4 +194,11 @@ public final class CraftItemFactory implements ItemFactory {
@@ -22,6 +22,3 @@ index 49ebad22e..eb6987338 100644
 +    }
 +    // Paper end
  }
--- 
-2.18.0
-

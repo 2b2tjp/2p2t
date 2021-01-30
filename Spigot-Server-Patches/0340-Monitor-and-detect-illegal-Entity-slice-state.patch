@@ -1,4 +1,4 @@
-From 3e0934988343ec1ba1f5950d8302636c306ebc0d Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Mon, 23 Jul 2018 22:44:23 -0400
 Subject: [PATCH] Monitor and detect illegal Entity slice state
@@ -9,7 +9,7 @@ This should hopefully avoid duplicate entities ever being created
 if the entity was to end up in 2 different chunk slices
 
 diff --git a/src/main/java/net/minecraft/server/Chunk.java b/src/main/java/net/minecraft/server/Chunk.java
-index e5c900a85..e4d5e65c8 100644
+index e5c900a85f9e5e98d2a15adfa8c45fc21d877af3..e4d5e65c81be14e5d1dd5c8f60907a782575cd9c 100644
 --- a/src/main/java/net/minecraft/server/Chunk.java
 +++ b/src/main/java/net/minecraft/server/Chunk.java
 @@ -681,8 +681,27 @@ public class Chunk {
@@ -60,7 +60,7 @@ index e5c900a85..e4d5e65c8 100644
                  // Do not pass along players, as doing so can get them stuck outside of time.
                  // (which for example disables inventory icon updates and prevents block breaking)
 diff --git a/src/main/java/net/minecraft/server/Entity.java b/src/main/java/net/minecraft/server/Entity.java
-index b761524f0..a2654690f 100644
+index b761524f0c2580b38f1d8795935b87ed97e701bc..a2654690fc1a0efd343d19c8fd345f31b9943c1a 100644
 --- a/src/main/java/net/minecraft/server/Entity.java
 +++ b/src/main/java/net/minecraft/server/Entity.java
 @@ -59,6 +59,7 @@ public abstract class Entity implements ICommandListener, KeyedObject { // Paper
@@ -71,6 +71,3 @@ index b761524f0..a2654690f 100644
      // Paper end
      static boolean isLevelAtLeast(NBTTagCompound tag, int level) {
          return tag.hasKey("Bukkit.updateLevel") && tag.getInt("Bukkit.updateLevel") >= level;
--- 
-2.21.0
-

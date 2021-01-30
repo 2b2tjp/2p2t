@@ -1,4 +1,4 @@
-From 95832fe51208a8832ea7aa293c95720a4eb7ade3 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Spottedleaf <Spottedleaf@users.noreply.github.com>
 Date: Tue, 14 Aug 2018 21:42:10 -0700
 Subject: [PATCH] Allow Blocks to be accessed via a long key
@@ -18,7 +18,7 @@ Y range: [0, 1023]
 X, Z range: [-67 108 864, 67 108 863]
 
 diff --git a/src/main/java/org/bukkit/Location.java b/src/main/java/org/bukkit/Location.java
-index 8dcb15fb8..7e1ee875e 100644
+index 8dcb15fb8278cacd41de349912667fe6b853b3e7..7e1ee875e63f8ae7832a5af98cf1d0997f00fc3a 100644
 --- a/src/main/java/org/bukkit/Location.java
 +++ b/src/main/java/org/bukkit/Location.java
 @@ -10,7 +10,6 @@ import org.bukkit.util.Vector;
@@ -49,7 +49,7 @@ index 8dcb15fb8..7e1ee875e 100644
       * @return A new location where X/Y/Z are the center of the block
       */
 diff --git a/src/main/java/org/bukkit/World.java b/src/main/java/org/bukkit/World.java
-index 9b46e8892..a6facc4b0 100644
+index 9b46e88926d83fc706b12c6c12981698f84ecc87..a6facc4b0f5036b1cfd7b3a43a502f55498992a5 100644
 --- a/src/main/java/org/bukkit/World.java
 +++ b/src/main/java/org/bukkit/World.java
 @@ -76,6 +76,37 @@ public interface World extends PluginMessageRecipient, Metadatable {
@@ -91,7 +91,7 @@ index 9b46e8892..a6facc4b0 100644
       * Gets the block type ID at the given coordinates
       *
 diff --git a/src/main/java/org/bukkit/block/Block.java b/src/main/java/org/bukkit/block/Block.java
-index 359b81f31..2dbc784cb 100644
+index 359b81f311822115c020f8ff1d1a132cb55b8905..2dbc784cbe151068e9276516b3b2b851da10395c 100644
 --- a/src/main/java/org/bukkit/block/Block.java
 +++ b/src/main/java/org/bukkit/block/Block.java
 @@ -135,6 +135,30 @@ public interface Block extends Metadatable {
@@ -125,6 +125,3 @@ index 359b81f31..2dbc784cb 100644
      /**
       * Gets the Location of the block
       *
--- 
-2.18.0
-

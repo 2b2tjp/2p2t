@@ -1,11 +1,11 @@
-From a79b4a2fab7c471b40a52a96258438a7eb8de0b7 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: acrylic-style <ilyy@outlook.jp>
 Date: Mon, 11 Jan 2021 20:09:21 +0900
 Subject: [PATCH] Disable Server GUI
 
 
 diff --git a/src/main/java/net/minecraft/server/DedicatedServer.java b/src/main/java/net/minecraft/server/DedicatedServer.java
-index 6a8292ce..6ee1731e 100644
+index 6a8292ce4537392bc511419df565e238ac04acb1..6ee1731ea36dbfca252a68ba0c0b35084149ce65 100644
 --- a/src/main/java/net/minecraft/server/DedicatedServer.java
 +++ b/src/main/java/net/minecraft/server/DedicatedServer.java
 @@ -518,8 +518,10 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
@@ -21,6 +21,3 @@ index 6a8292ce..6ee1731e 100644
      }
  
      public boolean ap() {
--- 
-2.21.0.windows.1
-

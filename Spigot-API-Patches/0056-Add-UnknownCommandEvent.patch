@@ -1,4 +1,4 @@
-From f57a4ab8a98fe14d6591558f0eb061caf775b542 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Sweepyoface <github@sweepy.pw>
 Date: Sat, 17 Jun 2017 18:48:06 -0400
 Subject: [PATCH] Add UnknownCommandEvent
@@ -6,7 +6,7 @@ Subject: [PATCH] Add UnknownCommandEvent
 
 diff --git a/src/main/java/org/bukkit/event/command/UnknownCommandEvent.java b/src/main/java/org/bukkit/event/command/UnknownCommandEvent.java
 new file mode 100644
-index 00000000..19d634c3
+index 0000000000000000000000000000000000000000..19d634c3377a87fda260cdb187c9dc2b50960b54
 --- /dev/null
 +++ b/src/main/java/org/bukkit/event/command/UnknownCommandEvent.java
 @@ -0,0 +1,77 @@
@@ -87,6 +87,3 @@ index 00000000..19d634c3
 +    }
 +}
 +
--- 
-2.13.3
-

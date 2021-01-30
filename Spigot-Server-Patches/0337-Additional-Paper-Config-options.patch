@@ -1,4 +1,4 @@
-From 9ac674cfb6f5f71dd61a4952c4bc7d88e3cfa3e5 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Sat, 21 Jul 2018 14:23:31 -0400
 Subject: [PATCH] Additional Paper Config options
@@ -6,7 +6,7 @@ Subject: [PATCH] Additional Paper Config options
 Have to keep as sep patch for now until 1.13, otherwise we can't merge :/
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperConfig.java b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-index 62bce1806..5a17ce3d2 100644
+index 62bce180610b7b4d85ed7bc133942d55f63151aa..5a17ce3d22e2c6042ba7df3f74ab4ee08d4299cc 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperConfig.java
 @@ -67,6 +67,10 @@ public class PaperConfig {
@@ -21,7 +21,7 @@ index 62bce1806..5a17ce3d2 100644
          if (verbose) {
              Bukkit.getLogger().info(s);
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index 50416f40a..14c8edeff 100644
+index 50416f40a9276b61bab8db58a78dae814a0b85c6..14c8edeffc09ef2e767504c59a4ab2149ab73462 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -11,6 +11,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
@@ -32,6 +32,3 @@ index 50416f40a..14c8edeff 100644
  
  public class PaperWorldConfig {
  
--- 
-2.18.0
-

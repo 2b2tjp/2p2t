@@ -1,11 +1,11 @@
-From c5908bf5ae2b8e9dc4058efb952dc182561ec098 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Nik Gil <nikmanG@users.noreply.github.com>
 Date: Mon, 29 Feb 2016 19:42:10 -0600
 Subject: [PATCH] Made EntityDismountEvent Cancellable
 
 
 diff --git a/src/main/java/org/spigotmc/event/entity/EntityDismountEvent.java b/src/main/java/org/spigotmc/event/entity/EntityDismountEvent.java
-index 24d4942..ce989bb 100644
+index 24d4942a95b3f26652efa40b74dd14e4d18849a0..ce989bb1716df748765d0ac02c033ed35a01b6b9 100644
 --- a/src/main/java/org/spigotmc/event/entity/EntityDismountEvent.java
 +++ b/src/main/java/org/spigotmc/event/entity/EntityDismountEvent.java
 @@ -1,6 +1,7 @@
@@ -42,6 +42,3 @@ index 24d4942..ce989bb 100644
 +    }
 +    // Paper end
  }
--- 
-2.9.2.windows.1
-

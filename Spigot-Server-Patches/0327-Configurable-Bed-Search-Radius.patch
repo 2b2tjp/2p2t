@@ -1,4 +1,4 @@
-From a246ceabeb00b56874af023516184f8ef320c62f Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Wed, 4 Jul 2018 15:22:06 -0400
 Subject: [PATCH] Configurable Bed Search Radius
@@ -10,7 +10,7 @@ player at their bed should it of became obstructed.
 Defaults to vanilla 1.
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index 06c54690f..50416f40a 100644
+index 06c54690f32c77a062115e66bebc49f0927bbdad..50416f40a9276b61bab8db58a78dae814a0b85c6 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -529,4 +529,15 @@ public class PaperWorldConfig {
@@ -30,7 +30,7 @@ index 06c54690f..50416f40a 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/BlockBed.java b/src/main/java/net/minecraft/server/BlockBed.java
-index 9346bddff..f1a107991 100644
+index 9346bddff7ef243a4332f95032668c145950884e..f1a1079918ae37672b2c5978b82f6392801859d0 100644
 --- a/src/main/java/net/minecraft/server/BlockBed.java
 +++ b/src/main/java/net/minecraft/server/BlockBed.java
 @@ -155,6 +155,51 @@ public class BlockBed extends BlockFacingHorizontal implements ITileEntity {
@@ -99,6 +99,3 @@ index 9346bddff..f1a107991 100644
      protected static boolean b(World world, BlockPosition blockposition) {
          return world.getType(blockposition.down()).q() && !world.getType(blockposition).getMaterial().isBuildable() && !world.getType(blockposition.up()).getMaterial().isBuildable();
      }
--- 
-2.18.0
-

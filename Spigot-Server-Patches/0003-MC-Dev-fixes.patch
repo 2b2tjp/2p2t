@@ -1,11 +1,11 @@
-From 00d132db37f8d96814d5ce793d584937c0a0f896 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Wed, 30 Mar 2016 19:36:20 -0400
 Subject: [PATCH] MC Dev fixes
 
 
 diff --git a/src/main/java/net/minecraft/server/BaseBlockPosition.java b/src/main/java/net/minecraft/server/BaseBlockPosition.java
-index d4f412742..d55e180d7 100644
+index d4f412742c4f5c50b41074799577aa268aab46be..d55e180d73728e99c7c2b045644d66ce86d2b183 100644
 --- a/src/main/java/net/minecraft/server/BaseBlockPosition.java
 +++ b/src/main/java/net/minecraft/server/BaseBlockPosition.java
 @@ -89,7 +89,7 @@ public class BaseBlockPosition implements Comparable<BaseBlockPosition> {
@@ -18,7 +18,7 @@ index d4f412742..d55e180d7 100644
      }
  }
 diff --git a/src/main/java/net/minecraft/server/BiomeBase.java b/src/main/java/net/minecraft/server/BiomeBase.java
-index 62a9c92f8..1b7599769 100644
+index 62a9c92f8db11fcd897a5504203d1a6b90a2ea43..1b759976990f8d1699e6c713b4867f58f85e2244 100644
 --- a/src/main/java/net/minecraft/server/BiomeBase.java
 +++ b/src/main/java/net/minecraft/server/BiomeBase.java
 @@ -46,7 +46,7 @@ public abstract class BiomeBase {
@@ -31,7 +31,7 @@ index 62a9c92f8..1b7599769 100644
  
      @Nullable
 diff --git a/src/main/java/net/minecraft/server/CommandAbstract.java b/src/main/java/net/minecraft/server/CommandAbstract.java
-index 76bf04f56..a99d0f870 100644
+index 76bf04f564b5381d775429e2f091341d04d77602..a99d0f87044492855fe2393e2a26a5bed3df1035 100644
 --- a/src/main/java/net/minecraft/server/CommandAbstract.java
 +++ b/src/main/java/net/minecraft/server/CommandAbstract.java
 @@ -231,7 +231,7 @@ public abstract class CommandAbstract implements ICommand {
@@ -71,7 +71,7 @@ index 76bf04f56..a99d0f870 100644
      }
  
 diff --git a/src/main/java/net/minecraft/server/EntityTypes.java b/src/main/java/net/minecraft/server/EntityTypes.java
-index 77b81a575..ba461ad48 100644
+index 77b81a575038738044a2575a8da1aea2fb60b5dc..ba461ad485fae286c507746af156beb6a51c8736 100644
 --- a/src/main/java/net/minecraft/server/EntityTypes.java
 +++ b/src/main/java/net/minecraft/server/EntityTypes.java
 @@ -34,7 +34,7 @@ public class EntityTypes {
@@ -93,7 +93,7 @@ index 77b81a575..ba461ad48 100644
  
              EntityTypes.g.set(i, s1);
 diff --git a/src/main/java/net/minecraft/server/LotoSelectorEntry.java b/src/main/java/net/minecraft/server/LotoSelectorEntry.java
-index a540167d6..b2860555d 100644
+index a540167d6d25f3ed59b14a0acc0af859c859852c..b2860555d3442ac205cf3f1a58ab0b02c71278fb 100644
 --- a/src/main/java/net/minecraft/server/LotoSelectorEntry.java
 +++ b/src/main/java/net/minecraft/server/LotoSelectorEntry.java
 @@ -85,11 +85,11 @@ public abstract class LotoSelectorEntry {
@@ -111,7 +111,7 @@ index a540167d6..b2860555d 100644
          }
      }
 diff --git a/src/main/java/net/minecraft/server/Registry.java b/src/main/java/net/minecraft/server/Registry.java
-index 723372f26..c38c3768c 100644
+index 723372f26ab71cc680087eb04df2dc0a51050cf4..c38c3768c719399683a106d838575c360ed2e811 100644
 --- a/src/main/java/net/minecraft/server/Registry.java
 +++ b/src/main/java/net/minecraft/server/Registry.java
 @@ -1,3 +1,3 @@
@@ -120,7 +120,7 @@ index 723372f26..c38c3768c 100644
 -public interface Registry extends Iterable {}
 +public interface Registry<T> extends Iterable<T> {} // Paper - decompile fix
 diff --git a/src/main/java/net/minecraft/server/RegistryBlockID.java b/src/main/java/net/minecraft/server/RegistryBlockID.java
-index 58f47d0de..03894df54 100644
+index 58f47d0deb679cd9cab0b005bc45337a307b9f13..03894df54cdeafc98e7b5abed24b04536c1fee48 100644
 --- a/src/main/java/net/minecraft/server/RegistryBlockID.java
 +++ b/src/main/java/net/minecraft/server/RegistryBlockID.java
 @@ -26,7 +26,7 @@ public class RegistryBlockID<T> implements Registry<T> {
@@ -133,7 +133,7 @@ index 58f47d0de..03894df54 100644
  
          this.b.set(i, t0);
 diff --git a/src/main/java/net/minecraft/server/ServerPing.java b/src/main/java/net/minecraft/server/ServerPing.java
-index 2179664a0..981582212 100644
+index 2179664a0cc86a490a1d8ce386b777889eabf3fd..9815822127399b9ce1d91b6ca328056b794092ce 100644
 --- a/src/main/java/net/minecraft/server/ServerPing.java
 +++ b/src/main/java/net/minecraft/server/ServerPing.java
 @@ -57,7 +57,8 @@ public class ServerPing {
@@ -239,7 +239,7 @@ index 2179664a0..981582212 100644
      }
  }
 diff --git a/src/test/java/org/bukkit/craftbukkit/inventory/ItemFactoryTest.java b/src/test/java/org/bukkit/craftbukkit/inventory/ItemFactoryTest.java
-index f5bcbdbe1..3190cadfc 100644
+index f5bcbdbe12e58e19fe93caa41e26ace261623ddd..3190cadfcccc5ce2425514f2bb013d0a83d72d9b 100644
 --- a/src/test/java/org/bukkit/craftbukkit/inventory/ItemFactoryTest.java
 +++ b/src/test/java/org/bukkit/craftbukkit/inventory/ItemFactoryTest.java
 @@ -20,7 +20,7 @@ public class ItemFactoryTest extends AbstractTestingBase {
@@ -251,6 +251,3 @@ index f5bcbdbe1..3190cadfc 100644
          final Collection<String> names = new HashSet<String>();
          for (ZipEntry clazzEntry; (clazzEntry = nmsZipStream.getNextEntry()) != null; ) {
              final String entryName = clazzEntry.getName();
--- 
-2.18.0.windows.1
-

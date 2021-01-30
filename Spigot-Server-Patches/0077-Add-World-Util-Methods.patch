@@ -1,4 +1,4 @@
-From 9f9ec804809dd8bf00e6cbb2c633594403f24a29 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Fri, 18 Mar 2016 20:16:03 -0400
 Subject: [PATCH] Add World Util Methods
@@ -6,7 +6,7 @@ Subject: [PATCH] Add World Util Methods
 Methods that can be used for other patches to help improve logic.
 
 diff --git a/src/main/java/net/minecraft/server/Chunk.java b/src/main/java/net/minecraft/server/Chunk.java
-index 0788f7712..57b23a018 100644
+index 65952ea9a6bdcba674b33d5682f51c01d2ef9cf7..fd60ab7ce8901b52bb712fe2268e404de8424d45 100644
 --- a/src/main/java/net/minecraft/server/Chunk.java
 +++ b/src/main/java/net/minecraft/server/Chunk.java
 @@ -610,6 +610,7 @@ public class Chunk {
@@ -18,7 +18,7 @@ index 0788f7712..57b23a018 100644
          int j = blockposition.getX() & 15;
          int k = blockposition.getY();
 diff --git a/src/main/java/net/minecraft/server/World.java b/src/main/java/net/minecraft/server/World.java
-index 6be9c1815..b8ae41704 100644
+index 6be9c18151bcb284792c842311291d5b1d63915b..b8ae41704a27f953183787d39e61c9786738ccb8 100644
 --- a/src/main/java/net/minecraft/server/World.java
 +++ b/src/main/java/net/minecraft/server/World.java
 @@ -77,7 +77,7 @@ public abstract class World implements IBlockAccess {
@@ -118,6 +118,3 @@ index 6be9c1815..b8ae41704 100644
      public IBlockData getType(BlockPosition blockposition) {
          // CraftBukkit start - tree generation
          if (captureTreeGeneration) {
--- 
-2.18.0
-

@@ -1,4 +1,4 @@
-From 9e931d8f67acf7dd52c07c52967e54a8ce685e81 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Thu, 22 Mar 2018 01:40:24 -0400
 Subject: [PATCH] getPlayerUniqueId API
@@ -9,7 +9,7 @@ In Offline Mode, will return an Offline UUID
 This is a more performant way to obtain a UUID for a name than loading an OfflinePlayer
 
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftServer.java b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-index 6095948e8..80702f6f6 100644
+index b2ca4f60cb4ebbaeb0f66ed3da2af752b8147e06..9fe55598614ea2628e341e10991617d117e1213e 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 @@ -1346,6 +1346,26 @@ public final class CraftServer implements Server {
@@ -39,6 +39,3 @@ index 6095948e8..80702f6f6 100644
      @Override
      @Deprecated
      public OfflinePlayer getOfflinePlayer(String name) {
--- 
-2.18.0
-

@@ -1,4 +1,4 @@
-From 46b3f0b41023c5857dd0af9997e4f44570c9bedc Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Zach Brown <zach.brown@destroystokyo.com>
 Date: Fri, 12 May 2017 23:34:11 -0500
 Subject: [PATCH] Properly handle async calls to restart the server
@@ -30,7 +30,7 @@ will have plugins and worlds saving to the disk has a high potential to result
 in corruption/dataloss.
 
 diff --git a/src/main/java/net/minecraft/server/MinecraftServer.java b/src/main/java/net/minecraft/server/MinecraftServer.java
-index 13c6b5ccd..908a5d273 100644
+index 13c6b5ccd64e0fc8f71520213c7b1ca76360aa13..908a5d27311f0443e218b78f80fd454c68055c9c 100644
 --- a/src/main/java/net/minecraft/server/MinecraftServer.java
 +++ b/src/main/java/net/minecraft/server/MinecraftServer.java
 @@ -71,6 +71,7 @@ public abstract class MinecraftServer implements ICommandListener, Runnable, IAs
@@ -78,7 +78,7 @@ index 13c6b5ccd..908a5d273 100644
          return this.serverThread;
      }
 diff --git a/src/main/java/net/minecraft/server/PlayerList.java b/src/main/java/net/minecraft/server/PlayerList.java
-index c49711cad..85357a003 100644
+index c49711cad37630e5d4ac4d66c2f86668a186dee2..85357a0036e43b74218d119ecc9ea4bef9c933eb 100644
 --- a/src/main/java/net/minecraft/server/PlayerList.java
 +++ b/src/main/java/net/minecraft/server/PlayerList.java
 @@ -1378,10 +1378,15 @@ public abstract class PlayerList {
@@ -107,7 +107,7 @@ index c49711cad..85357a003 100644
      // CraftBukkit start
      public void sendMessage(IChatBaseComponent[] iChatBaseComponents) {
 diff --git a/src/main/java/org/spigotmc/RestartCommand.java b/src/main/java/org/spigotmc/RestartCommand.java
-index 947c43a5d..f15fd9f37 100644
+index 947c43a5d08f8ef11573cd868bc3d54a8df65205..f15fd9f3701ec786271b11f5e36a5499e877b043 100644
 --- a/src/main/java/org/spigotmc/RestartCommand.java
 +++ b/src/main/java/org/spigotmc/RestartCommand.java
 @@ -46,88 +46,123 @@ public class RestartCommand extends Command
@@ -305,6 +305,3 @@ index 947c43a5d..f15fd9f37 100644
          }
      }
  }
--- 
-2.18.0
-

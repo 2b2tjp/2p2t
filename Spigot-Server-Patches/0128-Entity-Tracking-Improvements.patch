@@ -1,4 +1,4 @@
-From 76366b2e02fbcffccddaec97bd494277c0d92d55 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Mon, 17 Jun 2013 01:24:00 -0400
 Subject: [PATCH] Entity Tracking Improvements
@@ -7,7 +7,7 @@ If any part of a Vehicle/Passenger relationship is visible to a player,
 send all passenger/vehicles to the player in the chain.
 
 diff --git a/src/main/java/net/minecraft/server/Entity.java b/src/main/java/net/minecraft/server/Entity.java
-index a3e9ee052..9b01c23e0 100644
+index f82c05463b93bb398d21020be695794d213b941d..360ac7b36698ccc89e6be872f256594f5e73fe06 100644
 --- a/src/main/java/net/minecraft/server/Entity.java
 +++ b/src/main/java/net/minecraft/server/Entity.java
 @@ -66,6 +66,7 @@ public abstract class Entity implements ICommandListener, KeyedObject { // Paper
@@ -19,7 +19,7 @@ index a3e9ee052..9b01c23e0 100644
          if (bukkitEntity == null) {
              bukkitEntity = CraftEntity.getEntity(world.getServer(), this);
 diff --git a/src/main/java/net/minecraft/server/EntityTrackerEntry.java b/src/main/java/net/minecraft/server/EntityTrackerEntry.java
-index 759dacba7..efc4c79ab 100644
+index 759dacba771910ac87e845a2f8613b91d84e9662..efc4c79ab717effe2995e155dd29827ff68b8e5e 100644
 --- a/src/main/java/net/minecraft/server/EntityTrackerEntry.java
 +++ b/src/main/java/net/minecraft/server/EntityTrackerEntry.java
 @@ -49,6 +49,7 @@ public class EntityTrackerEntry {
@@ -98,6 +98,3 @@ index 759dacba7..efc4c79ab 100644
          }
  
      }
--- 
-2.18.0
-

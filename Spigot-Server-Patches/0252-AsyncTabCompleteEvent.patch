@@ -1,4 +1,4 @@
-From 57a61075e611d4c87c44424c7b8ef23b2a4dcb49 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Sun, 26 Nov 2017 13:19:58 -0500
 Subject: [PATCH] AsyncTabCompleteEvent
@@ -14,7 +14,7 @@ completion, such as offline players.
 Also adds isCommand and getLocation to the sync TabCompleteEvent
 
 diff --git a/src/main/java/net/minecraft/server/PlayerConnection.java b/src/main/java/net/minecraft/server/PlayerConnection.java
-index 44eb8ba6..3fa146ae 100644
+index a89371e9fd5e4f234e974be551ad380da3b9ee6e..5afcd730b65b4033ac9f55a3d721258d31610806 100644
 --- a/src/main/java/net/minecraft/server/PlayerConnection.java
 +++ b/src/main/java/net/minecraft/server/PlayerConnection.java
 @@ -10,6 +10,7 @@ import java.io.IOException;
@@ -82,7 +82,7 @@ index 44eb8ba6..3fa146ae 100644
  
      public void a(PacketPlayInSettings packetplayinsettings) {
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftServer.java b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-index 5b1aae55..d6676074 100644
+index 5b1aae5587f20276e3e1c30914e0e1c5d6b6eb8e..d6676074e67eb76989301907aa4d187d2a00df88 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 @@ -1643,8 +1643,8 @@ public final class CraftServer implements Server {
@@ -97,7 +97,7 @@ index 5b1aae55..d6676074 100644
  
          return tabEvent.isCancelled() ? Collections.EMPTY_LIST : tabEvent.getCompletions();
 diff --git a/src/main/java/org/bukkit/craftbukkit/command/ConsoleCommandCompleter.java b/src/main/java/org/bukkit/craftbukkit/command/ConsoleCommandCompleter.java
-index 1e3aae3b..95d13c14 100644
+index 1e3aae3b8f16a09a613b07bd8015b6c6a12f33cc..95d13c146bba639590a437a6fb66d76d13c753f6 100644
 --- a/src/main/java/org/bukkit/craftbukkit/command/ConsoleCommandCompleter.java
 +++ b/src/main/java/org/bukkit/craftbukkit/command/ConsoleCommandCompleter.java
 @@ -28,6 +28,39 @@ public class ConsoleCommandCompleter implements Completer {
@@ -140,6 +140,3 @@ index 1e3aae3b..95d13c14 100644
          // Paper end
          Waitable<List<String>> waitable = new Waitable<List<String>>() {
              @Override
--- 
-2.19.1
-

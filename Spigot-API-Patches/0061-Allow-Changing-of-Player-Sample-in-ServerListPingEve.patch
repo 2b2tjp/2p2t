@@ -1,11 +1,11 @@
-From ea0fde004ae78c943abd4f37b26bc00cd370a642 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: willies952002 <admin@domnian.com>
 Date: Thu, 20 Jul 2017 18:05:36 -0400
 Subject: [PATCH] Allow Changing of Player Sample in ServerListPingEvent
 
 
 diff --git a/src/main/java/org/bukkit/event/server/ServerListPingEvent.java b/src/main/java/org/bukkit/event/server/ServerListPingEvent.java
-index 3c38d8573..a293bc212 100644
+index 3c38d85735d37b401061feae686dea50adb5b650..a293bc2126c506cda9c2c61693973a8393567106 100644
 --- a/src/main/java/org/bukkit/event/server/ServerListPingEvent.java
 +++ b/src/main/java/org/bukkit/event/server/ServerListPingEvent.java
 @@ -2,6 +2,7 @@ package org.bukkit.event.server;
@@ -44,6 +44,3 @@ index 3c38d8573..a293bc212 100644
 +    // Paper end
 +
  }
--- 
-2.18.0
-

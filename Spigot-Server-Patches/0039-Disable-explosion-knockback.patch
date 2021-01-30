@@ -1,11 +1,11 @@
-From 8c80dd00564a7e849b0e698664bc59afc86be7f9 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Sudzzy <originmc@outlook.com>
 Date: Wed, 2 Mar 2016 14:48:03 -0600
 Subject: [PATCH] Disable explosion knockback
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index b0b3033e7..afc13e851 100644
+index b0b3033e789a5900ab9e2732bbe33a0afde99d53..afc13e851853e00bae8ace434fdd433858c518a6 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -197,4 +197,9 @@ public class PaperWorldConfig {
@@ -19,7 +19,7 @@ index b0b3033e7..afc13e851 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/EntityLiving.java b/src/main/java/net/minecraft/server/EntityLiving.java
-index d15cfdd76..2aaeac324 100644
+index d15cfdd763dbaaa0374dd0e3518d13d47500d1cb..2aaeac3248ac868d97d7d65d85345a6f90b7ab22 100644
 --- a/src/main/java/net/minecraft/server/EntityLiving.java
 +++ b/src/main/java/net/minecraft/server/EntityLiving.java
 @@ -906,6 +906,7 @@ public abstract class EntityLiving extends Entity {
@@ -48,7 +48,7 @@ index d15cfdd76..2aaeac324 100644
                      if (!this.e(damagesource)) {
                          SoundEffect soundeffect = this.cf();
 diff --git a/src/main/java/net/minecraft/server/Explosion.java b/src/main/java/net/minecraft/server/Explosion.java
-index e7f0e84d4..e148901e5 100644
+index e7f0e84d430bad296d8f89b820c2d4308965d771..e148901e5349ecd2ba99d359906cff38176d7be6 100644
 --- a/src/main/java/net/minecraft/server/Explosion.java
 +++ b/src/main/java/net/minecraft/server/Explosion.java
 @@ -146,7 +146,7 @@ public class Explosion {
@@ -69,6 +69,3 @@ index e7f0e84d4..e148901e5 100644
                                  this.k.put(entityhuman, new Vec3D(d8 * d13, d9 * d13, d10 * d13));
                              }
                          }
--- 
-2.18.0
-

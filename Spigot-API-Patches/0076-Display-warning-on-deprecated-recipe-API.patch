@@ -1,4 +1,4 @@
-From 252d7dcf7c5531b482ea92f756a6847d9b26ad84 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Sat, 9 Dec 2017 12:40:25 -0500
 Subject: [PATCH] Display warning on deprecated recipe API
@@ -10,7 +10,7 @@ on the players login.
 Plugin authors need to define a key to keep it consistent between server restarts.
 
 diff --git a/src/main/java/org/bukkit/inventory/ShapedRecipe.java b/src/main/java/org/bukkit/inventory/ShapedRecipe.java
-index d9af7155..d7fa6d28 100644
+index d9af7155028eacca785912cddf5102857ec3adf5..d7fa6d28ff13be019396775bc3bbe9921e209081 100644
 --- a/src/main/java/org/bukkit/inventory/ShapedRecipe.java
 +++ b/src/main/java/org/bukkit/inventory/ShapedRecipe.java
 @@ -23,6 +23,7 @@ public class ShapedRecipe implements Recipe, Keyed {
@@ -22,7 +22,7 @@ index d9af7155..d7fa6d28 100644
      }
  
 diff --git a/src/main/java/org/bukkit/inventory/ShapelessRecipe.java b/src/main/java/org/bukkit/inventory/ShapelessRecipe.java
-index ca5c09b8..f2dd46f2 100644
+index ca5c09b868297e9c5b56c60940607df6f0049827..f2dd46f27834b720254dea471c103283bbb010ec 100644
 --- a/src/main/java/org/bukkit/inventory/ShapelessRecipe.java
 +++ b/src/main/java/org/bukkit/inventory/ShapelessRecipe.java
 @@ -23,6 +23,7 @@ public class ShapelessRecipe implements Recipe, Keyed {
@@ -33,6 +33,3 @@ index ca5c09b8..f2dd46f2 100644
          this.output = new ItemStack(result);
      }
  
--- 
-2.15.1
-

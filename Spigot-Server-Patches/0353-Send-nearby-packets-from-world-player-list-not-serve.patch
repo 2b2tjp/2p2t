@@ -1,11 +1,11 @@
-From 15f184e4c071455a3b3576910f4763c29dac126c Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Mystiflow <mystiflow@gmail.com>
 Date: Fri, 6 Jul 2018 13:21:30 +0100
 Subject: [PATCH] Send nearby packets from world player list not server list
 
 
 diff --git a/src/main/java/net/minecraft/server/PlayerList.java b/src/main/java/net/minecraft/server/PlayerList.java
-index eaaa54ac..44ced604 100644
+index eaaa54acd46ff368579b8205f8fcd5f9de9b3225..44ced604a901d46c59c1056378ca57fcd2932594 100644
 --- a/src/main/java/net/minecraft/server/PlayerList.java
 +++ b/src/main/java/net/minecraft/server/PlayerList.java
 @@ -1239,8 +1239,25 @@ public abstract class PlayerList {
@@ -46,7 +46,7 @@ index eaaa54ac..44ced604 100644
                  double d5 = d1 - entityplayer.locY;
                  double d6 = d2 - entityplayer.locZ;
 diff --git a/src/main/java/net/minecraft/server/WorldManager.java b/src/main/java/net/minecraft/server/WorldManager.java
-index 2c8fb705..bfe003f6 100644
+index 2c8fb705da18ef2efd302d2593a945425f24ff77..bfe003f60b12930a08412eaa761b1aa4461ba1eb 100644
 --- a/src/main/java/net/minecraft/server/WorldManager.java
 +++ b/src/main/java/net/minecraft/server/WorldManager.java
 @@ -35,8 +35,8 @@ public class WorldManager implements IWorldAccess {
@@ -95,7 +95,7 @@ index 2c8fb705..bfe003f6 100644
              if (entityplayer != null && entityplayer.world == this.world && entityplayer.getId() != i) {
                  double d0 = (double) blockposition.getX() - entityplayer.locX;
 diff --git a/src/main/java/net/minecraft/server/WorldServer.java b/src/main/java/net/minecraft/server/WorldServer.java
-index a14b5e06..b19942e0 100644
+index a14b5e06181018a55f341a550c09425b8260537f..b19942e0f12affc8ea416b2415588ac90ccc9da9 100644
 --- a/src/main/java/net/minecraft/server/WorldServer.java
 +++ b/src/main/java/net/minecraft/server/WorldServer.java
 @@ -1267,7 +1267,7 @@ public class WorldServer extends World implements IAsyncTaskHandler {
@@ -119,7 +119,7 @@ index a14b5e06..b19942e0 100644
              }
  
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftWorld.java b/src/main/java/org/bukkit/craftbukkit/CraftWorld.java
-index ccff6fd0..567e9acb 100644
+index ccff6fd05264e92be6501696ae85dd8ad6cecf2d..567e9acb133e380388ddb658aa71899fee9e7211 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftWorld.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftWorld.java
 @@ -1500,7 +1500,7 @@ public class CraftWorld implements World {
@@ -131,6 +131,3 @@ index ccff6fd0..567e9acb 100644
      }
  
      public String getGameRuleValue(String rule) {
--- 
-2.19.1
-

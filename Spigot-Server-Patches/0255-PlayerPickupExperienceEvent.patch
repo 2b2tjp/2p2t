@@ -1,4 +1,4 @@
-From b5f98ca545e3f16e608e3c0ef67be1d04188c261 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Tue, 19 Dec 2017 22:02:53 -0500
 Subject: [PATCH] PlayerPickupExperienceEvent
@@ -6,7 +6,7 @@ Subject: [PATCH] PlayerPickupExperienceEvent
 Allows plugins to cancel a player picking up an experience orb
 
 diff --git a/src/main/java/net/minecraft/server/EntityExperienceOrb.java b/src/main/java/net/minecraft/server/EntityExperienceOrb.java
-index d567ad4a5..ff5cc74ba 100644
+index d567ad4a57acd967b1840c0c2b7fcf039dc12add..ff5cc74ba7bf61140ef55801b8889ad10a34ea5a 100644
 --- a/src/main/java/net/minecraft/server/EntityExperienceOrb.java
 +++ b/src/main/java/net/minecraft/server/EntityExperienceOrb.java
 @@ -206,7 +206,7 @@ public class EntityExperienceOrb extends Entity {
@@ -18,6 +18,3 @@ index d567ad4a5..ff5cc74ba 100644
                  entityhuman.bD = 2;
                  entityhuman.receive(this, 1);
                  ItemStack itemstack = EnchantmentManager.b(Enchantments.C, (EntityLiving) entityhuman);
--- 
-2.18.0
-

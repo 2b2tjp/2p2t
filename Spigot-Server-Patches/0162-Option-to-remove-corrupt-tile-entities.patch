@@ -1,11 +1,11 @@
-From da23bbc651183f13e725c4a1c85043f06b3164c1 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Zach Brown <zach.brown@destroystokyo.com>
 Date: Wed, 5 Oct 2016 16:27:36 -0500
 Subject: [PATCH] Option to remove corrupt tile entities
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index ce848d63e..93b0af036 100644
+index ce848d63e334c4e1a4f1d8c941edb35bb06ac5da..93b0af0363824d8641625b93fa45a803f45a18cf 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -379,4 +379,9 @@ public class PaperWorldConfig {
@@ -19,7 +19,7 @@ index ce848d63e..93b0af036 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/Chunk.java b/src/main/java/net/minecraft/server/Chunk.java
-index 798522fa7..ee6c6af94 100644
+index fc41cc214953bba6e762d135993e3a79aac8d511..663a41e9e7b736c9474d3a4275443f886bd95f14 100644
 --- a/src/main/java/net/minecraft/server/Chunk.java
 +++ b/src/main/java/net/minecraft/server/Chunk.java
 @@ -819,11 +819,18 @@ public class Chunk {
@@ -41,6 +41,3 @@ index 798522fa7..ee6c6af94 100644
      public void d(BlockPosition blockposition) {
          if (this.j) {
              TileEntity tileentity = (TileEntity) this.tileEntities.remove(blockposition);
--- 
-2.18.0
-

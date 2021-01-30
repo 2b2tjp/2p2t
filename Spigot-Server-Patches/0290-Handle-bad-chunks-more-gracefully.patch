@@ -1,4 +1,4 @@
-From 6ed3ea16d5ae3197d4539bc110fcc9610b7e9888 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Zach Brown <zach.brown@destroystokyo.com>
 Date: Tue, 17 Apr 2018 21:26:31 -0400
 Subject: [PATCH] Handle bad chunks more gracefully
@@ -15,7 +15,7 @@ Should Mojang choose to alter this behavior in the future, this change
 will simply defer to whatever that new behavior is.
 
 diff --git a/src/main/java/net/minecraft/server/ChunkProviderServer.java b/src/main/java/net/minecraft/server/ChunkProviderServer.java
-index de859ffd1..55dada668 100644
+index de859ffd107345966cf5245c5a63234645071e2e..55dada6685bee7899b2b72101d39fd60905f0deb 100644
 --- a/src/main/java/net/minecraft/server/ChunkProviderServer.java
 +++ b/src/main/java/net/minecraft/server/ChunkProviderServer.java
 @@ -162,6 +162,13 @@ public class ChunkProviderServer implements IChunkProvider {
@@ -33,7 +33,7 @@ index de859ffd1..55dada668 100644
          } else if (chunk == null && generate) {
              chunk = originalGetChunkAt(i, j);
 diff --git a/src/main/java/org/bukkit/craftbukkit/chunkio/ChunkIOProvider.java b/src/main/java/org/bukkit/craftbukkit/chunkio/ChunkIOProvider.java
-index ef9529add..cdf3b614c 100644
+index ef9529adde68404dd06df7770934b0e857b83304..cdf3b614c78fe2684e586263aa9c1688e146f8d7 100644
 --- a/src/main/java/org/bukkit/craftbukkit/chunkio/ChunkIOProvider.java
 +++ b/src/main/java/org/bukkit/craftbukkit/chunkio/ChunkIOProvider.java
 @@ -30,6 +30,11 @@ class ChunkIOProvider implements AsynchronousExecutor.CallBackProvider<QueuedChu
@@ -48,6 +48,3 @@ index ef9529add..cdf3b614c 100644
          }
      }
  
--- 
-2.18.0
-

@@ -1,4 +1,4 @@
-From 98047b4440fafc8e21ca5562b707725067676c80 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Mon, 16 May 2016 20:47:41 -0400
 Subject: [PATCH] Optimize UserCache / Thread Safe
@@ -10,7 +10,7 @@ Additionally, move Saving of the User cache to be done async, incase
 the user never changed the default setting for Spigot's save on stop only.
 
 diff --git a/src/main/java/net/minecraft/server/MinecraftServer.java b/src/main/java/net/minecraft/server/MinecraftServer.java
-index 45d3dbde2..ab7933079 100644
+index 45d3dbde2efc80b8f920f864e03c224f74efc935..ab793307919b0b276924a2543cbebc7e8b885878 100644
 --- a/src/main/java/net/minecraft/server/MinecraftServer.java
 +++ b/src/main/java/net/minecraft/server/MinecraftServer.java
 @@ -528,7 +528,7 @@ public abstract class MinecraftServer implements ICommandListener, Runnable, IAs
@@ -23,7 +23,7 @@ index 45d3dbde2..ab7933079 100644
          // Spigot end
      }
 diff --git a/src/main/java/net/minecraft/server/UserCache.java b/src/main/java/net/minecraft/server/UserCache.java
-index 487fc11f1..4fb17a801 100644
+index 487fc11f191dba585d494550f116a4ede8bf9228..4fb17a801346c5fc37875c20d0ab8a70f0471217 100644
 --- a/src/main/java/net/minecraft/server/UserCache.java
 +++ b/src/main/java/net/minecraft/server/UserCache.java
 @@ -109,7 +109,7 @@ public class UserCache {
@@ -104,6 +104,3 @@ index 487fc11f1..4fb17a801 100644
  
      }
  
--- 
-2.18.0
-

@@ -1,11 +1,11 @@
-From 41b8b30d448e60e9f0bfb172acbdf608de0999cf Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Zach Brown <zach.brown@destroystokyo.com>
 Date: Mon, 29 Feb 2016 20:40:33 -0600
 Subject: [PATCH] POM Changes
 
 
 diff --git a/pom.xml b/pom.xml
-index e0b6eee4..76092824 100644
+index e0b6eee4ed4caee57f1e07c28e5445c1d7baa899..7609282463a9a9fcdc25b10fc331656c787a8294 100644
 --- a/pom.xml
 +++ b/pom.xml
 @@ -1,12 +1,12 @@
@@ -170,7 +170,7 @@ index e0b6eee4..76092824 100644
                  <plugins>
                      <plugin>
 diff --git a/src/main/java/org/bukkit/craftbukkit/util/Versioning.java b/src/main/java/org/bukkit/craftbukkit/util/Versioning.java
-index 93046379..674096ca 100644
+index 93046379d0cefd5d3236fc59e698809acdc18f80..674096cab190d62622f9947853b056f57d43a2a5 100644
 --- a/src/main/java/org/bukkit/craftbukkit/util/Versioning.java
 +++ b/src/main/java/org/bukkit/craftbukkit/util/Versioning.java
 @@ -11,7 +11,7 @@ public final class Versioning {
@@ -182,6 +182,3 @@ index 93046379..674096ca 100644
          Properties properties = new Properties();
  
          if (stream != null) {
--- 
-2.21.0.windows.1
-

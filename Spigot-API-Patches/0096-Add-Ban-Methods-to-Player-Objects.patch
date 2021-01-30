@@ -1,4 +1,4 @@
-From 9394d915b284d6b7f933585ae4e5ce763534d877 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Sat, 28 Apr 2018 10:28:50 -0400
 Subject: [PATCH] Add Ban Methods to Player Objects
@@ -8,7 +8,7 @@ Allows a more logical API for banning players.
 player.banPlayer("Breaking the rules");
 
 diff --git a/src/main/java/org/bukkit/OfflinePlayer.java b/src/main/java/org/bukkit/OfflinePlayer.java
-index 3ab2e4c7..8daf2ddc 100644
+index 3ab2e4c7bbfec46cac054c039aa7cf56abfab7e1..8daf2ddc71a83395bf37c52cfa3434b1107ed414 100644
 --- a/src/main/java/org/bukkit/OfflinePlayer.java
 +++ b/src/main/java/org/bukkit/OfflinePlayer.java
 @@ -40,6 +40,56 @@ public interface OfflinePlayer extends ServerOperator, AnimalTamer, Configuratio
@@ -69,7 +69,7 @@ index 3ab2e4c7..8daf2ddc 100644
      /**
       * Checks if this player is whitelisted or not
 diff --git a/src/main/java/org/bukkit/entity/Player.java b/src/main/java/org/bukkit/entity/Player.java
-index 87a9b750..d874d166 100644
+index f0fc3197c3074f7a40d821e2b8b9b430157329e7..fac5ded7ebd98c7a2dc708de67744e3cb5847e9c 100644
 --- a/src/main/java/org/bukkit/entity/Player.java
 +++ b/src/main/java/org/bukkit/entity/Player.java
 @@ -1,10 +1,14 @@
@@ -227,6 +227,3 @@ index 87a9b750..d874d166 100644
  
      /**
       * Sends an Action Bar message to the client.
--- 
-2.17.1
-

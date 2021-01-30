@@ -1,11 +1,11 @@
-From e9e0c61c0ea8ce2ae7cbc21c3c2c6b0ea9932237 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: BillyGalbreath <Blake.Galbreath@GMail.com>
 Date: Sun, 7 May 2017 06:26:09 -0500
 Subject: [PATCH] PlayerPickupItemEvent#setFlyAtPlayer
 
 
 diff --git a/src/main/java/net/minecraft/server/EntityItem.java b/src/main/java/net/minecraft/server/EntityItem.java
-index 99dbb1393..ae4910b4b 100644
+index 99dbb13934857bc9638a4151d281e4a659609929..ae4910b4bd980f5cebaef16c9d0b2609992f7c28 100644
 --- a/src/main/java/net/minecraft/server/EntityItem.java
 +++ b/src/main/java/net/minecraft/server/EntityItem.java
 @@ -332,6 +332,7 @@ public class EntityItem extends Entity implements HopperPusher {
@@ -43,6 +43,3 @@ index 99dbb1393..ae4910b4b 100644
                  if (itemstack.isEmpty()) {
                      this.die();
                      itemstack.setCount(i);
--- 
-2.18.0
-

@@ -1,11 +1,11 @@
-From ac9baf5c2739f255205d959cc519be2db01773da Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: BillyGalbreath <Blake.Galbreath@GMail.com>
 Date: Mon, 31 Jul 2017 01:49:43 -0500
 Subject: [PATCH] LivingEntity#setKiller
 
 
 diff --git a/src/main/java/org/bukkit/entity/LivingEntity.java b/src/main/java/org/bukkit/entity/LivingEntity.java
-index 4fafedc9..42cf95e1 100644
+index 4fafedc90df1e4d54adb334fa13dbc4da795cc3d..42cf95e11171315e246aeb69b3d79836444dc56f 100644
 --- a/src/main/java/org/bukkit/entity/LivingEntity.java
 +++ b/src/main/java/org/bukkit/entity/LivingEntity.java
 @@ -14,6 +14,8 @@ import org.bukkit.potion.PotionEffect;
@@ -33,6 +33,3 @@ index 4fafedc9..42cf95e1 100644
      /**
       * Adds the given {@link PotionEffect} to the living entity.
       * <p>
--- 
-2.18.0
-

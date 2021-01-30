@@ -1,11 +1,11 @@
-From e04b0035798d951d1068d1625eda2fb758a34404 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Zach Brown <zach.brown@destroystokyo.com>
 Date: Fri, 16 Dec 2016 16:03:19 -0600
 Subject: [PATCH] Don't let fishinghooks use portals
 
 
 diff --git a/src/main/java/net/minecraft/server/Entity.java b/src/main/java/net/minecraft/server/Entity.java
-index 0950c315f..d79844a98 100644
+index 2677cb68dc3b2e7749c1d9d7a1ec348e87816f2c..feee50227ef70c0701f353c13de18d686036fd47 100644
 --- a/src/main/java/net/minecraft/server/Entity.java
 +++ b/src/main/java/net/minecraft/server/Entity.java
 @@ -157,7 +157,7 @@ public abstract class Entity implements ICommandListener, KeyedObject { // Paper
@@ -18,7 +18,7 @@ index 0950c315f..d79844a98 100644
      public int dimension;
      protected BlockPosition an;
 diff --git a/src/main/java/net/minecraft/server/EntityFishingHook.java b/src/main/java/net/minecraft/server/EntityFishingHook.java
-index 339d1f1b1..7f011aef8 100644
+index 339d1f1b1445291a420b8373cc72b2a079130319..7f011aef80e02d65608d1d495c98103f83232272 100644
 --- a/src/main/java/net/minecraft/server/EntityFishingHook.java
 +++ b/src/main/java/net/minecraft/server/EntityFishingHook.java
 @@ -185,6 +185,12 @@ public class EntityFishingHook extends Entity {
@@ -34,6 +34,3 @@ index 339d1f1b1..7f011aef8 100644
          }
      }
  
--- 
-2.18.0
-

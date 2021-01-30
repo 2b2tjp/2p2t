@@ -1,11 +1,11 @@
-From 8707e3ae8555862ee88d25e9fc066c243ddfe919 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Mon, 29 Feb 2016 17:43:33 -0600
 Subject: [PATCH] Add async chunk load API
 
 
 diff --git a/src/main/java/org/bukkit/World.java b/src/main/java/org/bukkit/World.java
-index 9b6eb48f..561ef0e1 100644
+index 9b6eb48fcf2c99b3ab75b81808c8d002ab1b6e19..561ef0e14af7e73649062aff5a08a2f265fd0487 100644
 --- a/src/main/java/org/bukkit/World.java
 +++ b/src/main/java/org/bukkit/World.java
 @@ -136,6 +136,78 @@ public interface World extends PluginMessageRecipient, Metadatable {
@@ -87,6 +87,3 @@ index 9b6eb48f..561ef0e1 100644
      /**
       * Checks if the specified {@link Chunk} is loaded
       *
--- 
-2.16.2
-

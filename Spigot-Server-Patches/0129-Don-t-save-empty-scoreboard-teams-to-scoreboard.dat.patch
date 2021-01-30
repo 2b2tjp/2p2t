@@ -1,11 +1,11 @@
-From 6195d48cf4da471efb95da7898c7362fb3806877 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Sat, 7 May 2016 23:33:08 -0400
 Subject: [PATCH] Don't save empty scoreboard teams to scoreboard.dat
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperConfig.java b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-index 430b5d0cdc..011cbf5e31 100644
+index 430b5d0cdc45fd8c8898af6b61a6a0238eddb89e..011cbf5e31434a2380aa6766c1e768c59500a0a1 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperConfig.java
 @@ -225,4 +225,9 @@ public class PaperConfig {
@@ -19,7 +19,7 @@ index 430b5d0cdc..011cbf5e31 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/PersistentScoreboard.java b/src/main/java/net/minecraft/server/PersistentScoreboard.java
-index c9c01fad91..89c8d045b7 100644
+index c9c01fad91c8c5420b7f2339a97124bd4bf9cdbf..89c8d045b7696dc83bd0d630e226caa5e0ec6012 100644
 --- a/src/main/java/net/minecraft/server/PersistentScoreboard.java
 +++ b/src/main/java/net/minecraft/server/PersistentScoreboard.java
 @@ -184,6 +184,7 @@ public class PersistentScoreboard extends PersistentBase {
@@ -30,6 +30,3 @@ index c9c01fad91..89c8d045b7 100644
              NBTTagCompound nbttagcompound = new NBTTagCompound();
  
              nbttagcompound.setString("Name", scoreboardteam.getName());
--- 
-2.18.0
-

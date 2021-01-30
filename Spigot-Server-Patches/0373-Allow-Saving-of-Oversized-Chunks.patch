@@ -1,4 +1,4 @@
-From bd0b04c85e7127c741ae442a8183085f7a1d1d72 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Fri, 15 Feb 2019 01:08:19 -0500
 Subject: [PATCH] Allow Saving of Oversized Chunks
@@ -31,7 +31,7 @@ this fix, as the data will remain in the oversized file. Once the server returns
 to a jar with this fix, the data will be restored.
 
 diff --git a/src/main/java/net/minecraft/server/NBTCompressedStreamTools.java b/src/main/java/net/minecraft/server/NBTCompressedStreamTools.java
-index 2162d3ad3..8b5aeb1b0 100644
+index 2162d3ad368cf55be3b76225da265db49ee3ea4d..8b5aeb1b02eeb24b29fede44b625587826052f90 100644
 --- a/src/main/java/net/minecraft/server/NBTCompressedStreamTools.java
 +++ b/src/main/java/net/minecraft/server/NBTCompressedStreamTools.java
 @@ -39,6 +39,7 @@ public class NBTCompressedStreamTools {
@@ -51,7 +51,7 @@ index 2162d3ad3..8b5aeb1b0 100644
          a((NBTBase) nbttagcompound, dataoutput);
      }
 diff --git a/src/main/java/net/minecraft/server/RegionFile.java b/src/main/java/net/minecraft/server/RegionFile.java
-index d58cda9aa..542a35d13 100644
+index d58cda9aad5e2402fcf4b5b75c1ea418e51ad778..542a35d13014f8540f1bf525f021188b8955fc56 100644
 --- a/src/main/java/net/minecraft/server/RegionFile.java
 +++ b/src/main/java/net/minecraft/server/RegionFile.java
 @@ -83,6 +83,7 @@ public class RegionFile {
@@ -244,7 +244,7 @@ index d58cda9aa..542a35d13 100644
 +
  }
 diff --git a/src/main/java/net/minecraft/server/RegionFileCache.java b/src/main/java/net/minecraft/server/RegionFileCache.java
-index 15a09ab36..daa7e997a 100644
+index 15a09ab360bf9ee27129e384cec556bd6d4e65b9..daa7e997a387e65b15858573497fdf78cb069813 100644
 --- a/src/main/java/net/minecraft/server/RegionFileCache.java
 +++ b/src/main/java/net/minecraft/server/RegionFileCache.java
 @@ -15,6 +15,7 @@ public class RegionFileCache {
@@ -428,6 +428,3 @@ index 15a09ab36..daa7e997a 100644
      }
      // CraftBukkit end
  
--- 
-2.21.0
-

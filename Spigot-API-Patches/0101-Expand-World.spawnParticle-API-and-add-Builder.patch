@@ -1,4 +1,4 @@
-From 75904952f2b86d366b6d620425b908832c554dee Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Tue, 29 Aug 2017 23:58:48 -0400
 Subject: [PATCH] Expand World.spawnParticle API and add Builder
@@ -11,7 +11,7 @@ This adds a new Builder API which is much friendlier to use.
 
 diff --git a/src/main/java/com/destroystokyo/paper/ParticleBuilder.java b/src/main/java/com/destroystokyo/paper/ParticleBuilder.java
 new file mode 100644
-index 000000000..feebfb653
+index 0000000000000000000000000000000000000000..feebfb6536ab6542e1af27bbf342dd39b698016e
 --- /dev/null
 +++ b/src/main/java/com/destroystokyo/paper/ParticleBuilder.java
 @@ -0,0 +1,416 @@
@@ -432,7 +432,7 @@ index 000000000..feebfb653
 +    }
 +}
 diff --git a/src/main/java/org/bukkit/Particle.java b/src/main/java/org/bukkit/Particle.java
-index 9794c13e5..6582e51f2 100644
+index 9794c13e500a7600a807a4068113cb82c8db72d2..6582e51f29b17472511c6a571c488eccf6e70478 100644
 --- a/src/main/java/org/bukkit/Particle.java
 +++ b/src/main/java/org/bukkit/Particle.java
 @@ -71,4 +71,15 @@ public enum Particle {
@@ -452,7 +452,7 @@ index 9794c13e5..6582e51f2 100644
 +    // Paper end
  }
 diff --git a/src/main/java/org/bukkit/World.java b/src/main/java/org/bukkit/World.java
-index 8d29ede0a..b983bdc54 100644
+index 8d29ede0a589f15efd8e37d097f5214a97daeb57..b983bdc5417614c206667216359c39f16623dcf3 100644
 --- a/src/main/java/org/bukkit/World.java
 +++ b/src/main/java/org/bukkit/World.java
 @@ -1808,7 +1808,57 @@ public interface World extends PluginMessageRecipient, Metadatable {
@@ -514,6 +514,3 @@ index 8d29ede0a..b983bdc54 100644
  
      // Spigot start
      public class Spigot
--- 
-2.18.0
-

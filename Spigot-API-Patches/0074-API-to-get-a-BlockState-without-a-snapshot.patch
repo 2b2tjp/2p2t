@@ -1,4 +1,4 @@
-From d53ca5239656a103aa601c46cfaf190cc849fcda Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Mon, 6 Nov 2017 21:10:01 -0500
 Subject: [PATCH] API to get a BlockState without a snapshot
@@ -9,7 +9,7 @@ on the real tile entity.
 This is useful for where performance is needed
 
 diff --git a/src/main/java/org/bukkit/block/Block.java b/src/main/java/org/bukkit/block/Block.java
-index 235c15bd..359b81f3 100644
+index 235c15bdfed7a593d408a5b4103aa857824b29f8..359b81f311822115c020f8ff1d1a132cb55b8905 100644
 --- a/src/main/java/org/bukkit/block/Block.java
 +++ b/src/main/java/org/bukkit/block/Block.java
 @@ -256,6 +256,15 @@ public interface Block extends Metadatable {
@@ -28,6 +28,3 @@ index 235c15bd..359b81f3 100644
      /**
       * Returns the biome that this block resides in
       *
--- 
-2.15.1
-

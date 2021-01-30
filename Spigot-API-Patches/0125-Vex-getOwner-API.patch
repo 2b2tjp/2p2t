@@ -1,4 +1,4 @@
-From 02a5c50ac1f88560d7555bc299b4d785f9aa63a4 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Wed, 4 Jul 2018 15:29:21 -0400
 Subject: [PATCH] Vex#getOwner API
@@ -6,7 +6,7 @@ Subject: [PATCH] Vex#getOwner API
 Get's the NPC that summoned this Vex
 
 diff --git a/src/main/java/org/bukkit/entity/Vex.java b/src/main/java/org/bukkit/entity/Vex.java
-index a2f2fcae..540135c3 100644
+index a2f2fcaec8d3ddc4b2837ce69912ed42a042dddf..540135c3503a61a7b00f671573300b89d9d927b6 100644
 --- a/src/main/java/org/bukkit/entity/Vex.java
 +++ b/src/main/java/org/bukkit/entity/Vex.java
 @@ -1,6 +1,13 @@
@@ -24,6 +24,3 @@ index a2f2fcae..540135c3 100644
 +     */
 +    SentientNPC getOwner(); // Paper
 +}
--- 
-2.18.0
-

@@ -1,11 +1,11 @@
-From 503daef70a79ca4ea4f0583e6442c17aa74a94ee Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Fri, 22 Jun 2018 22:59:18 -0400
 Subject: [PATCH] ItemStack API additions for quantity/flags/lore
 
 
 diff --git a/src/main/java/org/bukkit/inventory/ItemStack.java b/src/main/java/org/bukkit/inventory/ItemStack.java
-index 82240129..574cdf3b 100644
+index 822401298c687a26d4f9cc986d74ec91bdaa7050..574cdf3b6602996265f16a9ac772692ae3211de9 100644
 --- a/src/main/java/org/bukkit/inventory/ItemStack.java
 +++ b/src/main/java/org/bukkit/inventory/ItemStack.java
 @@ -2,7 +2,9 @@ package org.bukkit.inventory;
@@ -161,6 +161,3 @@ index 82240129..574cdf3b 100644
 +    }
      // Paper end
  }
--- 
-2.18.0
-
