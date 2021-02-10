@@ -5,21 +5,47 @@ Subject: [PATCH] save nbt asynchronously
 
 
 diff --git a/src/main/java/net/minecraft/server/PersistentCollection.java b/src/main/java/net/minecraft/server/PersistentCollection.java
-index 50056f49a8eaea687d00175e41a877040934e9ae..a3d8d9fe79d34ad420c5774806d9e3430533960f 100644
+index 50056f49a8eaea687d00175e41a877040934e9ae..0213207100c042cf0acd339569c8cb10a0029618 100644
 --- a/src/main/java/net/minecraft/server/PersistentCollection.java
 +++ b/src/main/java/net/minecraft/server/PersistentCollection.java
-@@ -88,8 +88,10 @@ public class PersistentCollection {
+@@ -11,6 +11,7 @@ import java.io.FileInputStream;
+ import java.io.FileOutputStream;
+ import java.io.InputStream;
+ import java.io.OutputStream;
++import java.util.ConcurrentModificationException;
+ import java.util.Iterator;
+ import java.util.List;
+ import java.util.Map;
+@@ -88,8 +89,15 @@ public class PersistentCollection {
  
      }
  
 +    private static final java.util.concurrent.ExecutorService SAVE_EXECUTOR = java.util.concurrent.Executors.newFixedThreadPool(xyz.acrylicstyle.paper.The2b2tConfig.maxDataSaveThreads); // 2p2t
      private void a(PersistentBase persistentbase) {
++        // 2p2t start
++        a(persistentbase, new java.util.concurrent.atomic.AtomicInteger());
++    }
++    private void a(PersistentBase persistentbase, java.util.concurrent.atomic.AtomicInteger tries) {
++        // 2p2t end
          if (this.b != null) {
 +            SAVE_EXECUTOR.submit(() -> { // 2p2t
              try {
                  File file = this.b.getDataFile(persistentbase.id);
  
-@@ -106,6 +108,7 @@ public class PersistentCollection {
+@@ -102,10 +110,20 @@ public class PersistentCollection {
+                     NBTCompressedStreamTools.a(nbttagcompound, (OutputStream) fileoutputstream);
+                     fileoutputstream.close();
+                 }
++                // 2p2t start
++            } catch (ConcurrentModificationException ex) {
++                if (tries.incrementAndGet() > 5) {
++                    ex.printStackTrace();
++                    ServerInternalException.reportInternalException(ex);
++                } else {
++                    a(persistentbase, tries);
++                }
++                // 2p2t end
+             } catch (Exception exception) {
                  exception.printStackTrace();
                  ServerInternalException.reportInternalException(exception); // Paper
              }

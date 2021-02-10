@@ -1,0 +1,420 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: acrylic-style <ilyy@outlook.jp>
+Date: Wed, 10 Feb 2021 22:00:25 +0900
+Subject: [PATCH] Make PacketPlayInWindowClick editable
+
+
+diff --git a/src/main/java/net/minecraft/server/PacketPlayInWindowClick.java b/src/main/java/net/minecraft/server/PacketPlayInWindowClick.java
+index bef596b83989d15e358bc5796fa6852209ea4c26..b9b10af3e81754d2abe2ac02539f5fe2580b7096 100644
+--- a/src/main/java/net/minecraft/server/PacketPlayInWindowClick.java
++++ b/src/main/java/net/minecraft/server/PacketPlayInWindowClick.java
+@@ -1,8 +1,11 @@
+ package net.minecraft.server;
+ 
++import xyz.acrylicstyle.paper.util.SimpleDoubleEventEmitter; // 2p2t
+ import java.io.IOException;
+ 
+ public class PacketPlayInWindowClick implements Packet<PacketListenerPlayIn> {
++    public static final SimpleDoubleEventEmitter<PacketPlayInWindowClick, PacketDataSerializer> CLIENT_BOUND = new SimpleDoubleEventEmitter<>(); // 2p2t
++    public static final SimpleDoubleEventEmitter<PacketPlayInWindowClick, PacketDataSerializer> SERVER_BOUND = new SimpleDoubleEventEmitter<>(); // 2p2t
+ 
+     private int a;
+     private int slot;
+@@ -20,6 +23,7 @@ public class PacketPlayInWindowClick implements Packet<PacketListenerPlayIn> {
+     }
+ 
+     public void a(PacketDataSerializer packetdataserializer) throws IOException {
++        SERVER_BOUND.emit(this, packetdataserializer); // 2p2t
+         this.a = packetdataserializer.readByte();
+         this.slot = packetdataserializer.readShort();
+         this.button = packetdataserializer.readByte();
+@@ -29,6 +33,7 @@ public class PacketPlayInWindowClick implements Packet<PacketListenerPlayIn> {
+     }
+ 
+     public void b(PacketDataSerializer packetdataserializer) throws IOException {
++        CLIENT_BOUND.emit(this, packetdataserializer); // 2p2t
+         packetdataserializer.writeByte(this.a);
+         packetdataserializer.writeShort(this.slot);
+         packetdataserializer.writeByte(this.button);
+diff --git a/src/main/java/xyz/acrylicstyle/paper/util/SimpleDoubleEventEmitter.java b/src/main/java/xyz/acrylicstyle/paper/util/SimpleDoubleEventEmitter.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..c9f83f430cbb526fbea6cc8218afd9925b1c5b59
+--- /dev/null
++++ b/src/main/java/xyz/acrylicstyle/paper/util/SimpleDoubleEventEmitter.java
+@@ -0,0 +1,191 @@
++package xyz.acrylicstyle.paper.util;
++
++import java.util.ArrayList;
++import java.util.Collections;
++import java.util.List;
++import java.util.function.BiConsumer;
++
++public class SimpleDoubleEventEmitter<E, F> {
++    protected final List<BiConsumer<E, F>> consumers = Collections.synchronizedList(new ArrayList<>());
++    protected final List<BiConsumer<E, F>> onceConsumers = Collections.synchronizedList(new ArrayList<>());
++    protected int maxListeners = 100;
++
++    protected void addConsumer(BiConsumer<E, F> consumer) {
++        checkListeners();
++        consumers.add(consumer);
++    }
++
++    protected void unshiftConsumer(BiConsumer<E, F> consumer) {
++        consumers.add(0, consumer);
++    }
++
++    protected void addConsumerOnce(BiConsumer<E, F> consumer) {
++        checkListeners();
++        onceConsumers.add(consumer);
++    }
++
++    protected void unshiftConsumerOnce(BiConsumer<E, F> consumer) {
++        onceConsumers.add(0, consumer);
++    }
++
++    protected void removeConsumer(BiConsumer<E, F> consumer) {
++        consumers.remove(consumer);
++    }
++
++    protected void removeConsumerOnce(BiConsumer<E, F> consumer) {
++        onceConsumers.remove(consumer);
++    }
++
++    public void addListener(BiConsumer<E, F> consumer) {
++        checkListeners();
++        addConsumer(consumer);
++    }
++
++    /**
++     * By default EventEmitters will print a warning if more than 10 listeners
++     * are added for a particular event. This is a useful default that helps
++     * finding memory leaks. Obviously, not all events should be limited to
++     * just 10 listeners. The {@link SimpleDoubleEventEmitter#setMaxListeners(int)} method allows the
++     * limit to be modified for this specific EventEmitter instance. The value
++     * can be set to Infinity (or 0) to indicate an unlimited number of listeners.<br>
++     * Returns a reference to the EventEmitter, so that calls can be chained.
++     */
++    @SuppressWarnings("JavaDoc")
++    public SimpleDoubleEventEmitter<E, F> setMaxListeners(int n) {
++        maxListeners = n;
++        return this;
++    }
++
++    protected void checkListeners() {
++        if (maxListeners <= listenerCount()) throw new UnsupportedOperationException("Possible EventEmitter memory leak detected. " + maxListeners + " listeners added.\nUse emitter.setMaxListeners() to increase limit");
++    }
++
++    /**
++     * @param consumer The callback function
++     */
++    public void on(BiConsumer<E, F> consumer) {
++        checkListeners();
++        addConsumer(consumer);
++    }
++
++    /**
++     * Adds the listener function to the beginning of the
++     * listeners array for the event named <i>event</i>.<br>
++     * No checks are made to see if the listener has already
++     * been added. Multiple calls passing the same combination
++     * of eventName and listener will result in the listener
++     * being added, and called, multiple times.<br>
++     * Returns a reference to the EventEmitter, so
++     * that calls can be chained.
++     * @param consumer The callback function
++     */
++    public SimpleDoubleEventEmitter<E, F> prependListener(BiConsumer<E, F> consumer) {
++        checkListeners();
++        unshiftConsumer(consumer);
++        return this;
++    }
++
++    /**
++     * Adds a <b>one-time</b> listener function
++     * for the event named <i>event</i>. The next time
++     * event is triggered, this listener is removed
++     * and then invoked.<br>
++     * Returns a reference to the EventEmitter,
++     * so that calls can be chained.<br>
++     * By default, event listeners are invoked
++     * in the order they are added.<br>
++     * The {@link SimpleDoubleEventEmitter#prependOnceListener(BiConsumer)} method
++     * can be used as an alternative to add the
++     * event listener to the beginning of the listeners array.
++     * @param consumer The callback function
++     */
++    public SimpleDoubleEventEmitter<E, F> once(BiConsumer<E, F> consumer) {
++        checkListeners();
++        addConsumerOnce(consumer);
++        return this;
++    }
++
++    /**
++     * Adds a one-time listener function for the event named
++     * <i>event</i> to the beginning of the listeners array.
++     * The next time eventName is triggered, this listener
++     * is removed, and then invoked.
++     * @param consumer The callback function
++     */
++    public SimpleDoubleEventEmitter<E, F> prependOnceListener(BiConsumer<E, F> consumer) {
++        checkListeners();
++        unshiftConsumerOnce(consumer);
++        return this;
++    }
++
++    /**
++     * Removes the specified listener from the listener array for the event named <i>event</i>.
++     * This method will remove, at most, one instance of a listener from the
++     * listener array. If any single listener has been added multiple
++     * times to the listener array for the specified eventName, then
++     * this method must be called multiple times to remove each instance.<br>
++     * Once an event has been emitted, all listeners attached to
++     * it at the time of emitting will be called in order.
++     * This implies that any removeListener() or removeAllListeners()
++     * calls after emitting and before the last listener finishes
++     * execution will not remove them from emit() in progress.
++     * Subsequent events will behave as expected.<br>
++     * Returns a reference to the EventEmitter, so that calls can be chained.
++     * @param consumer The callback function
++     */
++    public SimpleDoubleEventEmitter<E, F> removeListener(BiConsumer<E, F> consumer) {
++        removeConsumer(consumer);
++        return this;
++    }
++
++    /**
++     * Removes all listeners, or those of the specified eventName.<br>
++     * It is bad practice to remove listeners added elsewhere in the code,
++     * particularly when the EventEmitter instance was created by some other
++     * component or module (e.g. sockets or file streams).<br>
++     * Returns a reference to the EventEmitter, so that calls can be chained.
++     */
++    public SimpleDoubleEventEmitter<E, F> removeAllListeners() {
++        consumers.clear();
++        onceConsumers.clear();
++        return this;
++    }
++
++    /**
++     * Alias for {@link SimpleDoubleEventEmitter#removeListener(BiConsumer)}.
++     */
++    public SimpleDoubleEventEmitter<E, F> off(BiConsumer<E, F> consumer) {
++        return removeListener(consumer);
++    }
++
++    public void dispatchEvent(E e, F f) {
++        consumers.forEach(a -> a.accept(e, f));
++        onceConsumers.removeIf(a -> {
++            a.accept(e, f);
++            return true;
++        });
++    }
++
++    /**
++     * Emits a event.
++     */
++    public void emit(E e, F f) {
++        dispatchEvent(e, f);
++    }
++
++    public int listenerCount() {
++        return consumers.size() + onceConsumers.size();
++    }
++
++    public List<BiConsumer<E, F>> getConsumers() {
++        return consumers;
++    }
++
++    public List<BiConsumer<E, F>> getOnceConsumers() {
++        return onceConsumers;
++    }
++
++    public int getMaxListeners() {
++        return maxListeners;
++    }
++}
+diff --git a/src/main/java/xyz/acrylicstyle/paper/util/SimpleEventEmitter.java b/src/main/java/xyz/acrylicstyle/paper/util/SimpleEventEmitter.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..1676c720835eea3ae39ee394b6d07c4e2b094556
+--- /dev/null
++++ b/src/main/java/xyz/acrylicstyle/paper/util/SimpleEventEmitter.java
+@@ -0,0 +1,179 @@
++package xyz.acrylicstyle.paper.util;
++
++import java.util.ArrayList;
++import java.util.Collections;
++import java.util.List;
++import java.util.function.Consumer;
++
++public class SimpleEventEmitter<E> {
++    protected final List<Consumer<E>> consumers = Collections.synchronizedList(new ArrayList<>());
++    protected final List<Consumer<E>> onceConsumers = Collections.synchronizedList(new ArrayList<>());
++    protected int maxListeners = 100;
++
++    protected void addConsumer(Consumer<E> consumer) {
++        checkListeners();
++        consumers.remove(consumer);
++    }
++
++    protected void unshiftConsumer(Consumer<E> consumer) {
++        consumers.add(0, consumer);
++    }
++
++    protected void addConsumerOnce(Consumer<E> consumer) {
++        checkListeners();
++        onceConsumers.add(consumer);
++    }
++
++    protected void unshiftConsumerOnce(Consumer<E> consumer) {
++        onceConsumers.add(0, consumer);
++    }
++
++    protected void removeConsumer(Consumer<E> consumer) {
++        consumers.remove(consumer);
++    }
++
++    protected void removeConsumerOnce(Consumer<E> consumer) {
++        onceConsumers.remove(consumer);
++    }
++
++    public void addListener(Consumer<E> consumer) {
++        checkListeners();
++        addConsumer(consumer);
++    }
++
++    /**
++     * By default EventEmitters will print a warning if more than 10 listeners
++     * are added for a particular event. This is a useful default that helps
++     * finding memory leaks. Obviously, not all events should be limited to
++     * just 10 listeners. The {@link SimpleEventEmitter#setMaxListeners(int)} method allows the
++     * limit to be modified for this specific EventEmitter instance. The value
++     * can be set to Infinity (or 0) to indicate an unlimited number of listeners.<br>
++     * Returns a reference to the EventEmitter, so that calls can be chained.
++     */
++    @SuppressWarnings("JavaDoc")
++    public SimpleEventEmitter<E> setMaxListeners(int n) {
++        maxListeners = n;
++        return this;
++    }
++
++    protected void checkListeners() {
++        if (maxListeners <= listenerCount()) throw new UnsupportedOperationException("Possible EventEmitter memory leak detected. " + maxListeners + " listeners added.\nUse emitter.setMaxListeners() to increase limit");
++    }
++
++    /**
++     * @param consumer The callback function
++     */
++    public void on(Consumer<E> consumer) {
++        checkListeners();
++        addConsumer(consumer);
++    }
++
++    /**
++     * Adds the listener function to the beginning of the
++     * listeners array for the event named <i>event</i>.<br>
++     * No checks are made to see if the listener has already
++     * been added. Multiple calls passing the same combination
++     * of eventName and listener will result in the listener
++     * being added, and called, multiple times.<br>
++     * Returns a reference to the EventEmitter, so
++     * that calls can be chained.
++     * @param consumer The callback function
++     */
++    public SimpleEventEmitter<E> prependListener(Consumer<E> consumer) {
++        checkListeners();
++        unshiftConsumer(consumer);
++        return this;
++    }
++
++    /**
++     * Adds a <b>one-time</b> listener function
++     * for the event named <i>event</i>. The next time
++     * event is triggered, this listener is removed
++     * and then invoked.<br>
++     * Returns a reference to the EventEmitter,
++     * so that calls can be chained.<br>
++     * By default, event listeners are invoked
++     * in the order they are added.<br>
++     * The {@link SimpleEventEmitter#prependOnceListener(Consumer)} method
++     * can be used as an alternative to add the
++     * event listener to the beginning of the listeners array.
++     * @param consumer The callback function
++     */
++    public SimpleEventEmitter<E> once(Consumer<E> consumer) {
++        checkListeners();
++        addConsumerOnce(consumer);
++        return this;
++    }
++
++    /**
++     * Adds a one-time listener function for the event named
++     * <i>event</i> to the beginning of the listeners array.
++     * The next time eventName is triggered, this listener
++     * is removed, and then invoked.
++     * @param consumer The callback function
++     */
++    public SimpleEventEmitter<E> prependOnceListener(Consumer<E> consumer) {
++        checkListeners();
++        unshiftConsumerOnce(consumer);
++        return this;
++    }
++
++    /**
++     * Removes the specified listener from the listener array for the event named <i>event</i>.
++     * This method will remove, at most, one instance of a listener from the
++     * listener array. If any single listener has been added multiple
++     * times to the listener array for the specified eventName, then
++     * this method must be called multiple times to remove each instance.<br>
++     * Once an event has been emitted, all listeners attached to
++     * it at the time of emitting will be called in order.
++     * This implies that any removeListener() or removeAllListeners()
++     * calls after emitting and before the last listener finishes
++     * execution will not remove them from emit() in progress.
++     * Subsequent events will behave as expected.<br>
++     * Returns a reference to the EventEmitter, so that calls can be chained.
++     * @param consumer The callback function
++     */
++    public SimpleEventEmitter<E> removeListener(Consumer<E> consumer) {
++        removeConsumer(consumer);
++        return this;
++    }
++
++    /**
++     * Removes all listeners, or those of the specified eventName.<br>
++     * It is bad practice to remove listeners added elsewhere in the code,
++     * particularly when the EventEmitter instance was created by some other
++     * component or module (e.g. sockets or file streams).<br>
++     * Returns a reference to the EventEmitter, so that calls can be chained.
++     */
++    public SimpleEventEmitter<E> removeAllListeners() {
++        consumers.clear();
++        onceConsumers.clear();
++        return this;
++    }
++
++    /**
++     * Alias for {@link SimpleEventEmitter#removeListener(Consumer)}.
++     */
++    public SimpleEventEmitter<E> off(Consumer<E> consumer) {
++        return removeListener(consumer);
++    }
++
++    public void dispatchEvent(E e) {
++        consumers.forEach(a -> a.accept(e));
++        onceConsumers.removeIf(a -> {
++            a.accept(e);
++            return true;
++        });
++    }
++
++    /**
++     * Emits a event.
++     */
++    public void emit(E e) {
++        dispatchEvent(e);
++    }
++
++    public int listenerCount() {
++        return consumers.size() + onceConsumers.size();
++    }
++}

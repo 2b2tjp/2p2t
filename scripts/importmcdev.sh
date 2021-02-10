@@ -94,6 +94,7 @@ import NBTTagList
 import Packet
 import PacketEncoder
 import PacketPlayInUseEntity
+import PacketPlayInWindowClick
 import PacketPlayOutMapChunk
 import PacketPlayOutPlayerListHeaderFooter
 import PacketPlayOutScoreboardTeam

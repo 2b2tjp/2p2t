@@ -1,0 +1,17 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: acrylic-style <ilyy@outlook.jp>
+Date: Wed, 10 Feb 2021 17:48:47 +0900
+Subject: [PATCH] show error on IllegalPacketEvent
+
+
+diff --git a/src/main/java/com/destroystokyo/paper/event/player/IllegalPacketEvent.java b/src/main/java/com/destroystokyo/paper/event/player/IllegalPacketEvent.java
+index e11f74fc6215a89c94d7ac26a7f9237cbc673c02..8034689295d915a40399947cbca3842d0e659129 100644
+--- a/src/main/java/com/destroystokyo/paper/event/player/IllegalPacketEvent.java
++++ b/src/main/java/com/destroystokyo/paper/event/player/IllegalPacketEvent.java
+@@ -59,5 +59,6 @@ public class IllegalPacketEvent extends PlayerEvent {
+             player.kickPlayer(kickMessage);
+         }
+         Bukkit.getLogger().severe(player.getName() + "/" + type + ": " + exception.getMessage());
++        exception.printStackTrace(); // 2p2t
+     }
+ }
