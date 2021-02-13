@@ -1,0 +1,28 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: acrylic-style <ilyy@outlook.jp>
+Date: Tue, 9 Feb 2021 05:48:06 +0900
+Subject: [PATCH] fix dispenser crash
+
+
+diff --git a/src/main/java/net/minecraft/server/DispenserRegistry.java b/src/main/java/net/minecraft/server/DispenserRegistry.java
+index fb1d640cc3e133c7623d051893fd85324b2c4de4..ed7dd18bdd03b1cbd5b19d53c3a43d08ba044a9a 100644
+--- a/src/main/java/net/minecraft/server/DispenserRegistry.java
++++ b/src/main/java/net/minecraft/server/DispenserRegistry.java
+@@ -760,9 +760,16 @@ public class DispenserRegistry {
+                 world.setTypeUpdate(blockposition, iblockdata);
+                 TileEntity tileentity = world.getTileEntity(blockposition);
+                 ItemStack itemstack1 = itemstack.cloneAndSubtract(1);
++                if (tileentity == null) return itemstack; // 2p2t
+ 
+                 if (itemstack1.hasTag()) {
+-                    ((TileEntityShulkerBox) tileentity).e(itemstack1.getTag().getCompound("BlockEntityTag"));
++                    // 2p2t start
++                    try {
++                        ((TileEntityShulkerBox) tileentity).e(itemstack1.getTag().getCompound("BlockEntityTag"));
++                    } catch (NullPointerException ex) {
++                        //org.apache.logging.log4j.LogManager.getLogger().warn("");
++                    }
++                    // 2p2t end
+                 }
+ 
+                 if (itemstack1.hasName()) {

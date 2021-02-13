@@ -3,6 +3,14 @@
 
 High performance Paper fork that aims to fix performance, exploits, gameplay and mechanics inconsistencies.
 
+This branch is `feature/async-chunk-gen` and may contain experimental code.
+It should work well, but maybe not if you modified 2p2t.yml. (see Important note below)
+
+Important
+------
+- Do NOT set `settings.max-chunk-gen-threads` to greater than 1 unless you know what you are doing.
+- This branch is not compatible with master branch. Do not merge, please copy `0394-Async-chunk-generation.patch` to master instead.
+
 Documentation
 ------
 Access the Paper docs here: [paper.readthedocs.io](https://paper.readthedocs.io/)  

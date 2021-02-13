@@ -1,0 +1,2157 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: acrylic-style <ilyy@outlook.jp>
+Date: Sat, 23 Jan 2021 23:29:02 +0900
+Subject: [PATCH] Async chunk generation
+
+
+diff --git a/src/main/java/com/destroystokyo/paper/PaperCommand.java b/src/main/java/com/destroystokyo/paper/PaperCommand.java
+index 1898ab897ce0004e297ed81629c5aa54d8ae4dc1..f03c9474e25fa16c8d6e1ab327d1700da6ef584a 100644
+--- a/src/main/java/com/destroystokyo/paper/PaperCommand.java
++++ b/src/main/java/com/destroystokyo/paper/PaperCommand.java
+@@ -25,14 +25,14 @@ public class PaperCommand extends Command {
+     public PaperCommand(String name) {
+         super(name);
+         this.description = "Paper related commands";
+-        this.usageMessage = "/paper [heap | entity | reload | version]";
++        this.usageMessage = "/paper [heap | entity | reload | version | regen]"; // 2p2t
+         this.setPermission("bukkit.command.paper");
+     }
+ 
+     @Override
+     public List<String> tabComplete(CommandSender sender, String alias, String[] args, Location location) throws IllegalArgumentException {
+         if (args.length <= 1)
+-            return CommandAbstract.getListMatchingLast(args, "heap", "entity", "reload", "version");
++            return CommandAbstract.getListMatchingLast(args, "heap", "entity", "reload", "version", "regen"); // 2p2t
+ 
+         switch (args[0].toLowerCase(Locale.ENGLISH))
+         {
+@@ -69,6 +69,17 @@ public class PaperCommand extends Command {
+             case "version":
+                 org.bukkit.Bukkit.getServer().getCommandMap().getCommand("version").execute(sender, commandLabel, new String[0]);
+                 break;
++                // 2p2t start
++            case "regen":
++                if (!(sender instanceof Player)) {
++                    sender.sendMessage(ChatColor.RED + "This command cannot be run in console.");
++                    break;
++                }
++                Player player = (Player) sender;
++                player.getWorld().regenerateChunk(player.getChunk().getX(), player.getChunk().getZ());
++                sender.sendMessage(ChatColor.GREEN + "Regenerated chunk.");
++                break;
++                // 2p2t end
+             default:
+                 sender.sendMessage(ChatColor.RED + "Usage: " + usageMessage);
+                 return false;
+diff --git a/src/main/java/net/minecraft/server/Chunk.java b/src/main/java/net/minecraft/server/Chunk.java
+index 4060fd274831088b55477def553c57ef867fd690..8bca76a78b4c588aed271ce27cf38d00d1121e6e 100644
+--- a/src/main/java/net/minecraft/server/Chunk.java
++++ b/src/main/java/net/minecraft/server/Chunk.java
+@@ -1170,6 +1170,7 @@ public class Chunk {
+                 this.world.populating = true;
+                 try {
+                     for (org.bukkit.generator.BlockPopulator populator : world.getPopulators()) {
++                        e.info("Populating chunk at " + this.locX + ", " + this.locZ + " with populator " + populator); // TODO
+                         populator.populate(world, random, bukkitChunk);
+                     }
+                 } finally {
+diff --git a/src/main/java/net/minecraft/server/ChunkProviderGenerate.java b/src/main/java/net/minecraft/server/ChunkProviderGenerate.java
+index ee9e00e64a9858ec8886c8dd31f793da446b5ed4..91222c4db6eecfbbac7faa88f18ac21b2735cf48 100644
+--- a/src/main/java/net/minecraft/server/ChunkProviderGenerate.java
++++ b/src/main/java/net/minecraft/server/ChunkProviderGenerate.java
+@@ -7,7 +7,7 @@ import javax.annotation.Nullable;
+ public class ChunkProviderGenerate implements ChunkGenerator {
+ 
+     protected static final IBlockData a = Blocks.STONE.getBlockData();
+-    private final Random i;
++    private final ThreadLocal<Random> i; // 2p2t - ThreadLocal for async chunk gen
+     private final NoiseGeneratorOctaves j;
+     private final NoiseGeneratorOctaves k;
+     private final NoiseGeneratorOctaves l;
+@@ -18,11 +18,11 @@ public class ChunkProviderGenerate implements ChunkGenerator {
+     private final World n;
+     private final boolean o;
+     private final WorldType p;
+-    private final double[] q;
++    private final ThreadLocal<double[]> q; // 2p2t - ThreadLocal for async chunk gen
+     private final float[] r;
+     private CustomWorldSettingsFinal s;
+     private IBlockData t;
+-    private double[] u;
++    private ThreadLocal<double[]> u; // 2p2t - ThreadLocal for async chunk gen
+     private final WorldGenBase v;
+     private final WorldGenStronghold w;
+     private final WorldGenVillage x;
+@@ -31,15 +31,17 @@ public class ChunkProviderGenerate implements ChunkGenerator {
+     private final WorldGenBase A;
+     private final WorldGenMonument B;
+     private final WorldGenWoodlandMansion C;
+-    private BiomeBase[] D;
+-    double[] e;
+-    double[] f;
+-    double[] g;
+-    double[] h;
++    // 2p2t start - ThreadLocal for async chunk gen
++    private ThreadLocal<BiomeBase[]> D = new ThreadLocal<>();
++    ThreadLocal<double[]> e = new ThreadLocal<>();
++    ThreadLocal<double[]> f = new ThreadLocal<>();
++    ThreadLocal<double[]> g = new ThreadLocal<>();
++    ThreadLocal<double[]> h = new ThreadLocal<>();
++    // 2p2t end - ThreadLocal for async chunk gen
+ 
+     public ChunkProviderGenerate(World world, long i, boolean flag, String s) {
+         this.t = Blocks.WATER.getBlockData();
+-        this.u = new double[256];
++        this.u = ThreadLocal.withInitial(() -> new double[256]); // 2p2t
+         this.v = new WorldGenCaves();
+         this.w = new WorldGenStronghold();
+         this.x = new WorldGenVillage();
+@@ -51,15 +53,17 @@ public class ChunkProviderGenerate implements ChunkGenerator {
+         this.n = world;
+         this.o = flag;
+         this.p = world.getWorldData().getType();
+-        this.i = new Random(i);
+-        this.j = new NoiseGeneratorOctaves(this.i, 16);
+-        this.k = new NoiseGeneratorOctaves(this.i, 16);
+-        this.l = new NoiseGeneratorOctaves(this.i, 8);
+-        this.m = new NoiseGenerator3(this.i, 4);
+-        this.b = new NoiseGeneratorOctaves(this.i, 10);
+-        this.c = new NoiseGeneratorOctaves(this.i, 16);
+-        this.d = new NoiseGeneratorOctaves(this.i, 8);
+-        this.q = new double[825];
++        // 2p2t start
++        this.i = ThreadLocal.withInitial(() -> new Random(i));
++        this.j = new NoiseGeneratorOctaves(this.i.get(), 16);
++        this.k = new NoiseGeneratorOctaves(this.i.get(), 16);
++        this.l = new NoiseGeneratorOctaves(this.i.get(), 8);
++        this.m = new NoiseGenerator3(this.i.get(), 4);
++        this.b = new NoiseGeneratorOctaves(this.i.get(), 10);
++        this.c = new NoiseGeneratorOctaves(this.i.get(), 16);
++        this.d = new NoiseGeneratorOctaves(this.i.get(), 8);
++        // 2p2t end
++        this.q = ThreadLocal.withInitial(() -> new double[825]); // 2p2t
+         this.r = new float[25];
+ 
+         for (int j = -2; j <= 2; ++j) {
+@@ -79,7 +83,7 @@ public class ChunkProviderGenerate implements ChunkGenerator {
+     }
+ 
+     public void a(int i, int j, ChunkSnapshot chunksnapshot) {
+-        this.D = this.n.getWorldChunkManager().getBiomes(this.D, i * 4 - 2, j * 4 - 2, 10, 10);
++        this.D.set(this.n.getWorldChunkManager().getBiomes(this.D.get(), i * 4 - 2, j * 4 - 2, 10, 10)); // 2p2t
+         this.a(i * 4, 0, j * 4);
+ 
+         for (int k = 0; k < 4; ++k) {
+@@ -94,14 +98,16 @@ public class ChunkProviderGenerate implements ChunkGenerator {
+ 
+                 for (int k2 = 0; k2 < 32; ++k2) {
+                     double d0 = 0.125D;
+-                    double d1 = this.q[k1 + k2];
+-                    double d2 = this.q[l1 + k2];
+-                    double d3 = this.q[i2 + k2];
+-                    double d4 = this.q[j2 + k2];
+-                    double d5 = (this.q[k1 + k2 + 1] - d1) * 0.125D;
+-                    double d6 = (this.q[l1 + k2 + 1] - d2) * 0.125D;
+-                    double d7 = (this.q[i2 + k2 + 1] - d3) * 0.125D;
+-                    double d8 = (this.q[j2 + k2 + 1] - d4) * 0.125D;
++                    // 2p2t start
++                    double d1 = this.q.get()[k1 + k2];
++                    double d2 = this.q.get()[l1 + k2];
++                    double d3 = this.q.get()[i2 + k2];
++                    double d4 = this.q.get()[j2 + k2];
++                    double d5 = (this.q.get()[k1 + k2 + 1] - d1) * 0.125D;
++                    double d6 = (this.q.get()[l1 + k2 + 1] - d2) * 0.125D;
++                    double d7 = (this.q.get()[i2 + k2 + 1] - d3) * 0.125D;
++                    double d8 = (this.q.get()[j2 + k2 + 1] - d4) * 0.125D;
++                    // 2p2t end
+ 
+                     for (int l2 = 0; l2 < 8; ++l2) {
+                         double d9 = 0.25D;
+@@ -138,28 +144,30 @@ public class ChunkProviderGenerate implements ChunkGenerator {
+ 
+     }
+ 
+-    public void a(int i, int j, ChunkSnapshot chunksnapshot, BiomeBase[] abiomebase) {
++    public void a(int i, int j, ChunkSnapshot chunksnapshot, BiomeBase[] abiomebase, Random random) { // 2p2t - add random to parameter
+         double d0 = 0.03125D;
+ 
+-        this.u = this.m.a(this.u, (double) (i * 16), (double) (j * 16), 16, 16, 0.0625D, 0.0625D, 1.0D);
++        this.u.set(this.m.a(this.u.get(), (double) (i * 16), (double) (j * 16), 16, 16, 0.0625D, 0.0625D, 1.0D)); // 2p2t - async chunk gen
+ 
+         for (int k = 0; k < 16; ++k) {
+             for (int l = 0; l < 16; ++l) {
+                 BiomeBase biomebase = abiomebase[l + k * 16];
+ 
+-                biomebase.a(this.n, this.i, chunksnapshot, i * 16 + k, j * 16 + l, this.u[l + k * 16]);
++                biomebase.a(this.n, random, chunksnapshot, i * 16 + k, j * 16 + l, this.u.get()[l + k * 16]); // 2p2t - async chunk gen
+             }
+         }
+ 
+     }
+ 
+     public Chunk getOrCreateChunk(int i, int j) {
+-        this.i.setSeed((long) i * 341873128712L + (long) j * 132897987541L);
++        this.i.get().setSeed((long) i * 341873128712L + (long) j * 132897987541L); // 2p2t - async chunk gen
+         ChunkSnapshot chunksnapshot = new ChunkSnapshot();
+ 
+         this.a(i, j, chunksnapshot);
+-        this.D = this.n.getWorldChunkManager().getBiomeBlock(this.D, i * 16, j * 16, 16, 16);
+-        this.a(i, j, chunksnapshot, this.D);
++        // 2p2t start - async chunk gen
++        this.D.set(this.n.getWorldChunkManager().getBiomeBlock(this.D.get(), i * 16, j * 16, 16, 16));
++        this.a(i, j, chunksnapshot, this.D.get(), this.i.get());
++        // 2p2t end - async chunk gen
+         if (this.s.r && this.n.paperConfig.generateCaves) { // Paper
+             this.v.a(this.n, i, j, chunksnapshot);
+         }
+@@ -198,7 +206,7 @@ public class ChunkProviderGenerate implements ChunkGenerator {
+         byte[] abyte = chunk.getBiomeIndex();
+ 
+         for (int k = 0; k < abyte.length; ++k) {
+-            abyte[k] = (byte) BiomeBase.a(this.D[k]);
++            abyte[k] = (byte) BiomeBase.a(this.D.get()[k]); // 2p2t
+         }
+ 
+         chunk.initLighting();
+@@ -206,13 +214,15 @@ public class ChunkProviderGenerate implements ChunkGenerator {
+     }
+ 
+     private void a(int i, int j, int k) {
+-        this.h = this.c.a(this.h, i, k, 5, 5, (double) this.s.e, (double) this.s.f, (double) this.s.g);
++        this.h.set(this.c.a(this.h.get(), i, k, 5, 5, (double) this.s.e, (double) this.s.f, (double) this.s.g)); // 2p2t
+         float f = this.s.a;
+         float f1 = this.s.b;
+ 
+-        this.e = this.l.a(this.e, i, j, k, 5, 33, 5, (double) (f / this.s.h), (double) (f1 / this.s.i), (double) (f / this.s.j));
+-        this.f = this.j.a(this.f, i, j, k, 5, 33, 5, (double) f, (double) f1, (double) f);
+-        this.g = this.k.a(this.g, i, j, k, 5, 33, 5, (double) f, (double) f1, (double) f);
++        // 2p2t start
++        this.e.set(this.l.a(this.e.get(), i, j, k, 5, 33, 5, (double) (f / this.s.h), (double) (f1 / this.s.i), (double) (f / this.s.j)));
++        this.f.set(this.j.a(this.f.get(), i, j, k, 5, 33, 5, (double) f, (double) f1, (double) f));
++        this.g.set(this.k.a(this.g.get(), i, j, k, 5, 33, 5, (double) f, (double) f1, (double) f));
++        // 2p2t end
+         int l = 0;
+         int i1 = 0;
+ 
+@@ -222,11 +232,11 @@ public class ChunkProviderGenerate implements ChunkGenerator {
+                 float f3 = 0.0F;
+                 float f4 = 0.0F;
+                 boolean flag = true;
+-                BiomeBase biomebase = this.D[j1 + 2 + (k1 + 2) * 10];
++                BiomeBase biomebase = this.D.get()[j1 + 2 + (k1 + 2) * 10]; // 2p2t
+ 
+                 for (int l1 = -2; l1 <= 2; ++l1) {
+                     for (int i2 = -2; i2 <= 2; ++i2) {
+-                        BiomeBase biomebase1 = this.D[j1 + l1 + 2 + (k1 + i2 + 2) * 10];
++                        BiomeBase biomebase1 = this.D.get()[j1 + l1 + 2 + (k1 + i2 + 2) * 10]; // 2p2t
+                         float f5 = this.s.n + biomebase1.j() * this.s.m;
+                         float f6 = this.s.p + biomebase1.m() * this.s.o;
+ 
+@@ -256,7 +266,7 @@ public class ChunkProviderGenerate implements ChunkGenerator {
+                 f3 /= f4;
+                 f2 = f2 * 0.9F + 0.1F;
+                 f3 = (f3 * 4.0F - 1.0F) / 8.0F;
+-                double d0 = this.h[i1] / 8000.0D;
++                double d0 = this.h.get()[i1] / 8000.0D; // 2p2t
+ 
+                 if (d0 < 0.0D) {
+                     d0 = -d0 * 0.3D;
+@@ -294,9 +304,11 @@ public class ChunkProviderGenerate implements ChunkGenerator {
+                         d4 *= 4.0D;
+                     }
+ 
+-                    double d5 = this.f[l] / (double) this.s.d;
+-                    double d6 = this.g[l] / (double) this.s.c;
+-                    double d7 = (this.e[l] / 10.0D + 1.0D) / 2.0D;
++                    // 2p2t start
++                    double d5 = this.f.get()[l] / (double) this.s.d;
++                    double d6 = this.g.get()[l] / (double) this.s.c;
++                    double d7 = (this.e.get()[l] / 10.0D + 1.0D) / 2.0D;
++                    // 2p2t end
+                     double d8 = MathHelper.b(d5, d6, d7) - d4;
+ 
+                     if (j2 > 29) {
+@@ -305,7 +317,7 @@ public class ChunkProviderGenerate implements ChunkGenerator {
+                         d8 = d8 * (1.0D - d9) + -10.0D * d9;
+                     }
+ 
+-                    this.q[l] = d8;
++                    this.q.get()[l] = d8; // 2p2t
+                     ++l;
+                 }
+             }
+@@ -320,37 +332,39 @@ public class ChunkProviderGenerate implements ChunkGenerator {
+         BlockPosition blockposition = new BlockPosition(k, 0, l);
+         BiomeBase biomebase = this.n.getBiome(blockposition.a(16, 0, 16));
+ 
+-        this.i.setSeed(this.n.getSeed());
+-        long i1 = this.i.nextLong() / 2L * 2L + 1L;
+-        long j1 = this.i.nextLong() / 2L * 2L + 1L;
++        // 2p2t start - async chunk gen
++        this.i.get().setSeed(this.n.getSeed());
++        long i1 = this.i.get().nextLong() / 2L * 2L + 1L;
++        long j1 = this.i.get().nextLong() / 2L * 2L + 1L;
++        // 2p2t end - async chunk gen
+ 
+-        this.i.setSeed((long) i * i1 + (long) j * j1 ^ this.n.getSeed());
++        this.i.get().setSeed((long) i * i1 + (long) j * j1 ^ this.n.getSeed()); // 2p2t - async chunk gen
+         boolean flag = false;
+         ChunkCoordIntPair chunkcoordintpair = new ChunkCoordIntPair(i, j);
+ 
+         if (this.o) {
+             if (this.s.w && this.n.paperConfig.generateMineshaft) { // Paper
+-                this.y.a(this.n, this.i, chunkcoordintpair);
++                this.y.a(this.n, this.i.get(), chunkcoordintpair); // 2p2t - async chunk gen
+             }
+ 
+             if (this.s.v && this.n.paperConfig.generateVillage) { // Paper
+-                flag = this.x.a(this.n, this.i, chunkcoordintpair);
++                flag = this.x.a(this.n, this.i.get(), chunkcoordintpair); // 2p2t - async chunk gen
+             }
+ 
+             if (this.s.u && this.n.paperConfig.generateStronghold) { // Paper
+-                this.w.a(this.n, this.i, chunkcoordintpair);
++                this.w.a(this.n, this.i.get(), chunkcoordintpair); // 2p2t - async chunk gen
+             }
+ 
+             if (this.s.x && this.n.paperConfig.generateTemple) { // Paper
+-                this.z.a(this.n, this.i, chunkcoordintpair);
++                this.z.a(this.n, this.i.get(), chunkcoordintpair); // 2p2t - async chunk gen
+             }
+ 
+             if (this.s.y && this.n.paperConfig.generateMonument) { // Paper
+-                this.B.a(this.n, this.i, chunkcoordintpair);
++                this.B.a(this.n, this.i.get(), chunkcoordintpair); // 2p2t - async chunk gen
+             }
+ 
+             if (this.s.z) {
+-                this.C.a(this.n, this.i, chunkcoordintpair);
++                this.C.a(this.n, this.i.get(), chunkcoordintpair); // 2p2t - async chunk gen
+             }
+         }
+ 
+@@ -358,34 +372,40 @@ public class ChunkProviderGenerate implements ChunkGenerator {
+         int l1;
+         int i2;
+ 
+-        if (biomebase != Biomes.d && biomebase != Biomes.s && this.s.B && !flag && this.i.nextInt(this.s.C) == 0) {
+-            k1 = this.i.nextInt(16) + 8;
+-            l1 = this.i.nextInt(256);
+-            i2 = this.i.nextInt(16) + 8;
+-            (new WorldGenLakes(Blocks.WATER)).generate(this.n, this.i, blockposition.a(k1, l1, i2));
++        // 2p2t start - async chunk gen
++        if (biomebase != Biomes.d && biomebase != Biomes.s && this.s.B && !flag && this.i.get().nextInt(this.s.C) == 0) {
++            k1 = this.i.get().nextInt(16) + 8;
++            l1 = this.i.get().nextInt(256);
++            i2 = this.i.get().nextInt(16) + 8;
++            (new WorldGenLakes(Blocks.WATER)).generate(this.n, this.i.get(), blockposition.a(k1, l1, i2));
+         }
+ 
+-        if (!flag && this.i.nextInt(this.s.E / 10) == 0 && this.s.D) {
+-            k1 = this.i.nextInt(16) + 8;
+-            l1 = this.i.nextInt(this.i.nextInt(248) + 8);
+-            i2 = this.i.nextInt(16) + 8;
+-            if (l1 < this.n.getSeaLevel() || this.i.nextInt(this.s.E / 8) == 0) {
+-                (new WorldGenLakes(Blocks.LAVA)).generate(this.n, this.i, blockposition.a(k1, l1, i2));
++        if (!flag && this.i.get().nextInt(this.s.E / 10) == 0 && this.s.D) {
++            k1 = this.i.get().nextInt(16) + 8;
++            l1 = this.i.get().nextInt(this.i.get().nextInt(248) + 8);
++            i2 = this.i.get().nextInt(16) + 8;
++            if (l1 < this.n.getSeaLevel() || this.i.get().nextInt(this.s.E / 8) == 0) {
++                (new WorldGenLakes(Blocks.LAVA)).generate(this.n, this.i.get(), blockposition.a(k1, l1, i2));
+             }
+         }
++        // 2p2t end - async chunk gen
+ 
+         if (this.s.s && this.n.paperConfig.generateDungeon) { // Paper
+             for (k1 = 0; k1 < this.s.t; ++k1) {
+-                l1 = this.i.nextInt(16) + 8;
+-                i2 = this.i.nextInt(256);
+-                int j2 = this.i.nextInt(16) + 8;
++                // 2p2t start - async chunk gen
++                l1 = this.i.get().nextInt(16) + 8;
++                i2 = this.i.get().nextInt(256);
++                int j2 = this.i.get().nextInt(16) + 8;
+ 
+-                (new WorldGenDungeons()).generate(this.n, this.i, blockposition.a(l1, i2, j2));
++                (new WorldGenDungeons()).generate(this.n, this.i.get(), blockposition.a(l1, i2, j2));
++                // 2p2t end - async chunk gen
+             }
+         }
+ 
+-        biomebase.a(this.n, this.i, new BlockPosition(k, 0, l));
+-        SpawnerCreature.a(this.n, biomebase, k + 8, l + 8, 16, 16, this.i);
++        // 2p2t start - async chunk gen
++        biomebase.a(this.n, this.i.get(), new BlockPosition(k, 0, l));
++        SpawnerCreature.a(this.n, biomebase, k + 8, l + 8, 16, 16, this.i.get());
++        // 2p2t end - async chunk gen
+         blockposition = blockposition.a(8, 0, 8);
+ 
+         for (k1 = 0; k1 < 16; ++k1) {
+@@ -410,7 +430,7 @@ public class ChunkProviderGenerate implements ChunkGenerator {
+         boolean flag = false;
+ 
+         if (this.s.y && this.o && chunk.x() < 3600L) {
+-            flag |= this.B.a(this.n, this.i, new ChunkCoordIntPair(i, j));
++            flag |= this.B.a(this.n, this.i.get(), new ChunkCoordIntPair(i, j)); // 2p2t
+         }
+ 
+         return flag;
+diff --git a/src/main/java/net/minecraft/server/ChunkProviderHell.java b/src/main/java/net/minecraft/server/ChunkProviderHell.java
+index 12bc10ff00eda73bcad7c6394088d84cfbc06fcf..f4d3efab1e349731743e82ae4b11dc148f6c19db 100644
+--- a/src/main/java/net/minecraft/server/ChunkProviderHell.java
++++ b/src/main/java/net/minecraft/server/ChunkProviderHell.java
+@@ -14,11 +14,13 @@ public class ChunkProviderHell implements ChunkGenerator {
+     protected static final IBlockData f = Blocks.SOUL_SAND.getBlockData();
+     private final World n;
+     private final boolean o;
+-    private final Random p;
+-    private double[] q = new double[256];
+-    private double[] r = new double[256];
+-    private double[] s = new double[256];
+-    private double[] t;
++    // 2p2t start - async chunk gen
++    private final ThreadLocal<Random> p;
++    private ThreadLocal<double[]> q = ThreadLocal.withInitial(() -> new double[256]);
++    private ThreadLocal<double[]> r = ThreadLocal.withInitial(() -> new double[256]);
++    private ThreadLocal<double[]> s = ThreadLocal.withInitial(() -> new double[256]);
++    private ThreadLocal<double[]> t = new ThreadLocal<>();
++    // 2p2t end - async chunk gen
+     private final NoiseGeneratorOctaves u;
+     private final NoiseGeneratorOctaves v;
+     private final NoiseGeneratorOctaves w;
+@@ -37,11 +39,13 @@ public class ChunkProviderHell implements ChunkGenerator {
+     private final WorldGenMushrooms H;
+     private final WorldGenNether I;
+     private final WorldGenBase J;
+-    double[] i;
+-    double[] j;
+-    double[] k;
+-    double[] l;
+-    double[] m;
++    // 2p2t start - async chunk gen
++    ThreadLocal<double[]> i = new ThreadLocal<>();
++    ThreadLocal<double[]> j = new ThreadLocal<>();
++    ThreadLocal<double[]> k = new ThreadLocal<>();
++    ThreadLocal<double[]> l = new ThreadLocal<>();
++    ThreadLocal<double[]> m = new ThreadLocal<>();
++    // 2p2t end - async chunk gen
+ 
+     public ChunkProviderHell(World world, boolean flag, long i) {
+         this.C = new WorldGenMinable(Blocks.QUARTZ_ORE.getBlockData(), 14, BlockPredicate.a(Blocks.NETHERRACK));
+@@ -54,14 +58,16 @@ public class ChunkProviderHell implements ChunkGenerator {
+         this.J = new WorldGenCavesHell();
+         this.n = world;
+         this.o = flag;
+-        this.p = new Random(i);
+-        this.u = new NoiseGeneratorOctaves(this.p, 16);
+-        this.v = new NoiseGeneratorOctaves(this.p, 16);
+-        this.w = new NoiseGeneratorOctaves(this.p, 8);
+-        this.x = new NoiseGeneratorOctaves(this.p, 4);
+-        this.y = new NoiseGeneratorOctaves(this.p, 4);
+-        this.g = new NoiseGeneratorOctaves(this.p, 10);
+-        this.h = new NoiseGeneratorOctaves(this.p, 16);
++        // 2p2t start - async chunk gen
++        this.p = ThreadLocal.withInitial(() -> new Random(i));
++        this.u = new NoiseGeneratorOctaves(this.p.get(), 16);
++        this.v = new NoiseGeneratorOctaves(this.p.get(), 16);
++        this.w = new NoiseGeneratorOctaves(this.p.get(), 8);
++        this.x = new NoiseGeneratorOctaves(this.p.get(), 4);
++        this.y = new NoiseGeneratorOctaves(this.p.get(), 4);
++        this.g = new NoiseGeneratorOctaves(this.p.get(), 10);
++        this.h = new NoiseGeneratorOctaves(this.p.get(), 16);
++        // 2p2t end - async chunk gen
+         world.b(63);
+     }
+ 
+@@ -72,20 +78,22 @@ public class ChunkProviderHell implements ChunkGenerator {
+         boolean flag2 = true;
+         boolean flag3 = true;
+ 
+-        this.t = this.a(this.t, i * 4, 0, j * 4, 5, 17, 5);
++        this.t.set(this.a(this.t.get(), i * 4, 0, j * 4, 5, 17, 5)); // 2p2t
+ 
+         for (int l = 0; l < 4; ++l) {
+             for (int i1 = 0; i1 < 4; ++i1) {
+                 for (int j1 = 0; j1 < 16; ++j1) {
+                     double d0 = 0.125D;
+-                    double d1 = this.t[((l + 0) * 5 + i1 + 0) * 17 + j1 + 0];
+-                    double d2 = this.t[((l + 0) * 5 + i1 + 1) * 17 + j1 + 0];
+-                    double d3 = this.t[((l + 1) * 5 + i1 + 0) * 17 + j1 + 0];
+-                    double d4 = this.t[((l + 1) * 5 + i1 + 1) * 17 + j1 + 0];
+-                    double d5 = (this.t[((l + 0) * 5 + i1 + 0) * 17 + j1 + 1] - d1) * 0.125D;
+-                    double d6 = (this.t[((l + 0) * 5 + i1 + 1) * 17 + j1 + 1] - d2) * 0.125D;
+-                    double d7 = (this.t[((l + 1) * 5 + i1 + 0) * 17 + j1 + 1] - d3) * 0.125D;
+-                    double d8 = (this.t[((l + 1) * 5 + i1 + 1) * 17 + j1 + 1] - d4) * 0.125D;
++                    // 2p2t start - async chunk gen
++                    double d1 = this.t.get()[((l + 0) * 5 + i1 + 0) * 17 + j1 + 0];
++                    double d2 = this.t.get()[((l + 0) * 5 + i1 + 1) * 17 + j1 + 0];
++                    double d3 = this.t.get()[((l + 1) * 5 + i1 + 0) * 17 + j1 + 0];
++                    double d4 = this.t.get()[((l + 1) * 5 + i1 + 1) * 17 + j1 + 0];
++                    double d5 = (this.t.get()[((l + 0) * 5 + i1 + 0) * 17 + j1 + 1] - d1) * 0.125D;
++                    double d6 = (this.t.get()[((l + 0) * 5 + i1 + 1) * 17 + j1 + 1] - d2) * 0.125D;
++                    double d7 = (this.t.get()[((l + 1) * 5 + i1 + 0) * 17 + j1 + 1] - d3) * 0.125D;
++                    double d8 = (this.t.get()[((l + 1) * 5 + i1 + 1) * 17 + j1 + 1] - d4) * 0.125D;
++                    // 2p2t end - async chunk gen
+ 
+                     for (int k1 = 0; k1 < 8; ++k1) {
+                         double d9 = 0.25D;
+@@ -133,27 +141,33 @@ public class ChunkProviderHell implements ChunkGenerator {
+ 
+     }
+ 
+-    public void b(int i, int j, ChunkSnapshot chunksnapshot) {
++    public void b(int i, int j, ChunkSnapshot chunksnapshot, Random random) { // 2p2t - add random to parameter
+         int k = this.n.getSeaLevel() + 1;
+         double d0 = 0.03125D;
+ 
+-        this.q = this.x.a(this.q, i * 16, j * 16, 0, 16, 16, 1, 0.03125D, 0.03125D, 1.0D);
+-        this.r = this.x.a(this.r, i * 16, 109, j * 16, 16, 1, 16, 0.03125D, 1.0D, 0.03125D);
+-        this.s = this.y.a(this.s, i * 16, j * 16, 0, 16, 16, 1, 0.0625D, 0.0625D, 0.0625D);
++        // 2p2t start - async chunk gen
++        this.q.set(this.x.a(this.q.get(), i * 16, j * 16, 0, 16, 16, 1, 0.03125D, 0.03125D, 1.0D));
++        this.r.set(this.x.a(this.r.get(), i * 16, 109, j * 16, 16, 1, 16, 0.03125D, 1.0D, 0.03125D));
++        this.s.set(this.y.a(this.s.get(), i * 16, j * 16, 0, 16, 16, 1, 0.0625D, 0.0625D, 0.0625D));
++        // 2p2t end - async chunk gen
+ 
+         for (int l = 0; l < 16; ++l) {
+             for (int i1 = 0; i1 < 16; ++i1) {
+-                boolean flag = this.q[l + i1 * 16] + this.p.nextDouble() * 0.2D > 0.0D;
+-                boolean flag1 = this.r[l + i1 * 16] + this.p.nextDouble() * 0.2D > 0.0D;
+-                int j1 = (int) (this.s[l + i1 * 16] / 3.0D + 3.0D + this.p.nextDouble() * 0.25D);
++                // 2p2t start - async chunk gen
++                boolean flag = this.q.get()[l + i1 * 16] + random.nextDouble() * 0.2D > 0.0D;
++                boolean flag1 = this.r.get()[l + i1 * 16] + random.nextDouble() * 0.2D > 0.0D;
++                int j1 = (int) (this.s.get()[l + i1 * 16] / 3.0D + 3.0D + random.nextDouble() * 0.25D);
++                // 2p2t end - async chunk gen
+                 int k1 = -1;
+                 IBlockData iblockdata = ChunkProviderHell.b;
+                 IBlockData iblockdata1 = ChunkProviderHell.b;
+ 
+                 for (int l1 = 127; l1 >= 0; --l1) {
+                     // Paper start - Configurable flat bedrock worldgen
+-                    if (l1 < 127 - (n.paperConfig.generateFlatBedrock ? 0 : this.p.nextInt(5)) &&
+-                            l1 > (n.paperConfig.generateFlatBedrock ? 0 : this.p.nextInt(5))) {
++                    // 2p2t start - async chunk gen
++                    if (l1 < 127 - (n.paperConfig.generateFlatBedrock ? 0 : random.nextInt(5)) &&
++                            l1 > (n.paperConfig.generateFlatBedrock ? 0 : random.nextInt(5))) {
++                        // 2p2t end - async chunk gen
+                         // Paper end
+                         IBlockData iblockdata2 = chunksnapshot.a(i1, l1, l);
+ 
+@@ -205,11 +219,14 @@ public class ChunkProviderHell implements ChunkGenerator {
+     }
+ 
+     public Chunk getOrCreateChunk(int i, int j) {
+-        this.p.setSeed((long) i * 341873128712L + (long) j * 132897987541L);
++        // 2p2t start - async chunk gen
++        Random random = new Random();
++        random.setSeed((long) i * 341873128712L + (long) j * 132897987541L);
++        // 2p2t end - async chunk gen
+         ChunkSnapshot chunksnapshot = new ChunkSnapshot();
+ 
+         this.a(i, j, chunksnapshot);
+-        this.b(i, j, chunksnapshot);
++        this.b(i, j, chunksnapshot, random); // 2p2t - async chunk gen
+         this.J.a(this.n, i, j, chunksnapshot);
+         if (this.o) {
+             this.I.a(this.n, i, j, chunksnapshot);
+@@ -235,11 +252,13 @@ public class ChunkProviderHell implements ChunkGenerator {
+         double d0 = 684.412D;
+         double d1 = 2053.236D;
+ 
+-        this.l = this.g.a(this.l, i, j, k, l, 1, j1, 1.0D, 0.0D, 1.0D);
+-        this.m = this.h.a(this.m, i, j, k, l, 1, j1, 100.0D, 0.0D, 100.0D);
+-        this.i = this.w.a(this.i, i, j, k, l, i1, j1, 8.555150000000001D, 34.2206D, 8.555150000000001D);
+-        this.j = this.u.a(this.j, i, j, k, l, i1, j1, 684.412D, 2053.236D, 684.412D);
+-        this.k = this.v.a(this.k, i, j, k, l, i1, j1, 684.412D, 2053.236D, 684.412D);
++        // 2p2t start - async chunk gen
++        this.l.set(this.g.a(this.l.get(), i, j, k, l, 1, j1, 1.0D, 0.0D, 1.0D));
++        this.m.set(this.h.a(this.m.get(), i, j, k, l, 1, j1, 100.0D, 0.0D, 100.0D));
++        this.i.set(this.w.a(this.i.get(), i, j, k, l, i1, j1, 8.555150000000001D, 34.2206D, 8.555150000000001D));
++        this.j.set(this.u.a(this.j.get(), i, j, k, l, i1, j1, 684.412D, 2053.236D, 684.412D));
++        this.k.set(this.v.a(this.k.get(), i, j, k, l, i1, j1, 684.412D, 2053.236D, 684.412D));
++        // 2p2t end - async chunk gen
+         int k1 = 0;
+         double[] adouble1 = new double[i1];
+ 
+@@ -265,9 +284,11 @@ public class ChunkProviderHell implements ChunkGenerator {
+ 
+                 for (int j2 = 0; j2 < i1; ++j2) {
+                     double d4 = adouble1[j2];
+-                    double d5 = this.j[k1] / 512.0D;
+-                    double d6 = this.k[k1] / 512.0D;
+-                    double d7 = (this.i[k1] / 10.0D + 1.0D) / 2.0D;
++                    // 2p2t start
++                    double d5 = this.j.get()[k1] / 512.0D;
++                    double d6 = this.k.get()[k1] / 512.0D;
++                    double d7 = (this.i.get()[k1] / 10.0D + 1.0D) / 2.0D;
++                    // 2p2t end
+                     double d8;
+ 
+                     if (d7 < 0.0D) {
+@@ -309,36 +330,44 @@ public class ChunkProviderHell implements ChunkGenerator {
+         BiomeBase biomebase = this.n.getBiome(blockposition.a(16, 0, 16));
+         ChunkCoordIntPair chunkcoordintpair = new ChunkCoordIntPair(i, j);
+ 
+-        this.I.a(this.n, this.p, chunkcoordintpair);
++        this.I.a(this.n, this.p.get(), chunkcoordintpair); // 2p2t - async chunk gen
+ 
+         int i1;
+ 
+         for (i1 = 0; i1 < 8; ++i1) {
+-            this.F.generate(this.n, this.p, blockposition.a(this.p.nextInt(16) + 8, this.p.nextInt(120) + 4, this.p.nextInt(16) + 8));
++            this.F.generate(this.n, this.p.get(), blockposition.a(this.p.get().nextInt(16) + 8, this.p.get().nextInt(120) + 4, this.p.get().nextInt(16) + 8)); // 2p2t - async chunk gen
+         }
+ 
+-        for (i1 = 0; i1 < this.p.nextInt(this.p.nextInt(10) + 1) + 1; ++i1) {
+-            this.z.generate(this.n, this.p, blockposition.a(this.p.nextInt(16) + 8, this.p.nextInt(120) + 4, this.p.nextInt(16) + 8));
++        // 2p2t start - async chunk gen
++        for (i1 = 0; i1 < this.p.get().nextInt(this.p.get().nextInt(10) + 1) + 1; ++i1) {
++            this.z.generate(this.n, this.p.get(), blockposition.a(this.p.get().nextInt(16) + 8, this.p.get().nextInt(120) + 4, this.p.get().nextInt(16) + 8));
++            // 2p2t end - async chunk gen
+         }
+ 
+-        for (i1 = 0; i1 < this.p.nextInt(this.p.nextInt(10) + 1); ++i1) {
+-            this.A.generate(this.n, this.p, blockposition.a(this.p.nextInt(16) + 8, this.p.nextInt(120) + 4, this.p.nextInt(16) + 8));
++        // 2p2t start - async chunk gen
++        for (i1 = 0; i1 < this.p.get().nextInt(this.p.get().nextInt(10) + 1); ++i1) {
++            this.A.generate(this.n, this.p.get(), blockposition.a(this.p.get().nextInt(16) + 8, this.p.get().nextInt(120) + 4, this.p.get().nextInt(16) + 8));
++            // 2p2t end - async chunk gen
+         }
+ 
+         for (i1 = 0; i1 < 10; ++i1) {
+-            this.B.generate(this.n, this.p, blockposition.a(this.p.nextInt(16) + 8, this.p.nextInt(128), this.p.nextInt(16) + 8));
++            this.B.generate(this.n, this.p.get(), blockposition.a(this.p.get().nextInt(16) + 8, this.p.get().nextInt(128), this.p.get().nextInt(16) + 8)); // 2p2t - async chunk gen
+         }
+ 
+-        if (this.p.nextBoolean()) {
+-            this.G.generate(this.n, this.p, blockposition.a(this.p.nextInt(16) + 8, this.p.nextInt(128), this.p.nextInt(16) + 8));
++        // 2p2t start - async chunk gen
++        if (this.p.get().nextBoolean()) {
++            this.G.generate(this.n, this.p.get(), blockposition.a(this.p.get().nextInt(16) + 8, this.p.get().nextInt(128), this.p.get().nextInt(16) + 8));
++            // 2p2t end - async chunk gen
+         }
+ 
+-        if (this.p.nextBoolean()) {
+-            this.H.generate(this.n, this.p, blockposition.a(this.p.nextInt(16) + 8, this.p.nextInt(128), this.p.nextInt(16) + 8));
++        // 2p2t start - async chunk gen
++        if (this.p.get().nextBoolean()) {
++            this.H.generate(this.n, this.p.get(), blockposition.a(this.p.get().nextInt(16) + 8, this.p.get().nextInt(128), this.p.get().nextInt(16) + 8));
++            // 2p2t end - async chunk gen
+         }
+ 
+         for (i1 = 0; i1 < 16; ++i1) {
+-            this.C.generate(this.n, this.p, blockposition.a(this.p.nextInt(16), this.p.nextInt(108) + 10, this.p.nextInt(16)));
++            this.C.generate(this.n, this.p.get(), blockposition.a(this.p.get().nextInt(16), this.p.get().nextInt(108) + 10, this.p.get().nextInt(16))); // 2p2t - async chunk gen
+         }
+ 
+         i1 = this.n.getSeaLevel() / 2 + 1;
+@@ -346,14 +375,14 @@ public class ChunkProviderHell implements ChunkGenerator {
+         int j1;
+ 
+         for (j1 = 0; j1 < 4; ++j1) {
+-            this.D.generate(this.n, this.p, blockposition.a(this.p.nextInt(16), i1 - 5 + this.p.nextInt(10), this.p.nextInt(16)));
++            this.D.generate(this.n, this.p.get(), blockposition.a(this.p.get().nextInt(16), i1 - 5 + this.p.get().nextInt(10), this.p.get().nextInt(16))); // 2p2t - async chunk gen
+         }
+ 
+         for (j1 = 0; j1 < 16; ++j1) {
+-            this.E.generate(this.n, this.p, blockposition.a(this.p.nextInt(16), this.p.nextInt(108) + 10, this.p.nextInt(16)));
++            this.E.generate(this.n, this.p.get(), blockposition.a(this.p.get().nextInt(16), this.p.get().nextInt(108) + 10, this.p.get().nextInt(16))); // 2p2t - async chunk gen
+         }
+ 
+-        biomebase.a(this.n, this.p, new BlockPosition(k, 0, l));
++        biomebase.a(this.n, this.p.get(), new BlockPosition(k, 0, l)); // 2p2t - async chunk gen
+         BlockFalling.instaFall = false;
+     }
+ 
+diff --git a/src/main/java/net/minecraft/server/ChunkProviderServer.java b/src/main/java/net/minecraft/server/ChunkProviderServer.java
+index ad5485908d3795e73f5fa13c0d553b7fde17c189..b3c017f413f41a804c8815a0e79e3255fc8cb397 100644
+--- a/src/main/java/net/minecraft/server/ChunkProviderServer.java
++++ b/src/main/java/net/minecraft/server/ChunkProviderServer.java
+@@ -1,13 +1,9 @@
+ package net.minecraft.server;
+ 
+-import com.destroystokyo.paper.PaperConfig;
+-import com.google.common.collect.Lists;
+ import com.google.common.collect.Sets;
+-import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
+ import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
+ import it.unimi.dsi.fastutil.objects.ObjectIterator;
+ import java.io.IOException;
+-import java.util.ArrayList;
+ import java.util.Collection;
+ import java.util.Iterator;
+ import java.util.List;
+@@ -20,6 +16,7 @@ import org.apache.logging.log4j.Logger;
+ // CraftBukkit start
+ import org.bukkit.craftbukkit.chunkio.ChunkIOExecutor;
+ import org.bukkit.event.world.ChunkUnloadEvent;
++import xyz.acrylicstyle.paper.The2p2tConfig;
+ // CraftBukkit end
+ 
+ public class ChunkProviderServer implements IChunkProvider {
+@@ -39,8 +36,11 @@ public class ChunkProviderServer implements IChunkProvider {
+ 
+         @Override
+         public Chunk get(long key) {
+-            if (lastChunkByPos != null && key == lastChunkByPos.chunkKey) {
+-                return lastChunkByPos;
++            // 2p2t start
++            Chunk last = lastChunkByPos;
++            if (last != null && key == last.chunkKey) {
++                return last;
++                // 2p2t end
+             }
+             return lastChunkByPos = super.get(key);
+         }
+@@ -153,7 +153,15 @@ public class ChunkProviderServer implements IChunkProvider {
+         return getChunkAt(i, j, runnable, true);
+     }
+ 
++    private static final java.util.concurrent.ExecutorService executor = java.util.concurrent.Executors.newFixedThreadPool(The2p2tConfig.maxChunkGenThreads); // 2p2t
++
+     public Chunk getChunkAt(int i, int j, Runnable runnable, boolean generate) {
++        // 2p2t start
++        return getChunkAt(i, j, runnable, generate, false);
++    }
++
++    public Chunk getChunkAt(int i, int j, Runnable runnable, boolean generate, boolean immediate) {
++        // 2p2t end
+         Chunk chunk = world.paperConfig.allowPermaChunkLoaders ? getLoadedChunkAt(i, j) : getChunkIfLoaded(i, j); // Paper - Configurable perma chunk loaders
+         ChunkRegionLoader loader = null;
+ 
+@@ -167,7 +175,10 @@ public class ChunkProviderServer implements IChunkProvider {
+                 ChunkIOExecutor.queueChunkLoad(world, loader, this, i, j, runnable);
+                 return null;
+             } else {
+-                chunk = ChunkIOExecutor.syncChunkLoad(world, loader, this, i, j);
++                // 2p2t start
++                ChunkRegionLoader finalLoader = loader;
++                chunk = MCUtil.runOnMain(() -> ChunkIOExecutor.syncChunkLoad(world, finalLoader, this, i, j));
++                // 2p2t end
+ 
+                 // Paper start - If there was an issue loading the chunk from region, stage1 will fail and stage2 will load it sync
+                 // all we need to do is fetch an instance
+@@ -177,7 +188,19 @@ public class ChunkProviderServer implements IChunkProvider {
+                 // Paper end
+             }
+         } else if (chunk == null && generate) {
+-            chunk = originalGetChunkAt(i, j);
++            // 2p2t start - async chunk gen
++            if (immediate || The2p2tConfig.maxChunkGenThreads <= 0) {
++                chunk = originalGetChunkAt(i, j);
++            } else {
++                executor.submit(() -> {
++                    Chunk c = originalGetChunkAt(i, j);
++                    if (runnable != null) {
++                        runnable.run();
++                    }
++                });
++                return null;
++            }
++            // 2p2t end - async chunk gen
+         }
+ 
+         // If we didn't load the chunk async and have a callback run it now
+@@ -208,9 +231,14 @@ public class ChunkProviderServer implements IChunkProvider {
+                 throw new ReportedException(crashreport);
+             }
+ 
+-            this.chunks.put(k, chunk);
+-            chunk.addEntities();
+-            chunk.loadNearby(this, this.chunkGenerator, true); // CraftBukkit
++            // 2p2t start
++            Chunk finalChunk = chunk;
++            world.getMinecraftServer().postToMainThread(() -> {
++                this.chunks.put(k, finalChunk);
++                finalChunk.addEntities();
++                finalChunk.loadNearby(this, this.chunkGenerator, true); // CraftBukkit
++            });
++            // 2p2t end
+             world.timings.syncChunkLoadTimer.stopTiming(); // Spigot
+         }
+ 
+@@ -306,7 +334,12 @@ public class ChunkProviderServer implements IChunkProvider {
+         // Paper end
+         Iterator iterator = this.chunks.values().iterator();
+         while (iterator.hasNext()) {
+-            Chunk chunk = (Chunk) iterator.next();
++            // 2p2t start
++            Chunk chunk;
++            try {
++                chunk = (Chunk) iterator.next();
++            } catch (NullPointerException ex) { continue; }
++            //2p2t end
+             // CraftBukkit end
+ 
+             if (flag) {
+diff --git a/src/main/java/net/minecraft/server/ChunkProviderTheEnd.java b/src/main/java/net/minecraft/server/ChunkProviderTheEnd.java
+index 99e9975b23b6e6fe8c6b0c4c878dba1e3a97a6be..fdc18b599218e2656e4f9abd7c1fb21ecff6aa45 100644
+--- a/src/main/java/net/minecraft/server/ChunkProviderTheEnd.java
++++ b/src/main/java/net/minecraft/server/ChunkProviderTheEnd.java
+@@ -6,7 +6,7 @@ import javax.annotation.Nullable;
+ 
+ public class ChunkProviderTheEnd implements ChunkGenerator {
+ 
+-    private final Random h;
++    private final ThreadLocal<Random> h; // 2p2t - async chunk gen
+     protected static final IBlockData a = Blocks.END_STONE.getBlockData();
+     protected static final IBlockData b = Blocks.AIR.getBlockData();
+     private final NoiseGeneratorOctaves i;
+@@ -19,24 +19,28 @@ public class ChunkProviderTheEnd implements ChunkGenerator {
+     private final BlockPosition n;
+     private final WorldGenEndCity o = new WorldGenEndCity(this);
+     private final NoiseGenerator3Handler p;
+-    private double[] q;
+-    private BiomeBase[] r;
+-    double[] e;
+-    double[] f;
+-    double[] g;
++    // 2p2t start - async chunk gen
++    private ThreadLocal<double[]> q = new ThreadLocal<>();
++    private ThreadLocal<BiomeBase[]> r = new ThreadLocal<>();
++    ThreadLocal<double[]> e = new ThreadLocal<>();
++    ThreadLocal<double[]> f = new ThreadLocal<>();
++    ThreadLocal<double[]> g = new ThreadLocal<>();
++    // 2p2t end - async chunk gen
+     private final WorldGenEndIsland s = new WorldGenEndIsland();
+ 
+     public ChunkProviderTheEnd(World world, boolean flag, long i, BlockPosition blockposition) {
+         this.l = world;
+         this.m = flag;
+         this.n = blockposition;
+-        this.h = new Random(i);
+-        this.i = new NoiseGeneratorOctaves(this.h, 16);
+-        this.j = new NoiseGeneratorOctaves(this.h, 16);
+-        this.k = new NoiseGeneratorOctaves(this.h, 8);
+-        this.c = new NoiseGeneratorOctaves(this.h, 10);
+-        this.d = new NoiseGeneratorOctaves(this.h, 16);
+-        this.p = new NoiseGenerator3Handler(this.h);
++        // 2p2t start - async chunk gen
++        this.h = ThreadLocal.withInitial(() -> new Random(i));
++        this.i = new NoiseGeneratorOctaves(this.h.get(), 16);
++        this.j = new NoiseGeneratorOctaves(this.h.get(), 16);
++        this.k = new NoiseGeneratorOctaves(this.h.get(), 8);
++        this.c = new NoiseGeneratorOctaves(this.h.get(), 10);
++        this.d = new NoiseGeneratorOctaves(this.h.get(), 16);
++        this.p = new NoiseGenerator3Handler(this.h.get());
++        // 2p2t end - async chunk gen
+     }
+ 
+     public void a(int i, int j, ChunkSnapshot chunksnapshot) {
+@@ -45,20 +49,22 @@ public class ChunkProviderTheEnd implements ChunkGenerator {
+         boolean flag2 = true;
+         boolean flag3 = true;
+ 
+-        this.q = this.a(this.q, i * 2, 0, j * 2, 3, 33, 3);
++        this.q.set(this.a(this.q.get(), i * 2, 0, j * 2, 3, 33, 3)); // 2p2t
+ 
+         for (int k = 0; k < 2; ++k) {
+             for (int l = 0; l < 2; ++l) {
+                 for (int i1 = 0; i1 < 32; ++i1) {
+                     double d0 = 0.25D;
+-                    double d1 = this.q[((k + 0) * 3 + l + 0) * 33 + i1 + 0];
+-                    double d2 = this.q[((k + 0) * 3 + l + 1) * 33 + i1 + 0];
+-                    double d3 = this.q[((k + 1) * 3 + l + 0) * 33 + i1 + 0];
+-                    double d4 = this.q[((k + 1) * 3 + l + 1) * 33 + i1 + 0];
+-                    double d5 = (this.q[((k + 0) * 3 + l + 0) * 33 + i1 + 1] - d1) * 0.25D;
+-                    double d6 = (this.q[((k + 0) * 3 + l + 1) * 33 + i1 + 1] - d2) * 0.25D;
+-                    double d7 = (this.q[((k + 1) * 3 + l + 0) * 33 + i1 + 1] - d3) * 0.25D;
+-                    double d8 = (this.q[((k + 1) * 3 + l + 1) * 33 + i1 + 1] - d4) * 0.25D;
++                    // 2p2t start
++                    double d1 = this.q.get()[((k + 0) * 3 + l + 0) * 33 + i1 + 0];
++                    double d2 = this.q.get()[((k + 0) * 3 + l + 1) * 33 + i1 + 0];
++                    double d3 = this.q.get()[((k + 1) * 3 + l + 0) * 33 + i1 + 0];
++                    double d4 = this.q.get()[((k + 1) * 3 + l + 1) * 33 + i1 + 0];
++                    double d5 = (this.q.get()[((k + 0) * 3 + l + 0) * 33 + i1 + 1] - d1) * 0.25D;
++                    double d6 = (this.q.get()[((k + 0) * 3 + l + 1) * 33 + i1 + 1] - d2) * 0.25D;
++                    double d7 = (this.q.get()[((k + 1) * 3 + l + 0) * 33 + i1 + 1] - d3) * 0.25D;
++                    double d8 = (this.q.get()[((k + 1) * 3 + l + 1) * 33 + i1 + 1] - d4) * 0.25D;
++                    // 2p2t end
+ 
+                     for (int j1 = 0; j1 < 4; ++j1) {
+                         double d9 = 0.125D;
+@@ -135,10 +141,10 @@ public class ChunkProviderTheEnd implements ChunkGenerator {
+     }
+ 
+     public Chunk getOrCreateChunk(int i, int j) {
+-        this.h.setSeed((long) i * 341873128712L + (long) j * 132897987541L);
++        this.h.get().setSeed((long) i * 341873128712L + (long) j * 132897987541L); // 2p2t
+         ChunkSnapshot chunksnapshot = new ChunkSnapshot();
+ 
+-        this.r = this.l.getWorldChunkManager().getBiomeBlock(this.r, i * 16, j * 16, 16, 16);
++        this.r.set(this.l.getWorldChunkManager().getBiomeBlock(this.r.get(), i * 16, j * 16, 16, 16)); // 2p2t
+         this.a(i, j, chunksnapshot);
+         this.a(chunksnapshot);
+         if (this.m) {
+@@ -149,7 +155,7 @@ public class ChunkProviderTheEnd implements ChunkGenerator {
+         byte[] abyte = chunk.getBiomeIndex();
+ 
+         for (int k = 0; k < abyte.length; ++k) {
+-            abyte[k] = (byte) BiomeBase.a(this.r[k]);
++            abyte[k] = (byte) BiomeBase.a(this.r.get()[k]); // 2p2t
+         }
+ 
+         chunk.initLighting();
+@@ -212,9 +218,11 @@ public class ChunkProviderTheEnd implements ChunkGenerator {
+         double d1 = 684.412D;
+ 
+         d0 *= 2.0D;
+-        this.e = this.k.a(this.e, i, j, k, l, i1, j1, d0 / 80.0D, 4.277575000000001D, d0 / 80.0D);
+-        this.f = this.i.a(this.f, i, j, k, l, i1, j1, d0, 684.412D, d0);
+-        this.g = this.j.a(this.g, i, j, k, l, i1, j1, d0, 684.412D, d0);
++        // 2p2t start
++        this.e.set(this.k.a(this.e.get(), i, j, k, l, i1, j1, d0 / 80.0D, 4.277575000000001D, d0 / 80.0D));
++        this.f.set(this.i.a(this.f.get(), i, j, k, l, i1, j1, d0, 684.412D, d0));
++        this.g.set(this.j.a(this.g.get(), i, j, k, l, i1, j1, d0, 684.412D, d0));
++        // 2p2t end
+         int k1 = i / 2;
+         int l1 = k / 2;
+         int i2 = 0;
+@@ -224,9 +232,11 @@ public class ChunkProviderTheEnd implements ChunkGenerator {
+                 float f = this.a(k1, l1, j2, k2);
+ 
+                 for (int l2 = 0; l2 < i1; ++l2) {
+-                    double d2 = this.f[i2] / 512.0D;
+-                    double d3 = this.g[i2] / 512.0D;
+-                    double d4 = (this.e[i2] / 10.0D + 1.0D) / 2.0D;
++                    // 2p2t start
++                    double d2 = this.f.get()[i2] / 512.0D;
++                    double d3 = this.g.get()[i2] / 512.0D;
++                    double d4 = (this.e.get()[i2] / 10.0D + 1.0D) / 2.0D;
++                    // 2p2t end
+                     double d5;
+ 
+                     if (d4 < 0.0D) {
+@@ -268,7 +278,7 @@ public class ChunkProviderTheEnd implements ChunkGenerator {
+         BlockPosition blockposition = new BlockPosition(i * 16, 0, j * 16);
+ 
+         if (this.m) {
+-            this.o.a(this.l, this.h, new ChunkCoordIntPair(i, j));
++            this.o.a(this.l, this.h.get(), new ChunkCoordIntPair(i, j)); // 2p2t
+         }
+ 
+         this.l.getBiome(blockposition.a(16, 0, 16)).a(this.l, this.l.random, blockposition);
+@@ -277,15 +287,17 @@ public class ChunkProviderTheEnd implements ChunkGenerator {
+         if (k > 4096L) {
+             float f = this.a(i, j, 1, 1);
+ 
+-            if (f < -20.0F && this.h.nextInt(14) == 0) {
+-                this.s.generate(this.l, this.h, blockposition.a(this.h.nextInt(16) + 8, 55 + this.h.nextInt(16), this.h.nextInt(16) + 8));
+-                if (this.h.nextInt(4) == 0) {
+-                    this.s.generate(this.l, this.h, blockposition.a(this.h.nextInt(16) + 8, 55 + this.h.nextInt(16), this.h.nextInt(16) + 8));
++            // 2p2t start
++            if (f < -20.0F && this.h.get().nextInt(14) == 0) {
++                this.s.generate(this.l, this.h.get(), blockposition.a(this.h.get().nextInt(16) + 8, 55 + this.h.get().nextInt(16), this.h.get().nextInt(16) + 8));
++                if (this.h.get().nextInt(4) == 0) {
++                    this.s.generate(this.l, this.h.get(), blockposition.a(this.h.get().nextInt(16) + 8, 55 + this.h.get().nextInt(16), this.h.get().nextInt(16) + 8));
++                    // 2p2t end
+                 }
+             }
+ 
+             if (this.a(i, j, 1, 1) > 40.0F) {
+-                int l = this.h.nextInt(5);
++                int l = this.h.get().nextInt(5); // 2p2t
+ 
+                 int i1;
+                 int j1;
+@@ -293,27 +305,31 @@ public class ChunkProviderTheEnd implements ChunkGenerator {
+                 int l1;
+ 
+                 for (i1 = 0; i1 < l; ++i1) {
+-                    j1 = this.h.nextInt(16) + 8;
+-                    k1 = this.h.nextInt(16) + 8;
++                    // 2p2t start
++                    j1 = this.h.get().nextInt(16) + 8;
++                    k1 = this.h.get().nextInt(16) + 8;
++                    // 2p2t end
+                     l1 = this.l.getHighestBlockYAt(blockposition.a(j1, 0, k1)).getY();
+                     if (l1 > 0) {
+                         int i2 = l1 - 1;
+ 
+                         if (this.l.isEmpty(blockposition.a(j1, i2 + 1, k1)) && this.l.getType(blockposition.a(j1, i2, k1)).getBlock() == Blocks.END_STONE) {
+-                            BlockChorusFlower.a(this.l, blockposition.a(j1, i2 + 1, k1), this.h, 8);
++                            BlockChorusFlower.a(this.l, blockposition.a(j1, i2 + 1, k1), this.h.get(), 8);
+                         }
+                     }
+                 }
+ 
+-                if (this.h.nextInt(700) == 0) {
+-                    i1 = this.h.nextInt(16) + 8;
+-                    j1 = this.h.nextInt(16) + 8;
++                // 2p2t start
++                if (this.h.get().nextInt(700) == 0) {
++                    i1 = this.h.get().nextInt(16) + 8;
++                    j1 = this.h.get().nextInt(16) + 8;
++                    // 2p2t end
+                     k1 = this.l.getHighestBlockYAt(blockposition.a(i1, 0, j1)).getY();
+                     if (k1 > 0) {
+-                        l1 = k1 + 3 + this.h.nextInt(7);
++                        l1 = k1 + 3 + this.h.get().nextInt(7); // 2p2t
+                         BlockPosition blockposition1 = blockposition.a(i1, l1, j1);
+ 
+-                        (new WorldGenEndGateway()).generate(this.l, this.h, blockposition1);
++                        (new WorldGenEndGateway()).generate(this.l, this.h.get(), blockposition1); // 2p2t
+                         TileEntity tileentity = this.l.getTileEntity(blockposition1);
+ 
+                         if (tileentity instanceof TileEntityEndGateway) {
+diff --git a/src/main/java/net/minecraft/server/DedicatedServer.java b/src/main/java/net/minecraft/server/DedicatedServer.java
+index 6ee1731ea36dbfca252a68ba0c0b35084149ce65..4f368c65c7ee4d5573918ee3461301f1cef9c044 100644
+--- a/src/main/java/net/minecraft/server/DedicatedServer.java
++++ b/src/main/java/net/minecraft/server/DedicatedServer.java
+@@ -1,18 +1,13 @@
+ package net.minecraft.server;
+ 
+-import com.google.common.collect.Lists;
+ import com.mojang.authlib.GameProfileRepository;
+ import com.mojang.authlib.minecraft.MinecraftSessionService;
+ import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
+-import java.io.BufferedReader;
++
+ import java.io.File;
+ import java.io.IOException;
+-import java.io.InputStreamReader;
+ import java.net.InetAddress;
+ import java.net.Proxy;
+-import java.nio.charset.StandardCharsets;
+-import java.util.Collections;
+-import java.util.List;
+ import java.util.Random;
+ import java.util.concurrent.TimeUnit;
+ import java.util.regex.Pattern;
+@@ -20,14 +15,13 @@ import org.apache.logging.log4j.LogManager;
+ import org.apache.logging.log4j.Logger;
+ 
+ // CraftBukkit start
+-import java.io.PrintStream;
+ import org.apache.logging.log4j.Level;
+ 
+-import org.bukkit.craftbukkit.LoggerOutputStream;
+ import co.aikar.timings.MinecraftTimings; // Paper
+ import org.bukkit.event.server.ServerCommandEvent;
+ import org.bukkit.craftbukkit.util.Waitable;
+ import org.bukkit.event.server.RemoteServerCommandEvent;
++import xyz.acrylicstyle.paper.The2p2tConfig;
+ // CraftBukkit end
+ 
+ public class DedicatedServer extends MinecraftServer implements IMinecraftServer {
+@@ -201,6 +195,7 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
+             com.destroystokyo.paper.PaperConfig.registerCommands();
+             com.destroystokyo.paper.VersionHistoryManager.INSTANCE.getClass(); // load version history now
+             // Paper end
++            The2p2tConfig.init((File) options.valueOf("2p2t-settings")); // 2p2t
+ 
+             DedicatedServer.LOGGER.info("Generating keypair");
+             this.a(MinecraftEncryption.b());
+diff --git a/src/main/java/net/minecraft/server/EntityTracker.java b/src/main/java/net/minecraft/server/EntityTracker.java
+index a60f9460855931755568ae41de104edf32a81762..e9cb317e17078cefd84e6fda2093b9d9e126598c 100644
+--- a/src/main/java/net/minecraft/server/EntityTracker.java
++++ b/src/main/java/net/minecraft/server/EntityTracker.java
+@@ -12,7 +12,7 @@ public class EntityTracker {
+ 
+     private static final Logger a = LogManager.getLogger();
+     private final WorldServer world;
+-    private final Set<EntityTrackerEntry> c = Sets.newHashSet();
++    private final Set<EntityTrackerEntry> c = Sets.newConcurrentHashSet(); // 2p2t - use ConcurrentHashSet
+     public final IntHashMap<EntityTrackerEntry> trackedEntities = new IntHashMap();
+     private int e;
+ 
+diff --git a/src/main/java/net/minecraft/server/MCUtil.java b/src/main/java/net/minecraft/server/MCUtil.java
+index 4539b56012ee2ffcfcce86212f609341e76a9887..b2cb402afc97291bf19d43e4cc156f5ad067c98e 100644
+--- a/src/main/java/net/minecraft/server/MCUtil.java
++++ b/src/main/java/net/minecraft/server/MCUtil.java
+@@ -69,6 +69,27 @@ public final class MCUtil {
+         return run.get();
+     }
+ 
++    // 2p2t start
++    public static <T> T runOnMain(Supplier<T> run) {
++        if (AsyncCatcher.enabled && Thread.currentThread() != MinecraftServer.getServer().primaryThread) {
++            Waitable<T> wait = new Waitable<T>() {
++                @Override
++                protected T evaluate() {
++                    return run.get();
++                }
++            };
++            MinecraftServer.getServer().processQueue.add(wait);
++            try {
++                return wait.get();
++            } catch (InterruptedException | ExecutionException e) {
++                e.printStackTrace();
++            }
++            return null;
++        }
++        return run.get();
++    }
++    // 2p2t end
++
+     public static PlayerProfile toBukkit(GameProfile profile) {
+         return CraftPlayerProfile.asBukkitMirror(profile);
+     }
+diff --git a/src/main/java/net/minecraft/server/MinecraftServer.java b/src/main/java/net/minecraft/server/MinecraftServer.java
+index 0c1769f5a3813c2652ac06abfaaf514b937c78e7..1cc71e3dc5eeba7d5c57a3778ef313b25f0b8253 100644
+--- a/src/main/java/net/minecraft/server/MinecraftServer.java
++++ b/src/main/java/net/minecraft/server/MinecraftServer.java
+@@ -168,6 +168,13 @@ public abstract class MinecraftServer implements ICommandListener, Runnable, IAs
+         Runtime.getRuntime().addShutdownHook(new org.bukkit.craftbukkit.util.ServerShutdownThread(this));
+ 
+         this.serverThread = primaryThread = new Thread(this, "Server thread"); // Moved from main
++        // 2p2t start
++        this.serverThread.setUncaughtExceptionHandler((t, e) -> {
++            System.gc();
++            System.err.println("Caught fatal exception on " + t.getName() + ":");
++            e.printStackTrace();
++        });
++        // 2p2t end
+     }
+ 
+     public abstract PropertyManager getPropertyManager();
+diff --git a/src/main/java/net/minecraft/server/PacketPlayOutMapChunk.java b/src/main/java/net/minecraft/server/PacketPlayOutMapChunk.java
+index 4fe7c9956533bac5036c6499daa3a8ddd82d788b..b40d77571bff312fad91c2c5980e4c23deecd993 100644
+--- a/src/main/java/net/minecraft/server/PacketPlayOutMapChunk.java
++++ b/src/main/java/net/minecraft/server/PacketPlayOutMapChunk.java
+@@ -42,7 +42,7 @@ public class PacketPlayOutMapChunk implements Packet<PacketListenerPlayOut> {
+         this.f = i == '\uffff';
+         boolean flag = chunk.getWorld().worldProvider.m();
+ 
+-        this.d = new byte[this.a(chunk, flag, i)];
++        this.d = new byte[this.a(chunk, flag, i) + 100]; // 2p2t
+ 
+         // Paper start - Anti-Xray - Add chunk packet info
+         if (packetPlayOutMapChunkInfo != null) {
+diff --git a/src/main/java/net/minecraft/server/PlayerChunkMap.java b/src/main/java/net/minecraft/server/PlayerChunkMap.java
+index 99652ae3ed9fffe9a2a8310465b948d504b0595f..babe0a36265510618daf6f6840aaae1f9d082a22 100644
+--- a/src/main/java/net/minecraft/server/PlayerChunkMap.java
++++ b/src/main/java/net/minecraft/server/PlayerChunkMap.java
+@@ -43,7 +43,7 @@ public class PlayerChunkMap {
+     private final WorldServer world;
+     private final List<EntityPlayer> managedPlayers = Lists.newArrayList();
+     private final Long2ObjectMap<PlayerChunk> e = new Long2ObjectOpenHashMap(4096);
+-    private final Set<PlayerChunk> f = Sets.newHashSet();
++    private final Set<PlayerChunk> f = Sets.newConcurrentHashSet(); // 2p2t - use ConcurrentHashSet
+     private final List<PlayerChunk> g = Lists.newLinkedList();
+     private final List<PlayerChunk> h = Lists.newLinkedList();
+     private final List<PlayerChunk> i = Lists.newArrayList();
+diff --git a/src/main/java/net/minecraft/server/PlayerList.java b/src/main/java/net/minecraft/server/PlayerList.java
+index 80e9c9200c2afc3005c6a8bc5f5140eab71f4a40..3b5ca280f9a4087f935730d3491f59189fcdd93b 100644
+--- a/src/main/java/net/minecraft/server/PlayerList.java
++++ b/src/main/java/net/minecraft/server/PlayerList.java
+@@ -761,6 +761,8 @@ public abstract class PlayerList {
+         return entityplayer1;
+     }
+ 
++    private static final java.util.concurrent.ExecutorService executor = java.util.concurrent.Executors.newSingleThreadExecutor(); // 2p2t
++
+     // CraftBukkit start - Replaced the standard handling of portals with a more customised method.
+     public void changeDimension(EntityPlayer entityplayer, int i, TeleportCause cause) {
+         WorldServer exitWorld = null;
+@@ -801,26 +803,31 @@ public abstract class PlayerList {
+             return;
+         }
+ 
+-        exit = event.useTravelAgent() ? event.getPortalTravelAgent().findOrCreate(event.getTo()) : event.getTo();
+-        if (exit == null) {
++        // 2p2t start
++        executor.submit(() -> {
++            Location realExit = event.useTravelAgent() ? event.getPortalTravelAgent().findOrCreate(event.getTo()) : event.getTo();
++        if (realExit == null) {
+             return;
+         }
+-        exitWorld = ((CraftWorld) exit.getWorld()).getHandle();
++        WorldServer realExitWorld = ((CraftWorld) realExit.getWorld()).getHandle();
++        realExitWorld.getMinecraftServer().postToMainThread(() -> {
++        // 2p2t end
+ 
+-        org.bukkit.event.player.PlayerTeleportEvent tpEvent = new org.bukkit.event.player.PlayerTeleportEvent(entityplayer.getBukkitEntity(), enter, exit, cause);
++        org.bukkit.event.player.PlayerTeleportEvent tpEvent = new org.bukkit.event.player.PlayerTeleportEvent(entityplayer.getBukkitEntity(), enter, realExit, cause); // 2p2t
+         Bukkit.getServer().getPluginManager().callEvent(tpEvent);
+         if (tpEvent.isCancelled() || tpEvent.getTo() == null) {
+             return;
+         }
+ 
+         Vector velocity = entityplayer.getBukkitEntity().getVelocity();
+-        exitWorld.getTravelAgent().adjustExit(entityplayer, exit, velocity);
++        realExitWorld.getTravelAgent().adjustExit(entityplayer, realExit, velocity); // 2p2t
+ 
+         entityplayer.worldChangeInvuln = true; // CraftBukkit - Set teleport invulnerability only if player changing worlds
+-        this.moveToWorld(entityplayer, exitWorld.dimension, true, exit, !exitWorld.paperConfig.disableTeleportationSuffocationCheck); // SPIGOT-3864 // Paper GH-1149 - Tie suffocation check to config option
++        this.moveToWorld(entityplayer, realExitWorld.dimension, true, realExit, !realExitWorld.paperConfig.disableTeleportationSuffocationCheck); // SPIGOT-3864 // Paper GH-1149 - Tie suffocation check to config option // 2p2t
+         if (entityplayer.motX != velocity.getX() || entityplayer.motY != velocity.getY() || entityplayer.motZ != velocity.getZ()) {
+             entityplayer.getBukkitEntity().setVelocity(velocity);
+         }
++        }); }); // 2p2t
+     }
+ 
+     public void f(EntityPlayer entityplayer) {
+diff --git a/src/main/java/net/minecraft/server/PortalTravelAgent.java b/src/main/java/net/minecraft/server/PortalTravelAgent.java
+index 42e4b2d01d1f4cb7729580daac0dc7ac34adc382..3e14557e96724bd24e7946ebb8e3cc4087d6314d 100644
+--- a/src/main/java/net/minecraft/server/PortalTravelAgent.java
++++ b/src/main/java/net/minecraft/server/PortalTravelAgent.java
+@@ -152,27 +152,36 @@ public class PortalTravelAgent {
+         } else {
+             BlockPosition blockposition = new BlockPosition(x, y, z); // CraftBukkit
+ 
+-            for (int l = -radius; l <= radius; ++l) {
+-                BlockPosition blockposition1;
+-
+-                for (int i1 = -radius; i1 <= radius; ++i1) {
+-                    for (BlockPosition blockposition2 = blockposition.a(l, this.world.ab() - 1 - blockposition.getY(), i1); blockposition2.getY() >= 0; blockposition2 = blockposition1) {
+-                        blockposition1 = blockposition2.down();
+-                        if (this.world.getType(blockposition2).getBlock() == Blocks.PORTAL) {
+-                            for (blockposition1 = blockposition2.down(); this.world.getType(blockposition1).getBlock() == Blocks.PORTAL; blockposition1 = blockposition1.down()) {
+-                                blockposition2 = blockposition1;
+-                            }
+-
+-                            double d1 = blockposition2.n(blockposition);
+-
+-                            if (d0 < 0.0D || d1 < d0) {
+-                                d0 = d1;
+-                                object = blockposition2;
++            // 2p2t start - rewrite portal finder
++            java.util.Set<Integer> chunks = new java.util.HashSet<>();
++            for (int l = -radius; l <= radius; ++l) chunks.add(l >> 4);
++            find: for (int xPos : chunks) {
++                for (int zPos : chunks) {
++                    Chunk chunk = ((ChunkProviderServer) world.chunkProvider).getChunkAt((blockposition.getX() >> 4) + xPos, (blockposition.getZ() >> 4) + zPos, null, true, true);
++                    int minX = blockposition.getX() + (xPos << 4);
++                    int minZ = blockposition.getZ() + (zPos << 4);
++                    for (int blockX = 0; blockX < 15; blockX++) {
++                        for (int blockZ = 0; blockZ < 15; blockZ++) {
++                            boolean yes = false;
++                            for (int blockY = 0; blockY < 255; blockY++) {
++                                IBlockData iBlockData = chunk.getBlockData(blockX, blockY, blockZ);
++                                if (iBlockData.getBlock() == Blocks.PORTAL) {
++                                    if (yes) {
++                                        d0 = 0;
++                                        object = new BlockPosition(minX + blockX, blockY - 2, minZ + blockZ);
++                                        break find;
++                                    } else {
++                                        yes = true;
++                                    }
++                                } else {
++                                    yes = false;
++                                }
+                             }
+                         }
+                     }
+                 }
+             }
++            // 2p2t end - rewrite portal finder
+         }
+ 
+         if (d0 >= 0.0D) {
+diff --git a/src/main/java/net/minecraft/server/StructureGenerator.java b/src/main/java/net/minecraft/server/StructureGenerator.java
+index f4dfba8f315c7f88fdda4ff1639314d7d38099a9..dcba23141264ba9926e0dab0b5bfadbcc044165d 100644
+--- a/src/main/java/net/minecraft/server/StructureGenerator.java
++++ b/src/main/java/net/minecraft/server/StructureGenerator.java
+@@ -25,7 +25,7 @@ public abstract class StructureGenerator extends WorldGenBase {
+     protected final synchronized void a(World world, final int i, final int j, int k, int l, ChunkSnapshot chunksnapshot) {
+         this.a(world);
+         if (!this.c.containsKey(ChunkCoordIntPair.a(i, j))) {
+-            this.f.nextInt();
++            this.f.get().nextInt(); // 2p2t
+ 
+             try {
+                 if (this.a(i, j)) {
+diff --git a/src/main/java/net/minecraft/server/TileEntityEndGateway.java b/src/main/java/net/minecraft/server/TileEntityEndGateway.java
+index 557f06017b1bededaa7b9add58c7fcbdad766cec..9967e49e4df0a1efc812b21fc24a6282d96f5e43 100644
+--- a/src/main/java/net/minecraft/server/TileEntityEndGateway.java
++++ b/src/main/java/net/minecraft/server/TileEntityEndGateway.java
+@@ -218,7 +218,7 @@ public class TileEntityEndGateway extends TileEntityEnderPortal implements ITick
+     }
+ 
+     private static Chunk a(World world, Vec3D vec3d) {
+-        return world.getChunkAt(MathHelper.floor(vec3d.x / 16.0D), MathHelper.floor(vec3d.z / 16.0D));
++        return ((ChunkProviderServer) world.getChunkProvider()).getChunkAt(MathHelper.floor(vec3d.x / 16.0D), MathHelper.floor(vec3d.z / 16.0D), null, true, true); // 2p2t
+     }
+ 
+     @Nullable
+diff --git a/src/main/java/net/minecraft/server/World.java b/src/main/java/net/minecraft/server/World.java
+index bc231c7f2945d998151f1cb9688b16cc1ab65db0..4202c5a701f9db8975be8ccb92d7a5f9aa2f386b 100644
+--- a/src/main/java/net/minecraft/server/World.java
++++ b/src/main/java/net/minecraft/server/World.java
+@@ -663,7 +663,11 @@ public abstract class World implements IBlockAccess {
+     }
+ 
+     public boolean h(BlockPosition blockposition) {
+-        return this.getChunkAtWorldCoords(blockposition).c(blockposition);
++        // 2p2t start
++        Chunk chunk = this.getChunkAtWorldCoords(blockposition);
++        if (chunk == null) return false;
++        return chunk.c(blockposition);
++        // 2p2t end
+     }
+ 
+     public boolean i(BlockPosition blockposition) {
+@@ -890,10 +894,37 @@ public abstract class World implements IBlockAccess {
+             }
+         }
+         // CraftBukkit end
+-        return this.chunkProvider.getChunkAt(x >> 4, z >> 4).getBlockData(x, y, z);
++        // 2p2t start
++        Chunk chunk = this.chunkProvider.getChunkAt(x >> 4, z >> 4);
++        if (chunk == null) return Blocks.AIR.getBlockData();
++        return chunk.getBlockData(x, y, z);
++        // 2p2t end
+         // Paper end
+     }
+ 
++    // 2p2t start
++    public IBlockData getTypeImmediate(BlockPosition blockposition) {
++        // CraftBukkit start - tree generation
++        // Paper start - optimize getType lookup to reduce instructions - getBlockData already enforces valid Y, move tree out
++        final int x = blockposition.getX();
++        final int y = blockposition.getY();
++        final int z = blockposition.getZ();
++        if (captureTreeGeneration) {
++            final IBlockData previous = getCapturedBlockType(x, y, z);
++            if (previous != null) {
++                return previous;
++            }
++        }
++        // CraftBukkit end
++        // 2p2t start
++        Chunk chunk = ((ChunkProviderServer) this.chunkProvider).getChunkAt(x >> 4, z >> 4, null, true, true);
++        if (chunk == null) return Blocks.AIR.getBlockData();
++        return chunk.getBlockData(x, y, z);
++        // 2p2t end
++        // Paper end
++    }
++    // 2p2t end
++
+     // Paper start
+     private IBlockData getCapturedBlockType(int x, int y, int z) {
+         Iterator<BlockState> it = capturedBlockStates.iterator();
+@@ -1206,7 +1237,7 @@ public abstract class World implements IBlockAccess {
+                 this.everyoneSleeping();
+             }
+ 
+-            this.getChunkAt(i, j).a(entity);
++            ((ChunkProviderServer) this.chunkProvider).getChunkAt(i, j, null, true, true).a(entity); // 2p2t
+             if (entity.dead) return false; // Paper - don't add dead entities, chunk registration may of killed it
+             this.entityList.add(entity);
+             this.b(entity);
+@@ -1450,7 +1481,7 @@ public abstract class World implements IBlockAccess {
+     }
+ 
+     public BlockPosition q(BlockPosition blockposition) {
+-        Chunk chunk = this.getChunkAtWorldCoords(blockposition);
++        Chunk chunk = ((ChunkProviderServer) this.chunkProvider).getChunkAt(blockposition.getX() >> 4, blockposition.getZ() >> 4, null, true, true); // 2p2t
+ 
+         BlockPosition blockposition1;
+         BlockPosition blockposition2;
+@@ -1557,6 +1588,7 @@ public abstract class World implements IBlockAccess {
+             tickPosition = (tickPosition < entityList.size()) ? tickPosition : 0;
+             entity = (Entity) this.entityList.get(this.tickPosition);
+             // CraftBukkit end
++            if (entity == null) continue; // 2p2t
+             Entity entity1 = entity.bJ();
+ 
+             if (entity1 != null) {
+@@ -1832,7 +1864,18 @@ public abstract class World implements IBlockAccess {
+             if (!entity.valid && !entity.bD() && !this.isChunkLoaded(i, k, true)) { // Paper - always load to new chunk if valid
+                 entity.aa = false;
+             } else {
+-                this.getChunkAt(i, k).a(entity);
++                // 2p2t start
++                Chunk chunk = this.getChunkAt(i, k);
++                if (chunk == null) {
++                    entity.locX = entity.M;
++                    entity.locY = entity.N;
++                    entity.locZ = entity.O;
++                    entity.pitch = entity.lastPitch;
++                    entity.yaw = entity.lastYaw;
++                } else {
++                    chunk.a(entity);
++                }
++                // 2p2t end
+             }
+         }
+ 
+@@ -2424,6 +2467,7 @@ public abstract class World implements IBlockAccess {
+             return 15;
+         } else {
+             IBlockData iblockdata = this.getType(blockposition);
++            if (iblockdata == null) return 0; // 2p2t
+             int i = enumskyblock == EnumSkyBlock.SKY ? 0 : iblockdata.d();
+             int j = iblockdata.c();
+ 
+@@ -3091,6 +3135,7 @@ public abstract class World implements IBlockAccess {
+     }
+ 
+     public boolean isRainingAt(BlockPosition blockposition) {
++        if (!this.isLoaded(blockposition)) return false; // 2p2t
+         if (!this.isRaining()) {
+             return false;
+         } else if (!this.h(blockposition)) {
+diff --git a/src/main/java/net/minecraft/server/WorldGenBase.java b/src/main/java/net/minecraft/server/WorldGenBase.java
+index b39ab0a5d3607e2d309d2efbff93398e0fe2149d..3b8c9ae4d3b7c9f287331d3ab92ddc1fa597e37b 100644
+--- a/src/main/java/net/minecraft/server/WorldGenBase.java
++++ b/src/main/java/net/minecraft/server/WorldGenBase.java
+@@ -5,7 +5,7 @@ import java.util.Random;
+ public class WorldGenBase {
+ 
+     protected int e = 8;
+-    protected Random f = new Random();
++    protected ThreadLocal<Random> f = ThreadLocal.withInitial(Random::new); // 2p2t - async chunk gen
+     protected World g;
+ 
+     public WorldGenBase() {}
+@@ -14,16 +14,18 @@ public class WorldGenBase {
+         int k = this.e;
+ 
+         this.g = world;
+-        this.f.setSeed(world.getSeed());
+-        long l = this.f.nextLong();
+-        long i1 = this.f.nextLong();
++        // 2p2t start
++        this.f.get().setSeed(world.getSeed());
++        long l = this.f.get().nextLong();
++        long i1 = this.f.get().nextLong();
++        // 2p2t end
+ 
+         for (int j1 = i - k; j1 <= i + k; ++j1) {
+             for (int k1 = j - k; k1 <= j + k; ++k1) {
+                 long l1 = (long) j1 * l;
+                 long i2 = (long) k1 * i1;
+ 
+-                this.f.setSeed(l1 ^ i2 ^ world.getSeed());
++                this.f.get().setSeed(l1 ^ i2 ^ world.getSeed()); // 2p2t
+                 this.a(world, j1, k1, i, j, chunksnapshot);
+             }
+         }
+diff --git a/src/main/java/net/minecraft/server/WorldGenCanyon.java b/src/main/java/net/minecraft/server/WorldGenCanyon.java
+index 9124563e63992c2e654a8a5c3b0a8641480b206a..24572333caa9d8cc71a502844a88c2e01a256a22 100644
+--- a/src/main/java/net/minecraft/server/WorldGenCanyon.java
++++ b/src/main/java/net/minecraft/server/WorldGenCanyon.java
+@@ -172,18 +172,22 @@ public class WorldGenCanyon extends WorldGenBase {
+     }
+ 
+     protected void a(World world, int i, int j, int k, int l, ChunkSnapshot chunksnapshot) {
+-        if (this.f.nextInt(50) == 0) {
+-            double d0 = (double) (i * 16 + this.f.nextInt(16));
+-            double d1 = (double) (this.f.nextInt(this.f.nextInt(40) + 8) + 20);
+-            double d2 = (double) (j * 16 + this.f.nextInt(16));
++        // 2p2t start
++        if (this.f.get().nextInt(50) == 0) {
++            double d0 = (double) (i * 16 + this.f.get().nextInt(16));
++            double d1 = (double) (this.f.get().nextInt(this.f.get().nextInt(40) + 8) + 20);
++            double d2 = (double) (j * 16 + this.f.get().nextInt(16));
++            // 2p2t end
+             boolean flag = true;
+ 
+             for (int i1 = 0; i1 < 1; ++i1) {
+-                float f = this.f.nextFloat() * 6.2831855F;
+-                float f1 = (this.f.nextFloat() - 0.5F) * 2.0F / 8.0F;
+-                float f2 = (this.f.nextFloat() * 2.0F + this.f.nextFloat()) * 2.0F;
++                // 2p2t start
++                float f = this.f.get().nextFloat() * 6.2831855F;
++                float f1 = (this.f.get().nextFloat() - 0.5F) * 2.0F / 8.0F;
++                float f2 = (this.f.get().nextFloat() * 2.0F + this.f.get().nextFloat()) * 2.0F;
+ 
+-                this.a(this.f.nextLong(), k, l, chunksnapshot, d0, d1, d2, f2, f, f1, 0, 0, 3.0D);
++                this.a(this.f.get().nextLong(), k, l, chunksnapshot, d0, d1, d2, f2, f, f1, 0, 0, 3.0D);
++                // 2p2t end
+             }
+ 
+         }
+diff --git a/src/main/java/net/minecraft/server/WorldGenCaves.java b/src/main/java/net/minecraft/server/WorldGenCaves.java
+index 5a6aa4ddd74f6d5d5a8a619cf8e5bfac492f6165..1791ffdf83b46e483b58b8d1006b6a0489394d61 100644
+--- a/src/main/java/net/minecraft/server/WorldGenCaves.java
++++ b/src/main/java/net/minecraft/server/WorldGenCaves.java
+@@ -13,7 +13,7 @@ public class WorldGenCaves extends WorldGenBase {
+     public WorldGenCaves() {}
+ 
+     protected void a(long i, int j, int k, ChunkSnapshot chunksnapshot, double d0, double d1, double d2) {
+-        this.a(i, j, k, chunksnapshot, d0, d1, d2, 1.0F + this.f.nextFloat() * 6.0F, 0.0F, 0.0F, -1, -1, 0.5D);
++        this.a(i, j, k, chunksnapshot, d0, d1, d2, 1.0F + this.f.get().nextFloat() * 6.0F, 0.0F, 0.0F, -1, -1, 0.5D); // 2p2t
+     }
+ 
+     protected void a(long i, int j, int k, ChunkSnapshot chunksnapshot, double d0, double d1, double d2, float f, float f1, float f2, int l, int i1, double d3) {
+@@ -183,33 +183,41 @@ public class WorldGenCaves extends WorldGenBase {
+     }
+ 
+     protected void a(World world, int i, int j, int k, int l, ChunkSnapshot chunksnapshot) {
+-        int i1 = this.f.nextInt(this.f.nextInt(this.f.nextInt(15) + 1) + 1);
++        int i1 = this.f.get().nextInt(this.f.get().nextInt(this.f.get().nextInt(15) + 1) + 1); // 2p2t
+ 
+-        if (this.f.nextInt(7) != 0) {
++        if (this.f.get().nextInt(7) != 0) { // 2p2t
+             i1 = 0;
+         }
+ 
+         for (int j1 = 0; j1 < i1; ++j1) {
+-            double d0 = (double) (i * 16 + this.f.nextInt(16));
+-            double d1 = (double) this.f.nextInt(this.f.nextInt(120) + 8);
+-            double d2 = (double) (j * 16 + this.f.nextInt(16));
++            // 2p2t start
++            double d0 = (double) (i * 16 + this.f.get().nextInt(16));
++            double d1 = (double) this.f.get().nextInt(this.f.get().nextInt(120) + 8);
++            double d2 = (double) (j * 16 + this.f.get().nextInt(16));
++            // 2p2t end
+             int k1 = 1;
+ 
+-            if (this.f.nextInt(4) == 0) {
+-                this.a(this.f.nextLong(), k, l, chunksnapshot, d0, d1, d2);
+-                k1 += this.f.nextInt(4);
++            // 2p2t start
++            if (this.f.get().nextInt(4) == 0) {
++                this.a(this.f.get().nextLong(), k, l, chunksnapshot, d0, d1, d2);
++                k1 += this.f.get().nextInt(4);
++                // 2p2t end
+             }
+ 
+             for (int l1 = 0; l1 < k1; ++l1) {
+-                float f = this.f.nextFloat() * 6.2831855F;
+-                float f1 = (this.f.nextFloat() - 0.5F) * 2.0F / 8.0F;
+-                float f2 = this.f.nextFloat() * 2.0F + this.f.nextFloat();
+-
+-                if (this.f.nextInt(10) == 0) {
+-                    f2 *= this.f.nextFloat() * this.f.nextFloat() * 3.0F + 1.0F;
++                // 2p2t start
++                float f = this.f.get().nextFloat() * 6.2831855F;
++                float f1 = (this.f.get().nextFloat() - 0.5F) * 2.0F / 8.0F;
++                float f2 = this.f.get().nextFloat() * 2.0F + this.f.get().nextFloat();
++                // 2p2t end
++
++                // 2p2t start
++                if (this.f.get().nextInt(10) == 0) {
++                    f2 *= this.f.get().nextFloat() * this.f.get().nextFloat() * 3.0F + 1.0F;
++                    // 2p2t end
+                 }
+ 
+-                this.a(this.f.nextLong(), k, l, chunksnapshot, d0, d1, d2, f2, f, f1, 0, 0, 1.0D);
++                this.a(this.f.get().nextLong(), k, l, chunksnapshot, d0, d1, d2, f2, f, f1, 0, 0, 1.0D); // 2p2t
+             }
+         }
+ 
+diff --git a/src/main/java/net/minecraft/server/WorldGenCavesHell.java b/src/main/java/net/minecraft/server/WorldGenCavesHell.java
+index 7a29f1054c8d937bacf326dc221cd9fec75e8e02..832b61c5401f833b8cfb784ecd7c1951ca26b2c0 100644
+--- a/src/main/java/net/minecraft/server/WorldGenCavesHell.java
++++ b/src/main/java/net/minecraft/server/WorldGenCavesHell.java
+@@ -9,7 +9,7 @@ public class WorldGenCavesHell extends WorldGenBase {
+     public WorldGenCavesHell() {}
+ 
+     protected void a(long i, int j, int k, ChunkSnapshot chunksnapshot, double d0, double d1, double d2) {
+-        this.a(i, j, k, chunksnapshot, d0, d1, d2, 1.0F + this.f.nextFloat() * 6.0F, 0.0F, 0.0F, -1, -1, 0.5D);
++        this.a(i, j, k, chunksnapshot, d0, d1, d2, 1.0F + this.f.get().nextFloat() * 6.0F, 0.0F, 0.0F, -1, -1, 0.5D); // 2p2t
+     }
+ 
+     protected void a(long i, int j, int k, ChunkSnapshot chunksnapshot, double d0, double d1, double d2, float f, float f1, float f2, int l, int i1, double d3) {
+@@ -157,29 +157,35 @@ public class WorldGenCavesHell extends WorldGenBase {
+     }
+ 
+     protected void a(World world, int i, int j, int k, int l, ChunkSnapshot chunksnapshot) {
+-        int i1 = this.f.nextInt(this.f.nextInt(this.f.nextInt(10) + 1) + 1);
++        int i1 = this.f.get().nextInt(this.f.get().nextInt(this.f.get().nextInt(10) + 1) + 1); // 2p2t
+ 
+-        if (this.f.nextInt(5) != 0) {
++        if (this.f.get().nextInt(5) != 0) { // 2p2t
+             i1 = 0;
+         }
+ 
+         for (int j1 = 0; j1 < i1; ++j1) {
+-            double d0 = (double) (i * 16 + this.f.nextInt(16));
+-            double d1 = (double) this.f.nextInt(128);
+-            double d2 = (double) (j * 16 + this.f.nextInt(16));
++            // 2p2t start
++            double d0 = (double) (i * 16 + this.f.get().nextInt(16));
++            double d1 = (double) this.f.get().nextInt(128);
++            double d2 = (double) (j * 16 + this.f.get().nextInt(16));
++            // 2p2t end
+             int k1 = 1;
+ 
+-            if (this.f.nextInt(4) == 0) {
+-                this.a(this.f.nextLong(), k, l, chunksnapshot, d0, d1, d2);
+-                k1 += this.f.nextInt(4);
++            // 2p2t start
++            if (this.f.get().nextInt(4) == 0) {
++                this.a(this.f.get().nextLong(), k, l, chunksnapshot, d0, d1, d2);
++                k1 += this.f.get().nextInt(4);
++                // 2p2t end
+             }
+ 
+             for (int l1 = 0; l1 < k1; ++l1) {
+-                float f = this.f.nextFloat() * 6.2831855F;
+-                float f1 = (this.f.nextFloat() - 0.5F) * 2.0F / 8.0F;
+-                float f2 = this.f.nextFloat() * 2.0F + this.f.nextFloat();
++                // 2p2t start
++                float f = this.f.get().nextFloat() * 6.2831855F;
++                float f1 = (this.f.get().nextFloat() - 0.5F) * 2.0F / 8.0F;
++                float f2 = this.f.get().nextFloat() * 2.0F + this.f.get().nextFloat();
+ 
+-                this.a(this.f.nextLong(), k, l, chunksnapshot, d0, d1, d2, f2 * 2.0F, f, f1, 0, 0, 0.5D);
++                this.a(this.f.get().nextLong(), k, l, chunksnapshot, d0, d1, d2, f2 * 2.0F, f, f1, 0, 0, 0.5D);
++                // 2p2t end
+             }
+         }
+ 
+diff --git a/src/main/java/net/minecraft/server/WorldGenEndCity.java b/src/main/java/net/minecraft/server/WorldGenEndCity.java
+index 37505012f3f58af379c50babe761759f83287167..9e0d71fc4e1797134c8bdbc80a549c477c0fc2fb 100644
+--- a/src/main/java/net/minecraft/server/WorldGenEndCity.java
++++ b/src/main/java/net/minecraft/server/WorldGenEndCity.java
+@@ -46,7 +46,7 @@ public class WorldGenEndCity extends StructureGenerator {
+     }
+ 
+     protected StructureStart b(int i, int j) {
+-        return new WorldGenEndCity.Start(this.g, this.d, this.f, i, j);
++        return new WorldGenEndCity.Start(this.g, this.d, this.f.get(), i, j); // 2p2t
+     }
+ 
+     public BlockPosition getNearestGeneratedFeature(World world, BlockPosition blockposition, boolean flag) {
+diff --git a/src/main/java/net/minecraft/server/WorldGenLargeFeature.java b/src/main/java/net/minecraft/server/WorldGenLargeFeature.java
+index 7a76544ff8c69f2b33e41b6729dcf769f0d54eff..0222d560d3273a7e31ca1e5d19d740454aadca9c 100644
+--- a/src/main/java/net/minecraft/server/WorldGenLargeFeature.java
++++ b/src/main/java/net/minecraft/server/WorldGenLargeFeature.java
+@@ -87,7 +87,7 @@ public class WorldGenLargeFeature extends StructureGenerator {
+     }
+ 
+     protected StructureStart b(int i, int j) {
+-        return new WorldGenLargeFeature.WorldGenLargeFeatureStart(this.g, this.f, i, j);
++        return new WorldGenLargeFeature.WorldGenLargeFeatureStart(this.g, this.f.get(), i, j); // 2p2t
+     }
+ 
+     public boolean a(BlockPosition blockposition) {
+diff --git a/src/main/java/net/minecraft/server/WorldGenMinable.java b/src/main/java/net/minecraft/server/WorldGenMinable.java
+index 2c0a51f03968156ea2dc1de93fc2d01b195c392c..71c714e98b86861e3caaeb385756effb91920b65 100644
+--- a/src/main/java/net/minecraft/server/WorldGenMinable.java
++++ b/src/main/java/net/minecraft/server/WorldGenMinable.java
+@@ -85,7 +85,7 @@ public class WorldGenMinable extends WorldGenerator {
+             }
+         }
+ 
+-        public boolean apply(Object object) {
++        public boolean apply(IBlockData object) { // 2p2t - decompile fix
+             return this.a((IBlockData) object);
+         }
+ 
+diff --git a/src/main/java/net/minecraft/server/WorldGenMineshaft.java b/src/main/java/net/minecraft/server/WorldGenMineshaft.java
+index ea5656cc3dba48efbed5f9e42c1b61fa2dd30138..010b873cfcca794b4d15c0506aa824cce39b0084 100644
+--- a/src/main/java/net/minecraft/server/WorldGenMineshaft.java
++++ b/src/main/java/net/minecraft/server/WorldGenMineshaft.java
+@@ -28,7 +28,7 @@ public class WorldGenMineshaft extends StructureGenerator {
+     }
+ 
+     protected boolean a(int i, int j) {
+-        return this.f.nextDouble() < this.a && this.f.nextInt(80) < Math.max(Math.abs(i), Math.abs(j));
++        return this.f.get().nextDouble() < this.a && this.f.get().nextInt(80) < Math.max(Math.abs(i), Math.abs(j)); // 2p2t
+     }
+ 
+     public BlockPosition getNearestGeneratedFeature(World world, BlockPosition blockposition, boolean flag) {
+@@ -47,8 +47,10 @@ public class WorldGenMineshaft extends StructureGenerator {
+                         int j1 = i + l;
+                         int k1 = j + i1;
+ 
+-                        this.f.setSeed((long) (j1 ^ k1) ^ world.getSeed());
+-                        this.f.nextInt();
++                        // 2p2t start
++                        this.f.get().setSeed((long) (j1 ^ k1) ^ world.getSeed());
++                        this.f.get().nextInt();
++                        // 2p2t end
+                         if (this.a(j1, k1) && (!flag || !world.b(j1, k1))) {
+                             return new BlockPosition((j1 << 4) + 8, 64, (k1 << 4) + 8);
+                         }
+@@ -64,7 +66,7 @@ public class WorldGenMineshaft extends StructureGenerator {
+         BiomeBase biomebase = this.g.getBiome(new BlockPosition((i << 4) + 8, 64, (j << 4) + 8));
+         WorldGenMineshaft.Type worldgenmineshaft_type = biomebase instanceof BiomeMesa ? WorldGenMineshaft.Type.MESA : WorldGenMineshaft.Type.NORMAL;
+ 
+-        return new WorldGenMineshaftStart(this.g, this.f, i, j, worldgenmineshaft_type);
++        return new WorldGenMineshaftStart(this.g, this.f.get(), i, j, worldgenmineshaft_type); // 2p2t
+     }
+ 
+     public static enum Type {
+diff --git a/src/main/java/net/minecraft/server/WorldGenMonument.java b/src/main/java/net/minecraft/server/WorldGenMonument.java
+index 927d9bc6b4efa78684fcb4d2afe555c57ea0e170..4475fd6e289d77c02bb473641c0098fd3df0f2bb 100644
+--- a/src/main/java/net/minecraft/server/WorldGenMonument.java
++++ b/src/main/java/net/minecraft/server/WorldGenMonument.java
+@@ -84,7 +84,7 @@ public class WorldGenMonument extends StructureGenerator {
+     }
+ 
+     protected StructureStart b(int i, int j) {
+-        return new WorldGenMonument.WorldGenMonumentStart(this.g, this.f, i, j);
++        return new WorldGenMonument.WorldGenMonumentStart(this.g, this.f.get(), i, j); // 2p2t
+     }
+ 
+     public List<BiomeBase.BiomeMeta> b() {
+diff --git a/src/main/java/net/minecraft/server/WorldGenNether.java b/src/main/java/net/minecraft/server/WorldGenNether.java
+index 8f43cd7d71e9becb3503830039fbec9870e0dcf1..9e35bb1377538946fa7c32fe4d254b5a7167528d 100644
+--- a/src/main/java/net/minecraft/server/WorldGenNether.java
++++ b/src/main/java/net/minecraft/server/WorldGenNether.java
+@@ -28,13 +28,15 @@ public class WorldGenNether extends StructureGenerator {
+         int k = i >> 4;
+         int l = j >> 4;
+ 
+-        this.f.setSeed((long) (k ^ l << 4) ^ this.g.getSeed());
+-        this.f.nextInt();
+-        return this.f.nextInt(3) != 0 ? false : (i != (k << 4) + 4 + this.f.nextInt(8) ? false : j == (l << 4) + 4 + this.f.nextInt(8));
++        // 2p2t start
++        this.f.get().setSeed((long) (k ^ l << 4) ^ this.g.getSeed());
++        this.f.get().nextInt();
++        return this.f.get().nextInt(3) != 0 ? false : (i != (k << 4) + 4 + this.f.get().nextInt(8) ? false : j == (l << 4) + 4 + this.f.get().nextInt(8));
++        // 2p2t end
+     }
+ 
+     protected StructureStart b(int i, int j) {
+-        return new WorldGenNether.WorldGenNetherStart(this.g, this.f, i, j);
++        return new WorldGenNether.WorldGenNetherStart(this.g, this.f.get(), i, j); // 2p2t
+     }
+ 
+     public BlockPosition getNearestGeneratedFeature(World world, BlockPosition blockposition, boolean flag) {
+diff --git a/src/main/java/net/minecraft/server/WorldGenStronghold.java b/src/main/java/net/minecraft/server/WorldGenStronghold.java
+index a3b958e0109ea54e478d543324151e9972d86541..aa81ec3dd7c8bfc8a94da1f0f511372379ca1b60 100644
+--- a/src/main/java/net/minecraft/server/WorldGenStronghold.java
++++ b/src/main/java/net/minecraft/server/WorldGenStronghold.java
+@@ -160,7 +160,7 @@ public class WorldGenStronghold extends StructureGenerator {
+     protected StructureStart b(int i, int j) {
+         WorldGenStronghold.WorldGenStronghold2Start worldgenstronghold_worldgenstronghold2start;
+ 
+-        for (worldgenstronghold_worldgenstronghold2start = new WorldGenStronghold.WorldGenStronghold2Start(this.g, this.f, i, j); worldgenstronghold_worldgenstronghold2start.c().isEmpty() || ((WorldGenStrongholdPieces.WorldGenStrongholdStart) worldgenstronghold_worldgenstronghold2start.c().get(0)).b == null; worldgenstronghold_worldgenstronghold2start = new WorldGenStronghold.WorldGenStronghold2Start(this.g, this.f, i, j)) {
++        for (worldgenstronghold_worldgenstronghold2start = new WorldGenStronghold.WorldGenStronghold2Start(this.g, this.f.get(), i, j); worldgenstronghold_worldgenstronghold2start.c().isEmpty() || ((WorldGenStrongholdPieces.WorldGenStrongholdStart) worldgenstronghold_worldgenstronghold2start.c().get(0)).b == null; worldgenstronghold_worldgenstronghold2start = new WorldGenStronghold.WorldGenStronghold2Start(this.g, this.f.get(), i, j)) { // 2p2t
+             ;
+         }
+ 
+diff --git a/src/main/java/net/minecraft/server/WorldGenVillage.java b/src/main/java/net/minecraft/server/WorldGenVillage.java
+index fd82756ad576f23d801a8a5d50e8f58c3fb200e8..27faf96cc072bc56e74447dc275f5db6d71cd3a5 100644
+--- a/src/main/java/net/minecraft/server/WorldGenVillage.java
++++ b/src/main/java/net/minecraft/server/WorldGenVillage.java
+@@ -76,7 +76,7 @@ public class WorldGenVillage extends StructureGenerator {
+     }
+ 
+     protected StructureStart b(int i, int j) {
+-        return new WorldGenVillage.WorldGenVillageStart(this.g, this.f, i, j, this.b);
++        return new WorldGenVillage.WorldGenVillageStart(this.g, this.f.get(), i, j, this.b); // 2p2t
+     }
+ 
+     public static class WorldGenVillageStart extends StructureStart {
+diff --git a/src/main/java/net/minecraft/server/WorldGenWoodlandMansion.java b/src/main/java/net/minecraft/server/WorldGenWoodlandMansion.java
+index c9679d57c415a66bff9ca8ef8e7223065ddcd84d..e1db89ea6f795c6a8d61af55875c9ab729354aea 100644
+--- a/src/main/java/net/minecraft/server/WorldGenWoodlandMansion.java
++++ b/src/main/java/net/minecraft/server/WorldGenWoodlandMansion.java
+@@ -61,7 +61,7 @@ public class WorldGenWoodlandMansion extends StructureGenerator {
+     }
+ 
+     protected StructureStart b(int i, int j) {
+-        return new WorldGenWoodlandMansion.a(this.g, this.h, this.f, i, j);
++        return new WorldGenWoodlandMansion.a(this.g, this.h, this.f.get(), i, j); // 2p2t
+     }
+ 
+     public static class a extends StructureStart {
+diff --git a/src/main/java/net/minecraft/server/WorldServer.java b/src/main/java/net/minecraft/server/WorldServer.java
+index e545e9764a4aa117896ca1b3e55d2613642d7244..92064d882d42114c211c0d37f8ad52d4dfbd2b27 100644
+--- a/src/main/java/net/minecraft/server/WorldServer.java
++++ b/src/main/java/net/minecraft/server/WorldServer.java
+@@ -761,6 +761,7 @@ public class WorldServer extends World implements IAsyncTaskHandler {
+ 
+                 for (int j = 0; j < i; ++j) {
+                     nextticklistentry = (NextTickListEntry) this.nextTickList.first();
++                    if (nextticklistentry == null) continue; // 2p2t
+                     if (!flag && nextticklistentry.b > this.worldData.getTime()) {
+                         break;
+                     }
+diff --git a/src/main/java/org/bukkit/craftbukkit/CraftChunk.java b/src/main/java/org/bukkit/craftbukkit/CraftChunk.java
+index ba3676b67b939a93d51053977bc1489fdcc90218..2da3cac93efbeda0998e9abe845277a6b86d33da 100644
+--- a/src/main/java/org/bukkit/craftbukkit/CraftChunk.java
++++ b/src/main/java/org/bukkit/craftbukkit/CraftChunk.java
+@@ -31,6 +31,15 @@ public class CraftChunk implements Chunk {
+         z = getHandle().locZ;
+     }
+ 
++    // 2p2t start
++    public CraftChunk(WorldServer worldServer, int x, int z) {
++        this.weakChunk = new WeakReference<>(null);
++        this.worldServer = worldServer;
++        this.x = x;
++        this.z = z;
++    }
++    // 2p2t end
++
+     public World getWorld() {
+         return worldServer.getWorld();
+     }
+diff --git a/src/main/java/org/bukkit/craftbukkit/CraftServer.java b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
+index 79a940d6e678952c006a5c7ec76b31e86498d22d..c5ef523b2bd30c15ca43255473109fc0f60ad428 100644
+--- a/src/main/java/org/bukkit/craftbukkit/CraftServer.java
++++ b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
+@@ -19,7 +19,6 @@ import java.util.Set;
+ import java.util.UUID;
+ import java.util.logging.Level;
+ import java.util.logging.Logger;
+-import java.util.regex.Pattern;
+ 
+ import javax.imageio.ImageIO;
+ 
+@@ -134,6 +133,7 @@ import org.bukkit.NamespacedKey;
+ import org.bukkit.craftbukkit.util.CraftNamespacedKey;
+ import org.bukkit.event.server.TabCompleteEvent;
+ import net.md_5.bungee.api.chat.BaseComponent;
++import xyz.acrylicstyle.paper.The2p2tConfig;
+ 
+ import javax.annotation.Nullable; // Paper
+ import javax.annotation.Nonnull; // Paper
+@@ -743,6 +743,7 @@ public final class CraftServer implements Server {
+ 
+         org.spigotmc.SpigotConfig.init((File) console.options.valueOf("spigot-settings")); // Spigot
+         com.destroystokyo.paper.PaperConfig.init((File) console.options.valueOf("paper-settings")); // Paper
++        The2p2tConfig.init((File) console.options.valueOf("2p2t-settings")); // 2p2t
+         for (WorldServer world : console.worlds) {
+             world.worldData.setDifficulty(difficulty);
+             world.setSpawnFlags(monsters, animals);
+diff --git a/src/main/java/org/bukkit/craftbukkit/CraftWorld.java b/src/main/java/org/bukkit/craftbukkit/CraftWorld.java
+index afb141c62974e1877c774a7d1ab09e3398f7713e..67e53351c994ec756aba1c48cdb90d1437d4c6e7 100644
+--- a/src/main/java/org/bukkit/craftbukkit/CraftWorld.java
++++ b/src/main/java/org/bukkit/craftbukkit/CraftWorld.java
+@@ -115,7 +115,11 @@ public class CraftWorld implements World {
+     }
+ 
+     public Block getBlockAt(int x, int y, int z) {
+-        return getChunkAt(x >> 4, z >> 4).getBlock(x & 0xF, y, z & 0xF);
++        // 2p2t start
++        Chunk chunk = getChunkAt(x >> 4, z >> 4);
++        if (chunk == null) return new CraftBlock(new CraftChunk(getHandle(), x >> 4, z >> 4), x, y, z);
++        return chunk.getBlock(x & 0xF, y, z & 0xF);
++        // 2p2t end
+     }
+ 
+     public int getBlockTypeIdAt(int x, int y, int z) {
+@@ -178,7 +182,11 @@ public class CraftWorld implements World {
+     // Paper end
+ 
+     public Chunk getChunkAt(int x, int z) {
+-        return this.world.getChunkProviderServer().getChunkAt(x, z).bukkitChunk;
++        // 2p2t start
++        net.minecraft.server.Chunk chunk = this.world.getChunkProviderServer().getChunkAt(x, z);
++        if (chunk == null) return null;
++        return chunk.bukkitChunk;
++        // 2p2t end
+     }
+ 
+     public Chunk getChunkAt(Block block) {
+diff --git a/src/main/java/org/bukkit/craftbukkit/Main.java b/src/main/java/org/bukkit/craftbukkit/Main.java
+index ae746f7381197337296ca3abe838106863b0580e..0175d38c9ddf36ab4ee5212d8e74a55408dadc14 100644
+--- a/src/main/java/org/bukkit/craftbukkit/Main.java
++++ b/src/main/java/org/bukkit/craftbukkit/Main.java
+@@ -142,6 +142,14 @@ public class Main {
+                         .defaultsTo("Unknown Server")
+                         .describedAs("Name");
+                 // Paper end
++
++                // 2p2t start
++                acceptsAll(asList("2p2t", "2p2t-settings"), "File for 2p2t settings")
++                    .withRequiredArg()
++                    .ofType(File.class)
++                    .defaultsTo(new File("2p2t.yml"))
++                    .describedAs("Yml file");
++                // 2p2t end
+             }
+         };
+ 
+diff --git a/src/main/java/org/bukkit/craftbukkit/block/CraftBlock.java b/src/main/java/org/bukkit/craftbukkit/block/CraftBlock.java
+index a9d3f12bc615ab47738ba545732827c1dd9d7fa7..37d5e5b460cbb5563a2613b00cfac69e8ad58697 100644
+--- a/src/main/java/org/bukkit/craftbukkit/block/CraftBlock.java
++++ b/src/main/java/org/bukkit/craftbukkit/block/CraftBlock.java
+@@ -110,7 +110,11 @@ public class CraftBlock implements Block {
+     }
+ 
+     public byte getData() {
+-        IBlockData blockData = chunk.getHandle().getBlockData(new BlockPosition(x, y, z));
++        // 2p2t start
++        net.minecraft.server.Chunk nmsChunk = chunk.getHandle();
++        if (nmsChunk == null) return (byte) 0;
++        IBlockData blockData = nmsChunk.getBlockData(new BlockPosition(x, y, z));
++        // 2p2t end
+         return (byte) blockData.getBlock().toLegacyData(blockData);
+     }
+ 
+@@ -165,7 +169,11 @@ public class CraftBlock implements Block {
+     @Deprecated
+     @Override
+     public int getTypeId() {
+-        return CraftMagicNumbers.getId(chunk.getHandle().getBlockData(new BlockPosition(this.x, this.y, this.z)).getBlock());
++        // 2p2t start
++        net.minecraft.server.Chunk nmsChunk = chunk.getHandle();
++        if (nmsChunk == null) return 0;
++        return CraftMagicNumbers.getId(nmsChunk.getBlockData(new BlockPosition(this.x, this.y, this.z)).getBlock());
++        // 2p2t end
+     }
+ 
+     public byte getLightLevel() {
+diff --git a/src/main/java/org/bukkit/craftbukkit/util/HashTreeSet.java b/src/main/java/org/bukkit/craftbukkit/util/HashTreeSet.java
+index cd864c404747f8f77417e67ca319b3daa04bae59..9cd3cd851ad429549aad14c42df2487f8a2b171f 100644
+--- a/src/main/java/org/bukkit/craftbukkit/util/HashTreeSet.java
++++ b/src/main/java/org/bukkit/craftbukkit/util/HashTreeSet.java
+@@ -8,8 +8,8 @@ import java.util.TreeSet;
+ 
+ public class HashTreeSet<V> implements Set<V> {
+ 
+-    private Set<V> hash = new it.unimi.dsi.fastutil.objects.ObjectOpenHashSet<V>(); //Paper - Replace java.util.HashSet with ObjectOpenHashSet
+-    private TreeSet<V> tree = new TreeSet<V>();
++    private Set<V> hash = java.util.Collections.synchronizedSet(new HashSet<V>()); //Paper - Replace java.util.HashSet with ObjectOpenHashSet // 2p2t - replace ObjectOpenHashSet with synchronized set
++    private java.util.SortedSet<V> tree = java.util.Collections.synchronizedSortedSet(new TreeSet<V>()); // 2p2t - use synchronized
+ 
+     public HashTreeSet() {
+ 
+@@ -32,31 +32,19 @@ public class HashTreeSet<V> implements Set<V> {
+ 
+     @Override
+     public Iterator<V> iterator() {
+-        return new Iterator<V>() {
+-
+-            private Iterator<V> it = tree.iterator();
+-            private V last;
+-
+-            @Override
+-            public boolean hasNext() {
+-                return it.hasNext();
+-            }
+-
+-            @Override
+-            public V next() {
+-                return last = it.next();
+-            }
+-
++        // 2p2t start
++        return new xyz.acrylicstyle.paper.util.ConcurrentIterator<V>(tree) {
+             @Override
+             public void remove() {
+-                if (last == null) {
++                if (next == null) {
+                     throw new IllegalStateException();
+                 }
+-                it.remove();
+-                hash.remove(last);
+-                last = null;
++                tree.remove(next);
++                hash.remove(next);
++                next = null;
+             }
+         };
++        // 2p2t end
+     }
+ 
+     @Override
+@@ -111,7 +99,13 @@ public class HashTreeSet<V> implements Set<V> {
+     }
+ 
+     public V first() {
+-        return tree.first();
++        // 2p2t start
++        try {
++            return tree.first();
++        } catch (java.util.NoSuchElementException ex) {
++            return null;
++        }
++        // 2p2t end
+     }
+ 
+ }
+diff --git a/src/main/java/xyz/acrylicstyle/paper/The2p2tConfig.java b/src/main/java/xyz/acrylicstyle/paper/The2p2tConfig.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..1d0a4a881c8e60210e65d2cce8ec0911d9767469
+--- /dev/null
++++ b/src/main/java/xyz/acrylicstyle/paper/The2p2tConfig.java
+@@ -0,0 +1,118 @@
++package xyz.acrylicstyle.paper;
++
++import com.google.common.base.Throwables;
++import org.bukkit.Bukkit;
++import org.bukkit.configuration.InvalidConfigurationException;
++import org.bukkit.configuration.file.YamlConfiguration;
++
++import java.io.File;
++import java.io.IOException;
++import java.lang.reflect.InvocationTargetException;
++import java.lang.reflect.Method;
++import java.lang.reflect.Modifier;
++import java.util.List;
++import java.util.logging.Level;
++
++public class The2p2tConfig {
++
++    private static File CONFIG_FILE;
++    private static final String HEADER = "This is the main configuration file for 2p2t.\n"
++        + "As you can see, there's tons to configure. Some options may impact gameplay or performance,\n"
++        + "so use with caution, and make sure you know what each option does before configuring.\n";
++    /*========================================================================*/
++    public static YamlConfiguration config;
++    static int version;
++    private static boolean verbose;
++    /*========================================================================*/
++
++    public static void init(File configFile) {
++        CONFIG_FILE = configFile;
++        config = new YamlConfiguration();
++        try {
++            config.load(CONFIG_FILE);
++        } catch (IOException ignore) {
++        } catch (InvalidConfigurationException ex) {
++            Bukkit.getLogger().log(Level.SEVERE, "Could not load 2p2t.yml, please correct your syntax errors", ex);
++            Throwables.throwIfUnchecked(ex);
++            throw new RuntimeException(ex);
++        }
++        config.options().header(HEADER);
++        config.options().copyDefaults(true);
++        verbose = getBoolean("verbose", false);
++
++        version = getInt("config-version", 13);
++        set("config-version", 13);
++        readConfig(The2p2tConfig.class, null);
++    }
++
++    protected static void logError(String s) {
++        Bukkit.getLogger().severe(s);
++    }
++
++    protected static void log(String s) {
++        Bukkit.getLogger().info(s);
++    }
++
++    static void readConfig(Class<?> clazz, Object instance) {
++        for (Method method : clazz.getDeclaredMethods()) {
++            if (Modifier.isPrivate(method.getModifiers())) {
++                if (method.getParameterTypes().length == 0 && method.getReturnType() == Void.TYPE) {
++                    try {
++                        method.setAccessible(true);
++                        method.invoke(instance);
++                    } catch (InvocationTargetException ex) {
++                        throw Throwables.propagate(ex.getCause());
++                    } catch (Exception ex) {
++                        Bukkit.getLogger().log(Level.SEVERE, "Error invoking " + method, ex);
++                    }
++                }
++            }
++        }
++
++        try {
++            config.save(CONFIG_FILE);
++        } catch (IOException ex) {
++            Bukkit.getLogger().log(Level.SEVERE, "Could not save " + CONFIG_FILE, ex);
++        }
++    }
++
++    private static void set(String path, Object val) {
++        config.set(path, val);
++    }
++
++    private static boolean getBoolean(String path, boolean def) {
++        config.addDefault(path, def);
++        return config.getBoolean(path, config.getBoolean(path));
++    }
++
++    private static double getDouble(String path, double def) {
++        config.addDefault(path, def);
++        return config.getDouble(path, config.getDouble(path));
++    }
++
++    private static float getFloat(String path, float def) {
++        // TODO: Figure out why getFloat() always returns the default value.
++        return (float) getDouble(path, (double) def);
++    }
++
++    private static int getInt(String path, int def) {
++        config.addDefault(path, def);
++        return config.getInt(path, config.getInt(path));
++    }
++
++    private static <T> List getList(String path, T def) {
++        config.addDefault(path, def);
++        return (List<T>) config.getList(path, config.getList(path));
++    }
++
++    private static String getString(String path, String def) {
++        config.addDefault(path, def);
++        return config.getString(path, config.getString(path));
++    }
++
++    public static int maxChunkGenThreads = 1;
++    private static void maxChunkGenThreads() {
++        maxChunkGenThreads = getInt("settings.max-chunk-gen-threads", 1);
++        log("Max Chunk Gen Threads: " + maxChunkGenThreads);
++    }
++}
+diff --git a/src/main/java/xyz/acrylicstyle/paper/util/CollectionUtil.java b/src/main/java/xyz/acrylicstyle/paper/util/CollectionUtil.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..c58d99217063c0ba38a98dbe3ea259813c62fdfc
+--- /dev/null
++++ b/src/main/java/xyz/acrylicstyle/paper/util/CollectionUtil.java
+@@ -0,0 +1,20 @@
++package xyz.acrylicstyle.paper.util;
++
++import java.util.Collection;
++import java.util.ConcurrentModificationException;
++
++public class CollectionUtil {
++    public static <E> void add(Collection<E> collection, E entry) {
++        boolean doTry = true;
++        while (doTry) {
++            try {
++                collection.add(entry);
++                doTry = false;
++            } catch (ConcurrentModificationException ignore) {}
++        }
++    }
++
++    public static <E> void addAsynchronously(Collection<E> collection, E entry) {
++        new Thread(() -> add(collection, entry));
++    }
++}
+diff --git a/src/main/java/xyz/acrylicstyle/paper/util/ConcurrentIterator.java b/src/main/java/xyz/acrylicstyle/paper/util/ConcurrentIterator.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..4baddad099a6243b5154a5b205a1ddc096d3a493
+--- /dev/null
++++ b/src/main/java/xyz/acrylicstyle/paper/util/ConcurrentIterator.java
+@@ -0,0 +1,54 @@
++package xyz.acrylicstyle.paper.util;
++
++import java.util.ArrayList;
++import java.util.ConcurrentModificationException;
++import java.util.HashSet;
++import java.util.Iterator;
++import java.util.List;
++import java.util.Set;
++
++public class ConcurrentIterator<E> implements Iterator<E> {
++
++    private final Iterable<E> iterable;
++    private Iterator<E> iterator;
++    private Set<E> seen = null;
++    private List<E> seenList;
++    protected E next = null;
++
++    public ConcurrentIterator(Iterable<E> iterable) {
++        this.iterable = iterable;
++        this.iterator = iterable.iterator();
++        this.seenList = new ArrayList<>();
++    }
++
++    @Override
++    public boolean hasNext() {
++        while (true) {
++            try {
++                while (iterator.hasNext()) {
++                    next = iterator.next();
++                    if (seen == null) {
++                        seenList.add(next);
++                        return true;
++                    } else if (!seen.contains(next)) {
++                        seen.add(next);
++                        return true;
++                    }
++                }
++                next = null;
++                return false;
++            } catch (ConcurrentModificationException e) {
++                iterator = iterable.iterator();
++                if (seen == null) {
++                    seen = new HashSet<>(seenList);
++                    seenList = null;
++                }
++            }
++        }
++    }
++
++    @Override
++    public E next() {
++        return next;
++    }
++}
