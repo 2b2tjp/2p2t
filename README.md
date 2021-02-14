@@ -20,8 +20,6 @@ How To (Server Admins)
 ------
 Paperclip is a jar file that you can download and run just like a normal jar file.
 
-Download a copy of paperclip.jar from [our build server, here](https://destroystokyo.com/ci/job/PaperSpigot/).
-
 Run the Paperclip jar directly from your server. Just like old times
 
 Paper requires [**Java 8**](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) or above.
