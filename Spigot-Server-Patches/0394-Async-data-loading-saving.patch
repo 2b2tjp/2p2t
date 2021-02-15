@@ -1297,6 +1297,32 @@ index 4fe7c9956533bac5036c6499daa3a8ddd82d788b..b40d77571bff312fad91c2c5980e4c23
  
          // Paper start - Anti-Xray - Add chunk packet info
          if (packetPlayOutMapChunkInfo != null) {
+diff --git a/src/main/java/net/minecraft/server/PaperLightingQueue.java b/src/main/java/net/minecraft/server/PaperLightingQueue.java
+index f1c013116fc05b7abe7184eae01b715c02c7a058..2f69e5488a730c3570900efedb0c806de80ce603 100644
+--- a/src/main/java/net/minecraft/server/PaperLightingQueue.java
++++ b/src/main/java/net/minecraft/server/PaperLightingQueue.java
+@@ -22,11 +22,16 @@ class PaperLightingQueue {
+                 continue;
+             }
+ 
+-            ObjectCollection<Chunk> loadedChunks = ((WorldServer) world).getChunkProviderServer().chunks.values();
+-            for (Chunk chunk : loadedChunks.toArray(new Chunk[0])) {
+-                if (chunk.lightingQueue.processQueue(startTime, maxTickTime)) {
+-                    break START;
+-                }
++            // 2p2t start
++            java.util.Iterator<Chunk> loadedChunks = ((WorldServer) world).getChunkProviderServer().chunks.values().iterator();
++            while (loadedChunks.hasNext()) {
++                try {
++                    Chunk chunk = loadedChunks.next();
++                    if (chunk.lightingQueue.processQueue(startTime, maxTickTime)) {
++                        break START;
++                    }
++                } catch (NullPointerException | IndexOutOfBoundsException ignore) {}
++                // 2p2t end
+             }
+         }
+     }
 diff --git a/src/main/java/net/minecraft/server/PersistentCollection.java b/src/main/java/net/minecraft/server/PersistentCollection.java
 index b32945b76e13a56ddea17bfd57f9370699a0603a..23bb63f7c7a224a5af74627eb506b6530dd4f712 100644
 --- a/src/main/java/net/minecraft/server/PersistentCollection.java
@@ -1489,6 +1515,29 @@ index e3d2c0ff737bce159fb3b81e466a76e2a929c009..4c30e5842edb7eb5da2709db367a2edd
  
      }
  
+diff --git a/src/main/java/net/minecraft/server/SpawnerCreature.java b/src/main/java/net/minecraft/server/SpawnerCreature.java
+index 5c5bed0344baeeaff4e75807326a7255ebca8bf5..51b610ad848fba0fc2c1d47fa8f360085bef88e9 100644
+--- a/src/main/java/net/minecraft/server/SpawnerCreature.java
++++ b/src/main/java/net/minecraft/server/SpawnerCreature.java
+@@ -26,9 +26,16 @@ public final class SpawnerCreature {
+         // Paper start - use entire world, not just active chunks. Spigot broke vanilla expectations.
+         if (true) {
+             int sum = 0;
+-            for (Chunk c : server.getChunkProviderServer().chunks.values()) {
+-                sum += c.entityCount.get(oClass);
++            // 2p2t start
++            java.util.Iterator<Chunk> collection = server.getChunkProviderServer().chunks.values().iterator();
++            while (collection.hasNext()) {
++                try {
++                    Chunk c = collection.next();
++                    sum += c.entityCount.get(oClass);
++                } catch (NullPointerException | IndexOutOfBoundsException ignore) {
++                }
+             }
++            // 2p2t end
+             return sum;
+         }
+         // Paper end
 diff --git a/src/main/java/net/minecraft/server/StructureGenerator.java b/src/main/java/net/minecraft/server/StructureGenerator.java
 index f4dfba8f315c7f88fdda4ff1639314d7d38099a9..dcba23141264ba9926e0dab0b5bfadbcc044165d 100644
 --- a/src/main/java/net/minecraft/server/StructureGenerator.java
