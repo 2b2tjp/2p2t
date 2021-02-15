@@ -1,8 +1,13 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: acrylic-style <ilyy@outlook.jp>
-Date: Sat, 23 Jan 2021 23:29:02 +0900
-Subject: [PATCH] Async chunk generation
+Date: Mon, 15 Feb 2021 18:02:00 +0900
+Subject: [PATCH] Async data loading/saving
 
+- Async chunk loading
+- Async chunk generation
+- Async chunk data saving
+- Async statistic data loading/saving
+- Async advancement data loading/saving
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperCommand.java b/src/main/java/com/destroystokyo/paper/PaperCommand.java
 index 1898ab897ce0004e297ed81629c5aa54d8ae4dc1..f03c9474e25fa16c8d6e1ab327d1700da6ef584a 100644
@@ -43,6 +48,56 @@ index 1898ab897ce0004e297ed81629c5aa54d8ae4dc1..f03c9474e25fa16c8d6e1ab327d1700d
              default:
                  sender.sendMessage(ChatColor.RED + "Usage: " + usageMessage);
                  return false;
+diff --git a/src/main/java/net/minecraft/server/AdvancementDataPlayer.java b/src/main/java/net/minecraft/server/AdvancementDataPlayer.java
+index 8913e2744eef5d27c954dabe13956673ff3c3e93..9d6f6d7565e63c1d0b36321db4ff8922407d2b9c 100644
+--- a/src/main/java/net/minecraft/server/AdvancementDataPlayer.java
++++ b/src/main/java/net/minecraft/server/AdvancementDataPlayer.java
+@@ -126,6 +126,8 @@ public class AdvancementDataPlayer {
+     }
+ 
+     private void g() {
++        List<Entry<Advancement, AdvancementProgress>> entries = new ArrayList<>(); // 2p2t
++        xyz.acrylicstyle.paper.PaperIOExecutor.submit(() -> { // 2p2t
+         if (this.e.isFile()) {
+             try {
+                 String s = Files.toString(this.e, StandardCharsets.UTF_8);
+@@ -149,7 +151,7 @@ public class AdvancementDataPlayer {
+                         }
+                         // CraftBukkit end
+                     } else {
+-                        this.a(advancement, (AdvancementProgress) entry.getValue());
++                        entries.add(new java.util.AbstractMap.SimpleEntry<>(advancement, (AdvancementProgress) entry.getValue())); // 2p2t
+                     }
+                 }
+             } catch (JsonParseException jsonparseexception) {
+@@ -158,10 +160,13 @@ public class AdvancementDataPlayer {
+                 AdvancementDataPlayer.a.error("Couldn\'t access player advancements in " + this.e, ioexception);
+             }
+         }
++        }, () -> { // 2p2t
++            entries.forEach(entry -> this.a(entry.getKey(), entry.getValue())); // 2p2t
+ 
+         this.f();
+         this.e();
+         this.d();
++        }); // 2p2t
+     }
+ 
+     public void c() {
+@@ -182,11 +187,13 @@ public class AdvancementDataPlayer {
+             this.e.getParentFile().mkdirs();
+         }
+ 
++        xyz.acrylicstyle.paper.PaperIOExecutor.submit(() -> { // 2p2t
+         try {
+             Files.write(AdvancementDataPlayer.b.toJson(hashmap), this.e, StandardCharsets.UTF_8);
+         } catch (IOException ioexception) {
+             AdvancementDataPlayer.a.error("Couldn\'t save player advancements to " + this.e, ioexception);
+         }
++        }); // 2p2t
+ 
+     }
+ 
 diff --git a/src/main/java/net/minecraft/server/Chunk.java b/src/main/java/net/minecraft/server/Chunk.java
 index 4060fd274831088b55477def553c57ef867fd690..8bca76a78b4c588aed271ce27cf38d00d1121e6e 100644
 --- a/src/main/java/net/minecraft/server/Chunk.java
@@ -666,7 +721,7 @@ index 12bc10ff00eda73bcad7c6394088d84cfbc06fcf..f4d3efab1e349731743e82ae4b11dc14
      }
  
 diff --git a/src/main/java/net/minecraft/server/ChunkProviderServer.java b/src/main/java/net/minecraft/server/ChunkProviderServer.java
-index ad5485908d3795e73f5fa13c0d553b7fde17c189..b3c017f413f41a804c8815a0e79e3255fc8cb397 100644
+index ad5485908d3795e73f5fa13c0d553b7fde17c189..35c32817a31a7846dd9015b565c83d8f614ec93a 100644
 --- a/src/main/java/net/minecraft/server/ChunkProviderServer.java
 +++ b/src/main/java/net/minecraft/server/ChunkProviderServer.java
 @@ -1,13 +1,9 @@
@@ -683,15 +738,19 @@ index ad5485908d3795e73f5fa13c0d553b7fde17c189..b3c017f413f41a804c8815a0e79e3255
  import java.util.Collection;
  import java.util.Iterator;
  import java.util.List;
-@@ -20,6 +16,7 @@ import org.apache.logging.log4j.Logger;
+@@ -16,10 +12,10 @@ import javax.annotation.Nullable;
+ import com.destroystokyo.paper.exception.ServerInternalException;
+ import org.apache.logging.log4j.LogManager;
+ import org.apache.logging.log4j.Logger;
+-
  // CraftBukkit start
  import org.bukkit.craftbukkit.chunkio.ChunkIOExecutor;
  import org.bukkit.event.world.ChunkUnloadEvent;
-+import xyz.acrylicstyle.paper.The2p2tConfig;
++import xyz.acrylicstyle.paper.The2p2tConfig; // 2p2t
  // CraftBukkit end
  
  public class ChunkProviderServer implements IChunkProvider {
-@@ -39,8 +36,11 @@ public class ChunkProviderServer implements IChunkProvider {
+@@ -39,8 +35,11 @@ public class ChunkProviderServer implements IChunkProvider {
  
          @Override
          public Chunk get(long key) {
@@ -705,11 +764,11 @@ index ad5485908d3795e73f5fa13c0d553b7fde17c189..b3c017f413f41a804c8815a0e79e3255
              }
              return lastChunkByPos = super.get(key);
          }
-@@ -153,7 +153,15 @@ public class ChunkProviderServer implements IChunkProvider {
+@@ -153,7 +152,15 @@ public class ChunkProviderServer implements IChunkProvider {
          return getChunkAt(i, j, runnable, true);
      }
  
-+    private static final java.util.concurrent.ExecutorService executor = java.util.concurrent.Executors.newFixedThreadPool(The2p2tConfig.maxChunkGenThreads); // 2p2t
++    private static final java.util.concurrent.ExecutorService executor = java.util.concurrent.Executors.newFixedThreadPool(The2p2tConfig.maxChunkGenThreads, new com.google.common.util.concurrent.ThreadFactoryBuilder().setNameFormat("Paper Async Chunk Generator Thread - %1$d").build()); // 2p2t
 +
      public Chunk getChunkAt(int i, int j, Runnable runnable, boolean generate) {
 +        // 2p2t start
@@ -721,20 +780,28 @@ index ad5485908d3795e73f5fa13c0d553b7fde17c189..b3c017f413f41a804c8815a0e79e3255
          Chunk chunk = world.paperConfig.allowPermaChunkLoaders ? getLoadedChunkAt(i, j) : getChunkIfLoaded(i, j); // Paper - Configurable perma chunk loaders
          ChunkRegionLoader loader = null;
  
-@@ -167,7 +175,10 @@ public class ChunkProviderServer implements IChunkProvider {
+@@ -167,17 +174,38 @@ public class ChunkProviderServer implements IChunkProvider {
                  ChunkIOExecutor.queueChunkLoad(world, loader, this, i, j, runnable);
                  return null;
              } else {
 -                chunk = ChunkIOExecutor.syncChunkLoad(world, loader, this, i, j);
 +                // 2p2t start
-+                ChunkRegionLoader finalLoader = loader;
-+                chunk = MCUtil.runOnMain(() -> ChunkIOExecutor.syncChunkLoad(world, finalLoader, this, i, j));
-+                // 2p2t end
++                if (immediate || The2p2tConfig.maxIOExecutor <= 0) {
++                    chunk = ChunkIOExecutor.syncChunkLoad(world, loader, this, i, j);
++                    // 2p2t end
  
                  // Paper start - If there was an issue loading the chunk from region, stage1 will fail and stage2 will load it sync
                  // all we need to do is fetch an instance
-@@ -177,7 +188,19 @@ public class ChunkProviderServer implements IChunkProvider {
+                 if (chunk == null) {
+                     chunk = getChunkIfLoaded(i, j);
++                    // 2p2t start
+                 }
                  // Paper end
++                } else {
++                    ChunkRegionLoader finalLoader = loader;
++                    xyz.acrylicstyle.paper.PaperIOExecutor.submit(() -> ChunkIOExecutor.syncChunkLoad(world, finalLoader, this, i, j));
++                }
++                // 2p2t end
              }
          } else if (chunk == null && generate) {
 -            chunk = originalGetChunkAt(i, j);
@@ -743,7 +810,7 @@ index ad5485908d3795e73f5fa13c0d553b7fde17c189..b3c017f413f41a804c8815a0e79e3255
 +                chunk = originalGetChunkAt(i, j);
 +            } else {
 +                executor.submit(() -> {
-+                    Chunk c = originalGetChunkAt(i, j);
++                    originalGetChunkAt(i, j);
 +                    if (runnable != null) {
 +                        runnable.run();
 +                    }
@@ -754,7 +821,7 @@ index ad5485908d3795e73f5fa13c0d553b7fde17c189..b3c017f413f41a804c8815a0e79e3255
          }
  
          // If we didn't load the chunk async and have a callback run it now
-@@ -208,9 +231,14 @@ public class ChunkProviderServer implements IChunkProvider {
+@@ -208,9 +236,14 @@ public class ChunkProviderServer implements IChunkProvider {
                  throw new ReportedException(crashreport);
              }
  
@@ -772,7 +839,7 @@ index ad5485908d3795e73f5fa13c0d553b7fde17c189..b3c017f413f41a804c8815a0e79e3255
              world.timings.syncChunkLoadTimer.stopTiming(); // Spigot
          }
  
-@@ -306,7 +334,12 @@ public class ChunkProviderServer implements IChunkProvider {
+@@ -306,7 +339,12 @@ public class ChunkProviderServer implements IChunkProvider {
          // Paper end
          Iterator iterator = this.chunks.values().iterator();
          while (iterator.hasNext()) {
@@ -996,6 +1063,38 @@ index 99e9975b23b6e6fe8c6b0c4c878dba1e3a97a6be..fdc18b599218e2656e4f9abd7c1fb21e
                          TileEntity tileentity = this.l.getTileEntity(blockposition1);
  
                          if (tileentity instanceof TileEntityEndGateway) {
+diff --git a/src/main/java/net/minecraft/server/ChunkRegionLoader.java b/src/main/java/net/minecraft/server/ChunkRegionLoader.java
+index e6906effb4bb63ec1b856ccb190434e0cb0a7510..708775a32177036acf104e460c05cbe9d18fa7b4 100644
+--- a/src/main/java/net/minecraft/server/ChunkRegionLoader.java
++++ b/src/main/java/net/minecraft/server/ChunkRegionLoader.java
+@@ -161,6 +161,7 @@ public class ChunkRegionLoader implements IChunkLoader, IAsyncChunkSaver {
+             // Spigot start
+             final long worldTime = world.getTime();
+             final boolean worldHasSkyLight = world.worldProvider.m();
++            xyz.acrylicstyle.paper.PaperIOExecutor.submit(() -> { // 2p2t
+             saveEntities(nbttagcompound1, chunk, world);
+             Supplier<NBTTagCompound> completion = new Supplier<NBTTagCompound>() {
+                 public NBTTagCompound get() {
+@@ -170,6 +171,7 @@ public class ChunkRegionLoader implements IChunkLoader, IAsyncChunkSaver {
+             };
+ 
+             this.a(chunk.k(), SupplierUtils.createUnivaluedSupplier(completion, unloaded && this.b.size() < SAVE_QUEUE_TARGET_SIZE));
++            }); // 2p2t
+             // Spigot end
+         } catch (Exception exception) {
+             ChunkRegionLoader.a.error("Failed to save chunk", exception);
+@@ -385,9 +387,11 @@ public class ChunkRegionLoader implements IChunkLoader, IAsyncChunkSaver {
+             }
+         }
+         // Paper start - move entities to the correct chunk
++        world.getMinecraftServer().postToMainThread(() -> { // 2p2t
+         for (Entity entity : toUpdate) {
+             world.entityJoinedWorld(entity, false);
+         }
++        }); // 2p2t
+         // Paper end
+ 
+         nbttagcompound.set("Entities", nbttaglist1);
 diff --git a/src/main/java/net/minecraft/server/DedicatedServer.java b/src/main/java/net/minecraft/server/DedicatedServer.java
 index 6ee1731ea36dbfca252a68ba0c0b35084149ce65..4f368c65c7ee4d5573918ee3461301f1cef9c044 100644
 --- a/src/main/java/net/minecraft/server/DedicatedServer.java
@@ -1044,6 +1143,40 @@ index 6ee1731ea36dbfca252a68ba0c0b35084149ce65..4f368c65c7ee4d5573918ee3461301f1
  
              DedicatedServer.LOGGER.info("Generating keypair");
              this.a(MinecraftEncryption.b());
+diff --git a/src/main/java/net/minecraft/server/EnderDragonBattle.java b/src/main/java/net/minecraft/server/EnderDragonBattle.java
+index 286069746a8eab03ca6ed06c626ec40ffd12cdb7..068de30658f598d6ee566681ea343f64dbdc478d 100644
+--- a/src/main/java/net/minecraft/server/EnderDragonBattle.java
++++ b/src/main/java/net/minecraft/server/EnderDragonBattle.java
+@@ -217,7 +217,7 @@ public class EnderDragonBattle {
+ 
+             label27:
+             while (j <= 8) {
+-                Chunk chunk = this.d.getChunkAt(i, j);
++                Chunk chunk = this.d.getChunkProviderServer().getChunkAt(i, j, null, true, true); // 2p2t
+                 Iterator iterator = chunk.getTileEntities().values().iterator();
+ 
+                 TileEntity tileentity;
+diff --git a/src/main/java/net/minecraft/server/EntityHuman.java b/src/main/java/net/minecraft/server/EntityHuman.java
+index aa0b27f0e1c6cd5168af02157ce8ce495afc6373..175e0498a8174fcebd74f2c12ae28d74f4906015 100644
+--- a/src/main/java/net/minecraft/server/EntityHuman.java
++++ b/src/main/java/net/minecraft/server/EntityHuman.java
+@@ -1358,14 +1358,14 @@ public abstract class EntityHuman extends EntityLiving {
+ 
+     @Nullable
+     public static BlockPosition getBed(World world, BlockPosition blockposition, boolean flag) {
+-        Block block = world.getType(blockposition).getBlock();
++        Block block = world.getTypeImmediate(blockposition).getBlock(); // 2p2t
+ 
+         if (block != Blocks.BED) {
+             if (!flag) {
+                 return null;
+             } else {
+                 boolean flag1 = block.d();
+-                boolean flag2 = world.getType(blockposition.up()).getBlock().d();
++                boolean flag2 = world.getTypeImmediate(blockposition.up()).getBlock().d(); // 2p2t
+ 
+                 return flag1 && flag2 ? blockposition : null;
+             }
 diff --git a/src/main/java/net/minecraft/server/EntityTracker.java b/src/main/java/net/minecraft/server/EntityTracker.java
 index a60f9460855931755568ae41de104edf32a81762..e9cb317e17078cefd84e6fda2093b9d9e126598c 100644
 --- a/src/main/java/net/minecraft/server/EntityTracker.java
@@ -1090,9 +1223,18 @@ index 4539b56012ee2ffcfcce86212f609341e76a9887..b2cb402afc97291bf19d43e4cc156f5a
          return CraftPlayerProfile.asBukkitMirror(profile);
      }
 diff --git a/src/main/java/net/minecraft/server/MinecraftServer.java b/src/main/java/net/minecraft/server/MinecraftServer.java
-index 0c1769f5a3813c2652ac06abfaaf514b937c78e7..1cc71e3dc5eeba7d5c57a3778ef313b25f0b8253 100644
+index 0c1769f5a3813c2652ac06abfaaf514b937c78e7..caed6761468c07d7b40ee6a97ee658eb8d9d5187 100644
 --- a/src/main/java/net/minecraft/server/MinecraftServer.java
 +++ b/src/main/java/net/minecraft/server/MinecraftServer.java
+@@ -127,7 +127,7 @@ public abstract class MinecraftServer implements ICommandListener, Runnable, IAs
+ 
+     public MinecraftServer(OptionSet options, Proxy proxy, DataConverterManager dataconvertermanager, YggdrasilAuthenticationService yggdrasilauthenticationservice, MinecraftSessionService minecraftsessionservice, GameProfileRepository gameprofilerepository, UserCache usercache) {
+         SERVER = this; // Paper - better singleton
+-        io.netty.util.ResourceLeakDetector.setEnabled( false ); // Spigot - disable
++        io.netty.util.ResourceLeakDetector.setLevel( io.netty.util.ResourceLeakDetector.Level.DISABLED ); // Spigot - disable // 2p2t - use non-deprecated method
+         this.e = proxy;
+         this.V = yggdrasilauthenticationservice;
+         this.W = minecraftsessionservice;
 @@ -168,6 +168,13 @@ public abstract class MinecraftServer implements ICommandListener, Runnable, IAs
          Runtime.getRuntime().addShutdownHook(new org.bukkit.craftbukkit.util.ServerShutdownThread(this));
  
@@ -1107,6 +1249,41 @@ index 0c1769f5a3813c2652ac06abfaaf514b937c78e7..1cc71e3dc5eeba7d5c57a3778ef313b2
      }
  
      public abstract PropertyManager getPropertyManager();
+@@ -1670,7 +1677,7 @@ public abstract class MinecraftServer implements ICommandListener, Runnable, IAs
+     }
+ 
+     // CraftBukkit start
+-    @Deprecated
++    //@Deprecated // 2p2t - undeprecate
+     public static MinecraftServer getServer() {
+         return SERVER;
+     }
+diff --git a/src/main/java/net/minecraft/server/NBTTagCompound.java b/src/main/java/net/minecraft/server/NBTTagCompound.java
+index 82c2537b30ad2f17bdcb1828561ecea09fde445f..4bf4394dadefab6ec2c984fe24f26492320e2899 100644
+--- a/src/main/java/net/minecraft/server/NBTTagCompound.java
++++ b/src/main/java/net/minecraft/server/NBTTagCompound.java
+@@ -22,7 +22,7 @@ public class NBTTagCompound extends NBTBase {
+ 
+     private static final Logger b = LogManager.getLogger();
+     private static final Pattern c = Pattern.compile("[A-Za-z0-9._+-]+");
+-    public final Map<String, NBTBase> map = Maps.newHashMap(); // Paper
++    public final Map<String, NBTBase> map = Maps.newConcurrentMap(); // Paper // 2p2t - use ConcurrentMap
+ 
+     public NBTTagCompound() {}
+ 
+diff --git a/src/main/java/net/minecraft/server/NBTTagList.java b/src/main/java/net/minecraft/server/NBTTagList.java
+index 576c3b7141f74168102c33b57258164c457fc04b..8536f2f65cf7c0382ca5e654de36605dc6c69c7e 100644
+--- a/src/main/java/net/minecraft/server/NBTTagList.java
++++ b/src/main/java/net/minecraft/server/NBTTagList.java
+@@ -13,7 +13,7 @@ import org.apache.logging.log4j.Logger;
+ public class NBTTagList extends NBTBase {
+ 
+     private static final Logger b = LogManager.getLogger();
+-    public List<NBTBase> list = Lists.newArrayList(); // Paper
++    public List<NBTBase> list = java.util.Collections.synchronizedList(Lists.newArrayList()); // Paper // 2p2t - use synchronizedList
+     // Paper start
+     public void sort(java.util.Comparator<? extends NBTBase> comparator) {
+         //noinspection unchecked
 diff --git a/src/main/java/net/minecraft/server/PacketPlayOutMapChunk.java b/src/main/java/net/minecraft/server/PacketPlayOutMapChunk.java
 index 4fe7c9956533bac5036c6499daa3a8ddd82d788b..b40d77571bff312fad91c2c5980e4c23deecd993 100644
 --- a/src/main/java/net/minecraft/server/PacketPlayOutMapChunk.java
@@ -1120,6 +1297,19 @@ index 4fe7c9956533bac5036c6499daa3a8ddd82d788b..b40d77571bff312fad91c2c5980e4c23
  
          // Paper start - Anti-Xray - Add chunk packet info
          if (packetPlayOutMapChunkInfo != null) {
+diff --git a/src/main/java/net/minecraft/server/PersistentCollection.java b/src/main/java/net/minecraft/server/PersistentCollection.java
+index b32945b76e13a56ddea17bfd57f9370699a0603a..23bb63f7c7a224a5af74627eb506b6530dd4f712 100644
+--- a/src/main/java/net/minecraft/server/PersistentCollection.java
++++ b/src/main/java/net/minecraft/server/PersistentCollection.java
+@@ -89,7 +89,7 @@ public class PersistentCollection {
+ 
+     }
+ 
+-    private static final java.util.concurrent.ExecutorService SAVE_EXECUTOR = java.util.concurrent.Executors.newFixedThreadPool(xyz.acrylicstyle.paper.The2b2tConfig.maxDataSaveThreads); // 2p2t
++    private static final java.util.concurrent.ExecutorService SAVE_EXECUTOR = java.util.concurrent.Executors.newFixedThreadPool(xyz.acrylicstyle.paper.The2p2tConfig.maxDataSaveThreads); // 2p2t
+     private void a(PersistentBase persistentbase) {
+         // 2p2t start
+         a(persistentbase, new java.util.concurrent.atomic.AtomicInteger());
 diff --git a/src/main/java/net/minecraft/server/PlayerChunkMap.java b/src/main/java/net/minecraft/server/PlayerChunkMap.java
 index 99652ae3ed9fffe9a2a8310465b948d504b0595f..babe0a36265510618daf6f6840aaae1f9d082a22 100644
 --- a/src/main/java/net/minecraft/server/PlayerChunkMap.java
@@ -1134,9 +1324,18 @@ index 99652ae3ed9fffe9a2a8310465b948d504b0595f..babe0a36265510618daf6f6840aaae1f
      private final List<PlayerChunk> h = Lists.newLinkedList();
      private final List<PlayerChunk> i = Lists.newArrayList();
 diff --git a/src/main/java/net/minecraft/server/PlayerList.java b/src/main/java/net/minecraft/server/PlayerList.java
-index 80e9c9200c2afc3005c6a8bc5f5140eab71f4a40..3b5ca280f9a4087f935730d3491f59189fcdd93b 100644
+index 80e9c9200c2afc3005c6a8bc5f5140eab71f4a40..4619cebf07837a9362840daf2746e849b456ee28 100644
 --- a/src/main/java/net/minecraft/server/PlayerList.java
 +++ b/src/main/java/net/minecraft/server/PlayerList.java
+@@ -672,7 +672,7 @@ public abstract class PlayerList {
+                     isBedSpawn = true;
+                     location = new Location(cworld, (double) ((float) blockposition1.getX() + 0.5F), (double) ((float) blockposition1.getY() + 0.1F), (double) ((float) blockposition1.getZ() + 0.5F));
+                 } else {
+-                    entityplayer1.setRespawnPosition(null, true);
++                    // entityplayer1.setRespawnPosition(null, true); // 2p2t - disable
+                     entityplayer1.playerConnection.sendPacket(new PacketPlayOutGameStateChange(0, 0.0F));
+                 }
+             }
 @@ -761,6 +761,8 @@ public abstract class PlayerList {
          return entityplayer1;
      }
@@ -1185,7 +1384,7 @@ index 80e9c9200c2afc3005c6a8bc5f5140eab71f4a40..3b5ca280f9a4087f935730d3491f5918
  
      public void f(EntityPlayer entityplayer) {
 diff --git a/src/main/java/net/minecraft/server/PortalTravelAgent.java b/src/main/java/net/minecraft/server/PortalTravelAgent.java
-index 42e4b2d01d1f4cb7729580daac0dc7ac34adc382..3e14557e96724bd24e7946ebb8e3cc4087d6314d 100644
+index 42e4b2d01d1f4cb7729580daac0dc7ac34adc382..fc14f19046d7bbd7c0962ef69c9e6e2660fdaa74 100644
 --- a/src/main/java/net/minecraft/server/PortalTravelAgent.java
 +++ b/src/main/java/net/minecraft/server/PortalTravelAgent.java
 @@ -152,27 +152,36 @@ public class PortalTravelAgent {
@@ -1214,8 +1413,8 @@ index 42e4b2d01d1f4cb7729580daac0dc7ac34adc382..3e14557e96724bd24e7946ebb8e3cc40
 +            find: for (int xPos : chunks) {
 +                for (int zPos : chunks) {
 +                    Chunk chunk = ((ChunkProviderServer) world.chunkProvider).getChunkAt((blockposition.getX() >> 4) + xPos, (blockposition.getZ() >> 4) + zPos, null, true, true);
-+                    int minX = blockposition.getX() + (xPos << 4);
-+                    int minZ = blockposition.getZ() + (zPos << 4);
++                    int minX = (blockposition.getX() >> 4 << 4) + (xPos << 4);
++                    int minZ = (blockposition.getZ() >> 4 << 4) + (zPos << 4);
 +                    for (int blockX = 0; blockX < 15; blockX++) {
 +                        for (int blockZ = 0; blockZ < 15; blockZ++) {
 +                            boolean yes = false;
@@ -1241,6 +1440,55 @@ index 42e4b2d01d1f4cb7729580daac0dc7ac34adc382..3e14557e96724bd24e7946ebb8e3cc40
          }
  
          if (d0 >= 0.0D) {
+diff --git a/src/main/java/net/minecraft/server/ServerStatisticManager.java b/src/main/java/net/minecraft/server/ServerStatisticManager.java
+index e3d2c0ff737bce159fb3b81e466a76e2a929c009..4c30e5842edb7eb5da2709db367a2eddafbe36f1 100644
+--- a/src/main/java/net/minecraft/server/ServerStatisticManager.java
++++ b/src/main/java/net/minecraft/server/ServerStatisticManager.java
+@@ -41,26 +41,36 @@ public class ServerStatisticManager extends StatisticManager {
+     }
+ 
+     public void a() {
+-        if (this.d.isFile()) {
++        // 2p2t start - Asynchronous File IO
++        xyz.acrylicstyle.paper.PaperIOExecutor.execute(() -> {
+             try {
++                if (!this.d.isFile()) return null;
++                return FileUtils.readFileToString(this.d);
++            } catch (IOException ex) {
++                ServerStatisticManager.b.error("Couldn't read statistics file {}", this.d, ex);
++                return null;
++            }
++        }, s -> {
++            try {
++                if (s == null) return;
+                 this.a.clear();
+-                this.a.putAll(this.a(FileUtils.readFileToString(this.d)));
+-            } catch (IOException ioexception) {
+-                ServerStatisticManager.b.error("Couldn\'t read statistics file {}", this.d, ioexception);
+-            } catch (JsonParseException jsonparseexception) {
+-                ServerStatisticManager.b.error("Couldn\'t parse statistics file {}", this.d, jsonparseexception);
++                this.a.putAll(this.a(s));
++            } catch (Throwable throwable) {
++                ServerStatisticManager.b.error("Couldn't parse statistics file {}", this.d, throwable);
+             }
+-        }
+-
++        });
++        // 2p2t end - Asynchronous File IO
+     }
+ 
+     public void b() {
+         if ( org.spigotmc.SpigotConfig.disableStatSaving ) return; // Spigot
++        xyz.acrylicstyle.paper.PaperIOExecutor.submit(() -> { // 2p2t
+         try {
+             FileUtils.writeStringToFile(this.d, a(this.a));
+         } catch (IOException ioexception) {
+             ServerStatisticManager.b.error("Couldn\'t save stats", ioexception);
+         }
++        }); // 2p2t
+ 
+     }
+ 
 diff --git a/src/main/java/net/minecraft/server/StructureGenerator.java b/src/main/java/net/minecraft/server/StructureGenerator.java
 index f4dfba8f315c7f88fdda4ff1639314d7d38099a9..dcba23141264ba9926e0dab0b5bfadbcc044165d 100644
 --- a/src/main/java/net/minecraft/server/StructureGenerator.java
@@ -1737,8 +1985,37 @@ index c9679d57c415a66bff9ca8ef8e7223065ddcd84d..e1db89ea6f795c6a8d61af55875c9ab7
      }
  
      public static class a extends StructureStart {
+diff --git a/src/main/java/net/minecraft/server/WorldNBTStorage.java b/src/main/java/net/minecraft/server/WorldNBTStorage.java
+index 4bb6f600dc665d8f99e50e4ff118085906480fd1..beca7ea01fe4c8d1c9ef16090d057d8fb29a178e 100644
+--- a/src/main/java/net/minecraft/server/WorldNBTStorage.java
++++ b/src/main/java/net/minecraft/server/WorldNBTStorage.java
+@@ -147,13 +147,22 @@ public class WorldNBTStorage implements IDataManager, IPlayerFileData {
+             NBTTagCompound nbttagcompound = entityhuman.save(new NBTTagCompound());
+             File file = new File(this.playerDir, entityhuman.bn() + ".dat.tmp");
+             File file1 = new File(this.playerDir, entityhuman.bn() + ".dat");
++            File file2 = new File(this.playerDir, entityhuman.bn() + ".dat.bak"); // 2p2t - safe player data writing
+ 
+-            NBTCompressedStreamTools.a(nbttagcompound, (OutputStream) (new FileOutputStream(file)));
++            NBTCompressedStreamTools.a(nbttagcompound, (OutputStream) (new FileOutputStream(file))); // 2p2t - TODO: make it async? (ConcurrentModificationException or IndexOutOfBoundsException may be thrown if async)
++            xyz.acrylicstyle.paper.PaperIOExecutor.submit(() -> { try { // 2p2t
+             if (file1.exists()) {
+-                file1.delete();
++                file1.renameTo(file2); // 2p2t - safe player data writing
+             }
+ 
+             file.renameTo(file1);
++            file2.delete(); // 2p2t - safe player data writing
++            // 2p2t start
++                } catch (Exception ex) {
++                    WorldNBTStorage.b.error("Failed to save player data for {}", entityhuman.getName(), ex); // Paper
++                }
++            });
++            //2p2t end
+         } catch (Exception exception) {
+             WorldNBTStorage.b.error("Failed to save player data for {}", entityhuman.getName(), exception); // Paper
+         }
 diff --git a/src/main/java/net/minecraft/server/WorldServer.java b/src/main/java/net/minecraft/server/WorldServer.java
-index e545e9764a4aa117896ca1b3e55d2613642d7244..92064d882d42114c211c0d37f8ad52d4dfbd2b27 100644
+index e545e9764a4aa117896ca1b3e55d2613642d7244..cf264bdf83ca9cd1bc579d607849e11e51a00dd4 100644
 --- a/src/main/java/net/minecraft/server/WorldServer.java
 +++ b/src/main/java/net/minecraft/server/WorldServer.java
 @@ -761,6 +761,7 @@ public class WorldServer extends World implements IAsyncTaskHandler {
@@ -1749,8 +2026,49 @@ index e545e9764a4aa117896ca1b3e55d2613642d7244..92064d882d42114c211c0d37f8ad52d4
                      if (!flag && nextticklistentry.b > this.worldData.getTime()) {
                          break;
                      }
+@@ -829,16 +830,18 @@ public class WorldServer extends World implements IAsyncTaskHandler {
+         ArrayList arraylist = null;
+ 
+         for (int i = 0; i < 2; ++i) {
+-            Iterator iterator;
++            Collection<NextTickListEntry> collection; // 2p2t
+ 
+             if (i == 0) {
+-                iterator = this.nextTickList.iterator();
++                collection = this.nextTickList; // 2p2t
+             } else {
+-                iterator = this.W.iterator();
++                collection = this.W; // 2p2t
+             }
+ 
+-            while (iterator.hasNext()) {
+-                NextTickListEntry nextticklistentry = (NextTickListEntry) iterator.next();
++            // 2p2t start
++            List<NextTickListEntry> toRemove = Lists.newArrayList();
++            for (NextTickListEntry nextticklistentry : collection) {
++                // 2p2t end
+                 BlockPosition blockposition = nextticklistentry.a;
+ 
+                 if (blockposition.getX() >= structureboundingbox.a && blockposition.getX() < structureboundingbox.d && blockposition.getZ() >= structureboundingbox.c && blockposition.getZ() < structureboundingbox.f) {
+@@ -847,7 +850,7 @@ public class WorldServer extends World implements IAsyncTaskHandler {
+                             // this.nextTickListHash.remove(nextticklistentry); // CraftBukkit - removed
+                         }
+ 
+-                        iterator.remove();
++                        toRemove.add(nextticklistentry); // 2p2t
+                     }
+ 
+                     if (arraylist == null) {
+@@ -857,6 +860,7 @@ public class WorldServer extends World implements IAsyncTaskHandler {
+                     arraylist.add(nextticklistentry);
+                 }
+             }
++            toRemove.forEach(collection::remove); // 2p2t
+         }
+ 
+         return arraylist;
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftChunk.java b/src/main/java/org/bukkit/craftbukkit/CraftChunk.java
-index ba3676b67b939a93d51053977bc1489fdcc90218..2da3cac93efbeda0998e9abe845277a6b86d33da 100644
+index ba3676b67b939a93d51053977bc1489fdcc90218..76f34baa66706032334d758e5203f7748c11eac6 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftChunk.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftChunk.java
 @@ -31,6 +31,15 @@ public class CraftChunk implements Chunk {
@@ -1769,6 +2087,15 @@ index ba3676b67b939a93d51053977bc1489fdcc90218..2da3cac93efbeda0998e9abe845277a6
      public World getWorld() {
          return worldServer.getWorld();
      }
+@@ -43,7 +52,7 @@ public class CraftChunk implements Chunk {
+         net.minecraft.server.Chunk c = weakChunk.get();
+ 
+         if (c == null) {
+-            c = worldServer.getChunkAt(x, z);
++            c = worldServer.getChunkProviderServer().getChunkAt(x, z, null, true, true); // 2p2t
+ 
+             weakChunk = new WeakReference<net.minecraft.server.Chunk>(c);
+         }
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftServer.java b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 index 79a940d6e678952c006a5c7ec76b31e86498d22d..c5ef523b2bd30c15ca43255473109fc0f60ad428 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftServer.java
@@ -1876,6 +2203,19 @@ index a9d3f12bc615ab47738ba545732827c1dd9d7fa7..37d5e5b460cbb5563a2613b00cfac69e
      }
  
      public byte getLightLevel() {
+diff --git a/src/main/java/org/bukkit/craftbukkit/chunkio/ChunkIOExecutor.java b/src/main/java/org/bukkit/craftbukkit/chunkio/ChunkIOExecutor.java
+index f50d55c8eeec400cf762e46051bb27ae29302bc6..cd933f59174ae81d9b2b1714f57797620f5c0c2e 100644
+--- a/src/main/java/org/bukkit/craftbukkit/chunkio/ChunkIOExecutor.java
++++ b/src/main/java/org/bukkit/craftbukkit/chunkio/ChunkIOExecutor.java
+@@ -15,7 +15,7 @@ public class ChunkIOExecutor {
+     private static final AsynchronousExecutor<QueuedChunk, Chunk, Runnable, RuntimeException> instance = new AsynchronousExecutor<QueuedChunk, Chunk, Runnable, RuntimeException>(new ChunkIOProvider(), BASE_THREADS);
+ 
+     public static Chunk syncChunkLoad(World world, ChunkRegionLoader loader, ChunkProviderServer provider, int x, int z) {
+-        return MCUtil.ensureMain("Async Chunk Load", () -> instance.getSkipQueue(new QueuedChunk(x, z, loader, world, provider))); // Paper
++        return instance.getSkipQueue(new QueuedChunk(x, z, loader, world, provider)); // Paper // 2p2t
+     }
+ 
+     public static void queueChunkLoad(World world, ChunkRegionLoader loader, ChunkProviderServer provider, int x, int z, Runnable runnable) {
 diff --git a/src/main/java/org/bukkit/craftbukkit/util/HashTreeSet.java b/src/main/java/org/bukkit/craftbukkit/util/HashTreeSet.java
 index cd864c404747f8f77417e67ca319b3daa04bae59..9cd3cd851ad429549aad14c42df2487f8a2b171f 100644
 --- a/src/main/java/org/bukkit/craftbukkit/util/HashTreeSet.java
@@ -1945,130 +2285,176 @@ index cd864c404747f8f77417e67ca319b3daa04bae59..9cd3cd851ad429549aad14c42df2487f
      }
  
  }
-diff --git a/src/main/java/xyz/acrylicstyle/paper/The2p2tConfig.java b/src/main/java/xyz/acrylicstyle/paper/The2p2tConfig.java
+diff --git a/src/main/java/org/bukkit/craftbukkit/util/Waitable.java b/src/main/java/org/bukkit/craftbukkit/util/Waitable.java
+index 5cd1154348644f5bf7b087474b9b7b64dffaf132..86f1651c81677b0104e7e524f17af0d65dae0906 100644
+--- a/src/main/java/org/bukkit/craftbukkit/util/Waitable.java
++++ b/src/main/java/org/bukkit/craftbukkit/util/Waitable.java
+@@ -32,7 +32,7 @@ public abstract class Waitable<T> implements Runnable {
+         }
+     }
+ 
+-    protected abstract T evaluate();
++    protected abstract T evaluate() throws Throwable; // 2p2t - add throws Throwable
+ 
+     public synchronized T get() throws InterruptedException, ExecutionException {
+         while (status != Status.FINISHED) {
+@@ -43,4 +43,15 @@ public abstract class Waitable<T> implements Runnable {
+         }
+         return value;
+     }
++
++    // 2p2t start
++    public static <T> Waitable<T> of(xyz.acrylicstyle.paper.util.ThrowableSupplier<T> supplier) {
++        return new Waitable<T>() {
++            @Override
++            protected T evaluate() throws Throwable {
++                return supplier.get();
++            }
++        };
++    }
++    // 2p2t end
+ }
+diff --git a/src/main/java/xyz/acrylicstyle/paper/PaperIOExecutor.java b/src/main/java/xyz/acrylicstyle/paper/PaperIOExecutor.java
 new file mode 100644
-index 0000000000000000000000000000000000000000..1d0a4a881c8e60210e65d2cce8ec0911d9767469
+index 0000000000000000000000000000000000000000..8924ed989c690b30c0c4f3ac6059938b08430d37
 --- /dev/null
-+++ b/src/main/java/xyz/acrylicstyle/paper/The2p2tConfig.java
-@@ -0,0 +1,118 @@
++++ b/src/main/java/xyz/acrylicstyle/paper/PaperIOExecutor.java
+@@ -0,0 +1,78 @@
 +package xyz.acrylicstyle.paper;
 +
-+import com.google.common.base.Throwables;
-+import org.bukkit.Bukkit;
-+import org.bukkit.configuration.InvalidConfigurationException;
-+import org.bukkit.configuration.file.YamlConfiguration;
++import com.google.common.util.concurrent.ThreadFactoryBuilder;
++import net.minecraft.server.MinecraftServer;
++import org.apache.logging.log4j.LogManager;
++import org.apache.logging.log4j.Logger;
++import org.bukkit.craftbukkit.util.Waitable;
++import xyz.acrylicstyle.paper.util.ThrowableSupplier;
 +
-+import java.io.File;
-+import java.io.IOException;
-+import java.lang.reflect.InvocationTargetException;
-+import java.lang.reflect.Method;
-+import java.lang.reflect.Modifier;
-+import java.util.List;
-+import java.util.logging.Level;
++import java.util.concurrent.CompletableFuture;
++import java.util.concurrent.ExecutionException;
++import java.util.concurrent.ExecutorService;
++import java.util.concurrent.Executors;
++import java.util.concurrent.atomic.AtomicReference;
++import java.util.function.Consumer;
++import java.util.function.Function;
 +
-+public class The2p2tConfig {
++public class PaperIOExecutor {
++    private static final Logger LOGGER = LogManager.getLogger("Paper IO Executor");
++    private static final ExecutorService executor = Executors.newFixedThreadPool(The2p2tConfig.maxIOExecutor, new ThreadFactoryBuilder().setNameFormat("Paper IO Executor - %1$d").build());
 +
-+    private static File CONFIG_FILE;
-+    private static final String HEADER = "This is the main configuration file for 2p2t.\n"
-+        + "As you can see, there's tons to configure. Some options may impact gameplay or performance,\n"
-+        + "so use with caution, and make sure you know what each option does before configuring.\n";
-+    /*========================================================================*/
-+    public static YamlConfiguration config;
-+    static int version;
-+    private static boolean verbose;
-+    /*========================================================================*/
-+
-+    public static void init(File configFile) {
-+        CONFIG_FILE = configFile;
-+        config = new YamlConfiguration();
-+        try {
-+            config.load(CONFIG_FILE);
-+        } catch (IOException ignore) {
-+        } catch (InvalidConfigurationException ex) {
-+            Bukkit.getLogger().log(Level.SEVERE, "Could not load 2p2t.yml, please correct your syntax errors", ex);
-+            Throwables.throwIfUnchecked(ex);
-+            throw new RuntimeException(ex);
-+        }
-+        config.options().header(HEADER);
-+        config.options().copyDefaults(true);
-+        verbose = getBoolean("verbose", false);
-+
-+        version = getInt("config-version", 13);
-+        set("config-version", 13);
-+        readConfig(The2p2tConfig.class, null);
++    static {
++        LOGGER.info("Initialized Paper IO Executor with " + The2p2tConfig.maxIOExecutor + " threads");
 +    }
 +
-+    protected static void logError(String s) {
-+        Bukkit.getLogger().severe(s);
-+    }
-+
-+    protected static void log(String s) {
-+        Bukkit.getLogger().info(s);
-+    }
-+
-+    static void readConfig(Class<?> clazz, Object instance) {
-+        for (Method method : clazz.getDeclaredMethods()) {
-+            if (Modifier.isPrivate(method.getModifiers())) {
-+                if (method.getParameterTypes().length == 0 && method.getReturnType() == Void.TYPE) {
-+                    try {
-+                        method.setAccessible(true);
-+                        method.invoke(instance);
-+                    } catch (InvocationTargetException ex) {
-+                        throw Throwables.propagate(ex.getCause());
-+                    } catch (Exception ex) {
-+                        Bukkit.getLogger().log(Level.SEVERE, "Error invoking " + method, ex);
-+                    }
-+                }
++    public static <T, R> CompletableFuture<R> execute(ThrowableSupplier<T> asyncTask, Function<T, R> syncTask) {
++        AtomicReference<T> atomicReference = new AtomicReference<>();
++        AtomicReference<Throwable> throwable = new AtomicReference<>();
++        Waitable<R> waitable = Waitable.of(() -> {
++            if (throwable.get() != null) throw throwable.get();
++            return syncTask.apply(atomicReference.get());
++        });
++        executor.submit(() -> {
++            try {
++                atomicReference.set(asyncTask.get());
++                MinecraftServer.getServer().processQueue.add(waitable);
++            } catch (Throwable t) {
++                throwable.set(t); // it will be thrown on original thread
 +            }
-+        }
-+
-+        try {
-+            config.save(CONFIG_FILE);
-+        } catch (IOException ex) {
-+            Bukkit.getLogger().log(Level.SEVERE, "Could not save " + CONFIG_FILE, ex);
-+        }
++        });
++        return CompletableFuture.supplyAsync(() -> {
++            try {
++                return waitable.get();
++            } catch (ExecutionException ex) {
++                Throwable t = ex.getCause();
++                if (t instanceof RuntimeException) throw (RuntimeException) t;
++                throw new RuntimeException(t);
++            } catch (InterruptedException ex) {
++                Thread.currentThread().interrupt();
++                throw new RuntimeException(ex);
++            } catch (Throwable ex) {
++                throw new RuntimeException(ex);
++            }
++        });
 +    }
 +
-+    private static void set(String path, Object val) {
-+        config.set(path, val);
++    public static <T> void execute(ThrowableSupplier<T> asyncTask, Consumer<T> syncTask) {
++        executor.submit(() -> {
++            try {
++                T value = asyncTask.get();
++                MinecraftServer.getServer().processQueue.add(() -> syncTask.accept(value));
++            } catch (Throwable t) {
++                throw new RuntimeException(t);
++            }
++        });
 +    }
 +
-+    private static boolean getBoolean(String path, boolean def) {
-+        config.addDefault(path, def);
-+        return config.getBoolean(path, config.getBoolean(path));
++    public static void submit(Runnable asyncTask, Runnable syncTask) {
++        executor.submit(() -> {
++            asyncTask.run();
++            MinecraftServer.getServer().processQueue.add(syncTask);
++        });
 +    }
 +
-+    private static double getDouble(String path, double def) {
-+        config.addDefault(path, def);
-+        return config.getDouble(path, config.getDouble(path));
++    public static void submit(Runnable asyncTask) {
++        executor.submit(asyncTask);
 +    }
-+
-+    private static float getFloat(String path, float def) {
-+        // TODO: Figure out why getFloat() always returns the default value.
-+        return (float) getDouble(path, (double) def);
-+    }
-+
-+    private static int getInt(String path, int def) {
-+        config.addDefault(path, def);
-+        return config.getInt(path, config.getInt(path));
-+    }
-+
-+    private static <T> List getList(String path, T def) {
-+        config.addDefault(path, def);
-+        return (List<T>) config.getList(path, config.getList(path));
-+    }
-+
-+    private static String getString(String path, String def) {
-+        config.addDefault(path, def);
-+        return config.getString(path, config.getString(path));
-+    }
-+
++}
+diff --git a/src/main/java/xyz/acrylicstyle/paper/The2b2tConfig.java b/src/main/java/xyz/acrylicstyle/paper/The2p2tConfig.java
+similarity index 86%
+rename from src/main/java/xyz/acrylicstyle/paper/The2b2tConfig.java
+rename to src/main/java/xyz/acrylicstyle/paper/The2p2tConfig.java
+index 767404d10452313474ff10ee67222d427578f75f..004ce45693a6d5209322fb8de3177c8f2cdee720 100644
+--- a/src/main/java/xyz/acrylicstyle/paper/The2b2tConfig.java
++++ b/src/main/java/xyz/acrylicstyle/paper/The2p2tConfig.java
+@@ -13,7 +13,7 @@ import java.lang.reflect.Modifier;
+ import java.util.List;
+ import java.util.logging.Level;
+ 
+-public class The2b2tConfig {
++public class The2p2tConfig {
+ 
+     private static File CONFIG_FILE;
+     private static final String HEADER = "This is the main configuration file for 2p2t.\n"
+@@ -42,7 +42,7 @@ public class The2b2tConfig {
+ 
+         version = getInt("config-version", 13);
+         set("config-version", 13);
+-        readConfig(The2b2tConfig.class, null);
++        readConfig(The2p2tConfig.class, null);
+     }
+ 
+     protected static void logError(String s) {
+@@ -61,7 +61,8 @@ public class The2b2tConfig {
+                         method.setAccessible(true);
+                         method.invoke(instance);
+                     } catch (InvocationTargetException ex) {
+-                        throw Throwables.propagate(ex.getCause());
++                        Throwables.throwIfUnchecked(ex.getCause());
++                        throw new RuntimeException(ex.getCause());
+                     } catch (Exception ex) {
+                         Bukkit.getLogger().log(Level.SEVERE, "Error invoking " + method, ex);
+                     }
+@@ -110,9 +111,21 @@ public class The2b2tConfig {
+         return config.getString(path, config.getString(path));
+     }
+ 
 +    public static int maxChunkGenThreads = 1;
 +    private static void maxChunkGenThreads() {
 +        maxChunkGenThreads = getInt("settings.max-chunk-gen-threads", 1);
 +        log("Max Chunk Gen Threads: " + maxChunkGenThreads);
 +    }
-+}
++
+     public static int maxDataSaveThreads = 8;
+     private static void maxDataSaveThreads() {
+         maxDataSaveThreads = getInt("settings.max-data-save-threads", 8);
+         log("Max Data Save Threads: " + maxDataSaveThreads);
+     }
++
++    public static int maxIOExecutor = 8;
++    private static void maxIOExecutor() {
++        maxIOExecutor = getInt("settings.max-io-executor", 8);
++        log("Max IO Executor: " + maxIOExecutor);
++    }
+ }
 diff --git a/src/main/java/xyz/acrylicstyle/paper/util/CollectionUtil.java b/src/main/java/xyz/acrylicstyle/paper/util/CollectionUtil.java
 new file mode 100644
 index 0000000000000000000000000000000000000000..c58d99217063c0ba38a98dbe3ea259813c62fdfc
@@ -2154,4 +2540,15 @@ index 0000000000000000000000000000000000000000..4baddad099a6243b5154a5b205a1ddc0
 +    public E next() {
 +        return next;
 +    }
++}
+diff --git a/src/main/java/xyz/acrylicstyle/paper/util/ThrowableSupplier.java b/src/main/java/xyz/acrylicstyle/paper/util/ThrowableSupplier.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..0f2e152b356cea4ce9a5fd1290dcef716d005a01
+--- /dev/null
++++ b/src/main/java/xyz/acrylicstyle/paper/util/ThrowableSupplier.java
+@@ -0,0 +1,5 @@
++package xyz.acrylicstyle.paper.util;
++
++public interface ThrowableSupplier<T> {
++    T get() throws Throwable;
 +}
