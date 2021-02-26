@@ -1,0 +1,29 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: acrylic-style <ilyy@outlook.jp>
+Date: Fri, 26 Feb 2021 14:29:28 +0900
+Subject: [PATCH] Don't process oversized NBT data
+
+
+diff --git a/src/main/java/net/minecraft/server/EntityLiving.java b/src/main/java/net/minecraft/server/EntityLiving.java
+index 82c3a84edd7a9408f99873ef8ea1693674786791..4335948b158391de353e09f5794575c869a36c2e 100644
+--- a/src/main/java/net/minecraft/server/EntityLiving.java
++++ b/src/main/java/net/minecraft/server/EntityLiving.java
+@@ -1980,6 +1980,18 @@ public abstract class EntityLiving extends Entity {
+ 
+                 ItemStack itemstack1 = this.getEquipment(enumitemslot);
+ 
++                // 2p2t start
++                NBTTagCompound tag1 = itemstack1.getTag();
++                if (tag1 != null && tag1.toString().length() > 80000) {
++                    itemstack1.setCount(0);
++                    itemstack1.setTag(new NBTTagCompound());
++                }
++                NBTTagCompound tag = itemstack.getTag();
++                if (tag != null && tag.toString().length() > 80000) {
++                    itemstack.setCount(0);
++                    itemstack.setTag(new NBTTagCompound());
++                }
++                // 2p2t end
+                 if (!ItemStack.matches(itemstack1, itemstack)) {
+                     // Paper start - PlayerArmorChangeEvent
+                     if (this instanceof EntityPlayer && enumitemslot.getType() == EnumItemSlot.Function.ARMOR) {

@@ -1,0 +1,34 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: acrylic-style <ilyy@outlook.jp>
+Date: Sun, 14 Feb 2021 23:54:00 +0900
+Subject: [PATCH] Change bed mechanics
+
+
+diff --git a/src/main/java/net/minecraft/server/BlockBed.java b/src/main/java/net/minecraft/server/BlockBed.java
+index f1a1079918ae37672b2c5978b82f6392801859d0..0d89da841ce4ebafa305af8f40e6a2c59923a9d0 100644
+--- a/src/main/java/net/minecraft/server/BlockBed.java
++++ b/src/main/java/net/minecraft/server/BlockBed.java
+@@ -43,6 +43,10 @@ public class BlockBed extends BlockFacingHorizontal implements ITileEntity {
+             }
+ 
+             if (world.worldProvider.e() && world.getBiome(blockposition) != Biomes.j) {
++                // 2p2t start - moved from EntityHuman
++                entityhuman.bedPosition = blockposition;
++                entityhuman.sendMessage(new ChatComponentText("Respawn point set"));
++                // 2p2t end - moved from EntityHuman
+                 if (((Boolean) iblockdata.get(BlockBed.OCCUPIED)).booleanValue()) {
+                     EntityHuman entityhuman1 = this.c(world, blockposition);
+ 
+diff --git a/src/main/java/net/minecraft/server/EntityHuman.java b/src/main/java/net/minecraft/server/EntityHuman.java
+index 175e0498a8174fcebd74f2c12ae28d74f4906015..87b520ba30562bf37a94b0f059c223499c0332b9 100644
+--- a/src/main/java/net/minecraft/server/EntityHuman.java
++++ b/src/main/java/net/minecraft/server/EntityHuman.java
+@@ -1282,7 +1282,7 @@ public abstract class EntityHuman extends EntityLiving {
+ 
+         this.sleeping = true;
+         this.sleepTicks = 0;
+-        this.bedPosition = blockposition;
++        // this.bedPosition = blockposition; // 2p2t - moved to BlockBed
+         this.motX = 0.0D;
+         this.motY = 0.0D;
+         this.motZ = 0.0D;
