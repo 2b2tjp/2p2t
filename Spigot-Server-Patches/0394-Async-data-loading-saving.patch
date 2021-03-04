@@ -721,7 +721,7 @@ index 12bc10ff00eda73bcad7c6394088d84cfbc06fcf..f4d3efab1e349731743e82ae4b11dc14
      }
  
 diff --git a/src/main/java/net/minecraft/server/ChunkProviderServer.java b/src/main/java/net/minecraft/server/ChunkProviderServer.java
-index ad5485908d3795e73f5fa13c0d553b7fde17c189..35c32817a31a7846dd9015b565c83d8f614ec93a 100644
+index ad5485908d3795e73f5fa13c0d553b7fde17c189..441804e47eb9d741db1dbfed746a31bef6b51260 100644
 --- a/src/main/java/net/minecraft/server/ChunkProviderServer.java
 +++ b/src/main/java/net/minecraft/server/ChunkProviderServer.java
 @@ -1,13 +1,9 @@
@@ -764,7 +764,20 @@ index ad5485908d3795e73f5fa13c0d553b7fde17c189..35c32817a31a7846dd9015b565c83d8f
              }
              return lastChunkByPos = super.get(key);
          }
-@@ -153,7 +152,15 @@ public class ChunkProviderServer implements IChunkProvider {
+@@ -78,9 +77,12 @@ public class ChunkProviderServer implements IChunkProvider {
+         ObjectIterator objectiterator = this.chunks.values().iterator();
+ 
+         while (objectiterator.hasNext()) {
++            try { // 2p2t
+             Chunk chunk = (Chunk) objectiterator.next();
+ 
+             this.unload(chunk);
++            } catch (NullPointerException | IndexOutOfBoundsException ex) { // 2p2t
++            } // 2p2t
+         }
+ 
+     }
+@@ -153,7 +155,15 @@ public class ChunkProviderServer implements IChunkProvider {
          return getChunkAt(i, j, runnable, true);
      }
  
@@ -780,7 +793,7 @@ index ad5485908d3795e73f5fa13c0d553b7fde17c189..35c32817a31a7846dd9015b565c83d8f
          Chunk chunk = world.paperConfig.allowPermaChunkLoaders ? getLoadedChunkAt(i, j) : getChunkIfLoaded(i, j); // Paper - Configurable perma chunk loaders
          ChunkRegionLoader loader = null;
  
-@@ -167,17 +174,38 @@ public class ChunkProviderServer implements IChunkProvider {
+@@ -167,17 +177,38 @@ public class ChunkProviderServer implements IChunkProvider {
                  ChunkIOExecutor.queueChunkLoad(world, loader, this, i, j, runnable);
                  return null;
              } else {
@@ -821,7 +834,7 @@ index ad5485908d3795e73f5fa13c0d553b7fde17c189..35c32817a31a7846dd9015b565c83d8f
          }
  
          // If we didn't load the chunk async and have a callback run it now
-@@ -208,9 +236,14 @@ public class ChunkProviderServer implements IChunkProvider {
+@@ -208,9 +239,14 @@ public class ChunkProviderServer implements IChunkProvider {
                  throw new ReportedException(crashreport);
              }
  
@@ -839,7 +852,7 @@ index ad5485908d3795e73f5fa13c0d553b7fde17c189..35c32817a31a7846dd9015b565c83d8f
              world.timings.syncChunkLoadTimer.stopTiming(); // Spigot
          }
  
-@@ -306,7 +339,12 @@ public class ChunkProviderServer implements IChunkProvider {
+@@ -306,7 +342,12 @@ public class ChunkProviderServer implements IChunkProvider {
          // Paper end
          Iterator iterator = this.chunks.values().iterator();
          while (iterator.hasNext()) {
@@ -853,6 +866,31 @@ index ad5485908d3795e73f5fa13c0d553b7fde17c189..35c32817a31a7846dd9015b565c83d8f
              // CraftBukkit end
  
              if (flag) {
+@@ -370,13 +411,19 @@ public class ChunkProviderServer implements IChunkProvider {
+             long now = System.currentTimeMillis();
+             long unloadAfter = world.paperConfig.delayChunkUnloadsBy;
+             if (unloadAfter > 0) {
+-                //noinspection Convert2streamapi
+-                for (Chunk chunk : chunks.values()) {
+-                    if (chunk.scheduledForUnload != null && now - chunk.scheduledForUnload > unloadAfter) {
+-                        chunk.scheduledForUnload = null;
+-                        unload(chunk);
++                // 2p2t start
++                java.util.Iterator<Chunk> iterator = chunks.values().iterator();
++                while (iterator.hasNext()) {
++                    try {
++                        Chunk chunk = iterator.next();
++                        if (chunk.scheduledForUnload != null && now - chunk.scheduledForUnload > unloadAfter) {
++                            chunk.scheduledForUnload = null;
++                            unload(chunk);
++                        }
++                    } catch (NullPointerException | IndexOutOfBoundsException ex) {
+                     }
+                 }
++                // 2p2t end
+             }
+             // Paper end
+ 
 diff --git a/src/main/java/net/minecraft/server/ChunkProviderTheEnd.java b/src/main/java/net/minecraft/server/ChunkProviderTheEnd.java
 index 99e9975b23b6e6fe8c6b0c4c878dba1e3a97a6be..fdc18b599218e2656e4f9abd7c1fb21ecff6aa45 100644
 --- a/src/main/java/net/minecraft/server/ChunkProviderTheEnd.java
@@ -2064,10 +2102,31 @@ index 4bb6f600dc665d8f99e50e4ff118085906480fd1..beca7ea01fe4c8d1c9ef16090d057d8f
              WorldNBTStorage.b.error("Failed to save player data for {}", entityhuman.getName(), exception); // Paper
          }
 diff --git a/src/main/java/net/minecraft/server/WorldServer.java b/src/main/java/net/minecraft/server/WorldServer.java
-index e545e9764a4aa117896ca1b3e55d2613642d7244..cf264bdf83ca9cd1bc579d607849e11e51a00dd4 100644
+index e545e9764a4aa117896ca1b3e55d2613642d7244..c392963bbf54d883ddb614f92576402dce8c2a46 100644
 --- a/src/main/java/net/minecraft/server/WorldServer.java
 +++ b/src/main/java/net/minecraft/server/WorldServer.java
-@@ -761,6 +761,7 @@ public class WorldServer extends World implements IAsyncTaskHandler {
+@@ -526,7 +526,11 @@ public class WorldServer extends World implements IAsyncTaskHandler {
+                 if (!this.paperConfig.disableIceAndSnow && this.random.nextInt(16) == 0) { // Paper - Disable ice and snow
+                     this.l = this.l * 3 + 1013904223;
+                     l = this.l >> 2;
+-                    blockposition = this.p(new BlockPosition(j + (l & 15), 0, k + (l >> 8 & 15)));
++                    // 2p2t start
++                    BlockPosition bp = new BlockPosition(j + (l & 15), 0, k + (l >> 8 & 15));
++                    if (isLoaded(bp)) {
++                    blockposition = this.p(bp);
++                    // 2p2t end
+                     BlockPosition blockposition1 = blockposition.down();
+ 
+                     if (this.v(blockposition1)) {
+@@ -540,6 +544,7 @@ public class WorldServer extends World implements IAsyncTaskHandler {
+                     if (flag && this.getBiome(blockposition1).d()) {
+                         this.getType(blockposition1).getBlock().h(this, blockposition1);
+                     }
++                    } // 2p2t
+                 }
+ 
+                 timings.chunkTicksBlocks.startTiming(); // Paper
+@@ -761,6 +766,7 @@ public class WorldServer extends World implements IAsyncTaskHandler {
  
                  for (int j = 0; j < i; ++j) {
                      nextticklistentry = (NextTickListEntry) this.nextTickList.first();
@@ -2075,7 +2134,7 @@ index e545e9764a4aa117896ca1b3e55d2613642d7244..cf264bdf83ca9cd1bc579d607849e11e
                      if (!flag && nextticklistentry.b > this.worldData.getTime()) {
                          break;
                      }
-@@ -829,16 +830,18 @@ public class WorldServer extends World implements IAsyncTaskHandler {
+@@ -829,16 +835,18 @@ public class WorldServer extends World implements IAsyncTaskHandler {
          ArrayList arraylist = null;
  
          for (int i = 0; i < 2; ++i) {
@@ -2099,7 +2158,7 @@ index e545e9764a4aa117896ca1b3e55d2613642d7244..cf264bdf83ca9cd1bc579d607849e11e
                  BlockPosition blockposition = nextticklistentry.a;
  
                  if (blockposition.getX() >= structureboundingbox.a && blockposition.getX() < structureboundingbox.d && blockposition.getZ() >= structureboundingbox.c && blockposition.getZ() < structureboundingbox.f) {
-@@ -847,7 +850,7 @@ public class WorldServer extends World implements IAsyncTaskHandler {
+@@ -847,7 +855,7 @@ public class WorldServer extends World implements IAsyncTaskHandler {
                              // this.nextTickListHash.remove(nextticklistentry); // CraftBukkit - removed
                          }
  
@@ -2108,7 +2167,7 @@ index e545e9764a4aa117896ca1b3e55d2613642d7244..cf264bdf83ca9cd1bc579d607849e11e
                      }
  
                      if (arraylist == null) {
-@@ -857,6 +860,7 @@ public class WorldServer extends World implements IAsyncTaskHandler {
+@@ -857,6 +865,7 @@ public class WorldServer extends World implements IAsyncTaskHandler {
                      arraylist.add(nextticklistentry);
                  }
              }
@@ -2174,7 +2233,7 @@ index 79a940d6e678952c006a5c7ec76b31e86498d22d..c5ef523b2bd30c15ca43255473109fc0
              world.worldData.setDifficulty(difficulty);
              world.setSpawnFlags(monsters, animals);
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftWorld.java b/src/main/java/org/bukkit/craftbukkit/CraftWorld.java
-index afb141c62974e1877c774a7d1ab09e3398f7713e..67e53351c994ec756aba1c48cdb90d1437d4c6e7 100644
+index afb141c62974e1877c774a7d1ab09e3398f7713e..5c990d8e90d37c81154d72adffb271795324e905 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftWorld.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftWorld.java
 @@ -115,7 +115,11 @@ public class CraftWorld implements World {
@@ -2203,6 +2262,52 @@ index afb141c62974e1877c774a7d1ab09e3398f7713e..67e53351c994ec756aba1c48cdb90d14
      }
  
      public Chunk getChunkAt(Block block) {
+@@ -190,15 +198,20 @@ public class CraftWorld implements World {
+     }
+ 
+     public Chunk[] getLoadedChunks() {
+-        Object[] chunks = world.getChunkProviderServer().chunks.values().toArray();
+-        org.bukkit.Chunk[] craftChunks = new CraftChunk[chunks.length];
+-
+-        for (int i = 0; i < chunks.length; i++) {
+-            net.minecraft.server.Chunk chunk = (net.minecraft.server.Chunk) chunks[i];
+-            craftChunks[i] = chunk.bukkitChunk;
++        // 2p2t start
++        Iterator<net.minecraft.server.Chunk> chunks = world.getChunkProviderServer().chunks.values().iterator();
++        List<org.bukkit.Chunk> craftChunks = new ArrayList<>();
++
++        while (chunks.hasNext()) {
++            try {
++                net.minecraft.server.Chunk chunk = chunks.next();
++                craftChunks.add(chunk.bukkitChunk);
++            } catch (NullPointerException | IndexOutOfBoundsException ignore) {
++            }
+         }
+ 
+-        return craftChunks;
++        return craftChunks.toArray(new Chunk[0]);
++        // 2p2t end
+     }
+ 
+     public void loadChunk(int x, int z) {
+@@ -1629,7 +1642,16 @@ public class CraftWorld implements World {
+         }
+ 
+         ChunkProviderServer cps = world.getChunkProviderServer();
+-        for (net.minecraft.server.Chunk chunk : cps.chunks.values()) {
++        // 2p2t start
++        Iterator<net.minecraft.server.Chunk> iterator = cps.chunks.values().iterator();
++        while (iterator.hasNext()) {
++            net.minecraft.server.Chunk chunk;
++            try {
++                chunk = iterator.next();
++            } catch (NullPointerException | IndexOutOfBoundsException ignore) {
++                continue;
++            }
++            // 2p2t end
+             // If in use, skip it
+             if (isChunkInUse(chunk.locX, chunk.locZ) || chunk.scheduledForUnload != null) { // Paper - delayed chunk unloads
+                 continue;
 diff --git a/src/main/java/org/bukkit/craftbukkit/Main.java b/src/main/java/org/bukkit/craftbukkit/Main.java
 index ae746f7381197337296ca3abe838106863b0580e..0175d38c9ddf36ab4ee5212d8e74a55408dadc14 100644
 --- a/src/main/java/org/bukkit/craftbukkit/Main.java
