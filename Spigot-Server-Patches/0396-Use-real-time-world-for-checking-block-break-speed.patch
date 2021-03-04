@@ -1,0 +1,36 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: hp34 <z@toshimichi.net>
+Date: Thu, 4 Mar 2021 15:54:56 +0900
+Subject: [PATCH] Use real-time for checking block break speed
+
+
+diff --git a/src/main/java/net/minecraft/server/PlayerInteractManager.java b/src/main/java/net/minecraft/server/PlayerInteractManager.java
+index 3d86798248d2256f394d1f4f848ed5a2f2f0695c..16ffc47fae57e2db3ccadc463942174ec301644d 100644
+--- a/src/main/java/net/minecraft/server/PlayerInteractManager.java
++++ b/src/main/java/net/minecraft/server/PlayerInteractManager.java
+@@ -16,6 +16,7 @@ public class PlayerInteractManager {
+     private EnumGamemode gamemode;
+     private boolean d;
+     private int lastDigTick;
++    private long lastDigMillis; // 2p2t - Use real world time instead
+     private BlockPosition f;
+     private int currentTick;
+     private boolean h;
+@@ -148,6 +149,7 @@ public class PlayerInteractManager {
+ 
+             // this.world.douseFire((EntityHuman) null, blockposition, enumdirection); // CraftBukkit - Moved down
+             this.lastDigTick = this.currentTick;
++            this.lastDigMillis = System.currentTimeMillis();
+             float f = 1.0F;
+ 
+             // CraftBukkit start - Swings at air do *NOT* exist.
+@@ -209,7 +211,8 @@ public class PlayerInteractManager {
+     public void a(BlockPosition blockposition) {
+         if (blockposition.equals(this.f)) {
+             this.currentTick = MinecraftServer.currentTick; // CraftBukkit
+-            int i = this.currentTick - this.lastDigTick;
++            // int i = this.currentTick - this.lastDigTick;
++            int i = (int) (System.currentTimeMillis() - lastDigMillis) / 50;
+             IBlockData iblockdata = this.world.getType(blockposition);
+ 
+             if (iblockdata.getMaterial() != Material.AIR) {
