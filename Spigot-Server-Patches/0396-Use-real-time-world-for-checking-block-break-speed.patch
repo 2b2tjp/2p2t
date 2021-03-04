@@ -20,7 +20,7 @@ index 3d86798248d2256f394d1f4f848ed5a2f2f0695c..16ffc47fae57e2db3ccadc463942174e
  
              // this.world.douseFire((EntityHuman) null, blockposition, enumdirection); // CraftBukkit - Moved down
              this.lastDigTick = this.currentTick;
-+            this.lastDigMillis = System.currentTimeMillis();
++            this.lastDigMillis = System.currentTimeMillis(); // 2p2t
              float f = 1.0F;
  
              // CraftBukkit start - Swings at air do *NOT* exist.
@@ -29,7 +29,7 @@ index 3d86798248d2256f394d1f4f848ed5a2f2f0695c..16ffc47fae57e2db3ccadc463942174e
          if (blockposition.equals(this.f)) {
              this.currentTick = MinecraftServer.currentTick; // CraftBukkit
 -            int i = this.currentTick - this.lastDigTick;
-+            // int i = this.currentTick - this.lastDigTick;
++            // int i = this.currentTick - this.lastDigTick; // 2p2t
 +            int i = (int) (System.currentTimeMillis() - lastDigMillis) / 50;
              IBlockData iblockdata = this.world.getType(blockposition);
  
